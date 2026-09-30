@@ -91,20 +91,33 @@ def demo_sentencepiece():
     print("=" * 60)
 
     # 准备训练数据
+    # 语料太薄会直接卡住 SentencePiece: 字符集占 ~292, 但能产出的 merge
+    # 只有 ~56, 词表无论开大还是开小都会报错(下限 292 / 上限 56)。
+    # 这里的 demo 不需要真实分布, 但需要足够行数把 merge 数量堆上去。
     data_path = "data.txt"
     if not os.path.exists(data_path):
+        base_lines = [
+            "The quick brown fox jumps over the lazy dog.",
+            "Hello world this is a test.",
+            "Transformer models are amazing.",
+            "BPE tokenization is fascinating.",
+            "The cat sat on the mat.",
+        ]
         with open(data_path, "w", encoding="utf-8") as f:
-            f.write("The quick brown fox jumps over the lazy dog.\n")
-            f.write("Hello world this is a test.\n")
-            f.write("Transformer models are amazing.\n")
-            f.write("BPE tokenization is fascinating.\n")
-            f.write("The cat sat on the mat.\n" * 20)
+            for line in base_lines:
+                f.write(line + "\n")
+                # 滑窗扩写: 重复拼接相邻句, 造出可组合的共享子串
+                f.write(line + " " + line + "\n")
+                f.write(line.replace(".", ", and more.") + "\n")
+            f.write("The cat sat on the mat.\n" * 40)
 
     print("  Training SentencePiece BPE model ...")
+    # byte_fallback 会把 256 个字节也算进必需字符, 加上字母/标点共 ~292,
+    # 所以词表不能低于这个数; 反过来又受限于语料能产出的 merge 数量。
     spm.SentencePieceTrainer.train(
         input=data_path,
         model_prefix="spm_bpe",
-        vocab_size=500,
+        vocab_size=300,
         model_type="bpe",
         character_coverage=0.9995,
         num_threads=1,
@@ -134,10 +147,11 @@ def demo_sentencepiece():
     spm.SentencePieceTrainer.train(
         input=data_path,
         model_prefix="spm_unigram",
-        vocab_size=500,
+        vocab_size=300,
         model_type="unigram",
         character_coverage=0.9995,
         num_threads=1,
+        byte_fallback=True,
     )
     spu = spm.SentencePieceProcessor(model_file="spm_unigram.model")
     text = "The transformer architecture changed everything"
@@ -213,7 +227,13 @@ def demo_wordpiece():
     print("4. WordPiece (BERT)")
     print("=" * 60)
 
-    tok = BertTokenizer.from_pretrained("bert-base-uncased")
+    try:
+        tok = BertTokenizer.from_pretrained("bert-base-uncased")
+    except Exception as e:
+        # 离线或代理异常时不该让整个脚本崩掉
+        print(f"  [SKIP] 无法加载 bert-base-uncased: {str(e)[:60]}")
+        return
+
     test_texts = ["Hello world", "unbelievable", "tokenization is fascinating"]
 
     for text in test_texts:
