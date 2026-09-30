@@ -45,6 +45,10 @@ def query_db(key: str) -> str:
 
 if __name__ == "__main__":
     agent = AgentLoop({"calc": calc, "query_db": query_db})
-    # 测试：代码生成Agent场景（解析需求→调用工具→输出）
-    result = agent.run("Calculate 3+5 and query db for user_1")
+
+    # 测试：工具调用链路（解析 JSON → 执行工具 → 写回 History）
+    # 注意 prompt 必须是 AgentLoop 能解析的 JSON 形式，
+    # 自然语言（"Calculate 3+5"）不会被 _parse_tool_call 识别，会直接原样回显。
+    result = agent.run('{"name": "calc", "args": {"x": 3, "y": 5}}')
     print(result)
+    print("History:", agent.history)
