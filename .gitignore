@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Model weights (体积大, 不入库)
+*.pth
+*.pt
+*.bin
+*.safetensors
+
+# 训练/推理产物 (可重新生成)
+qlora_output/
+*.log
+runs/
+
+# llm-transformer 的语料副本由 data.py 从 llm-bpe-tokenizer 自动生成, 不入库,
+# 避免同一份 1MB 语料在仓库里存两份。
+projects/llm-transformer/data/
+
+# 注意: 语料与 tokenizer 产物要入库!
+# 旧规则曾写 `data/` 和 `tokenizer.json`, 会把 BPE 训练语料和 tokenizer 一起排除,
+# 导致 clone 出来的仓库无法运行 —— 已改为精确规则, 不要改回去。
+!projects/llm-bpe-tokenizer/data/tinyshakespeare.txt
+!projects/llm-bpe-tokenizer/tokenizer.json
+
+# Environment
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

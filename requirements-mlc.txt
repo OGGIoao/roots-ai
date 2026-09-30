@@ -1,0 +1,54 @@
+# ============================================================================
+# mlc 环境依赖 (GPU: RTX 5060 Laptop 8GB, Blackwell sm_120)
+# ============================================================================
+#
+# 创建方式 (必须严格按顺序, 否则会重演旧的 ml 环境事故):
+#
+#   conda create -n mlc python=3.10 pip -y
+#   conda activate mlc
+#   pip install torch torchvision torchaudio \
+#       --index-url https://download.pytorch.org/whl/cu128
+#   pip install -r requirements-mlc.txt
+#
+# ⚠️ 铁律: 同一个环境里**不要混用 conda 和 pip 装 torch 系包**。
+#    旧的 ml 环境就是因为 conda 装了 cu118 版、pip 又装了 cpu 版覆盖,
+#    最后 conda 把 CUDA 版清掉, 只剩 CPU 版 + 一个 ABI 坏掉的 torchaudio。
+#
+# ⚠️ torch / torchvision / torchaudio 三件套必须用**同一条命令**一起装,
+#    并且都来自 cu128 索引, 否则版本不配套会 import 失败。
+#
+# 验证: python verify_env.py --full     (应为全绿)
+# ============================================================================
+
+# --- torch 三件套 (由上面那条 --index-url 命令安装, 此处仅记录已验证版本) ---
+# torch==2.11.0+cu128
+# torchvision==0.26.0+cu128
+# torchaudio==2.11.0+cu128
+
+# --- QLoRA 链路 (projects/llm-qlora-finetune) ---
+transformers==5.17.0
+peft==0.20.0
+trl==1.13.0
+accelerate==1.15.0
+datasets==5.0.1
+bitsandbytes==0.50.2          # 4-bit 量化核心; 0.50.2 已有原生 Windows wheel
+sentencepiece==0.2.2
+protobuf==7.36.1
+scipy==1.15.3
+
+# --- Tokenizer 链路 (projects/llm-bpe-tokenizer 的可选进阶部分) ---
+tokenizers==0.23.2
+regex==2026.9.10
+
+# --- LLM Client 模板 (templates/llm-client) ---
+openai==3.14.0
+python-dotenv==1.2.3
+
+# --- 基础 ---
+numpy==2.2.6
+
+# ============================================================================
+# 说明: 上面是**直接依赖**+已验证版本, 便于人读和维护。
+# 若要完全可复现的完整快照 (含全部传递依赖), 在环境里执行:
+#     pip freeze > requirements-mlc.lock.txt
+# ============================================================================
