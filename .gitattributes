@@ -1,0 +1,30 @@
+# 统一换行符策略, 不依赖每个开发者的本地 git 配置。
+#
+# 背景: 之前仓库没有本文件, 换行符行为完全由各人本机的 core.autocrlf 决定。
+# 同一份代码在不同机器上落盘成 LF 或 CRLF 不一, 造成无意义的整文件 diff,
+# 也让 "这个文件到底改了哪里" 变得难以判断。
+#
+# 策略: 仓库内存 LF, 检出到工作区时转为 CRLF (Windows 原生工具链友好)。
+
+* text=auto
+
+# --- 源码/文档: 检出为 CRLF ---
+*.py      text eol=crlf
+*.md      text eol=crlf
+*.json    text eol=crlf
+*.ipynb   text eol=crlf
+
+# --- Shell 脚本: 保持 LF (LF 才能正常执行) ---
+*.sh      text eol=lf
+
+# --- 依赖清单: 检出为 CRLF, 与其它文本一致 ---
+*.txt     text eol=crlf
+
+# --- 二进制 / 大体积数据: 禁止任何换行符转换 ---
+*.pt          binary
+*.pth         binary
+*.bin         binary
+*.safetensors binary
+*.png         binary
+*.jpg         binary
+*.jpeg        binary
