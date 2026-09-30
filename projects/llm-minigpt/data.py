@@ -14,27 +14,72 @@ data.py — 数据加载与预处理
 """
 
 import os
+import urllib.error
 import urllib.request
 import torch
 from torch.utils.data import Dataset, DataLoader
 
 
 # ============================================================
-# 1. 数据下载
+# 1. 数据获取
 # ============================================================
 
-def download_tiny_shakespeare(data_dir: str = "data") -> str:
-    """下载 Tiny Shakespeare 数据集"""
-    os.makedirs(data_dir, exist_ok=True)
-    filepath = os.path.join(data_dir, "tiny_shakespeare.txt")
+# 本仓库已入库的那份语料 (llm-bpe-tokenizer 项目), 避免重复下载和重复存盘。
+# 与 llm-transformer/data.py 保持同一套约定: 语料只有一份, 各项目本地按需生成副本。
+# 注意: 必须基于 __file__ 解析, 不能用相对 CWD 的 ".." —— 否则从仓库根目录
+# 运行 (python projects/llm-minigpt/data.py) 时会找不到, 白白触发一次下载。
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+LOCAL_FALLBACKS = [
+    os.path.join(_REPO_ROOT, "projects", "llm-bpe-tokenizer", "data", "tinyshakespeare.txt"),
+]
 
-    if not os.path.exists(filepath):
-        url = "https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt"
-        print(f"正在下载 Tiny Shakespeare...")
-        urllib.request.urlretrieve(url, filepath)
+SHAKESPEARE_URL = (
+    "https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt"
+)
+
+
+def _ensure_corpus(filepath: str) -> str:
+    """
+    确保语料存在: 本地副本 -> 下载 -> 明确报错
+
+    顺序很重要: 先找本地, 再下载。这样断网/代理没开也能训练。
+    """
+    if os.path.exists(filepath):
+        return filepath
+
+    # 1) 复用 llm-bpe-tokenizer 里已经入库的那份
+    for cand in LOCAL_FALLBACKS:
+        if os.path.exists(cand):
+            os.makedirs(os.path.dirname(filepath) or ".", exist_ok=True)
+            with open(cand, "rb") as src, open(filepath, "wb") as dst:
+                dst.write(src.read())
+            print(f"复用本地语料: {cand} -> {filepath}")
+            return filepath
+
+    # 2) 本地没有才下载, 且下载失败要给出可操作的报错
+    print("本地无副本, 尝试下载 Tiny Shakespeare ...")
+    os.makedirs(os.path.dirname(filepath) or ".", exist_ok=True)
+    try:
+        urllib.request.urlretrieve(SHAKESPEARE_URL, filepath)
         print(f"下载完成: {filepath}")
-    else:
-        print(f"数据已存在: {filepath}")
+    except (urllib.error.URLError, OSError) as e:
+        raise RuntimeError(
+            f"无法获取 Tiny Shakespeare 语料: {e}\n"
+            f"  已尝试的本地路径: {LOCAL_FALLBACKS}\n"
+            f"  下载地址: {SHAKESPEARE_URL}\n"
+            f"  解决方式(任选其一):\n"
+            f"    1. 手动下载后放到 {filepath}\n"
+            f"    2. 复用 projects/llm-bpe-tokenizer/data/tinyshakespeare.txt"
+        ) from e
+    return filepath
+
+
+def download_tiny_shakespeare(data_dir: str = None) -> str:
+    """加载 Tiny Shakespeare 语料 (本地副本优先, 否则下载)"""
+    if data_dir is None:
+        data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
+    filepath = os.path.join(data_dir, "tiny_shakespeare.txt")
+    _ensure_corpus(filepath)
 
     with open(filepath, "r", encoding="utf-8") as f:
         text = f.read()

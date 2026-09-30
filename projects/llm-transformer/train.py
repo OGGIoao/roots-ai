@@ -104,7 +104,7 @@ def train():
 
     # 1. 加载数据
     print("\n[1/4] Loading data...")
-    text, tokenizer = load_tiny_shakespeare("data")
+    text, tokenizer = load_tiny_shakespeare()
     train_loader, val_loader, vocab_size = prepare_data(
         text, tokenizer,
         block_size=cfg.block_size,

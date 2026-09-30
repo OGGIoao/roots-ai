@@ -51,9 +51,11 @@ class TextDataset(Dataset):
 
 # 本地已有的同一份语料 (llm-bpe-tokenizer 项目里那份), 避免重复下载。
 # 本机代理 (127.0.0.1:7890) 没开时下载会失败, 有本地副本就能离线跑。
+# 注意: 必须基于 __file__ 解析, 不能用相对 CWD 的 ".." —— 否则从仓库根目录
+# 运行 (python projects/llm-transformer/data.py) 时会找不到, 白白触发一次下载。
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 LOCAL_FALLBACKS = [
-    os.path.join("..", "llm-bpe-tokenizer", "data", "tinyshakespeare.txt"),
-    os.path.join("..", "..", "projects", "llm-bpe-tokenizer", "data", "tinyshakespeare.txt"),
+    os.path.join(_REPO_ROOT, "projects", "llm-bpe-tokenizer", "data", "tinyshakespeare.txt"),
 ]
 
 SHAKESPEARE_URL = (
@@ -101,7 +103,7 @@ def _ensure_corpus(filepath: str) -> str:
     return filepath
 
 
-def load_tiny_shakespeare(data_dir: str = "data"):
+def load_tiny_shakespeare(data_dir: str = None):
     """
     加载 Tiny Shakespeare 数据集
 
@@ -113,6 +115,8 @@ def load_tiny_shakespeare(data_dir: str = "data"):
         text: 原始文本字符串
         tokenizer: CharTokenizer 实例
     """
+    if data_dir is None:
+        data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")
     filepath = os.path.join(data_dir, "tiny_shakespeare.txt")
     _ensure_corpus(filepath)
 
