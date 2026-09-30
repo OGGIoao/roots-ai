@@ -103,21 +103,27 @@ if __name__ == "__main__":
 
     # 验证 RMSNorm 更快
     import time
-    x_large = torch.randn(16, 1024, 4096)
+    D_LARGE = 4096
+    x_large = torch.randn(16, 1024, D_LARGE)
+
+    # 归一化层的 weight/bias 形状绑定 d_model, 必须按输入宽度各建一份
+    ln_large = LayerNorm(D_LARGE)
+    rms_large = RMSNorm(D_LARGE)
 
     t0 = time.perf_counter()
     for _ in range(100):
-        _ = ln(x_large)
+        _ = ln_large(x_large)
     ln_time = time.perf_counter() - t0
 
     t0 = time.perf_counter()
     for _ in range(100):
-        _ = rms(x_large)
+        _ = rms_large(x_large)
     rms_time = time.perf_counter() - t0
 
-    print(f"\n   速度对比 (batch=16, seq=1024, d_model=4096, 100次):")
+    print(f"\n   速度对比 (batch=16, seq=1024, d_model={D_LARGE}, 100次):")
     print(f"   LayerNorm: {ln_time:.3f}s")
     print(f"   RMSNorm:   {rms_time:.3f}s")
     print(f"   加速:      {ln_time / rms_time:.2f}x")
+    print(f"   输出形状:  {rms_large(x_large).shape}")
 
     print("\n✅ All normalization layers work correctly!")
