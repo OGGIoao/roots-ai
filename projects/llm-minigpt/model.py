@@ -38,7 +38,7 @@ def scaled_dot_product_attention(
     query: torch.Tensor,   # (B, n_heads, S, d_k)
     key: torch.Tensor,     # (B, n_heads, S, d_k)
     value: torch.Tensor,   # (B, n_heads, S, d_v)
-    mask: torch.Tensor,    # (1, 1, S, S) 上三角 causal mask
+    mask: torch.Tensor,    # (1, 1, S, S) 上三角 True=需屏蔽
 ) -> tuple:
     """
     Scaled Dot-Product Attention
@@ -46,7 +46,7 @@ def scaled_dot_product_attention(
     公式: Attention(Q,K,V) = softmax(QK^T / sqrt(d_k)) * V
     
     Causal Mask: 防止位置 i 看到位置 j > i 的信息
-    用上三角 True 矩阵 + masked_fill(-inf) 实现
+    mask 为上三角 True 矩阵, 由 masked_fill(-inf) 实现
     """
     d_k = query.size(-1)
     scores = torch.matmul(query, key.transpose(-2, -1)) / math.sqrt(d_k)
@@ -86,7 +86,9 @@ class CausalSelfAttention(nn.Module):
         self.resid_dropout = nn.Dropout(config.dropout)
         
         # Causal mask: 注册为 buffer (不参与训练, 但跟随模型移动)
-        mask = torch.tril(torch.ones(config.block_size, config.block_size))
+        # masked_fill 只接受 bool mask, 且填的是 True 处;
+        # 因此这里直接标记「要屏蔽」的上三角, 下三角(含对角)保持 False
+        mask = torch.triu(torch.ones(config.block_size, config.block_size, dtype=torch.bool), diagonal=1)
         mask = mask.view(1, 1, config.block_size, config.block_size)
         self.register_buffer("mask", mask)
     
