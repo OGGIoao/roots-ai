@@ -6,8 +6,19 @@ Data — Tiny Shakespeare 数据集加载与 Tokenization
 """
 
 import os
+import sys
 import torch
 from torch.utils.data import Dataset, DataLoader
+
+# Windows 控制台默认 GBK, 无法编码本脚本结尾的 ✅, print() 会抛
+# UnicodeEncodeError 让脚本在跑通后异常退出。切到 UTF-8 并降级替换。
+for _s in (sys.stdout, sys.stderr):
+    _r = getattr(_s, "reconfigure", None)
+    if _r:
+        try:
+            _r(encoding="utf-8", errors="replace")
+        except (ValueError, OSError):
+            pass
 
 
 class CharTokenizer:

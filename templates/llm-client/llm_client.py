@@ -51,6 +51,18 @@ from openai import OpenAI, APIError, RateLimitError, APITimeoutError
 #   APITimeoutError — 请求超时
 
 from dotenv import load_dotenv
+import sys
+
+# Windows 控制台默认 GBK, 无法编码脚本结尾处的 ✅/❌ 等符号,
+# print() 会抛 UnicodeEncodeError 让脚本在跑通后异常退出。
+for _s in (sys.stdout, sys.stderr):
+    _r = getattr(_s, "reconfigure", None)
+    if _r:
+        try:
+            _r(encoding="utf-8", errors="replace")
+        except (ValueError, OSError):
+            pass
+
 #   ^^^^^^^^ 从 .env 文件加载环境变量 ✦
 #   开发时把 API Key 写在 .env 里，不上传到 Git
 

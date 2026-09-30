@@ -14,6 +14,18 @@ Normalization Layers — 从 LayerNorm 到 RMSNorm 的演进
 
 import torch
 import torch.nn as nn
+import sys
+
+# Windows 控制台默认 GBK, 无法编码脚本结尾处的 ✅/❌ 等符号,
+# print() 会抛 UnicodeEncodeError 让脚本在跑通后异常退出。
+for _s in (sys.stdout, sys.stderr):
+    _r = getattr(_s, "reconfigure", None)
+    if _r:
+        try:
+            _r(encoding="utf-8", errors="replace")
+        except (ValueError, OSError):
+            pass
+
 
 
 class LayerNorm(nn.Module):
