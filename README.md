@@ -74,7 +74,7 @@ conda activate mlc
 pip install torch torchvision torchaudio \
     --index-url https://download.pytorch.org/whl/cu128
 pip install bitsandbytes
-pip install -r projects/llm-qlora-finetune/requirements.txt
+pip install -r requirements-mlc.txt
 python verify_env.py --full          # 应为全绿
 ```
 

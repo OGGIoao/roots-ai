@@ -22,6 +22,23 @@ os.environ.setdefault("KMP_DUPLICATE_LIB_OK", "TRUE")
 RESULTS = []  # (级别, 项目, 结果, 建议)
 
 
+def _enable_utf8_stdout():
+    """
+    保证在 Windows GBK 控制台下也能打印本脚本用的符号 (✅ ❌ ℹ️ 等)。
+
+    sys.stdout.reconfigure 只在 TextIOWrapper 上可用, 用 getattr 兜住
+    被替换成其它对象的情况 (如 pytest 捕获、IDE 嵌入解释器)。
+    """
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is None:
+            continue
+        try:
+            reconfigure(encoding="utf-8", errors="replace")
+        except (ValueError, OSError):
+            pass
+
+
 def record(level, item, ok, detail="", advice=""):
     RESULTS.append((level, item, ok, detail, advice))
 
@@ -339,6 +356,8 @@ def check_quantization(full=False):
 
 
 def main():
+    _enable_utf8_stdout()
+
     ap = argparse.ArgumentParser(description="环境健康检查")
     ap.add_argument("--full", action="store_true", help="额外跑真实 GPU 前向 + 4-bit 量化")
     args = ap.parse_args()
@@ -378,7 +397,7 @@ def main():
         print("  pip install torch torchvision torchaudio \\")
         print("      --index-url https://download.pytorch.org/whl/cu128")
         print("  pip install bitsandbytes")
-        print("  pip install -r projects/llm-qlora-finetune/requirements.txt")
+        print("  pip install -r requirements-mlc.txt")
         print("  python verify_env.py --full   # 应为全绿")
         return 1
     print(f"结论: 全绿 ✅  ({len(warns)} 项警告)")

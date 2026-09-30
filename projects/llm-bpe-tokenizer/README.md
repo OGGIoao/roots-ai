@@ -93,12 +93,13 @@ $$|\text{vocab}| = 256 + \text{num\_merges}$$
 ```
 llm-bpe-tokenizer/
 ├── README.md          ← 你正在看的教练讲义
-├── requirements.txt   ← 依赖（纯 Python 标准库，几乎没有外部依赖）
-├── setup_env.sh       ← venv 一键创建脚本
 ├── data.py            ← 语料下载 + 预处理
 ├── tokenizer.py       ← BPE 核心算法（重点阅读）
 └── train.py           ← 训练 + Demo 演示（运行入口）
 ```
+
+> 依赖统一由仓库根目录 `requirements-mlc.txt` 声明（conda 环境 `mlc`）。
+> 本项目只用标准库 + tqdm，不需要单独的虚拟环境脚本。
 
 ---
 
@@ -106,8 +107,6 @@ llm-bpe-tokenizer/
 
 ```bash
 cd projects/llm-bpe-tokenizer
-bash setup_env.sh
-source .venv/bin/activate
 
 # 运行默认演示（vocab_size=500，在 TinyShakespeare 上训练）
 python train.py

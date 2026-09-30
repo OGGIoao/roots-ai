@@ -1,6 +1,0 @@
-# llm-bpe-tokenizer 专属依赖
-# 本项目只使用 Python 标准库，无需额外安装第三方包
-# （urllib、re、json、collections 均为内置模块）
-
-# 可选：用于更漂亮的命令行输出
-tqdm>=4.65

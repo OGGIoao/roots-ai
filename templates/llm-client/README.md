@@ -10,9 +10,11 @@
 templates/llm-client/
 ├── README.md           ← 使用说明（你在这里）
 ├── .env.example        ← 环境变量模板（复制为 .env 后填入密钥）
-├── requirements.txt    ← 最小依赖（openai + python-dotenv）
 └── llm_client.py       ← LLM 客户端核心代码（开箱即用，可单独复制）
 ```
+
+> 依赖（openai + python-dotenv）统一由仓库根目录 `requirements-mlc.txt` 声明，
+> 本目录不再单独维护 requirements 文件，避免版本漂移。
 
 | 关键特性 | 说明 |
 |---------|------|

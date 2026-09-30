@@ -44,6 +44,9 @@ regex==2026.9.10
 openai==3.14.0
 python-dotenv==1.2.3
 
+# --- 训练/工具链 (原各项目 requirements.txt, 已收口到此处) ---
+tqdm==4.70.1             # projects/llm-bpe-tokenizer 的唯一外部依赖
+
 # --- 基础 ---
 numpy==2.2.6
 

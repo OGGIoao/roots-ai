@@ -7,7 +7,7 @@ Usage:
   python train.py --data my_data.jsonl --epochs 5
   python train.py --lora_r 16 --lr 1e-4
 
-Requirements: pip install -r requirements.txt
+Requirements: pip install -r ../../requirements-mlc.txt   # 仓库根目录唯一依赖清单
 """
 
 import argparse
