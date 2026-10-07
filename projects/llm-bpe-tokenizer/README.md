@@ -115,9 +115,13 @@ python train.py
 # 指定词表大小（更大的词表，更好的压缩率，训练更慢）
 python train.py --vocab_size 1000
 
-# 使用内置 sample 文本（无网络环境）
+# 使用内置 sample 文本（离线演示; 需显式指定, 下载失败不会自动降级）
 python train.py --source sample --vocab_size 300
 ```
+
+> `tokenizer.json` 是入库的默认产物（TinyShakespeare, vocab_size=500）。**只有默认配置**
+> 会写入它; 其它配置自动保存为 `tokenizer_<来源>_<词表>.json`（已被 `.gitignore` 忽略），
+> 也可用 `--output` 指定路径。
 
 ---
 

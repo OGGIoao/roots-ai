@@ -50,3 +50,21 @@ def test_loaders_batch_without_collate_error():
     for loader in (tr, va):
         for x, y in loader:
             assert x.shape == y.shape and x.shape[1] == 64
+
+
+def test_failed_download_raises_and_leaves_no_partial_file(tmp_path, monkeypatch):
+    # 回归: 下载失败曾被静默降级成内置小语料; 中断的下载会留下残缺文件被当成有效语料
+    import urllib.error
+    import common.corpus as corpus
+
+    def boom(url, dest):
+        with open(dest, "w") as f:
+            f.write("partial")
+        raise urllib.error.URLError("offline")
+
+    monkeypatch.setattr(corpus.urllib.request, "urlretrieve", boom)
+    target = tmp_path / "nested" / "shakespeare.txt"
+    with pytest.raises(RuntimeError):
+        corpus.ensure_shakespeare(str(target))
+    assert not target.exists()
+    assert not (tmp_path / "nested" / "shakespeare.txt.part").exists()

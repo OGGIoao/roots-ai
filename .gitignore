@@ -30,6 +30,8 @@ runs/
 # 导致 clone 出来的仓库无法运行 —— 已改为精确规则, 不要改回去。
 !projects/llm-bpe-tokenizer/data/tinyshakespeare.txt
 !projects/llm-bpe-tokenizer/tokenizer.json
+# 非默认配置训练出的 tokenizer 不入库 (见 train.py 的 --output)
+projects/llm-bpe-tokenizer/tokenizer_*.json
 
 # Environment
 .env

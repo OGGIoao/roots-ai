@@ -14,14 +14,15 @@ data.py — 训练语料获取与准备
 """
 
 import os
-import urllib.request
+import sys
 
-# TinyShakespeare 下载地址（Karpathy 的 char-rnn 仓库）
-_SHAKESPEARE_URL = (
-    "https://raw.githubusercontent.com/karpathy/char-rnn"
-    "/master/data/tinyshakespeare/input.txt"
-)
-_SHAKESPEARE_PATH = os.path.join(os.path.dirname(__file__), "data", "tinyshakespeare.txt")
+# 语料的定位 / 下载逻辑全仓库只有一份 (common/corpus.py), 本项目是语料的所有者:
+# 文件就入库在本目录的 data/ 下。append: 不会遮蔽本目录里的同名模块。
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if _REPO_ROOT not in sys.path:
+    sys.path.append(_REPO_ROOT)
+
+from common.corpus import load_shakespeare  # noqa: E402
 
 # 内置 sample 文本：当网络不可用时使用
 # 包含英文、数字、标点，足以演示 BPE 基本行为
@@ -112,8 +113,9 @@ def get_corpus(source: str = "shakespeare", verbose: bool = True) -> str:
 
     Args:
         source: "shakespeare" 或 "sample"
-            - "shakespeare"：自动下载 TinyShakespeare（~1MB）
-            - "sample"：使用内置小语料（无网络时备用）
+            - "shakespeare"：入库的 TinyShakespeare（~1MB）；缺失才下载，
+              下载失败会**抛出 RuntimeError**，不会悄悄换成别的语料
+            - "sample"：内置小语料，需要时由调用方显式选择（如离线演示）
         verbose: 是否打印进度信息
 
     Returns:
@@ -152,30 +154,8 @@ def get_train_val_split(
 # ─── 内部辅助函数 ─────────────────────────────────────────────────────────────
 
 def _load_shakespeare(verbose: bool) -> str:
-    """下载或从缓存读取 TinyShakespeare。"""
-    os.makedirs(os.path.dirname(_SHAKESPEARE_PATH), exist_ok=True)
-
-    if not os.path.exists(_SHAKESPEARE_PATH):
-        if verbose:
-            print(f"[数据] 正在下载 TinyShakespeare...")
-            print(f"       URL: {_SHAKESPEARE_URL}")
-        try:
-            urllib.request.urlretrieve(_SHAKESPEARE_URL, _SHAKESPEARE_PATH)
-            if verbose:
-                size_kb = os.path.getsize(_SHAKESPEARE_PATH) // 1024
-                print(f"[数据] 下载完成，{size_kb} KB → {_SHAKESPEARE_PATH}")
-        except Exception as e:
-            print(f"[!] 下载失败：{e}")
-            print(f"[!] 回退到内置 sample 文本")
-            return _SAMPLE_TEXT
-    else:
-        if verbose:
-            print(f"[数据] 使用缓存文件：{_SHAKESPEARE_PATH}")
-
-    with open(_SHAKESPEARE_PATH, encoding="utf-8") as f:
-        text = f.read()
-
+    """读取 TinyShakespeare (缺失时下载; 失败则抛错, 不做静默降级)。"""
+    text = load_shakespeare()
     if verbose:
         print(f"[数据] 语料大小：{len(text):,} 字符 / {len(text.encode('utf-8')):,} 字节")
-
     return text

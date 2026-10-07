@@ -44,6 +44,16 @@ _DEMO_SENTENCES = [
 ]
 
 
+def _resolve_save_path(args) -> str:
+    """tokenizer.json 是入库的默认产物 (shakespeare, vocab=500), 其它配置不得覆盖它。"""
+    here = os.path.dirname(os.path.abspath(__file__))
+    if args.output:
+        return os.path.abspath(args.output)
+    if args.source == "shakespeare" and args.vocab_size == 500:
+        return os.path.join(here, "tokenizer.json")
+    return os.path.join(here, f"tokenizer_{args.source}_{args.vocab_size}.json")
+
+
 def main():
     parser = argparse.ArgumentParser(description="训练 BPE Tokenizer")
     parser.add_argument(
@@ -53,7 +63,12 @@ def main():
     parser.add_argument(
         "--source", type=str, default="shakespeare",
         choices=["shakespeare", "sample"],
-        help="语料来源（默认 shakespeare，无网络用 sample）"
+        help="语料来源（默认 shakespeare；离线演示请显式用 sample）"
+    )
+    parser.add_argument(
+        "--output", type=str, default=None,
+        help="tokenizer 保存路径。默认: 仅 shakespeare+词表500(默认配置)才写入入库的 "
+             "tokenizer.json, 其余写到 tokenizer_<来源>_<词表>.json, 避免覆盖共享产物"
     )
     parser.add_argument(
         "--no_save", action="store_true",
@@ -113,7 +128,8 @@ def main():
     # ── 6. 保存 tokenizer ────────────────────────────────────────────────────
     if not args.no_save:
         print()
-        save_path = os.path.join(os.path.dirname(__file__), "tokenizer.json")
+        save_path = _resolve_save_path(args)
+        print(f"[保存] {save_path}")
         tokenizer.save(save_path)
         size_kb = os.path.getsize(save_path) // 1024
         print(f"[文件大小] {size_kb} KB")
