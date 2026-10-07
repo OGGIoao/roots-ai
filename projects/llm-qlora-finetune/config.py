@@ -15,7 +15,9 @@ from dataclasses import dataclass, field
 class ModelConfig:
     """模型配置"""
     model_name: str = "Qwen/Qwen2.5-1.5B-Instruct"
-    torch_dtype: str = "float16"
+    # 精度: 本机 (RTX 5060 / Blackwell sm_120) 实测 fp16 会在 grad clipping 崩溃,
+    # 必须用 bfloat16。train.py 以此处为默认值, 不要改回 float16。
+    torch_dtype: str = "bfloat16"
     device_map: str = "auto"
     trust_remote_code: bool = True
 
@@ -25,7 +27,7 @@ class QuantizationConfig:
     """4-bit 量化配置 (QLoRA 核心)"""
     load_in_4bit: bool = True
     bnb_4bit_quant_type: str = "nf4"  # NormalFloat4, 比 INT4 更适合正态分布的权重
-    bnb_4bit_compute_dtype: str = "float16"
+    bnb_4bit_compute_dtype: str = "bfloat16"
     bnb_4bit_use_double_quant: bool = True  # 二次量化, 进一步压缩
 
 
@@ -51,7 +53,8 @@ class TrainingConfig:
     per_device_train_batch_size: int = 2
     gradient_accumulation_steps: int = 4  # 有效 batch_size = 2 * 4 = 8
     learning_rate: float = 2e-4
-    fp16: bool = True
+    bf16: bool = True    # 本机唯一可用的混合精度
+    fp16: bool = False   # 本机实测会崩, 仅供实验
     logging_steps: int = 10
     save_steps: int = 100
     save_total_limit: int = 3
@@ -67,7 +70,7 @@ class TrainingConfig:
 class DataConfig:
     """数据配置"""
     max_seq_length: int = 512
-    system_prompt: str = "You are a helpful assistant."
+    system_prompt: str = "You are a helpful AI assistant."
 
 
 # ── 显存估算 ──────────────────────────────────────────────

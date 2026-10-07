@@ -20,35 +20,46 @@ from transformers import (
 )
 from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
 from trl import SFTTrainer, SFTConfig
+from config import (
+    ModelConfig, QuantizationConfig, LoraConfig as LoraCfg,
+    TrainingConfig, DataConfig,
+)
 from data import prepare_dataset, load_sample_data
+
+# 所有默认值来自 config.py (单一来源); 命令行参数只做覆盖
+_M, _Q, _L, _T, _D = (ModelConfig(), QuantizationConfig(), LoraCfg(),
+                      TrainingConfig(), DataConfig())
 
 
 def parse_args():
     p = argparse.ArgumentParser(description="QLoRA Fine-tuning")
-    p.add_argument("--model", type=str, default="Qwen/Qwen2.5-1.5B-Instruct",
+    p.add_argument("--model", type=str, default=_M.model_name,
                     help="HuggingFace model name")
     p.add_argument("--data", type=str, default=None,
                     help="Path to JSONL training data (default: sample data)")
-    p.add_argument("--output_dir", type=str, default="./qlora_output")
-    p.add_argument("--epochs", type=int, default=3)
-    p.add_argument("--batch_size", type=int, default=2)
-    p.add_argument("--grad_accum", type=int, default=4)
-    p.add_argument("--lr", type=float, default=2e-4)
-    p.add_argument("--max_seq_len", type=int, default=512)
-    p.add_argument("--lora_r", type=int, default=8)
-    p.add_argument("--lora_alpha", type=int, default=32)
-    p.add_argument("--log_steps", type=int, default=10)
-    p.add_argument("--save_steps", type=int, default=100)
+    p.add_argument("--output_dir", type=str, default=_T.output_dir)
+    p.add_argument("--epochs", type=int, default=_T.num_train_epochs)
+    p.add_argument("--batch_size", type=int, default=_T.per_device_train_batch_size)
+    p.add_argument("--grad_accum", type=int, default=_T.gradient_accumulation_steps)
+    p.add_argument("--lr", type=float, default=_T.learning_rate)
+    p.add_argument("--max_seq_len", type=int, default=_T.max_seq_length)
+    p.add_argument("--lora_r", type=int, default=_L.r)
+    p.add_argument("--lora_alpha", type=int, default=_L.lora_alpha)
+    p.add_argument("--log_steps", type=int, default=_T.logging_steps)
+    p.add_argument("--save_steps", type=int, default=_T.save_steps)
     # ⚠️ 精度选择 (RTX 5060 / Blackwell sm_120 实测结论):
     #    fp16 会崩 -> NotImplementedError: _amp_foreach_non_finite_check_and_unscale_cuda
     #                 not implemented for 'BFloat16'  (发生在 grad clipping)
     #    换成 adamw_torch 也救不了, 因为根因在 AMP scaler 与参数 dtype 不一致。
     #    bf16 实测可正常训练, 且 Blackwell 原生支持 bf16 —— 所以默认用 bf16。
-    p.add_argument("--bf16", action="store_true", default=True,
-                   help="bf16 混合精度 (本机默认, fp16 不可用)")
-    p.add_argument("--fp16", action="store_true", default=False,
-                   help="fp16 混合精度 (本机实测会崩, 仅供实验)")
-    return p.parse_args()
+    #    两者互斥: 默认 bf16; 传 --fp16 则切到 fp16 (bf16 自动关闭)。
+    p.add_argument("--fp16", action="store_true", default=_T.fp16,
+                   help="fp16 混合精度 (本机实测会崩, 仅供实验; 与 bf16 互斥)")
+    p.add_argument("--no_bf16", action="store_true",
+                   help="关闭 bf16 (例如在不支持 bf16 的 GPU 上, 需配合 --fp16)")
+    args = p.parse_args()
+    args.bf16 = _T.bf16 and not args.no_bf16 and not args.fp16
+    return args
 
 
 def main():
@@ -69,14 +80,15 @@ def main():
     #    compute_dtype 与训练精度保持一致: bf16 (见下方 --bf16/--fp16 说明)
     bnb_config = BitsAndBytesConfig(
         load_in_4bit=True,
-        bnb_4bit_quant_type="nf4",
+        bnb_4bit_quant_type=_Q.bnb_4bit_quant_type,
         bnb_4bit_compute_dtype=torch.bfloat16 if args.bf16 else torch.float16,
-        bnb_4bit_use_double_quant=True,
+        bnb_4bit_use_double_quant=_Q.bnb_4bit_use_double_quant,
     )
 
     # 2. Load model + tokenizer
     print(f"\nLoading model: {args.model}")
-    tokenizer = AutoTokenizer.from_pretrained(args.model, trust_remote_code=True)
+    tokenizer = AutoTokenizer.from_pretrained(
+        args.model, trust_remote_code=_M.trust_remote_code)
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
@@ -84,7 +96,7 @@ def main():
         args.model,
         quantization_config=bnb_config,
         device_map="auto",
-        trust_remote_code=True,
+        trust_remote_code=_M.trust_remote_code,
     )
     model = prepare_model_for_kbit_training(model)
 
@@ -92,11 +104,10 @@ def main():
     lora_config = LoraConfig(
         r=args.lora_r,
         lora_alpha=args.lora_alpha,
-        target_modules=["q_proj", "k_proj", "v_proj", "o_proj",
-                        "gate_proj", "up_proj", "down_proj"],
-        lora_dropout=0.05,
-        bias="none",
-        task_type="CAUSAL_LM",
+        target_modules=_L.target_modules,
+        lora_dropout=_L.lora_dropout,
+        bias=_L.bias,
+        task_type=_L.task_type,
     )
     model = get_peft_model(model, lora_config)
     model.print_trainable_parameters()
@@ -113,7 +124,7 @@ def main():
     #   - warmup_ratio     -> 不再是 dataclass 字段, 改为直接算 warmup_steps
     steps_per_epoch = max(1, len(dataset) // (args.batch_size * args.grad_accum))
     total_steps = max(1, steps_per_epoch * args.epochs)
-    warmup_steps = max(1, int(total_steps * 0.1))
+    warmup_steps = max(1, int(total_steps * _T.warmup_ratio))
 
     training_args = SFTConfig(
         output_dir=args.output_dir,
@@ -125,13 +136,13 @@ def main():
         bf16=args.bf16,
         logging_steps=args.log_steps,
         save_steps=args.save_steps,
-        save_total_limit=3,
+        save_total_limit=_T.save_total_limit,
         max_length=max_len,
         warmup_steps=warmup_steps,
-        lr_scheduler_type="cosine",
-        weight_decay=0.01,
-        optim="paged_adamw_32bit",
-        report_to="none",
+        lr_scheduler_type=_T.lr_scheduler_type,
+        weight_decay=_T.weight_decay,
+        optim=_T.optim,
+        report_to=_T.report_to,
         dataset_text_field="text",
     )
     print(f"Steps: {total_steps} total, {warmup_steps} warmup")
@@ -176,7 +187,7 @@ def main():
     prompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
     with torch.no_grad():
-        outputs = model.generate(**inputs, max_new_tokens=128, temperature=0.7, top_k=50)
+        outputs = model.generate(**inputs, max_new_tokens=128, do_sample=True, temperature=0.7, top_k=50)
     response = tokenizer.decode(outputs[0][inputs["input_ids"].shape[1]:], skip_special_tokens=True)
     print(f"Q: What is deep learning?")
     print(f"A: {response}")

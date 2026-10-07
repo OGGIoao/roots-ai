@@ -11,30 +11,34 @@ import json
 import os
 from datasets import Dataset
 
+from config import DataConfig
+
+SYSTEM_PROMPT = DataConfig().system_prompt
+
 
 SAMPLE_DATA = [
     {"messages": [
-        {"role": "system", "content": "You are a helpful AI assistant."},
+        {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": "What is machine learning?"},
         {"role": "assistant", "content": "Machine learning is a branch of AI that lets computers learn patterns from data automatically."},
     ]},
     {"messages": [
-        {"role": "system", "content": "You are a helpful AI assistant."},
+        {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": "What is LoRA?"},
         {"role": "assistant", "content": "LoRA is a parameter-efficient fine-tuning method that freezes pretrained weights and adds low-rank matrices (A and B) to train only a tiny fraction of parameters."},
     ]},
     {"messages": [
-        {"role": "system", "content": "You are a helpful AI assistant."},
+        {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": "What is quantization?"},
         {"role": "assistant", "content": "Quantization reduces model weights from high precision (FP32) to low precision (INT4/INT8), dramatically shrinking memory usage while preserving most quality."},
     ]},
     {"messages": [
-        {"role": "system", "content": "You are a helpful AI assistant."},
+        {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": "Explain the Transformer architecture."},
         {"role": "assistant", "content": "Transformer uses self-attention instead of recurrence. Core components: multi-head attention, feed-forward network, residual connections, and layer normalization."},
     ]},
     {"messages": [
-        {"role": "system", "content": "You are a helpful AI assistant."},
+        {"role": "system", "content": SYSTEM_PROMPT},
         {"role": "user", "content": "What is RLHF?"},
         {"role": "assistant", "content": "RLHF uses human preference data to train a reward model, then optimizes the LLM with PPO reinforcement learning to align outputs with human values."},
     ]},
