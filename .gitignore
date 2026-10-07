@@ -22,10 +22,8 @@ checkpoints/
 *.log
 runs/
 
-# 各训练项目的语料副本由各自 data.py 从 llm-bpe-tokenizer 自动生成, 不入库,
-# 避免同一份 1MB 语料在仓库里存多份。
-projects/llm-transformer/data/
-projects/llm-minigpt/data/
+# 语料只有一份 (llm-bpe-tokenizer/data/), 其余项目经 common/corpus.py 直接读取,
+# 不再生成各自的副本。
 
 # 注意: 语料与 tokenizer 产物要入库!
 # 旧规则曾写 `data/` 和 `tokenizer.json`, 会把 BPE 训练语料和 tokenizer 一起排除,

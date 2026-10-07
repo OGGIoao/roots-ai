@@ -16,6 +16,8 @@ github-claw-llm/
 │   ├── llm-minigpt/           # L2.5: miniGPT (暂停)
 │   ├── llm-qlora-finetune/    # L3: QLoRA 微调实战 (RTX 5060 8GB)
 │   └── agent-course/          # L4: Agent 课程 (M1-M7, 仅 M1 已建)
+├── common/                    # 多项目共享: 语料定位/下载、字符级分词、数据集
+├── tests/                     # 冒烟/回归测试 (python -m pytest tests -q)
 ├── templates/
 │   └── llm-client/            # LLM API 统一客户端模板
 ├── roadmaps/                  # 学习路线图 (LLM_ROADMAP.md 待补)
@@ -44,7 +46,7 @@ python verify_env.py --full
 cd projects/llm-bpe-tokenizer
 python train.py
 
-# Transformer (离线可跑, 会自动复用 BPE 项目的语料)
+# Transformer (离线可跑, 直接读取 BPE 项目入库的语料)
 cd projects/llm-transformer
 python data.py
 
