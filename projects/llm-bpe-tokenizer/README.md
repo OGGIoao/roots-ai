@@ -99,7 +99,8 @@ llm-bpe-tokenizer/
 ```
 
 > 依赖统一由仓库根目录 `requirements-mlc.txt` 声明（conda 环境 `mlc`）。
-> 本项目只用标准库 + tqdm，不需要单独的虚拟环境脚本。
+> 核心 BPE（`tokenizer.py` / `train.py`）只用标准库；`modern_tokenizers.py` 的进阶演示按需用
+> `tokenizers` / `sentencepiece` / `regex`（已在清单中）和可选的 `tiktoken`，缺失时该演示自动 SKIP。
 
 ---
 

@@ -44,8 +44,8 @@ regex==2026.9.10
 openai==3.14.0
 python-dotenv==1.2.3
 
-# --- 训练/工具链 (原各项目 requirements.txt, 已收口到此处) ---
-tqdm==4.70.1             # projects/llm-bpe-tokenizer 的唯一外部依赖
+# --- 可选 (不装也能跑, 对应演示会 SKIP) ---
+# tiktoken                    # projects/llm-bpe-tokenizer/modern_tokenizers.py 的 tiktoken 演示
 
 # --- 测试 (tests/) ---
 pytest>=8                     # python -m pytest tests -q

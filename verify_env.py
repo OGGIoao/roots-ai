@@ -4,7 +4,7 @@ verify_env.py — 环境健康检查
 一次跑完, 明确告诉你: 哪些能用、哪些不能、下一步该敲什么命令。
 
 用法:
-    python verify_env.py            # 在 ml 环境里跑
+    python verify_env.py            # 先 conda activate mlc 再跑
     python verify_env.py --full     # 额外做一次真实 forward 前向计算
 
 设计原则: 不抛异常中断, 逐项检查并给出可操作的修复建议。
@@ -191,6 +191,7 @@ def check_packages():
         ],
         "Tokenizer 链路": [("sentencepiece", ""), ("tokenizers", ""), ("regex", "")],
         "LLM Client (模板)": [("openai", "1.0+"), ("python-dotenv", "1.0+")],
+        "测试": [("pytest", "8+")],
     }
     for group, pkgs in groups.items():
         for pkg, want in pkgs:
@@ -205,6 +206,9 @@ def check_packages():
                         "    pip install bitsandbytes\n"
                         "  若报错, 改用预编译 wheel (Windows 支持滞后), 或走 WSL2。"
                     )
+                if group == "测试":  # 只影响跑测试, 不应让环境整体判红
+                    record("WARN", f"[{group}] {pkg}", False, "未安装", "pip install pytest")
+                    continue
                 record("FAIL", f"[{group}] {pkg}", False, "未安装", advice)
 
 
