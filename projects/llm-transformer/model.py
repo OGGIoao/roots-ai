@@ -60,6 +60,7 @@ class GPTModel(nn.Module):
         super().__init__()
         self.d_model = d_model
         self.vocab_size = vocab_size
+        self.max_len = max_len  # 位置表大小; generate 据此截断上下文
         d_ff = d_ff or 4 * d_model
 
         # Token + Position Embedding
@@ -112,7 +113,8 @@ class GPTModel(nn.Module):
         mask = mask.unsqueeze(0).unsqueeze(0)  # (1, 1, S, S)
 
         # Embedding
-        x = self.drop(self.token_emb(input_ids) + self.pos_emb(self.token_emb(input_ids)))
+        # LearnedPE.forward 内部已做 "x + pos", 不能再自己加 token_emb (否则重复相加)
+        x = self.drop(self.pos_emb(self.token_emb(input_ids)))
 
         # Transformer Blocks
         for block in self.blocks:
@@ -144,8 +146,8 @@ class GPTModel(nn.Module):
         """自回归生成"""
         self.eval()
         for _ in range(max_new_tokens):
-            # 截断到 max_len
-            idx_cond = input_ids if input_ids.size(1) <= 1024 else input_ids[:, -1024:]
+            # 截断到模型的 max_len (写死 1024 会让 max_len 更小的模型位置越界)
+            idx_cond = input_ids[:, -self.max_len:]
             logits, _ = self(idx_cond)
             logits = logits[:, -1, :] / temperature
 
@@ -187,6 +189,7 @@ class LlamaModel(nn.Module):
         super().__init__()
         self.d_model = d_model
         self.vocab_size = vocab_size
+        self.max_len = max_len  # RoPE 缓存长度; generate 据此截断上下文
         # SwiGLU 的 d_ff 通常是 8/3 * d_model (非整数时取最近的256的倍数)
         d_ff = d_ff or int(8 / 3 * d_model)
         d_ff = ((d_ff + 255) // 256) * 256  # 对齐到256
@@ -257,7 +260,7 @@ class LlamaModel(nn.Module):
     ) -> torch.Tensor:
         self.eval()
         for _ in range(max_new_tokens):
-            idx_cond = input_ids if input_ids.size(1) <= 4096 else input_ids[:, -4096:]
+            idx_cond = input_ids[:, -self.max_len:]
             logits, _ = self(idx_cond)
             logits = logits[:, -1, :] / temperature
             if top_k > 0:

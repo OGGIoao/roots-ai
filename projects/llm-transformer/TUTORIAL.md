@@ -584,7 +584,7 @@ def forward(self, input_ids, targets=None):
     mask = torch.triu(torch.ones(S, S, dtype=torch.bool), diagonal=1)
 
     # 2. Embedding
-    x = self.drop(self.token_emb(input_ids) + self.pos_emb(self.token_emb(input_ids)))
+    x = self.drop(self.pos_emb(self.token_emb(input_ids)))
 
     # 3. Transformer Blocks
     for block in self.blocks:
@@ -609,12 +609,17 @@ mask = torch.triu(torch.ones(S, S), diagonal=1)
 
 **Step 2: Embedding**
 ```python
-x = token_emb(input_ids) + pos_emb(token_emb(input_ids))
+x = pos_emb(token_emb(input_ids))      # 等价于 token_emb(ids) + pos_table[0..S-1]
 ```
 
-关键细节: `pos_emb` 接收的是 **token embedding 的输出**(不是 input_ids):
-- 这意味着位置编码和 token 语义在同一个空间
-- GPT-2 的原版实现就是这样做的
+关键细节: `LearnedPE.forward(x)` 内部已经做了 `x + pos_embedding(positions)`,
+所以 `pos_emb` 接收的是 **token embedding 的输出**, 返回的就是"token 语义 + 位置"的和:
+- 位置向量与 token 向量在同一个 d_model 空间里相加
+- 与 GPT-2 原版 `wte(ids) + wpe(positions)` 等价
+
+> ⚠️ 不要写成 `token_emb(ids) + pos_emb(token_emb(ids))` —— `pos_emb` 的返回值里
+> 已经含有 token_emb, 这样写会把 token embedding 加两遍 (本项目早期版本踩过这个坑,
+> 见 `tests/test_transformer.py`)。
 
 **Step 3: 权重共享**
 ```python
@@ -671,6 +676,9 @@ def generate(self, input_ids, max_new_tokens=100, temperature=0.8, top_k=50):
 ---
 
 ## 8. data.py — 数据处理
+
+> 本节的 `CharTokenizer` / `TextDataset` 现在位于仓库根的 `common/text_data.py`
+> (与 llm-minigpt 共用); `data.py` 只保留本项目的组装逻辑。下文讲解的原理不变。
 
 ### 8.1 CharTokenizer — 最简单的 Tokenizer
 
