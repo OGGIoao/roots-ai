@@ -13,7 +13,7 @@
 
 ```
 llm-minigpt/
-├── config.py      # 模型配置 (nano/micro/small/medium)
+├── config.py      # GPTConfig + 预设 (nano/micro/small/medium/large), 超参唯一来源
 ├── model.py       # GPT-2 架构 (Pre-LN, Causal Attention, FFN)
 ├── data.py        # 数据加载 (Tiny Shakespeare + 字符级Tokenizer)
 ├── train.py       # 训练脚本 (AdamW + Cosine LR + AMP)
@@ -23,8 +23,8 @@ llm-minigpt/
 ## 快速开始
 
 ```bash
-# 1. 安装依赖
-pip install torch
+# 1. 安装依赖 (仓库根目录唯一依赖清单, conda 环境 mlc)
+pip install -r ../../requirements-mlc.txt
 
 # 2. 运行模型测试
 python model.py
@@ -38,12 +38,16 @@ python train.py --config micro --max_iters 5000
 
 ## 预定义配置
 
-| 配置 | 层数 | 头数 | 维度 | 参数量 | 用途 |
+| 配置 | 层数 | 头数 | 维度 | 参数量 (`python config.py` 估算) | 用途 |
 |------|------|------|------|--------|------|
-| nano | 2 | 2 | 64 | ~50K | 快速调试 |
-| micro | 4 | 4 | 128 | ~2M | 小规模实验 |
-| small | 12 | 12 | 768 | ~124M | GPT-2 Small |
-| medium | 24 | 16 | 1024 | ~350M | GPT-2 Medium |
+| nano | 2 | 2 | 64 | ~0.12M (字符级词表 65) | 快速调试 |
+| micro | 4 | 4 | 128 | ~0.8M (字符级词表 65) | 小规模实验 |
+| small | 12 | 12 | 768 | ~124M (GPT-2 词表, 输出头与 embedding 共享) | GPT-2 Small |
+| medium | 24 | 16 | 1024 | ~355M | GPT-2 Medium |
+| large | 36 | 20 | 1280 | ~774M | GPT-2 Large |
+
+> 训练时词表大小由数据集 tokenizer 决定 (字符级约 65), 预设里的 `vocab_size` 仅用于 `config.py` 的参数量估算。
+> 预设只提供 `n_layer / n_head / n_embd / block_size`, 命令行同名参数可覆盖。
 
 ## 架构演进
 

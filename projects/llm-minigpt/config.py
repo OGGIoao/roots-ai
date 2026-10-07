@@ -29,7 +29,7 @@ class GPTConfig:
 # ── 预定义配置 ──────────────────────────────────────────────
 
 # GPT-2 Small (124M) — 我们的目标
-GPT2_SMALL = GPTConfig(
+SMALL = GPTConfig(
     vocab_size=50257,
     block_size=1024,
     n_layer=12,
@@ -59,7 +59,7 @@ MICRO = GPTConfig(
 )
 
 # Medium (350M)
-GPT2_MEDIUM = GPTConfig(
+MEDIUM = GPTConfig(
     vocab_size=50257,
     block_size=1024,
     n_layer=24,
@@ -69,7 +69,7 @@ GPT2_MEDIUM = GPTConfig(
 )
 
 # Large (774M)
-GPT2_LARGE = GPTConfig(
+LARGE = GPTConfig(
     vocab_size=50257,
     block_size=1024,
     n_layer=36,
@@ -80,7 +80,7 @@ GPT2_LARGE = GPTConfig(
 
 
 def count_parameters(config: GPTConfig) -> int:
-    """估算模型参数量 (不含 Embedding 层)"""
+    """估算模型参数量 (含 token/位置 Embedding, 输出头与 token embedding 权重共享, 故不另计)"""
     # 每层 Transformer Block:
     #   Attention: 4 * n_embd^2 (Q, K, V, O 投影)
     #   FFN: 8 * n_embd^2 (4* up, 4* down, 无 bias 时)
@@ -110,9 +110,9 @@ def format_params(n: int) -> str:
 MODELS = {
     "nano": NANO,
     "micro": MICRO,
-    "gpt2-small": GPT2_SMALL,
-    "gpt2-medium": GPT2_MEDIUM,
-    "gpt2-large": GPT2_LARGE,
+    "small": SMALL,
+    "medium": MEDIUM,
+    "large": LARGE,
 }
 
 
@@ -126,5 +126,5 @@ if __name__ == "__main__":
         params = count_parameters(cfg)
         print(f"{name:<15} {cfg.n_layer:>4} {cfg.n_head:>4} {cfg.n_embd:>6} {format_params(params):>10}")
     print("=" * 60)
-    print(f"\nGPT-2 Small (目标) 参数量: {format_params(count_parameters(GPT2_SMALL))}")
+    print(f"\nGPT-2 Small (目标) 参数量: {format_params(count_parameters(SMALL))}")
     print(f"Nano (调试用) 参数量: {format_params(count_parameters(NANO))}")

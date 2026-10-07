@@ -15,8 +15,9 @@ import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from dataclasses import dataclass
 import sys
+
+from config import GPTConfig  # 模型超参的唯一定义在 config.py
 
 # Windows 控制台默认 GBK, 无法编码脚本结尾处的 ✅/❌ 等符号,
 # print() 会抛 UnicodeEncodeError 让脚本在跑通后异常退出。
@@ -175,17 +176,6 @@ class Block(nn.Module):
 # 5. GPT Model
 # ============================================================
 
-@dataclass
-class GPTConfig:
-    block_size: int = 1024   # 最大序列长度
-    vocab_size: int = 50257  # GPT-2 词表大小
-    n_layer: int = 12        # Transformer 层数
-    n_head: int = 12         # 注意力头数
-    n_embd: int = 768        # 嵌入维度
-    dropout: float = 0.0     # Dropout
-    bias: bool = True        # 是否使用 bias
-
-
 class GPT(nn.Module):
     """
     GPT-2 模型
@@ -219,8 +209,10 @@ class GPT(nn.Module):
         # Final LayerNorm
         self.ln_f = nn.LayerNorm(config.n_embd, bias=config.bias)
         
-        # Language Model Head (与 wte 共享权重, 但这里独立实现)
+        # Language Model Head: 与 token embedding 共享权重 (GPT-2 标准做法,
+        # GPT-2 Small 因此是 124M 而不是 163M)
         self.lm_head = nn.Linear(config.n_embd, config.vocab_size, bias=False)
+        self.lm_head.weight = self.wte.weight
         
         # 初始化权重
         self.apply(self._init_weights)

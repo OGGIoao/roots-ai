@@ -30,7 +30,8 @@ from torch.cuda.amp import GradScaler, autocast
 # 添加当前目录到 path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from model import GPT, GPTConfig
+from model import GPT
+from config import GPTConfig, MODELS
 from data import download_tiny_shakespeare, create_dataloaders
 
 
@@ -243,7 +244,7 @@ def parse_args():
     
     # 模型配置
     parser.add_argument("--config", type=str, default="nano",
-                        choices=["nano", "micro", "small", "medium"],
+                        choices=list(MODELS),
                         help="模型配置名称")
     parser.add_argument("--n_layer", type=int, default=None)
     parser.add_argument("--n_head", type=int, default=None)
@@ -269,17 +270,11 @@ def parse_args():
     args = parser.parse_args()
     
     # 应用预定义配置
-    configs = {
-        "nano":    {"n_layer": 2, "n_head": 2, "n_embd": 64, "block_size": 64},
-        "micro":   {"n_layer": 4, "n_head": 4, "n_embd": 128, "block_size": 256},
-        "small":   {"n_layer": 12, "n_head": 12, "n_embd": 768, "block_size": 1024},
-        "medium":  {"n_layer": 24, "n_head": 16, "n_embd": 1024, "block_size": 1024},
-    }
-    
-    cfg = configs[args.config]
-    for k, v in cfg.items():
+    # (词表大小由数据集的 tokenizer 决定, 不取预设里的 vocab_size)
+    preset = MODELS[args.config]
+    for k in ("n_layer", "n_head", "n_embd", "block_size"):
         if getattr(args, k) is None:
-            setattr(args, k, v)
+            setattr(args, k, getattr(preset, k))
     
     return args
 
