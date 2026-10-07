@@ -27,9 +27,6 @@ import torch
 import torch.optim as optim
 from torch.cuda.amp import GradScaler, autocast
 
-# 添加当前目录到 path
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-
 from model import GPT
 from config import GPTConfig, MODELS
 from data import download_tiny_shakespeare, create_dataloaders

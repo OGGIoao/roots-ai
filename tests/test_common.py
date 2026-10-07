@@ -1,15 +1,12 @@
 """common/ 的冒烟测试 (CPU 即可, 不联网)。运行: python -m pytest tests -q"""
 
 import os
-import sys
 
 import pytest
 import torch
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-from common.corpus import SHAKESPEARE_PATH, ensure_shakespeare, load_shakespeare  # noqa: E402
-from common.text_data import CharTokenizer, TextDataset, make_loaders  # noqa: E402
+from common.corpus import SHAKESPEARE_PATH, ensure_shakespeare, load_shakespeare
+from common.text_data import CharTokenizer, TextDataset, make_loaders
 
 
 def test_corpus_is_the_tracked_file():

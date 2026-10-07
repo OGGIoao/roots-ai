@@ -1,5 +1,5 @@
 """仓库内各项目共享的最小代码层 (语料定位、字符级分词与数据集)。
 
 只放"两个以上项目都在用"的东西; 任何项目专属逻辑留在项目自己的目录里。
-各项目通过 `repo_root` 引导把仓库根加入 sys.path 后即可 `import common`。
+需先执行一次 `pip install -e . --no-deps` (见根目录 pyproject.toml), 之后任意目录均可 `import common`。
 """

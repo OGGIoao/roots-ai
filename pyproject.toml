@@ -1,0 +1,23 @@
+# 仅用于让 `common/` 可被所有项目 import (可编辑安装), 不承担依赖管理:
+# 依赖 (含需要专用索引的 torch 三件套) 见 requirements-mlc.txt。
+#
+#   pip install -e . --no-deps
+#
+# 必须是可编辑安装: common/corpus.py 靠 __file__ 定位仓库内入库的语料。
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "github-claw-llm"
+version = "0.1.0"
+description = "LLM learning repo: BPE tokenizer, transformer, miniGPT, QLoRA, agent course"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.setuptools]
+packages = ["common"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

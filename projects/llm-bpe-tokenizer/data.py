@@ -13,16 +13,18 @@ data.py — 训练语料获取与准备
   - 后续 L3 (mini-GPT) 也会用它训练语言模型
 """
 
-import os
-import sys
-
 # 语料的定位 / 下载逻辑全仓库只有一份 (common/corpus.py), 本项目是语料的所有者:
-# 文件就入库在本目录的 data/ 下。append: 不会遮蔽本目录里的同名模块。
-_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-if _REPO_ROOT not in sys.path:
-    sys.path.append(_REPO_ROOT)
-
-from common.corpus import load_shakespeare  # noqa: E402
+# 文件就入库在本目录的 data/ 下。
+try:
+    from common.corpus import load_shakespeare
+except ModuleNotFoundError as e:  # 只拦 common 本身缺失, 不吞其它依赖的报错
+    if e.name != "common":
+        raise
+    raise SystemExit(
+        "找不到共享包 `common`。请在仓库根目录执行一次:\n"
+        "    pip install -e . --no-deps\n"
+        "(需在 conda 环境 mlc 中; 详见根目录 README)"
+    ) from None
 
 # 内置 sample 文本：当网络不可用时使用
 # 包含英文、数字、标点，足以演示 BPE 基本行为

@@ -9,6 +9,7 @@
 #   pip install torch torchvision torchaudio \
 #       --index-url https://download.pytorch.org/whl/cu128
 #   pip install -r requirements-mlc.txt
+#   pip install -e . --no-deps        # 仓库自带的共享包 common/ (见 pyproject.toml)
 #
 # ⚠️ 铁律: 同一个环境里**不要混用 conda 和 pip 装 torch 系包**。
 #    旧的 ml 环境就是因为 conda 装了 cu118 版、pip 又装了 cpu 版覆盖,

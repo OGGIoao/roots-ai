@@ -6,7 +6,6 @@ Data — Tiny Shakespeare 数据集加载与 Tokenization
 BPE tokenizer 见 llm-bpe-tokenizer 项目。
 """
 
-import os
 import sys
 
 # Windows 控制台默认 GBK, 无法编码本脚本结尾的 ✅, print() 会抛
@@ -19,13 +18,17 @@ for _s in (sys.stdout, sys.stderr):
         except (ValueError, OSError):
             pass
 
-# 让 `import common` 在任意工作目录下可用 (append: 不会遮蔽项目内的同名模块)
-_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-if _REPO_ROOT not in sys.path:
-    sys.path.append(_REPO_ROOT)
-
-from common.corpus import load_shakespeare  # noqa: E402
-from common.text_data import CharTokenizer, TextDataset, make_loaders  # noqa: E402,F401
+try:
+    from common.corpus import load_shakespeare
+    from common.text_data import CharTokenizer, TextDataset, make_loaders  # noqa: F401
+except ModuleNotFoundError as e:  # 只拦 common 本身缺失, 不吞其它依赖的报错
+    if e.name != "common":
+        raise
+    raise SystemExit(
+        "找不到共享包 `common`。请在仓库根目录执行一次:\n"
+        "    pip install -e . --no-deps\n"
+        "(需在 conda 环境 mlc 中; 详见根目录 README)"
+    ) from None
 
 
 def load_tiny_shakespeare():

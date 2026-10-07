@@ -77,6 +77,7 @@ pip install torch torchvision torchaudio \
     --index-url https://download.pytorch.org/whl/cu128
 pip install bitsandbytes
 pip install -r requirements-mlc.txt
+pip install -e . --no-deps           # 仓库自带的共享包 common/ (可编辑安装, 必须在仓库根执行)
 python verify_env.py --full          # 应为全绿
 ```
 

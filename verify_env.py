@@ -211,6 +211,26 @@ def check_packages():
                     continue
                 record("FAIL", f"[{group}] {pkg}", False, "未安装", advice)
 
+    # 仓库自带的共享包 common/ (llm-transformer / llm-minigpt / llm-bpe-tokenizer 依赖它)
+    # 注意: 从仓库根运行本脚本时, 脚本所在目录 (含 common/) 自动在 sys.path[0], 直接 import
+    # 永远成功; 所以排除它, 只看"其它目录运行项目脚本时"是否找得到 common。
+    import importlib.util
+    here = os.path.dirname(os.path.abspath(__file__))
+    saved = sys.path[:]
+    sys.path[:] = [p for p in sys.path if os.path.abspath(p or os.getcwd()) != here]
+    try:
+        # find_spec 走完整的 import 机制, 可编辑安装 (meta_path 钩子) 也能识别
+        spec = importlib.util.find_spec("common")
+    except (ImportError, ValueError):
+        spec = None
+    finally:
+        sys.path[:] = saved
+    if spec is not None:
+        record("OK", "[仓库] 共享包 common/", True, os.path.dirname(spec.origin or ""))
+    else:
+        record("FAIL", "[仓库] 共享包 common/", False, "不在 Python 搜索路径中",
+               "在仓库根目录执行 (必须是可编辑安装):" + chr(10) + "    pip install -e . --no-deps")
+
 
 def _repo_root() -> str:
     """从本脚本位置向上找到仓库根 (含 projects/ 的那一层)。"""
@@ -402,6 +422,7 @@ def main():
         print("      --index-url https://download.pytorch.org/whl/cu128")
         print("  pip install bitsandbytes")
         print("  pip install -r requirements-mlc.txt")
+        print("  pip install -e . --no-deps    # 仓库自带的共享包 common/")
         print("  python verify_env.py --full   # 应为全绿")
         return 1
     print(f"结论: 全绿 ✅  ({len(warns)} 项警告)")
