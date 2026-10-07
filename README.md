@@ -13,7 +13,7 @@ github-claw-llm/
 ├── projects/
 │   ├── llm-bpe-tokenizer/     # L1: 字节级 BPE Tokenizer 从零实现 (CS336 风格)
 │   ├── llm-transformer/       # L2: Transformer 架构演进 (MHA/GQA/MLA, RoPE, SwiGLU)
-│   ├── llm-minigpt/           # L2.5: miniGPT (暂停)
+│   ├── llm-minigpt/           # L2.5: miniGPT (单文件 GPT-2, 端到端可训练; 功能冻结)
 │   ├── llm-qlora-finetune/    # L3: QLoRA 微调实战 (RTX 5060 8GB)
 │   └── agent-course/          # L4: Agent 课程 (M1-M7, 仅 M1 已建)
 ├── common/                    # 多项目共享: 语料定位/下载、字符级分词、数据集
@@ -32,7 +32,7 @@ github-claw-llm/
 | `llm-bpe-tokenizer` | ✅ 完成 | 字节级 BPE Tokenizer,含训练+demo;TUTORIAL 17 章 |
 | `llm-transformer` | 🟡 代码完整 | MHA/GQA/MLA + RoPE/ALiBi + RMSNorm/SwiGLU;可离线跑数据 |
 | `llm-qlora-finetune` | 🟡 待验证 | RTX 5060 8GB 上 QLoRA 微调(需环境就绪后跑通) |
-| `llm-minigpt` | ⏸️ 暂停 | 代码在,Phase 1.2 暂停 |
+| `llm-minigpt` | ✅ 可用 (功能冻结) | 单文件 GPT-2, 与 transformer 的定位区别见其 README |
 | `agent-course` | 🔴 脚手架 | M1 已建(core.py),M2-M7 待建 |
 | `llm-client` (模板) | ✅ 可用 | DeepSeek/Qwen/OpenAI/Ollama 统一客户端 |
 

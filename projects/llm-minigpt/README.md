@@ -2,6 +2,19 @@
 
 > 复现 Karpathy nanoGPT 流程, 用 Tiny Shakespeare 数据集从零训练一个 GPT-2 级别的语言模型。
 
+## 定位: 它和 llm-transformer 是什么关系
+
+| | `llm-minigpt` (本项目) | `llm-transformer` |
+|---|---|---|
+| 目的 | **端到端跑通**: 读一个 `model.py` 就能看懂 GPT-2, 并马上训练出能生成文本的模型 | **组件对比**: MHA/GQA/MLA、Sinusoidal/Learned/ALiBi/RoPE、LN/RMSNorm、GELU/SwiGLU 逐个拆开讲 |
+| 代码形态 | 模型集中在一个文件, 不依赖 transformer 子模块 (nanoGPT 风格) | 每个组件一个文件, 可自由组合出 GPT-2 或 LLaMA |
+| 架构 | 只有 GPT-2 (Pre-LN, 可学习位置编码, 绑定输出头) | GPT-2 与 LLaMA 两条线 |
+| 状态 | ✅ 可用, **功能冻结** (只修 bug, 不再加新架构) | 🟡 持续演进 |
+
+**怎么选**: 想先看到"模型真的在学"就从这里开始; 想理解各组件为什么这样设计, 去 `llm-transformer`。
+新架构、新位置编码之类的实验都放在 `llm-transformer`, 不要往这里加, 否则两边又会重复。
+两个项目**共享**的只有 `common/` (语料、字符级分词、数据集); 模型和超参定义各自独立。
+
 ## 学习目标
 
 - 理解 GPT-2 的完整训练流程
