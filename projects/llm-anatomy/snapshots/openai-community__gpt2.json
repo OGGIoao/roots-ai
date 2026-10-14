@@ -1,0 +1,58 @@
+{
+ "repo": "openai-community/gpt2",
+ "fetched": "2026-10-15",
+ "created": "2022-03-02",
+ "config": {
+  "activation_function": "gelu_new",
+  "architectures": [
+   "GPT2LMHeadModel"
+  ],
+  "attn_pdrop": 0.1,
+  "bos_token_id": 50256,
+  "embd_pdrop": 0.1,
+  "eos_token_id": 50256,
+  "initializer_range": 0.02,
+  "layer_norm_epsilon": 1e-05,
+  "model_type": "gpt2",
+  "n_ctx": 1024,
+  "n_embd": 768,
+  "n_head": 12,
+  "n_layer": 12,
+  "n_positions": 1024,
+  "resid_pdrop": 0.1,
+  "summary_activation": null,
+  "summary_first_dropout": 0.1,
+  "summary_proj_to_labels": true,
+  "summary_type": "cls_index",
+  "summary_use_proj": true,
+  "task_specific_params": {
+   "text-generation": {
+    "do_sample": true,
+    "max_length": 50
+   }
+  },
+  "vocab_size": 50257
+ },
+ "n_tensors": 160,
+ "n_params_header": 137022720,
+ "tensor_patterns": {
+  "h.N.attn.bias": 12,
+  "h.N.attn.c_attn.bias": 12,
+  "h.N.attn.c_attn.weight": 12,
+  "h.N.attn.c_proj.bias": 12,
+  "h.N.attn.c_proj.weight": 12,
+  "h.N.ln_1.bias": 12,
+  "h.N.ln_1.weight": 12,
+  "h.N.ln_2.bias": 12,
+  "h.N.ln_2.weight": 12,
+  "h.N.mlp.c_fc.bias": 12,
+  "h.N.mlp.c_fc.weight": 12,
+  "h.N.mlp.c_proj.bias": 12,
+  "h.N.mlp.c_proj.weight": 12,
+  "ln_f.bias": 1,
+  "ln_f.weight": 1,
+  "wpe.weight": 1,
+  "wte.weight": 1
+ },
+ "status": "ok"
+}
