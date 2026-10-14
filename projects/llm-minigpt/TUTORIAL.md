@@ -1,0 +1,1055 @@
+# miniGPT 讲义 — 从一行字符到会写莎士比亚的模型
+
+> 本讲义配合 [model.py](model.py)、[train.py](train.py)、[config.py](config.py) 阅读。
+> 讲义里**所有数字、张量形状和模型输出都是在本机 (RTX 5060 Laptop, conda 环境 `mlc`) 实际跑出来的**,
+> 不是从别处抄来的示意值。你照着跑, 应该看到同样量级的结果 (随机种子不同, 生成的具体文字会不同)。
+
+---
+
+## 0. 阅读指南
+
+### 0.1 读完你能回答这些问题
+
+- 一个 GPT 从输入一串字符, 到输出"下一个字符的概率", 中间每一步张量长什么样?
+- 为什么注意力要除以 √d_k? 不除会怎样? (有实测数据)
+- 为什么未训练模型的 loss 应该≈4.17, 而不是别的数? 这个数怎么帮你查 bug?
+- 训练日志里的 `val_loss 1.92` 到底意味着什么?
+- temperature 和 top-k 各自控制什么? 调错了会生成什么样的东西? (有实测对比)
+- 这个项目真实踩过的 4 个坑是什么, 为什么当时没人发现?
+
+### 0.2 前置知识
+
+| 需要 | 程度 | 不会怎么办 |
+|---|---|---|
+| Python | 能读 class、列表推导 | — |
+| PyTorch 基础 | 知道 `tensor`、`nn.Linear`、`loss.backward()` | 先看 PyTorch 官方 60 分钟入门 |
+| 矩阵乘法 | 知道 (a×b) @ (b×c) = (a×c) | 本讲义遇到会再解释 |
+| [llm-transformer](../llm-transformer/TUTORIAL.md) | **不需要** | 本项目自成一体; 想深挖某个组件再去看它 |
+
+### 0.3 怎么读
+
+- **第一遍**: 只读每节开头的「一句话」和「直觉」, 再跑一遍第 1 节的命令。约 30 分钟。
+- **第二遍**: 打开代码文件, 跟着「逐行拆解」对照着读, 把「动手验证」里的代码贴进 Python 跑。约 3 小时。
+- **第三遍**: 做第 14 节的练习, 先自己想, 再展开答案。
+
+### 0.4 记号约定
+
+全文用这几个字母表示张量的各个维度, 和代码里的变量名一致:
+
+| 记号 | 含义 | nano 配置下的值 |
+|---|---|---|
+| `B` | batch size, 一次喂给模型几段文本 | 32 |
+| `S` | 序列长度, 每段文本几个字符 (代码里也叫 `T`) | ≤ 64 (`block_size`) |
+| `C` | 每个字符用多长的向量表示 (`n_embd`, 也叫 d_model) | 64 |
+| `H` | 注意力头数 (`n_head`) | 2 |
+| `d_k` | 每个头分到的维度 = C / H | 32 |
+| `V` | 词表大小 (`vocab_size`) | 65 |
+
+`(B, S, C)` 读作"一个三维张量, 第 0 维长 B, 第 1 维长 S, 第 2 维长 C"。
+
+---
+
+## 1. 全景: 一次训练到底发生了什么
+
+### 1.1 一句话
+
+> GPT 训练 = 给模型看一段文字, 让它在**每一个位置**猜下一个字符, 猜错了就按错的程度调整参数; 重复几千次。
+
+### 1.2 先跑起来
+
+```bash
+conda activate mlc
+cd projects/llm-minigpt
+python train.py --config nano          # 默认 5000 步, 本机约 30 秒
+```
+
+本机实测日志 (节选):
+
+```
+iter     0/5000 | train_loss 4.1787 | val_loss 4.1780 | lr 0.00e+00 | 252.1ms/iter
+iter   500/5000 | train_loss 2.4178 | val_loss 2.3706 | lr 9.85e-04 | 6.1ms/iter
+iter  1000/5000 | train_loss 2.2200 | val_loss 2.1905 | lr 9.27e-04 | 7.3ms/iter
+iter  2000/5000 | train_loss 2.0613 | val_loss 2.0174 | lr 7.05e-04 | 5.2ms/iter
+iter  3000/5000 | train_loss 1.9128 | val_loss 1.9719 | lr 4.22e-04 | 5.5ms/iter
+iter  4500/5000 | train_loss 1.9622 | val_loss 1.9261 | lr 1.23e-04 | 6.1ms/iter
+最佳 val_loss: 1.9209
+```
+
+第 0 步耗时 252ms 是因为 GPU 第一次运行要编译/加载 kernel, 之后稳定在 5~7ms。
+
+### 1.3 从乱码到"像莎士比亚"
+
+同一个模型, 训练前后各让它写一段:
+
+**训练前** (参数是随机数):
+```
+t3ZrjmhfkqkARxLsXltUWHoHcu  exhkyU&aNdkIxAlsvSBUMyccRD$BygX-
+```
+
+**训练 2500 步后** (约 15 秒):
+```
+I of to deant of his me, card the. Sir I my juy percks,
+Dath mer for the nam mighter gees,
+Which done!
+
+POHENTIO:
+I sway to the ponort and in band heare brefully of te Ponter:
+```
+
+注意它学会了什么: 单词之间有空格、句子有标点、**全大写的人名后面跟冒号再换行**(剧本格式)、常见词 `the` `of` `Which` 拼对了。它没学会的: 大多数长单词是编的, 句子没有意义。一个只有 10 万参数、只看过字符的模型, 能力就到这里, 第 12 节会看到放大模型后的变化。
+
+### 1.4 全流程图
+
+```
+ tinyshakespeare.txt (111 万字符)
+        │  CharTokenizer: 每个字符 → 一个整数 (65 种)
+        ▼
+ [18, 47, 56, 57, 58, 1, 15, 47, ...]
+        │  按 block_size 切块, y = x 右移一位
+        ▼
+ x: (B, S)  y: (B, S)                        ← 第 2 节
+        │
+        ▼  ┌─────────────── GPT.forward ───────────────┐
+ wte(x) + wpe(位置)          (B, S, C)        ← 第 4 节
+        │
+        ▼  × n_layer
+ ┌─ Block ───────────────────────────────┐
+ │  x = x + Attention(LayerNorm(x))      │   ← 第 5、7 节
+ │  x = x + FFN(LayerNorm(x))            │   ← 第 6、7 节
+ └───────────────────────────────────────┘
+        │
+        ▼
+ LayerNorm → lm_head        (B, S, V)  每个位置对 65 个字符的打分 (logits)
+        │  └──────────────────────────────────────────┘
+        ▼
+ cross_entropy(logits, y)   一个标量 loss          ← 第 8 节
+        │
+        ▼
+ loss.backward() → 梯度裁剪 → AdamW 更新参数        ← 第 10 节
+        │
+        └──→ 重复 max_iters 次
+
+ 训练完: generate() 一次吐一个字符, 吐出的字符拼回输入, 再预测下一个  ← 第 11 节
+```
+
+---
+
+## 2. 数据: 字符怎么变成训练样本
+
+> 数据部分的代码在仓库根目录 [common/text_data.py](../../common/text_data.py) (与 llm-transformer 共用),
+> 本项目的 [data.py](data.py) 只负责组装。
+
+### 2.1 一句话
+
+> 把每个字符换成一个编号, 再切成定长的小段; 每一段的"答案"就是它自己右移一格。
+
+### 2.2 字符级分词: 词表就是"出现过的所有字符"
+
+```python
+class CharTokenizer:
+    def __init__(self, text: str):
+        chars = sorted(set(text))                 # ① 去重 + 排序
+        self.vocab_size = len(chars)
+        self.char_to_idx = {ch: i for i, ch in enumerate(chars)}   # ② 字符 → 编号
+        self.idx_to_char = {i: ch for i, ch in enumerate(chars)}   # ③ 编号 → 字符
+```
+
+实测, Tiny Shakespeare 一共只有 **65 种字符**, 排序后是:
+
+```
+"\n !$&',-.3:;?ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+ ↑ 编号 0 是换行符, 编号 1 是空格, ...
+```
+
+所以 `encode("Hi!") = [20, 47, 2]`: `H` 排第 20, `i` 排第 47, `!` 排第 2。
+
+**为什么要 `sorted`?** `set` 的遍历顺序在不同 Python 进程里可能不同。不排序的话, 同一份语料今天建出来 `H`=20, 明天可能 `H`=31, 存下来的模型就对不上了。排序保证**同样的语料永远得到同样的编号**。
+
+**和 BPE 的区别**: 字符级的词表只有 65, 每个字符一个 token, 压缩率最低 (一段话多长, token 就有多少个)。真实 LLM 用 BPE (见 [llm-bpe-tokenizer](../llm-bpe-tokenizer/TUTORIAL.md)), 词表几万到十几万, 一个 token 平均对应 3~4 个英文字符。本项目用字符级, 是为了让词表小到能一眼看完, 把注意力留给模型本身。
+
+### 2.3 训练样本: 答案就是右移一格
+
+语言模型的任务是"根据前文猜下一个字符"。一段长 S+1 的文本可以一次性造出 S 道题:
+
+```
+原文 (S+1=9 个字符):  F  i  r  s  t     C  i  t
+                      ─────────────────────────
+x (输入, 前 8 个):    F  i  r  s  t     C  i
+y (答案, 后 8 个):    i  r  s  t     C  i  t
+                      ↑
+           位置 0 的题: 看到 "F", 猜 "i"
+           位置 1 的题: 看到 "Fi", 猜 "r"
+           ...
+           位置 7 的题: 看到 "First Ci", 猜 "t"
+```
+
+**关键**: 位置 1 的题只能看 "Fi", 不能偷看后面的 "rst..."。这个"不许偷看"由第 5 节的**因果掩码**保证。正因为有掩码, 一段文本才能同时当 S 道题来用, 训练效率是"一次只问一道题"的 S 倍。
+
+对应代码 ([common/text_data.py](../../common/text_data.py)):
+
+```python
+def __getitem__(self, idx):
+    start = idx * self.stride
+    x = self.data[start : start + self.block_size]
+    y = self.data[start + 1 : start + self.block_size + 1]   # 右移一格
+    return x, y
+```
+
+### 2.4 切块方式: stride
+
+`stride` 决定相邻两个样本的起点隔多远:
+
+| stride | 样本数 (Tiny Shakespeare 训练集, block=64) | 特点 |
+|---|---|---|
+| `block_size` (本项目) | 15,685 | 样本互不重叠, 一个 epoch 恰好扫一遍语料 |
+| 1 (llm-transformer) | 约 100 万 | 每个起点一个样本, 高度重叠 |
+
+两种都对。本项目选不重叠, 是因为它让"一个 epoch"有清晰的含义。
+
+### 2.5 训练/验证切分: 按顺序切, 不能先打乱
+
+```python
+n = int(train_ratio * len(data))      # train_ratio = 0.9
+train = data[:n]                      # 前 90%
+val   = data[n:]                      # 后 10%
+```
+
+**为什么不能先打乱再切?** 如果按"块"随机分到训练集和验证集, 相邻的两块 (比如一句话的前半句和后半句) 会分别落进两边。模型在训练集里见过前半句, 验证时猜后半句就容易得多, 验证 loss 会**虚低**, 你会以为模型泛化得很好。按位置切开, 验证集是模型完全没见过的后 10% 剧本, 测出来的才是真实水平。
+
+### 2.6 🔍 动手验证
+
+```python
+from data import download_tiny_shakespeare, create_dataloaders
+text = download_tiny_shakespeare()
+train_loader, val_loader, tok = create_dataloaders(text, block_size=8, batch_size=1)
+x, y = next(iter(train_loader))
+print(repr(tok.decode(x[0].tolist())), "→", repr(tok.decode(y[0].tolist())))
+# 你会看到 y 恰好是 x 去掉第一个字符、在末尾多一个字符
+```
+
+---
+
+## 3. 模型总览: 10 万个参数都在哪
+
+### 3.1 参数清单 (nano 配置, 实测)
+
+```
+名称                          形状          个数
+wte.weight                   (65, 64)       4160   ← 每个字符一个 64 维向量
+wpe.weight                   (64, 64)       4096   ← 每个位置一个 64 维向量
+blocks.0.ln_1.weight/bias    (64,) ×2        128
+blocks.0.attn.c_attn.weight  (192, 64)     12288   ← 一次算出 Q、K、V (64×3=192)
+blocks.0.attn.c_attn.bias    (192,)          192
+blocks.0.attn.c_proj.weight  (64, 64)       4096   ← 多头结果合并后的输出投影
+blocks.0.attn.c_proj.bias    (64,)            64
+blocks.0.ln_2.weight/bias    (64,) ×2        128
+blocks.0.mlp.c_fc.weight     (256, 64)     16384   ← FFN 升维 64 → 256
+blocks.0.mlp.c_fc.bias       (256,)          256
+blocks.0.mlp.c_proj.weight   (64, 256)     16384   ← FFN 降维 256 → 64
+blocks.0.mlp.c_proj.bias     (64,)            64
+(blocks.1 同上)                            49,984   ← 每个 Block 49,984
+ln_f.weight/bias             (64,) ×2        128
+                                   合计  108,352
+```
+
+三个值得注意的地方:
+
+1. **`lm_head` 不在清单里。** 它和 `wte` 共用同一块权重 (第 4.4 节), PyTorch 只算一次。
+2. **FFN 占了每个 Block 参数的 66%** (33,088 / 49,984)。很多人以为 Transformer 的参数主要在注意力里, 其实是在 FFN 里。GPT-3 等大模型也是这个比例。
+3. **`nn.Linear` 的权重形状是 `(输出, 输入)`**, 和数学书上 `x @ W` 的 `W: (输入, 输出)` 是反的。PyTorch 内部算的是 `x @ W.T`。读别人代码时这点经常让人困惑。
+
+### 3.2 形状追踪: 一个 batch 从头走到尾
+
+用 `B=2, S=8` 的输入 (`"First Ci"` 和 `"ROMEO:\nO"`), 在每个模块上挂钩子打印输出形状, 实测:
+
+```
+输入 idx                   (2, 8)        整数, 每个是字符编号
+wte                    -> (2, 8, 64)    查表: 每个编号换成一个 64 维向量
+wpe                    -> (8, 64)       位置 0~7 各一个向量 (没有 batch 维, 靠广播加到每条样本上)
+blocks[0].ln_1         -> (2, 8, 64)    LayerNorm 不改形状
+blocks[0].attn.c_attn  -> (2, 8, 192)   Q、K、V 拼在一起
+blocks[0].attn         -> (2, 8, 64)    注意力输出回到 64 维
+blocks[0].mlp.c_fc     -> (2, 8, 256)   FFN 升到 4 倍
+blocks[0].mlp          -> (2, 8, 64)    再降回来
+blocks[0]              -> (2, 8, 64)    一个 Block 进出形状不变 → 所以能叠任意多层
+ln_f                   -> (2, 8, 64)
+lm_head                -> (2, 8, 65)    每个位置对 65 个字符各打一个分
+```
+
+**记住这条主线**: 进模型是 `(B, S)` 的整数, 中间一直是 `(B, S, C)`, 出模型是 `(B, S, V)` 的分数。每个 Block 都是 `(B, S, C) → (B, S, C)`, 这就是 Transformer 可以随意加深的原因。
+
+---
+
+## 4. Embedding: 把编号变成向量
+
+### 4.1 一句话
+
+> 编号本身没有意义 (`H`=20 不代表 `H` 比 `i`=47 "小"), 所以给每个编号配一个可学习的向量, 让模型自己决定字符之间的关系。
+
+### 4.2 逐行拆解
+
+```python
+# __init__
+self.wte = nn.Embedding(config.vocab_size, config.n_embd)    # (65, 64)  token embedding
+self.wpe = nn.Embedding(config.block_size, config.n_embd)    # (64, 64)  position embedding
+
+# forward
+pos = torch.arange(0, S, dtype=torch.long, device=idx.device)   # [0, 1, ..., S-1]
+tok_emb = self.wte(idx)       # (B, S, C)   第 b 条样本第 s 个字符的向量
+pos_emb = self.wpe(pos)       # (S, C)      第 s 个位置的向量
+x = self.drop(tok_emb + pos_emb)   # 广播: (B,S,C) + (S,C) → (B,S,C)
+```
+
+`nn.Embedding(65, 64)` 本质上就是一张 65 行 × 64 列的表, `wte(idx)` 就是"按编号取第几行"。它和"把编号变成 one-hot 再乘一个矩阵"数学上完全等价, 只是查表更快。
+
+### 4.3 为什么需要位置向量
+
+注意力 (第 5 节) 本身不看顺序: 位置 i 把它能看到的前文 (0..i) 当成一个**无序的集合**来加权求和。
+举例来说, `"ABC"` 和 `"BAC"` 在最后一个位置看到的都是 {A, B, C} 这三个字符。如果没有位置向量,
+第一层在这个位置算出的结果会**完全相同**, 模型分不出谁先谁后。
+
+实测 (把 `wpe` 全部置零, 比较两种输入在各层最后一个位置的输出):
+
+```
+第 1 层, 最后位置:  相同      ← 看到的都是集合 {A, B, C}
+第 1 层, 位置 0:    不同      ← "ABC" 的位置 0 只看到 A, "BAC" 的只看到 B
+第 2 层, 最后位置:  不同      ← 第 2 层汇总的是第 1 层各位置的结果, 而位置 0 已经不同了
+```
+
+所以严格地说, 因果掩码让每个位置能看到的范围不同, 多层叠起来后会**间接**透露一些顺序信息。
+但这种线索很弱, 也很难学; 显式加上位置向量, 模型从第一层就能直接知道每个字符在哪。
+
+加上 `wpe` 后, 同一个字符 `e` 在位置 3 和位置 10 的向量就不一样了, 模型由此知道顺序。
+
+**为什么是"加"而不是"拼接"?** 拼接会让维度从 64 变 128, 后面所有层都得变大。相加保持维度不变, 实践中效果一样好: 64 维空间足够大, 模型会学着把"字符信息"和"位置信息"放到不同的方向上, 互不干扰。
+
+**局限**: `wpe` 只有 `block_size` 行, 所以模型**最多只能处理 64 个字符**的上下文, 超出部分没有对应的位置向量。`generate()` 里的截断 (第 11 节) 就是为此。现代模型改用 RoPE (旋转位置编码) 等方法来缓解这个限制, 见 [llm-transformer 第 3 节](../llm-transformer/TUTORIAL.md)。
+
+### 4.4 权重绑定: 输入表和输出表用同一张
+
+```python
+self.lm_head = nn.Linear(config.n_embd, config.vocab_size, bias=False)
+self.lm_head.weight = self.wte.weight      # 这一行让两者指向同一块内存
+```
+
+- `wte`: 编号 → 向量, 形状 `(65, 64)`
+- `lm_head`: 向量 → 对每个编号打分, 权重形状也是 `(65, 64)` (记得 `nn.Linear` 的权重是 `(输出, 输入)`)
+
+两者形状正好相同。直觉上它们做的是同一件事的两个方向: 如果字符 `e` 的向量是 **v**, 那么模型输出一个接近 **v** 的向量时, 就应该给 `e` 打高分。`lm_head` 的打分方式正是"输出向量和每个字符向量做点积", 用同一张表天然满足这个要求。
+
+好处: 少一份参数, 而且输入和输出两端都在训练同一张表, 学得更快。
+
+> ⚠️ **本项目踩过的坑 #1**: 早期版本漏了 `self.lm_head.weight = self.wte.weight` 这一行。
+> 代码照样能训练, 但 GPT-2 Small 配置的参数量是 **163.0M** 而不是文档里写的 **124.4M**,
+> 多出来的正好是 50257 × 768 = 38,597,376 个参数, 即一份独立的 `lm_head`。
+> 这类 bug 的特点是"不报错、能训练、只是不对", 唯一的发现办法是**拿参数量和公开数字核对**。
+
+---
+
+## 5. 注意力: 让每个字符看前文
+
+这是整个模型最核心的部分, 分 6 步讲。
+
+### 5.1 一句话
+
+> 每个位置拿着自己的"问题"(Q), 去和前面每个位置的"标签"(K) 比相似度, 按相似度加权, 把前面各位置的"内容"(V) 汇总过来。
+
+### 5.2 直觉: 为什么需要它
+
+猜 `"I will th"` 的下一个字符。只看最后一个字符 `h` 是不够的, 需要知道前面是 `t`, 再往前是一个空格, 才能判断这是一个 `th` 开头的新单词, 下一个很可能是 `e`。注意力让每个位置能**有选择地**从前文收集信息: 哪些位置相关就多看, 不相关就少看。
+
+训练好的 nano 模型在这个输入上给出的下一个字符概率 (实测):
+
+```
+P(下一个 | "ROMEO:\nI will th") = e: 0.56, a: 0.14, i: 0.10, o: 0.09, y: 0.07, u: 0.015
+```
+
+`the / that / this / those / thy / thus`, 模型的排序和英语里这些词的常见程度基本一致。
+
+### 5.3 公式与每一项的意思
+
+```
+Attention(Q, K, V) = softmax( Q·Kᵀ / √d_k  +  掩码 ) · V
+```
+
+| 部分 | 形状 (单头) | 意思 |
+|---|---|---|
+| `Q` (query) | `(S, d_k)` | 每个位置的"我想找什么" |
+| `K` (key) | `(S, d_k)` | 每个位置的"我能提供什么" |
+| `V` (value) | `(S, d_k)` | 每个位置真正交出去的内容 |
+| `Q·Kᵀ` | `(S, S)` | 第 i 行第 j 列 = 位置 i 对位置 j 的相关度 |
+| `/ √d_k` | | 缩放, 见 5.4 |
+| `+ 掩码` | `(S, S)` | 把"未来"位置的分数设成 -∞, 见 5.5 |
+| `softmax(…)` | `(S, S)` | 每一行变成和为 1 的权重 |
+| `· V` | `(S, d_k)` | 每个位置得到前文内容的加权平均 |
+
+Q、K、V 都由同一个输入 x 经过不同的线性变换得到, 所以叫 **Self**-Attention。
+
+### 5.4 为什么要除以 √d_k (实测)
+
+假设 Q、K 的每个分量都是均值 0、方差 1 的随机数。它们的点积是 d_k 项相加, 方差是 d_k, **标准差是 √d_k**。实测 10000 组:
+
+```
+d_k=4    std(q·k)=1.99    std(q·k/√d_k)=1.00
+d_k=16   std(q·k)=3.99    std(q·k/√d_k)=1.00
+d_k=64   std(q·k)=7.97    std(q·k/√d_k)=1.00
+d_k=256  std(q·k)=16.08   std(q·k/√d_k)=1.01
+```
+
+点积的尺度随维度增长, 那么尺度变大会怎样? 看 softmax 对输入放大的反应 (实测):
+
+```
+softmax([ 1,  2,  3]) = [0.090, 0.245, 0.665]     ← 有主有次, 三个位置都在贡献
+softmax([ 8, 16, 24]) = [0.000, 0.000, 0.9997]    ← 几乎只剩最大的
+softmax([16, 32, 48]) = [0.000, 0.000, 1.000]     ← 完全变成"只选一个"
+```
+
+分数尺度越大, softmax 越接近"只选最大值"。这时梯度几乎为 0 (改变输入几乎不影响输出), 模型学不动。除以 √d_k 把点积的标准差拉回 1 左右, 让 softmax 保持在"有主有次"的区间。
+
+### 5.5 因果掩码: 不许看未来
+
+```python
+# __init__: 建一次, 存成 buffer (不是参数, 不训练, 但会跟着 .to(device) 搬到 GPU)
+mask = torch.triu(torch.ones(block_size, block_size, dtype=torch.bool), diagonal=1)
+self.register_buffer("mask", mask.view(1, 1, block_size, block_size))
+```
+
+`torch.triu(..., diagonal=1)` 取**严格上三角** (对角线上方)。S=5 时 (1 = 屏蔽):
+
+```
+         看 j=0  1  2  3  4
+位置 i=0   [ 0,  1, 1, 1, 1 ]     位置 0 只能看自己
+      1   [ 0,  0, 1, 1, 1 ]     位置 1 能看 0、1
+      2   [ 0,  0, 0, 1, 1 ]
+      3   [ 0,  0, 0, 0, 1 ]
+      4   [ 0,  0, 0, 0, 0 ]     最后一个位置能看全部
+```
+
+```python
+scores = scores.masked_fill(mask[:, :, :S, :S], float("-inf"))
+attn_weights = F.softmax(scores, dim=-1)
+```
+
+`masked_fill` 把 mask 为 True 的格子填成 -∞; `exp(-∞) = 0`, 所以 softmax 之后这些位置的权重恰好是 0。实测一组随机 Q、K 算出的注意力权重:
+
+```
+[[1.    0.    0.    0.    0.   ]      ← 位置 0 只有自己, 权重 1
+ [0.438 0.562 0.    0.    0.   ]
+ [0.289 0.038 0.673 0.    0.   ]
+ [0.182 0.502 0.137 0.179 0.   ]
+ [0.131 0.044 0.047 0.081 0.696]]     ← 每行和为 1, 右上角全是 0
+```
+
+`mask[:, :, :S, :S]`: mask 按最大长度 64 建好, 实际输入可能更短, 切出左上角 S×S 来用。
+
+> ⚠️ **本项目踩过的坑 #2**: 早期版本是这样建掩码的:
+> ```python
+> mask = torch.tril(torch.ones(block_size, block_size))   # 浮点型下三角 (1 = 允许看)
+> ```
+> 这里有两个错误叠在一起:
+> 1. `masked_fill` 只接受 **bool** 型掩码, 浮点型直接报错, 脚本一运行就崩。
+> 2. 更隐蔽的是: 就算把它改成 bool, `masked_fill` 填的是 **True 的位置**, 而下三角的 True 恰好是"允许看"的区域。
+>    结果因果方向完全反了: 每个位置只能看**未来**、看不到过去; 最后一行全是 True, 全被填成 -∞, softmax 后得到 NaN。
+>
+> 正确做法是标记"要屏蔽"的区域: 严格上三角 (`triu`, `diagonal=1`) 设为 True。
+> **教训**: 掩码有两种相反的约定 (1=允许 / 1=屏蔽), 不同库用的不一样, 写之前先查清楚你调用的函数用哪种。
+
+### 5.6 多头: 同时问好几个问题
+
+一个注意力头只能形成一种"关注模式"。实践中, 位置 i 可能同时需要"上一个字符是什么"和"这个词从哪里开始"两类信息。多头把 C=64 维切成 H=2 份, 每份 32 维独立做注意力, 最后拼回来。
+
+逐行拆解 [model.py](model.py) 的 `CausalSelfAttention.forward`, 以 nano (B=32, S=64, C=64, H=2, d_k=32) 为例:
+
+```python
+B, S, C = x.shape                                   # 32, 64, 64
+
+qkv = self.c_attn(x)                                # (32, 64, 192)  一次矩阵乘法算出 Q、K、V
+q, k, v = qkv.split(C, dim=-1)                      # 各 (32, 64, 64)
+
+q = q.view(B, S, self.n_heads, self.d_k)            # (32, 64, 2, 32)  把 64 维看成 2 个头 × 32 维
+q = q.transpose(1, 2)                               # (32, 2, 64, 32)  把"头"挪到前面
+# k、v 同理
+
+attn_out, _ = scaled_dot_product_attention(q, k, v, self.mask)   # (32, 2, 64, 32)
+
+attn_out = attn_out.transpose(1, 2)                 # (32, 64, 2, 32)  头挪回后面
+attn_out = attn_out.contiguous().view(B, S, C)      # (32, 64, 64)     2 个头拼回 64 维
+
+return self.resid_dropout(self.c_proj(attn_out))    # (32, 64, 64)     输出投影, 让各头的信息混合
+```
+
+**为什么要 `transpose(1, 2)`?** `torch.matmul` 对最后两维做矩阵乘法, 前面的维度当作"批"。把形状排成 `(B, H, S, d_k)` 后, `q @ k.transpose(-2, -1)` 就自动对每条样本、每个头分别算出 `(S, S)` 的分数矩阵, 不用写循环。
+
+**为什么要 `.contiguous()`?** `transpose` 不真正搬动数据, 只是改了"怎么读"; 此时内存里的数据顺序和新形状不一致, `view` 要求数据连续存放, 所以必须先 `contiguous()` 复制一份连续的。漏了会报错 `view size is not compatible with input tensor's size and stride`。
+
+**为什么 Q、K、V 用一个大矩阵 `c_attn` 而不是三个小矩阵?** 数学上完全等价 (三个 64×64 的矩阵拼成一个 64×192)。一次大的矩阵乘法比三次小的在 GPU 上更快。
+
+**多头不增加参数**: 不管分几个头, `c_attn` 都是 64×192。多头只是改变了"怎么用"这些参数。
+
+---
+
+## 6. FFN: 每个位置独立地"想一想"
+
+### 6.1 一句话
+
+> 注意力负责"从别处收集信息", FFN 负责"对收集来的信息做加工"; 它对每个位置独立计算, 位置之间不交流。
+
+### 6.2 逐行拆解
+
+```python
+self.c_fc   = nn.Linear(64, 4 * 64)      # 升维到 256
+self.gelu   = nn.GELU()
+self.c_proj = nn.Linear(4 * 64, 64)      # 降回 64
+
+def forward(self, x):                    # (B, S, 64)
+    x = self.c_fc(x)                     # (B, S, 256)
+    x = self.gelu(x)                     # 非线性
+    x = self.c_proj(x)                   # (B, S, 64)
+    return self.dropout(x)
+```
+
+**为什么先升维再降维?** 在高维空间里, 一个非线性函数能表达的变换多得多。中间维度取 4 倍是 GPT-2 原论文的选择, 之后的大部分模型沿用了这个比例 (LLaMA 用 SwiGLU 时改成约 8/3 倍, 见 [llm-transformer 第 5 节](../llm-transformer/TUTORIAL.md))。
+
+**为什么一定要有非线性 (GELU)?** 两个线性层叠在一起还是一个线性层 (`W2 @ (W1 @ x) = (W2 @ W1) @ x`), 没有 GELU 的话这 32,768 个参数等于白加。
+
+**GELU vs ReLU**: ReLU 在 0 处是一个硬拐角 (负数全部变 0); GELU 是一条平滑曲线, 负数会被压小但不完全归零。平滑意味着梯度处处连续, 训练更稳定。GPT-2 选了 GELU, 之后的模型大多跟进。
+
+---
+
+## 7. Block: 残差连接 + Pre-LN
+
+### 7.1 一句话
+
+> 每个子层 (注意力、FFN) 都不直接替换 x, 而是算出一个"修改量"加到 x 上; 算之前先把 x 归一化。
+
+### 7.2 代码
+
+```python
+def forward(self, x):
+    x = x + self.attn(self.ln_1(x))    # 残差: x 加上注意力的"修改量"
+    x = x + self.mlp(self.ln_2(x))     # 残差: x 加上 FFN 的"修改量"
+    return x
+```
+
+只有两行, 但包含了两个决定 Transformer 能否训练起来的设计。
+
+### 7.3 残差连接: 为什么是 `x + f(x)` 而不是 `f(x)`
+
+- **信息不丢**: 就算某一层什么都没学到 (`f(x)≈0`), x 也原样传了下去。
+- **梯度有高速公路**: 求导时 `d(x + f(x))/dx = 1 + f'(x)`。那个 "1" 让梯度可以不经过任何权重直接从 loss 传回第一层, 不会因为层数多而越乘越小 (梯度消失)。这是能把网络叠到几十上百层的前提。
+
+可以把整个模型理解为: 一条贯穿始终的"主干" x, 每一层往上面写一点东西。研究者常把这条主干叫 **residual stream (残差流)**。
+
+### 7.4 LayerNorm: 把每个向量拉回标准尺度
+
+对每个位置的 64 维向量, 减去自己的均值、除以自己的标准差, 再乘一个可学习的缩放 γ、加一个可学习的偏移 β:
+
+```
+LN(x) = γ · (x - mean(x)) / sqrt(var(x) + ε) + β
+```
+
+数值例子 (实测, γ=1, β=0 的初始状态):
+
+```
+x       = [2, 4, 6, 8]          mean = 5, var = 5, std = 2.236
+LN(x)   = [-1.342, -0.447, 0.447, 1.342]
+```
+
+无论输入整体多大多小, 输出都是均值 0、标准差 1。这让每一层拿到的输入尺度稳定, 训练不容易发散。
+
+### 7.5 Pre-LN vs Post-LN
+
+| | 写法 | 特点 |
+|---|---|---|
+| Post-LN (2017 原版 Transformer) | `x = LN(x + f(x))` | LN 挡在残差主干上, 梯度要穿过它; 深了以后很难训练, 必须小心地用 warmup |
+| **Pre-LN (GPT-2 起, 本项目)** | `x = x + f(LN(x))` | 主干上没有任何东西挡着, 梯度高速公路畅通; 训练稳定得多 |
+
+Pre-LN 的代价是主干上的数值会随层数一直累加、越来越大, 所以在所有 Block 之后要再补一个 `ln_f`, 把它拉回标准尺度再交给 `lm_head`。这就是 `GPT.forward` 末尾 `x = self.ln_f(x)` 的由来。
+
+---
+
+## 8. 输出与损失: loss 的数值意味着什么
+
+### 8.1 从向量到概率
+
+```python
+logits = self.lm_head(x)        # (B, S, 65)  每个位置对 65 个字符各打一个分, 可正可负
+```
+
+`logits` 还不是概率。softmax 把它变成和为 1 的概率分布:
+
+```
+P(字符 c) = exp(logit_c) / Σ exp(logit_所有字符)
+```
+
+### 8.2 交叉熵: 猜对答案的概率取负对数
+
+```python
+loss = F.cross_entropy(
+    logits.view(-1, logits.size(-1)),    # (B*S, 65)  把所有位置摊平成一个大 batch
+    targets.view(-1),                    # (B*S,)
+)
+```
+
+对每个位置, 只看模型给**正确答案**分配了多少概率 p, loss = `-ln(p)`, 再对所有位置取平均。实测换算:
+
+```
+p = 1/65 = 0.0154  →  loss = 4.1744     (纯瞎猜)
+p = 0.1            →  loss = 2.3026
+p = 0.5            →  loss = 0.6931
+p = 0.9            →  loss = 0.1054
+p = 1.0            →  loss = 0         (完全确定且猜对)
+```
+
+### 8.3 初始 loss ≈ ln(V): 最有用的自检
+
+刚初始化的模型输出接近随机, 对 65 个字符的打分差不多, 概率都约等于 1/65, 所以 loss 应该约等于 `ln(65) = 4.1744`。
+
+回头看第 1.2 节的日志: `iter 0 | train_loss 4.1787`, **和理论值只差 0.004**。
+
+这是查 bug 最便宜的办法。**第 0 步的 loss 明显偏离 ln(V), 就说明有问题**:
+
+| 第 0 步 loss | 可能的原因 |
+|---|---|
+| 远大于 ln(V), 比如 10、20 | 初始化尺度太大, 模型一上来就很"自信"地猜错 |
+| 远小于 ln(V), 比如 0.5 | 答案泄漏了: 掩码写错让模型看到了未来, 或 x、y 没有错开一位 |
+| NaN | 掩码让某一行全是 -∞; 或学习率/数值溢出 |
+
+### 8.4 读懂 `val_loss 1.92`
+
+loss 是对数尺度, 不直观。取 `e^loss` 得到 **困惑度 (perplexity)**:
+
+```
+e^4.1744 = 65.0     训练前: 相当于每次在 65 个字符里均匀瞎猜
+e^1.9209 = 6.83     训练后: 相当于每次在约 7 个候选里挑
+```
+
+从"65 选 1"进步到"约 7 选 1", 这就是 5000 步训练换来的东西。
+
+### 8.5 `ignore_index=-1`
+
+`cross_entropy` 会跳过答案等于 -1 的位置。本项目所有样本都是满长度, 用不到; 它是为"把长短不一的句子补齐到同一长度"的场景预留的: 补齐的位置标成 -1, 就不会参与 loss。
+
+---
+
+## 9. 初始化: 起点也有讲究
+
+```python
+def _init_weights(self, module):
+    if isinstance(module, nn.Linear):
+        torch.nn.init.normal_(module.weight, mean=0.0, std=0.02)
+        if module.bias is not None:
+            torch.nn.init.zeros_(module.bias)
+    elif isinstance(module, nn.Embedding):
+        torch.nn.init.normal_(module.weight, mean=0.0, std=0.02)
+
+# 之后再单独处理所有 c_proj:
+for pn, p in self.named_parameters():
+    if pn.endswith("c_proj.weight"):
+        torch.nn.init.normal_(p, mean=0.0, std=0.02 / math.sqrt(2 * config.n_layer))
+```
+
+**std=0.02** 是 GPT-2 论文用的值。足够小, 让初始 logits 接近 0、概率接近均匀, 于是初始 loss ≈ ln(V) (第 8.3 节)。
+
+**为什么 `c_proj` 要再除以 √(2·n_layer)?** `c_proj` 是每个子层写回残差主干的最后一步。整个模型有 `n_layer` 个 Block, 每个 Block 往主干上加 2 次 (注意力、FFN 各一次), 一共 `2·n_layer` 次。如果每次加的量方差都是 σ², 加完后主干的方差就是 `2·n_layer·σ²`, 模型越深越大。把每次的标准差缩小 √(2·n_layer) 倍, 加完后的总方差就和层数无关了。
+
+---
+
+## 10. 训练循环
+
+### 10.1 优化器: AdamW
+
+```python
+optimizer = optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), eps=1e-8, weight_decay=0.1)
+```
+
+- **Adam**: 给每个参数单独维护一个"历史梯度的平均"和"历史梯度平方的平均", 用它们调节步长。梯度一直很大的参数自动走小步, 一直很小的走大步。
+- **W (decoupled weight decay)**: 每一步把参数往 0 拉一点, 防止某些参数长得过大。AdamW 的改进在于这个"拉"和 Adam 的自适应步长分开计算, 效果比老式 L2 正则更好。
+- **`betas=(0.9, 0.95)`**: 第二个数比默认的 0.999 小, 意味着对"梯度平方"的记忆更短, 遇到梯度突变时反应更快。这是 GPT 系列训练的常用设置。
+
+> 💡 一个可以改进的点: 本项目对**所有参数**都施加 weight decay, 包括 LayerNorm 的 γ/β 和各种 bias。
+> 更常见的做法 (nanoGPT、[llm-transformer/train.py](../llm-transformer/train.py)) 是只对二维的权重矩阵施加,
+> 因为把 LayerNorm 的缩放往 0 拉没有道理。这里不算 bug, 但留作第 14 节的练习。
+
+### 10.2 学习率: 先热身, 再余弦下降
+
+```python
+def get_lr(it, warmup_iters, lr_decay_iters, learning_rate, min_lr):
+    if it < warmup_iters:                                   # 阶段 1: 线性升温
+        return learning_rate * it / warmup_iters
+    if it > lr_decay_iters:                                 # 阶段 3: 保持最低
+        return min_lr
+    decay_ratio = (it - warmup_iters) / (lr_decay_iters - warmup_iters)
+    coeff = 0.5 * (1.0 + math.cos(math.pi * decay_ratio))   # 从 1 平滑降到 0
+    return min_lr + coeff * (learning_rate - min_lr)        # 阶段 2: 余弦下降
+```
+
+默认参数 (lr=1e-3, warmup=100, 共 5000 步, min_lr=1e-4) 的实测取值:
+
+```
+it=0     lr=0.000e+00     ┐
+it=50    lr=5.000e-04     ├ 热身: 100 步内从 0 线性升到峰值
+it=100   lr=1.000e-03     ┘
+it=1000  lr=9.271e-04     ┐
+it=2550  lr=5.500e-04     ├ 余弦: 开头和结尾降得慢, 中间降得快; 正中间 (2550) 恰好是峰值和最低值的平均
+it=4000  lr=1.894e-04     │
+it=5000  lr=1.000e-04     ┘
+it=6000  lr=1.000e-04       之后保持最低值
+```
+
+**为什么要热身?** 刚开始参数是随机的, 梯度方向很不可靠; Adam 维护的两个平均值也还没积累起来, 估得不准。这时候用大学习率容易一步迈错, loss 直接飞掉。先用小步走一段, 等统计量稳定了再加速。
+
+**为什么最后要降下来?** 训练后期离好的解已经很近, 大步长会在最优点附近来回震荡。步子缩小才能落进去。
+
+### 10.3 一步训练的逐行拆解
+
+```python
+x, y = next(batches)                                  # ① 取一个 batch
+x, y = x.to(device), y.to(device)
+
+with torch.autocast(device_type=device, enabled=use_amp):
+    logits, loss = model(x, y)                        # ② 前向
+
+optimizer.zero_grad()                                 # ③ 清掉上一步的梯度 (PyTorch 默认会累加)
+scaler.scale(loss).backward()                         # ④ 反向, 算梯度
+
+scaler.unscale_(optimizer)                            # ⑤ 混合精度下先把梯度还原到真实尺度
+torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)   # ⑥ 梯度裁剪
+
+scaler.step(optimizer)                                # ⑦ 更新参数
+scaler.update()
+```
+
+**③ 为什么要 `zero_grad`?** PyTorch 的 `.backward()` 是把新梯度**加到**已有梯度上, 而不是覆盖。忘了清零, 每一步的梯度就是之前所有步的总和, 训练会迅速发散。
+
+**⑥ 梯度裁剪**: 把所有参数的梯度看成一个长向量, 如果它的长度 (L2 范数) 超过 1.0, 就整体按比例缩小到 1.0; 方向不变, 只限制步子的最大幅度。偶尔遇到一个"怪" batch 产生巨大的梯度时, 它能防止一步就把训练搞崩。
+
+**④⑤⑦ 里的 `scaler`**: 只在开启 `--amp` (混合精度) 时起作用, 不开时这些调用什么都不做。混合精度用 16 位浮点数做大部分计算来提速省显存。fp16 能表示的最小正数有限, 很小的梯度会直接变成 0 (下溢), 所以先把 loss 放大 (`scale`), 算完梯度再缩回来 (`unscale_`)。
+
+> 💡 本机 (RTX 5060, Blackwell) 实测 `--amp` 在本项目上可以正常训练: 参数保持 fp32, 只有计算是 fp16。
+> 但在 [llm-qlora-finetune](../llm-qlora-finetune/) 里, 由于模型权重本身是 bf16, 用 fp16 的 scaler 会崩溃,
+> 那边必须用 bf16。两个场景的区别在于**参数本身是什么精度**。
+
+### 10.4 评估: 为什么要固定看同一批数据
+
+```python
+@torch.no_grad()
+def evaluate(model, loader, device, use_amp, max_batches=20):
+    model.eval()                    # 关闭 dropout
+    total, n = 0.0, 0
+    for x, y in loader:             # val_loader 不打乱, 所以每次都是同样的前 20 个 batch
+        if n >= max_batches:
+            break
+        ...
+    model.train()                   # 切回训练模式 (重新打开 dropout)
+    return total / max(n, 1)
+```
+
+- **`@torch.no_grad()`**: 评估不需要梯度, 关掉可以省显存、提速。
+- **`model.eval()` / `model.train()`**: 训练时 dropout 会随机丢掉一部分神经元, 评估时要关掉, 否则同一个输入每次结果都不一样。评估完必须切回去, 忘了切回去后面的训练就没有 dropout 了。
+- **固定看同一批**: 用 val_loss 来挑"最好的 checkpoint", 前提是不同时刻的 val_loss 可比。如果每次随机抽不同的 batch, 数字的波动里会混进"这次抽到的数据难不难", 挑出来的不一定真的最好。
+
+> ⚠️ **本项目踩过的坑 #3**: 早期版本的评估是这样写的:
+> ```python
+> for _ in range(20):
+>     x_val, y_val = next(iter(val_loader))
+> ```
+> `iter(val_loader)` 每次都新建一个迭代器, 而 val_loader 不打乱, 所以**每次拿到的都是第一个 batch**。
+> 这个循环看起来是"取 20 个 batch 求平均", 实际上是把同一个 batch 算了 20 遍:
+> 验证集有 1742 块, 实际只用了 32 块。
+> 这个 bug 不报错, 打印出来的 val_loss 看上去也合理, 只能靠"两次取出来的 batch 是否相同"这种直接检查发现。
+> 训练取数原来也是同样写法, 虽然因为训练集打乱了所以结果是对的, 但每一步都重建迭代器, 白白浪费时间。现在改为
+> `infinite_batches()` 持有一个迭代器反复用。
+
+---
+
+## 11. 生成: 一次一个字符
+
+### 11.1 自回归循环
+
+```python
+@torch.no_grad()
+def generate(self, idx, max_new_tokens, temperature=1.0, top_k=None):
+    for _ in range(max_new_tokens):
+        idx_cond = idx if idx.size(1) <= self.config.block_size else idx[:, -self.config.block_size:]   # ①
+        logits, _ = self(idx_cond)                         # ② 整段前向
+        logits = logits[:, -1, :] / temperature            # ③ 只要最后一个位置的预测
+        if top_k is not None:                              # ④ 只保留前 k 名
+            v, _ = torch.topk(logits, min(top_k, logits.size(-1)))
+            logits[logits < v[:, [-1]]] = float("-inf")
+        probs = F.softmax(logits, dim=-1)
+        idx_next = torch.multinomial(probs, num_samples=1) # ⑤ 按概率抽一个
+        idx = torch.cat((idx, idx_next), dim=1)            # ⑥ 接到末尾, 进入下一轮
+    return idx
+```
+
+① **截断**: 位置表只有 `block_size` 行 (第 4.3 节), 输入超过这个长度就只保留最近的 `block_size` 个字符。模型因此"忘记"了更早的内容。
+
+> ⚠️ **本项目踩过的坑 #4** (发生在姊妹项目 [llm-transformer](../llm-transformer/)):
+> 那边的 `generate` 把截断长度写死成 1024, 而训练用的 `block_size` 是 128。
+> 训练全程正常, 直到训练结束开始生成, 一超过 128 个字符就越界崩溃。
+> 在 GPU 上它的报错是 `CUBLAS_STATUS_EXECUTION_FAILED`, 看起来像驱动或显卡问题, 实际是下标越界;
+> 改到 CPU 上跑, 才得到真正的报错 `IndexError: index out of range in self`。
+> **教训**: GPU 报的错往往是异步的、二手的。看不懂 CUDA 报错时, 先用 CPU 复现一次。
+
+② **效率问题**: 每生成一个字符, 都把整段输入重新算一遍, 前面那些位置的结果其实上一轮已经算过。真实系统用 **KV Cache** 把每个位置的 K、V 存下来, 新一轮只算最新的一个位置。本项目为了代码简单没有实现。
+
+③ **只取最后一个位置**: 模型对每个位置都给了预测, 但生成时只关心"整段文字之后的下一个字符", 也就是最后一个位置的输出。
+
+### 11.2 temperature 和 top-k: 实测对比
+
+温度是在 softmax 之前把 logits 除以 T:
+- **T < 1**: 分数差距被放大, 分布变尖, 更倾向于选最可能的字符。
+- **T > 1**: 分数差距被缩小, 分布变平, 不常见的字符也有机会被选中。
+
+top-k 是只在分数最高的 k 个字符里抽, 其余的概率直接设成 0。
+
+用第 1 节训练好的 nano 模型, 以 `"ROMEO:\n"` 开头生成 120 个字符, 同一个随机种子, 实测:
+
+**T=0.01 (几乎等于每次都选最可能的那个)**
+```
+ROMEO:
+I will the shall the shall the the the the so the son the the the the the the the the the the the the the the the th
+```
+陷入重复。每一步都选当下最可能的字符, 而 "the" 后面最可能的又是 " the"。只选最优在局部是对的, 合起来却是车轱辘话。
+
+**T=0.8, top_k=50 (train.py 里的默认设置)**
+```
+ROMEO:
+My cloud shad may the such crone, thou nobled for you for thee plaiston,
+Bre that and of the not so,
+The thou dukee sigh
+```
+
+**T=1.0, 不限制**
+```
+ROMEO:
+My cloud shad day:
+we my chard's, onot nobled fe thy erear heed lamst of dreactable man's pland her,
+Two thou du
+```
+
+**T=1.5 (太随机)**
+```
+ROMEO:
+Mistloulf;
+Od Caund for AUTYARK:
+Wo, Whnquen'd.  Herye ear heed lamst-d!
+
+KISSICER:
+```
+拼写崩坏, 开始出现 `AUTYARK`、`KISSICER` 这样的"人名"。
+
+**T=0.8, top_k=3 (候选太少)**
+```
+ROMEO:
+This the shall, that she heard to that that to the the to thee that to a the that and and the here her that to thee the
+```
+每一步只能在 3 个字符里挑, 和 T 很低的效果类似, 又开始重复。
+
+**结论**: 低温和小 k 都让输出"保守", 代价是重复; 高温让输出"大胆", 代价是胡言乱语。0.7~1.0 的温度配合中等的 k 是常见的平衡点。注意 **nano 有 65 个字符, `top_k=50` 几乎不起作用**, 它在词表几万的 BPE 模型上才有意义。
+
+---
+
+## 12. 规模: 放大模型会怎样
+
+### 12.1 nano vs micro 实测对比
+
+```bash
+python train.py --config nano                    # 5000 步
+python train.py --config micro --max_iters 3000  # 3000 步
+```
+
+| | nano | micro |
+|---|---|---|
+| 层数 / 头数 / 维度 | 2 / 2 / 64 | 4 / 4 / 128 |
+| 上下文长度 `block_size` | 64 | 256 |
+| 参数量 | 108,352 | 834,432 (7.7 倍) |
+| 每步看的字符数 (B×S) | 32 × 64 = 2,048 | 32 × 256 = 8,192 |
+| 每步耗时 (本机) | 5~7 ms | 37~115 ms (见下方说明) |
+| 训练步数 | 5000 | 3000 |
+| 最佳 val_loss | 1.921 (困惑度 6.8) | **1.636** (困惑度 5.1) |
+
+**每步耗时为什么波动这么大**: 同一个 micro 配置, 本机测到过 37ms 也测到过 115ms。笔记本 GPU 的频率受功耗和温度限制, 后台有别的程序 (比如开着的 Jupyter) 用 GPU 时也会变慢。所以**单次计时只能看量级**, 要比较两个配置的速度, 得在同样条件下各跑几次。
+
+用同样的开头 `"ROMEO:\n"` 和同样的设置 (T=0.8, top_k=50, 种子 42) 各生成 200 个字符:
+
+**nano**
+```
+ROMEO:
+My cloud shad may the such crone, thou nobled for you for thee plaiston,
+Bre that and of the not so,
+The thou dukee sigh fament.
+
+FORCHENRY OR OF MARD ORII:
+No no not I, was with fairth then has and d
+```
+
+**micro**
+```
+ROMEO:
+My cloud sover, you more courtness to the bed.
+
+HENRY BOLINGBROKE:
+March, report them; how they heart, that it up.
+
+AUTOLYCUS:
+He her hand, let me be the fall for the prince,
+With cause the hope and d
+```
+
+micro 的进步:
+- **人名是真的**: `HENRY BOLINGBROKE` (《理查二世》) 和 `AUTOLYCUS` (《冬天的故事》) 作为说话人在训练语料里分别出现了 90 次和 67 次, 模型把它们完整记住了。nano 只能编出 `FORCHENRY OR OF MARD ORII` 这种"看起来像人名"的东西。
+- **几乎没有拼错的词**, 标点和断句也更自然。
+- 句子仍然没有意义。字符级模型要学会"意思", 需要大得多的规模。
+
+### 12.2 留意过拟合的苗头
+
+micro 训练日志里 train_loss 和 val_loss 的差距:
+
+```
+iter  1000 | train_loss 1.8102 | val_loss 1.8847    差 0.07
+iter  2000 | train_loss 1.5689 | val_loss 1.6852    差 0.12
+iter  2500 | train_loss 1.4991 | val_loss 1.6513    差 0.15
+```
+
+nano 训练到最后两者基本持平 (1.96 vs 1.93), micro 的差距却在一路拉大。这说明 micro 开始**背训练集**了: 它在见过的文本上越来越准, 在没见过的文本上进步越来越慢。Tiny Shakespeare 只有约 100 万字符, 对 83 万参数的模型来说已经偏少。
+
+如果继续加大模型或延长训练, val_loss 迟早会掉头上升。应对办法: 加大 `--dropout`、减少训练步数、或者换更大的语料。`train.py` 保存的是 **val_loss 最低**的那个 checkpoint (`model_best.pt`), 所以即使后面过拟合了, 你拿到的仍是最好的那一版。
+
+### 12.3 估算更大模型的参数量
+
+```bash
+python config.py
+```
+
+```
+配置名               层数   头数     维度        参数量
+nano               2    2     64     119.4K
+micro              4    4    128       7.3M
+small             12   12    768     124.4M
+medium            24   16   1024     354.6M
+large             36   20   1280     773.6M
+```
+
+这里 nano、micro 的数字比 12.1 节的表大, 是因为 `config.py` 按 GPT-2 的 50257 词表估算, 而训练时实际词表只有 65。可见在小模型里, **词表大小对参数量影响很大**: micro 换成 GPT-2 词表, 光 embedding 就有 50257 × 128 ≈ 640 万参数, 比模型其余部分加起来还多。
+
+想在本机 8GB 显存上训练 small (124M) 是可行的, 但用 Tiny Shakespeare 训练它会严重过拟合; 那个规模需要的是 GB 级的语料。
+
+---
+
+## 13. 本项目踩坑记录汇总
+
+| # | 现象 | 根因 | 为什么当时没发现 | 怎么发现的 |
+|---|---|---|---|---|
+| 1 | GPT-2 Small 实际 163M, 文档写 124M | 漏了 `lm_head` 和 `wte` 的权重绑定 | 不报错, 照样能训练 | 拿参数量和公开数字核对 |
+| 2 | 脚本一运行就崩; 简单修复后因果方向反转, 出现 NaN | 掩码约定写反 (1=允许 vs 1=屏蔽), 且用了浮点型 | 第一层错误 (类型) 掩盖了第二层错误 (方向) | 读 `masked_fill` 文档, 打印掩码矩阵 |
+| 3 | val_loss 只代表 32 块数据 | `next(iter(loader))` 每次都新建迭代器 | 数字看起来合理, 不报错 | 直接比较两次取出的 batch 是否相同 |
+| 4 | (llm-transformer) 训练结束时报 CUBLAS 错误 | 生成时截断长度写死, 位置表越界 | 只在训练结束后的生成阶段触发; GPU 报错是二手的 | 切到 CPU 复现, 拿到真正的 IndexError |
+
+共同点: **前三个都不会让程序崩溃 (修复后的 #2 也是), 结果"看起来合理"。** 深度学习代码最危险的 bug 就是这一类。对付它们的通用办法:
+
+1. 第 0 步 loss 和 ln(V) 对一下 (第 8.3 节)。
+2. 参数量和公开数字对一下 (第 3.1 节)。
+3. 掩码、数据切分这类东西, 打印出来用眼睛看一遍。
+4. 能用很小的例子手算验证的, 就手算一遍。
+5. GPU 报错看不懂, 先切到 CPU。
+
+---
+
+## 14. 练习
+
+每道题先自己想, 再展开答案。
+
+### 练习 1: 预测初始 loss
+
+如果把数据换成一份有 100 种不同字符的语料, 模型刚初始化时的 loss 大约是多少? 如果实际跑出来是 0.3, 你会先怀疑什么?
+
+<details>
+<summary>答案</summary>
+
+`ln(100) ≈ 4.605`。
+
+如果是 0.3, 说明模型一开始就有约 74% (e^-0.3) 的把握猜对答案, 一个随机模型不可能做到, 一定是答案泄漏了。优先检查两处: 因果掩码是否写反或没生效; x 和 y 是否真的错开了一位 (如果 y 就是 x, 模型只要原样输出输入就能猜对)。
+</details>
+
+### 练习 2: 去掉 √d_k 会怎样
+
+把 `scaled_dot_product_attention` 里的 `/ math.sqrt(d_k)` 删掉, 分别用 nano (d_k=32) 和 small (d_k=64) 训练, 你预期哪个受影响更大? 为什么?
+
+<details>
+<summary>答案</summary>
+
+small 受影响更大。点积的标准差约为 √d_k (第 5.4 节): nano 约 5.7, small 约 8。尺度越大, softmax 越容易饱和成"只选一个", 梯度越小。
+
+实际跑的时候还要注意: 初始化时 std=0.02 让 Q、K 很小, 点积一开始并不大, 所以训练初期差别可能不明显; 随着权重长大, 差别才会显现出来。这也是为什么不缩放的问题容易被忽视。
+</details>
+
+### 练习 3: 只对权重矩阵做 weight decay
+
+参考 [llm-transformer/train.py](../llm-transformer/train.py) 里的写法, 改造本项目的优化器: 二维参数施加 weight_decay=0.1, 一维参数 (LayerNorm 和 bias) 不施加。对比改造前后 5000 步的最佳 val_loss。
+
+<details>
+<summary>提示与参考写法</summary>
+
+```python
+decay     = [p for n, p in model.named_parameters() if p.dim() >= 2]
+no_decay  = [p for n, p in model.named_parameters() if p.dim() < 2]
+optimizer = optim.AdamW(
+    [{"params": decay, "weight_decay": 0.1},
+     {"params": no_decay, "weight_decay": 0.0}],
+    lr=args.lr, betas=(0.9, 0.95), eps=1e-8,
+)
+```
+
+注意 `wte` 是二维的, 会被施加 decay; 因为它和 `lm_head` 绑定, `named_parameters()` 里只会出现一次, 不会被重复计算。在 nano 这么小的模型上差别可能在噪声范围内, 这本身也是一个值得记录的结论。
+</details>
+
+### 练习 4: 为什么 FFN 不需要掩码
+
+注意力需要因果掩码防止偷看未来, 为什么 FFN 不需要?
+
+<details>
+<summary>答案</summary>
+
+FFN 对每个位置独立计算 (`nn.Linear` 只作用在最后一维 C 上), 位置 i 的输出只取决于位置 i 的输入, 根本没有途径接触到其它位置。整个模型里, **只有注意力会在位置之间传递信息**, 所以只需要在注意力里加掩码。
+</details>
+
+### 练习 5: 手算一行注意力
+
+位置 2 的注意力分数 (已除以 √d_k) 是 `[1.0, 0.0, 2.0, 5.0, 3.0]`, 应用因果掩码并做 softmax 后, 每个位置的权重是多少?
+
+<details>
+<summary>答案</summary>
+
+位置 2 只能看 0、1、2, 位置 3、4 被设成 -∞:
+
+```
+exp([1.0, 0.0, 2.0]) = [2.718, 1.000, 7.389], 和 = 11.107
+权重 = [0.245, 0.090, 0.665, 0, 0]
+```
+
+可以用 `torch.softmax(torch.tensor([1., 0., 2.]), 0)` 核对。注意被屏蔽位置的原始分数 (5.0、3.0) 再大也没有影响。
+</details>
+
+---
+
+## 15. 延伸学习资源
+
+### 视频
+- **Andrej Karpathy, "Let's build GPT: from scratch, in code, spelled out."** (YouTube, 约 2 小时)。和本项目几乎是同一份代码的现场推导, 强烈推荐。
+- **3Blue1Brown, "Neural Networks" 系列第 5~6 集** (Transformer 与注意力)。用动画讲清楚注意力在几何上在做什么。
+
+### 代码
+- [karpathy/nanoGPT](https://github.com/karpathy/nanoGPT): 本项目的直接参考, `model.py` 不到 400 行。
+- [karpathy/minGPT](https://github.com/karpathy/minGPT): nanoGPT 的前身, 注释更偏教学。
+- [rasbt/LLMs-from-scratch](https://github.com/rasbt/LLMs-from-scratch): 《从零构建大模型》配套代码, 讲解更系统。
+
+### 文章
+- Jay Alammar, *The Illustrated GPT-2*: 大量图示, 适合在第 5 节卡住时看。
+- Vaswani et al., 2017, *Attention Is All You Need*: Transformer 原论文。
+- Radford et al., 2019, *Language Models are Unsupervised Multitask Learners*: GPT-2 论文, 本项目的初始化 std=0.02 和残差缩放都出自这里。
+
+### 本仓库内
+- [llm-bpe-tokenizer](../llm-bpe-tokenizer/TUTORIAL.md): 把本项目的字符级分词换成 BPE, 下一步自然的升级。
+- [llm-transformer](../llm-transformer/TUTORIAL.md): 本项目每个组件的"现代版本" (RoPE、RMSNorm、SwiGLU、GQA)。
