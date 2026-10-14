@@ -25,7 +25,6 @@ from pathlib import Path
 
 import torch
 import torch.optim as optim
-from torch.cuda.amp import GradScaler, autocast
 
 from model import GPT
 from config import GPTConfig, MODELS
@@ -59,7 +58,43 @@ def get_lr(it, warmup_iters, lr_decay_iters, learning_rate, min_lr):
 
 
 # ============================================================
-# 2. 训练循环
+# 2. 取 batch 与评估
+# ============================================================
+
+def infinite_batches(loader):
+    """无限循环地产出 batch: 一个 epoch 用完就重新打乱开始下一个。
+
+    不能每步都写 next(iter(loader)): 那样每步都新建迭代器 (开销大),
+    而对不打乱的 loader 来说, 永远只会拿到第一个 batch。
+    """
+    while True:
+        for batch in loader:
+            yield batch
+
+
+@torch.no_grad()
+def evaluate(model, loader, device, use_amp, max_batches=20):
+    """在 loader 的前 max_batches 个 batch 上求平均 loss。
+
+    val_loader 不打乱, 所以每次评估看的都是同一批数据 ——
+    这正是我们想要的: 不同时刻的 val_loss 才能直接比较 (用于挑最佳 checkpoint)。
+    """
+    model.eval()
+    total, n = 0.0, 0
+    for x, y in loader:
+        if n >= max_batches:
+            break
+        x, y = x.to(device), y.to(device)
+        with torch.autocast(device_type=device, enabled=use_amp):
+            _, loss = model(x, y)
+        total += loss.item()
+        n += 1
+    model.train()
+    return total / max(n, 1)
+
+
+# ============================================================
+# 3. 训练循环
 # ============================================================
 
 def train(args):
@@ -102,7 +137,7 @@ def train(args):
     
     # ── 混合精度 ──
     use_amp = device == "cuda" and args.amp
-    scaler = GradScaler(enabled=use_amp)
+    scaler = torch.amp.GradScaler(device, enabled=use_amp)
     
     # ── 学习率调度参数 ──
     warmup_iters = args.warmup_iters
@@ -129,6 +164,7 @@ def train(args):
     
     # ── 训练循环 ──
     model.train()
+    batches = infinite_batches(train_loader)
     for it in range(args.max_iters):
         t0 = time.time()
         
@@ -138,11 +174,11 @@ def train(args):
             param_group["lr"] = lr
         
         # 获取 batch
-        x, y = next(iter(train_loader))
+        x, y = next(batches)
         x, y = x.to(device), y.to(device)
         
         # 前向传播
-        with autocast(enabled=use_amp):
+        with torch.autocast(device_type=device, enabled=use_amp):
             logits, loss = model(x, y)
         
         # 反向传播
@@ -157,22 +193,13 @@ def train(args):
         scaler.step(optimizer)
         scaler.update()
         
-        # 记录 loss
+        # 记录 loss 与本步耗时 (只算训练步, 不含下面的评估/生成)
         train_losses.append(loss.item())
+        dt = time.time() - t0
         
         # ── 验证 ──
         if it % args.val_interval == 0 or it == args.max_iters - 1:
-            model.eval()
-            val_loss_accum = 0.0
-            val_loss_steps = 20
-            with torch.no_grad():
-                for _ in range(val_loss_steps):
-                    x_val, y_val = next(iter(val_loader))
-                    x_val, y_val = x_val.to(device), y_val.to(device)
-                    with autocast(enabled=use_amp):
-                        _, loss_val = model(x_val, y_val)
-                    val_loss_accum += loss_val.item()
-            val_loss = val_loss_accum / val_loss_steps
+            val_loss = evaluate(model, val_loader, device, use_amp)
             val_losses.append(val_loss)
             
             # 保存最佳 checkpoint
@@ -186,13 +213,9 @@ def train(args):
                     "val_loss": val_loss,
                 }
                 torch.save(checkpoint, ckpt_dir / "model_best.pt")
-            
-            model.train()
         
         # ── 日志输出 ──
         if it % args.log_interval == 0:
-            dt = time.time() - t0
-            t0 = time.time()
             print(
                 f"iter {it:>5d}/{args.max_iters} | "
                 f"train_loss {loss.item():.4f} | "
@@ -233,7 +256,7 @@ def train(args):
 
 
 # ============================================================
-# 3. 参数解析
+# 4. 参数解析
 # ============================================================
 
 def parse_args():
