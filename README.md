@@ -20,7 +20,7 @@ github-claw-llm/
 ├── tests/                     # 冒烟/回归测试 (python -m pytest tests -q)
 ├── templates/
 │   └── llm-client/            # LLM API 统一客户端模板
-├── roadmaps/                  # 学习路线图 (LLM_ROADMAP.md 待补)
+├── roadmaps/ROADMAP.md        # 学习路线图: 三个板块 (LLM → RL → Agent) 与练习设计
 ├── verify_env.py              # 环境健康检查 (先跑这个)
 └── README.md
 ```
