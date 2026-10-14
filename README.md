@@ -15,12 +15,16 @@ github-claw-llm/
 │   ├── llm-transformer/       # L2: Transformer 架构演进 (MHA/GQA/MLA, RoPE, SwiGLU)
 │   ├── llm-minigpt/           # L2.5: miniGPT (单文件 GPT-2, 端到端可训练; 功能冻结)
 │   ├── llm-qlora-finetune/    # L3: QLoRA 微调实战 (RTX 5060 8GB)
+│   ├── llm-tree/              # 架构生长树上的新节点 (注意力线: MHA/GQA/MQA/MLA)
+│   ├── llm-anatomy/           # 解剖台: 读真实模型的配置与张量名, 核对生长树
 │   └── agent-course/          # L4: Agent 课程 (M1-M7, 仅 M1 已建)
 ├── common/                    # 多项目共享: 语料定位/下载、字符级分词、数据集
 ├── tests/                     # 冒烟/回归测试 (python -m pytest tests -q)
 ├── templates/
 │   └── llm-client/            # LLM API 统一客户端模板
-├── roadmaps/ROADMAP.md        # 学习路线图: 三个板块 (LLM → RL → Agent) 与练习设计
+├── roadmaps/
+│   ├── ROADMAP.md             # 学习路线图: 三个板块 (LLM → RL → Agent) 与练习设计
+│   └── LLM_TREE.md            # LLM 架构生长树总图 (LLM 板块的主干)
 ├── verify_env.py              # 环境健康检查 (先跑这个)
 └── README.md
 ```
