@@ -10,7 +10,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "github-claw-llm"
+name = "llm-roots"
 version = "0.1.0"
 description = "LLM learning repo: BPE tokenizer, transformer, miniGPT, QLoRA, agent course"
 requires-python = ">=3.10"

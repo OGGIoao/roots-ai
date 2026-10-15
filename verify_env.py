@@ -387,7 +387,7 @@ def main():
     args = ap.parse_args()
 
     print("=" * 68)
-    print("  环境健康检查 — github-claw-llm")
+    print("  环境健康检查 — llm-roots")
     print("=" * 68)
 
     check_python()

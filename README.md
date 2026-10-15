@@ -1,15 +1,20 @@
-# github-claw-llm
+# llm-roots · 根系
 
-> LLM 学习与实践独立仓库 — BPE Tokenizer + LLM Client 模板 + 后续 LLM 训练项目
+> 从 Transformer 这个根出发, 亲手长出大模型的整棵树: **LLM → 强化学习 → Agent**。
+> 每个节点都要能自己写出最小闭环, 所有数字都在本机实测。
 
-从 [github-claw-for-ioao](https://github.com/OGGIoao/github-claw-for-ioao) 单开,专注大模型方向。
+- **LLM 板块**以 [架构生长树](roadmaps/LLM_TREE.md) 为主干: 从 GPT-2 到 LLaMA 配方, 再长出注意力、位置编码、MoE、归一化、混合架构、效率六条分支, 叶子是具体的前沿模型。
+- **RL 板块** (规划中) 服务大模型后训练与具身智能; **Agent 板块** (规划中) 手写 Agent 循环、工具与记忆。
+- 学习方式: 讲义 + 参考实现 + 三级手写练习 (填空 → 接口 → 白纸)。总体设计见 [ROADMAP](roadmaps/ROADMAP.md)。
+
+本仓库最初从 [github-claw-for-ioao](https://github.com/OGGIoao/github-claw-for-ioao) 单开 (旧名 `github-claw-llm`)。
 
 ---
 
 ## 项目结构
 
 ```
-github-claw-llm/
+llm-roots/
 ├── projects/
 │   ├── llm-bpe-tokenizer/     # L1: 字节级 BPE Tokenizer 从零实现 (CS336 风格)
 │   ├── llm-transformer/       # L2: Transformer 架构演进 (MHA/GQA/MLA, RoPE, SwiGLU)
@@ -36,7 +41,9 @@ github-claw-llm/
 | `llm-bpe-tokenizer` | ✅ 完成 | 字节级 BPE Tokenizer,含训练+demo;TUTORIAL 17 章 |
 | `llm-transformer` | 🟡 代码完整 | MHA/GQA/MLA + RoPE/ALiBi + RMSNorm/SwiGLU;可离线跑数据 |
 | `llm-qlora-finetune` | 🟡 待验证 | RTX 5060 8GB 上 QLoRA 微调(需环境就绪后跑通) |
-| `llm-minigpt` | ✅ 可用 (功能冻结) | 单文件 GPT-2, 与 transformer 的定位区别见其 README |
+| `llm-minigpt` | ✅ 可用 (功能冻结) | 单文件 GPT-2, 与 transformer 的定位区别见其 README; 讲义含 5 个延伸专题 |
+| `llm-tree` | 🟡 进行中 | 生长树的新节点; 注意力线 (MHA/MQA/GQA/MLA) ✅, 含讲义、对照实验、推理实验、三级练习 |
+| `llm-anatomy` | ✅ 可用 | 读取 21 个真实模型的配置与张量名, 生成 [ANATOMY.md](projects/llm-anatomy/ANATOMY.md) |
 | `agent-course` | 🔴 脚手架 | M1 已建(core.py),M2-M7 待建 |
 | `llm-client` (模板) | ✅ 可用 | DeepSeek/Qwen/OpenAI/Ollama 统一客户端 |
 
