@@ -168,15 +168,20 @@ def long_context(device):
         times = {}
         for pos in range(S):
             if pos + 1 in (1024, 4096, 8192):
-                if device == "cuda":
-                    torch.cuda.synchronize()
-                t0 = time.perf_counter()
-                for _ in range(5):                      # 同一位置重复测 5 次取均值 (测完丢弃多余的缓存)
-                    snapshot = [dict(c) for c in caches]
+                # 笔记本 GPU 的频率随负载跳变, 单次计时噪声很大:
+                # 先空跑 10 次让 GPU 进入稳定状态, 再测 20 次, 每次单独同步, 取中位数
+                samples = []
+                for i in range(30):
+                    snapshot = [dict(c) for c in caches]   # 在副本上跑, 不改变真正的缓存
+                    if device == "cuda":
+                        torch.cuda.synchronize()
+                    t0 = time.perf_counter()
                     step(tok, pos, snapshot)
-                if device == "cuda":
-                    torch.cuda.synchronize()
-                times[pos + 1] = (time.perf_counter() - t0) / 5 * 1000
+                    if device == "cuda":
+                        torch.cuda.synchronize()
+                    if i >= 10:
+                        samples.append((time.perf_counter() - t0) * 1000)
+                times[pos + 1] = sorted(samples)[len(samples) // 2]
             step(tok, pos, caches)
         total = cache_bytes(caches)
         label = kind if mode is None else f"{kind} ({mode})"

@@ -41,15 +41,15 @@ Transformer (Vaswani et al., 2017, encoder-decoder)
 
 | 节点 | 父节点 | 解决了什么 | 代价 | 出处 | 谁用了 (解剖台核实) | 状态 |
 |---|---|---|---|---|---|---|
-| A1 MHA | — | 多个头并行关注不同模式 | 每个头一组 K、V, 缓存最大 | Vaswani 2017 | GPT-2, OLMo-2-7B | 🟡 |
-| A2 MQA | A1 | 所有头共用一组 K、V, 缓存缩到 1/头数 | 质量下降, 训练可能不稳 | Shazeer 2019 | (表中暂无) | 🟡 |
-| A3 GQA | A1、A2 | 折中: 分组共用 K、V | 缓存与质量之间取舍 | Ainslie et al. 2023 | Mistral-7B、Qwen2.5/3、phi-4、GLM-4.5、gpt-oss | 🟡 |
-| A4 MLA | A1 | 把 K、V 压成低维潜向量再缓存, 缓存小而质量不降 | 结构复杂, 与 RoPE 不兼容需拆分 | DeepSeek-V2 2024 | DeepSeek-V2/V3/V3.2、Kimi-K2、Kimi-Linear | 🟡 |
+| A1 MHA | — | 多个头并行关注不同模式 | 每个头一组 K、V, 缓存最大 | Vaswani 2017 | GPT-2, OLMo-2-7B | ✅ |
+| A2 MQA | A1 | 所有头共用一组 K、V, 缓存缩到 1/头数 | 质量下降, 训练可能不稳 | Shazeer 2019 | (表中暂无) | ✅ |
+| A3 GQA | A1、A2 | 折中: 分组共用 K、V | 缓存与质量之间取舍 | Ainslie et al. 2023 | Mistral-7B、Qwen2.5/3、phi-4、GLM-4.5、gpt-oss | ✅ |
+| A4 MLA | A1 | 把 K、V 压成低维潜向量再缓存, 缓存小而质量不降 | 结构复杂, 与 RoPE 不兼容需拆分 | DeepSeek-V2 2024 | DeepSeek-V2/V3/V3.2、Kimi-K2、Kimi-Linear | ✅ |
 | A5 滑动窗口 | A3 | 每个位置只看最近 W 个, 缓存有上限 | 窗口外的信息只能逐层间接传递 | Beltagy et al. 2020 (Longformer) | Mistral-7B (全部层)、gpt-oss (与全局层交替) | ⬜ |
 | A6 稀疏注意力 | A4 | 每个查询只挑 top-k 个位置算注意力 | 需要额外的索引器 | DeepSeek-V3.2-Exp 2025 | DeepSeek-V3.2-Exp | ⬜ |
 | A7 Attention sink | A5 | 给注意力一个可以"什么都不看"的出口 | 多一组参数 | Xiao et al. 2023 (StreamingLLM) | gpt-oss | ⬜ |
 
-学习位置: [projects/llm-tree/attention/](../projects/llm-tree/attention/)
+学习位置: [projects/llm-tree/attention/](../projects/llm-tree/attention/) — [讲义](../projects/llm-tree/attention/TUTORIAL.md)、对照实验、推理实验、三级练习
 
 ## B. 位置编码线
 
@@ -129,6 +129,6 @@ Transformer (Vaswani et al., 2017, encoder-decoder)
 
 ## 学习顺序
 
-1. **A. 注意力线** (进行中): MHA → MQA → GQA → MLA, 接着滑动窗口、稀疏注意力。直接承接 llm-minigpt 专题 A 的 KV Cache 问题。
+1. **A. 注意力线**: MHA → MQA → GQA → MLA 已完成; 下一步是滑动窗口 (A5)、稀疏注意力 (A6)、attention sink (A7)。直接承接 llm-minigpt 专题 A 的 KV Cache 问题。
 2. B → C → D → E → F, 每条线都按"父节点的问题 → 子节点的解法 → 同任务对照实测"推进。
 3. 每完成一个节点, 更新本表的状态, 并在解剖台里加入用到它的新模型。

@@ -9,7 +9,7 @@ compare.py — 注意力线的对照实验: MHA / GQA / MQA / MLA
 
 运行: python attention/compare.py          (本机 RTX 5060 约 25 分钟)
       python attention/compare.py --quick  (1 个种子, 少步数, 用来检查能不能跑)
-结果写入 attention/results/compare.json (每组的原始结果在 results/runs/, 中断后重新运行会续跑)
+结果写入 attention/results/compare.json (每组的原始结果在 results/per_run/, 中断后重新运行会续跑)
 """
 
 import argparse
@@ -46,17 +46,28 @@ VARIANTS = {
 }
 
 
+# 消融实验 (--ablation): 标准对比里 MLA-128 在 3 个种子上都比 MHA 差约 0.014。
+# 假设: MLA 每个头 48 维 Q·K 里只有 16 维带 RoPE, 位置信息比 GQA (32 维全部旋转) 弱。
+# 检验: 只把 rope 段加宽到 32 维, 其余不变。
+ABLATIONS = {
+    "MLA-128-rope32": decoder(lambda: MultiHeadLatentAttention(DIM, HEADS, 128, 32, 32, 32)),  # 128+32 = 160
+}
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--quick", action="store_true")
+    ap.add_argument("--ablation", action="store_true", help="额外跑消融实验里的变体")
     args = ap.parse_args()
+    if args.ablation:
+        VARIANTS.update(ABLATIONS)
     if args.quick:
         cfg, seeds = BenchConfig(steps=200, eval_every=100), (1337,)
     else:
         # 曲线显示这个规模的模型约 800~1000 步后开始过拟合, 1500 步足够覆盖最低点
         cfg, seeds = BenchConfig(steps=1500, eval_every=100), (1337, 2024, 7)
     # 断点续跑: 每跑完一组 (变体, 种子) 立即存盘, 重新运行时跳过已完成的组
-    run_dir = os.path.join(HERE, "results", "runs_quick" if args.quick else "runs")
+    run_dir = os.path.join(HERE, "results", "per_run_quick" if args.quick else "per_run")
     os.makedirs(run_dir, exist_ok=True)
     rows = []
     for name, build in VARIANTS.items():

@@ -1,0 +1,21 @@
+[1] 逐 token 解码 与 整段前向 的最大差异 (fp32, CPU)
+    MHA              1.31e-06
+    GQA-4            1.01e-06
+    MQA              1.10e-06
+    MLA (naive)      1.10e-06
+    MLA (absorbed)   1.19e-06
+
+[2] 长上下文解码: 8 层, 1024 维, 16 头, bf16, cuda (每个长度空跑 10 次后测 20 次取中位数; 连续两次运行)
+    变体                 缓存/token     缓存@8192     @1024     @4096     @8192
+    MHA                  32.0KB     256.0MB    5.89ms    6.01ms   12.39ms
+    GQA-4                 8.0KB      64.0MB    5.94ms    6.16ms   10.37ms
+    MQA                   2.0KB      16.0MB    5.97ms    5.93ms    9.15ms
+    MLA (naive)           4.5KB      36.0MB    6.79ms   12.16ms   19.99ms
+    MLA (absorbed)        4.5KB      36.0MB    8.77ms    8.64ms    8.21ms
+    变体                 缓存/token     缓存@8192     @1024     @4096     @8192
+    MHA                  32.0KB     256.0MB    6.81ms    6.78ms   12.50ms
+    GQA-4                 8.0KB      64.0MB    6.80ms    6.71ms   10.77ms
+    MQA                   2.0KB      16.0MB    7.01ms    7.43ms    9.68ms
+    MLA (naive)           4.5KB      36.0MB    8.48ms   12.33ms   18.66ms
+    MLA (absorbed)        4.5KB      36.0MB    8.89ms   10.91ms    8.91ms
+
