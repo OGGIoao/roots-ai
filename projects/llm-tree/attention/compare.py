@@ -9,7 +9,7 @@ compare.py — 注意力线的对照实验: MHA / GQA / MQA / MLA
 
 运行: python attention/compare.py          (本机 RTX 5060 约 25 分钟)
       python attention/compare.py --quick  (1 个种子, 少步数, 用来检查能不能跑)
-结果写入 attention/results/compare.json
+结果写入 attention/results/compare.json (每组的原始结果在 results/runs/, 中断后重新运行会续跑)
 """
 
 import argparse
@@ -24,7 +24,9 @@ sys.path.insert(0, HERE)                    # attention/        (variants.py)
 from base import Decoder  # noqa: E402
 from variants import GroupedQueryAttention, MultiHeadLatentAttention  # noqa: E402
 
-from common.bench import BenchConfig, compare, summarize  # noqa: E402
+from dataclasses import replace  # noqa: E402
+
+from common.bench import BenchConfig, print_table, run, summarize  # noqa: E402
 
 DIM, LAYERS, HEADS = 256, 4, 8          # 每头 32 维
 
@@ -53,9 +55,25 @@ def main():
     else:
         # 曲线显示这个规模的模型约 800~1000 步后开始过拟合, 1500 步足够覆盖最低点
         cfg, seeds = BenchConfig(steps=1500, eval_every=100), (1337, 2024, 7)
-    rows = compare(VARIANTS, cfg, seeds=seeds)
+    # 断点续跑: 每跑完一组 (变体, 种子) 立即存盘, 重新运行时跳过已完成的组
+    run_dir = os.path.join(HERE, "results", "runs_quick" if args.quick else "runs")
+    os.makedirs(run_dir, exist_ok=True)
+    rows = []
+    for name, build in VARIANTS.items():
+        for seed in seeds:
+            path = os.path.join(run_dir, f"{name}_seed{seed}.json")
+            if os.path.exists(path):
+                with open(path, encoding="utf-8") as f:
+                    rows.append(json.load(f))
+                print(f"  跳过 {name} (seed={seed}), 已有结果", flush=True)
+                continue
+            print(f"  训练 {name} (seed={seed}) ...", flush=True)
+            row = run(name, build, replace(cfg, seed=seed))
+            with open(path, "w", encoding="utf-8") as f:
+                json.dump(row, f, ensure_ascii=False, indent=1)
+            rows.append(row)
+    print_table(rows)
 
-    os.makedirs(os.path.join(HERE, "results"), exist_ok=True)
     out = os.path.join(HERE, "results", "compare_quick.json" if args.quick else "compare.json")
     with open(out, "w", encoding="utf-8") as f:
         json.dump({"summary": summarize(rows), "runs": rows}, f, ensure_ascii=False, indent=1)
