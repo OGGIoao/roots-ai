@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" width="1000" height="470" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<rect x="20" y="215" width="56" height="40" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="48.0" y="235.0" font-size="16" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">x</text>
+<text x="48.0" y="268" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">(B, S, C)</text>
+<path d="M76,225 C100,225 100,80 120,80" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="120" y="62" width="70" height="36" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="155.0" y="80.0" font-size="14" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">W_q</text>
+<path d="M190,72 C210,72 210,50 236,50" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M190,88 C210,88 210,110 236,110" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="238" y="34" width="92" height="32" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="284.0" y="50.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">q_nope</text>
+<text x="284.0" y="79" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">每头 d_nope 维</text>
+<rect x="238" y="94" width="92" height="32" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="284.0" y="110.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">q_rope</text>
+<text x="284.0" y="139" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">每头 d_rope 维</text>
+<line x1="330" y1="110" x2="368" y2="110" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="370" y="94" width="56" height="32" rx="4" fill="#ffffff" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="398.0" y="110.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">RoPE</text>
+<path d="M76,235 L120,235" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="120" y="217" width="70" height="36" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="155.0" y="235.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">W_dkv</text>
+<text x="155" y="266" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">降维 (压缩)</text>
+<path d="M190,230 C210,230 210,190 236,190" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M190,240 C210,240 210,300 236,300" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="238" y="172" width="92" height="36" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.5"/>
+<text x="284.0" y="190.0" font-size="15" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">c</text>
+<text x="284.0" y="221" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">r 维潜向量</text>
+<rect x="238" y="282" width="92" height="36" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.5"/>
+<text x="284.0" y="300.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">k_rope</text>
+<text x="284.0" y="331" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">d_rope 维, 所有头共用</text>
+<rect x="214" y="150" width="140" height="196" rx="8" fill="none" stroke="#008300" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="284" y="362" font-size="12" fill="#008300" text-anchor="middle" font-weight="bold" dominant-baseline="middle">推理时只缓存这两样</text>
+<text x="284" y="380" font-size="11" fill="#008300" text-anchor="middle" font-weight="normal" dominant-baseline="middle">每层每 token: r + d_rope 个数</text>
+<line x1="330" y1="190" x2="368" y2="190" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="370" y="172" width="72" height="36" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="406.0" y="190.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">RMSNorm</text>
+<line x1="442" y1="190" x2="478" y2="190" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="480" y="172" width="72" height="36" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="516.0" y="190.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">W_ukv</text>
+<text x="516" y="221" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">升维 (解压)</text>
+<line x1="552" y1="190" x2="588" y2="190" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="590" y="168" width="130" height="44" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.5"/>
+<line x1="655" y1="168" x2="655" y2="212" stroke="#eb6834" stroke-width="1.4"/>
+<text x="622" y="190" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">k_nope</text>
+<text x="687" y="190" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">v</text>
+<text x="655" y="226" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">每个头各一份</text>
+<line x1="330" y1="300" x2="368" y2="300" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="370" y="282" width="56" height="36" rx="4" fill="#ffffff" stroke="#eb6834" stroke-width="1.5"/>
+<text x="398.0" y="300.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">RoPE</text>
+<line x1="426" y1="300" x2="588" y2="300" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="590" y="282" width="130" height="36" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.5"/>
+<text x="655.0" y="300.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">k_rope (共享)</text>
+<text x="655" y="332" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">expand 给每个头, 不复制内存</text>
+<rect x="770" y="150" width="120" height="180" rx="4" fill="#ffffff" stroke="#52514e" stroke-width="1.5"/>
+<text x="830" y="172" font-size="15" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">注意力</text>
+<text x="830" y="205" font-size="12" fill="#2a78d6" text-anchor="middle" font-weight="normal" dominant-baseline="middle">q_nope · k_nope</text>
+<text x="830" y="225" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">+</text>
+<text x="830" y="245" font-size="12" fill="#2a78d6" text-anchor="middle" font-weight="normal" dominant-baseline="middle">q_rope · k_rope</text>
+<text x="830" y="270" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">÷ √(d_nope+d_rope)</text>
+<text x="830" y="295" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">softmax → · v</text>
+<path d="M330,50 C720,50 750,150 770,185" fill="none" stroke="#2a78d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M426,110 C700,110 740,180 770,205" fill="none" stroke="#2a78d6" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="720" y1="190" x2="768" y2="205" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="720" y1="300" x2="768" y2="270" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<line x1="890" y1="240" x2="918" y2="240" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="920" y="222" width="60" height="36" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="950.0" y="240.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">W_o</text>
+<text x="500" y="420" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">rope 段单独走一条路: 位置旋转 R_j 不能和解压矩阵交换次序, 拆出去之后, nope 段才能做吸收 (图 3)</text>
+<text x="500" y="445" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">真实权重名: W_dkv = kv_a_proj_with_mqa · RMSNorm = kv_a_layernorm · W_ukv = kv_b_proj (DeepSeek-V3)</text>
+</svg>

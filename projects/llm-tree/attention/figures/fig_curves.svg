@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" width="820" height="400" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" font-weight="bold" fill="#0b0b0b" dominant-baseline="middle">6 种注意力的验证曲线几乎重合</text>
+<text x="20" y="40" font-size="12" fill="#52514e" dominant-baseline="middle">同一解码器只换注意力模块; 最低点都在第 700~900 步附近, 之后一起过拟合 (数据: results/per_run/)</text>
+<line x1="70" y1="321.5" x2="710" y2="321.5" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="321.5" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">1.5</text>
+<line x1="70" y1="284.4" x2="710" y2="284.4" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="284.4" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">1.6</text>
+<line x1="70" y1="247.3" x2="710" y2="247.3" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="247.3" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">1.7</text>
+<line x1="70" y1="210.3" x2="710" y2="210.3" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="210.3" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">1.8</text>
+<line x1="70" y1="173.2" x2="710" y2="173.2" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="173.2" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">1.9</text>
+<line x1="70" y1="136.1" x2="710" y2="136.1" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="136.1" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">2.0</text>
+<line x1="70" y1="99.1" x2="710" y2="99.1" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="99.1" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">2.1</text>
+<line x1="70" y1="62.0" x2="710" y2="62.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="62.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">2.2</text>
+<line x1="70.0" y1="340" x2="70.0" y2="344" stroke="#c9c8c2"/>
+<text x="70.0" y="356.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">100</text>
+<line x1="161.4" y1="340" x2="161.4" y2="344" stroke="#c9c8c2"/>
+<text x="161.4" y="356.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">300</text>
+<line x1="252.9" y1="340" x2="252.9" y2="344" stroke="#c9c8c2"/>
+<text x="252.9" y="356.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">500</text>
+<line x1="344.3" y1="340" x2="344.3" y2="344" stroke="#c9c8c2"/>
+<text x="344.3" y="356.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">700</text>
+<line x1="435.7" y1="340" x2="435.7" y2="344" stroke="#c9c8c2"/>
+<text x="435.7" y="356.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">900</text>
+<line x1="527.1" y1="340" x2="527.1" y2="344" stroke="#c9c8c2"/>
+<text x="527.1" y="356.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1100</text>
+<line x1="618.6" y1="340" x2="618.6" y2="344" stroke="#c9c8c2"/>
+<text x="618.6" y="356.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1300</text>
+<line x1="710.0" y1="340" x2="710.0" y2="344" stroke="#c9c8c2"/>
+<text x="710.0" y="356.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1500</text>
+<line x1="70" y1="340" x2="710" y2="340" stroke="#c9c8c2" stroke-width="1"/>
+<text x="390.0" y="378.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">训练步数</text>
+<text x="20" y="201.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 20 201.0)">验证 loss (3 个种子的均值)</text>
+<path d="M70.0,85.6 L115.7,221.3 L161.4,268.9 L207.1,288.5 L252.9,302.7 L298.6,312.1 L344.3,319.2 L390.0,319.5 L435.7,314.7 L481.4,309.0 L527.1,309.6 L572.9,294.8 L618.6,276.0 L664.3,260.7 L710.0,248.0" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="70.0" cy="85.6" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="161.4" cy="268.9" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="252.9" cy="302.7" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="344.3" cy="319.2" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="435.7" cy="314.7" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="527.1" cy="309.6" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="618.6" cy="276.0" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="710.0" cy="248.0" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<path d="M70.0,87.8 L115.7,228.5 L161.4,272.5 L207.1,290.9 L252.9,303.9 L298.6,313.6 L344.3,320.8 L390.0,321.3 L435.7,316.5 L481.4,310.7 L527.1,312.6 L572.9,298.5 L618.6,280.7 L664.3,265.4 L710.0,252.3" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round"/>
+<rect x="65.5" y="83.3" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="156.9" y="268.0" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="248.4" y="299.4" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="339.8" y="316.3" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="431.2" y="312.0" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="522.6" y="308.1" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="614.1" y="276.2" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="705.5" y="247.8" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<path d="M70.0,81.8 L115.7,227.7 L161.4,271.8 L207.1,291.4 L252.9,303.9 L298.6,314.8 L344.3,318.8 L390.0,317.2 L435.7,315.5 L481.4,305.8 L527.1,308.6 L572.9,295.3 L618.6,278.6 L664.3,264.8 L710.0,249.8" fill="none" stroke="#1baf7a" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="70.0,76.3 64.5,86.3 75.5,86.3" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<polygon points="161.4,266.3 155.9,276.3 166.9,276.3" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<polygon points="252.9,298.4 247.4,308.4 258.4,308.4" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<polygon points="344.3,313.3 338.8,323.3 349.8,323.3" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<polygon points="435.7,310.0 430.2,320.0 441.2,320.0" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<polygon points="527.1,303.1 521.6,313.1 532.6,313.1" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<polygon points="618.6,273.1 613.1,283.1 624.1,283.1" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<polygon points="710.0,244.3 704.5,254.3 715.5,254.3" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<path d="M70.0,83.1 L115.7,225.8 L161.4,268.7 L207.1,290.0 L252.9,302.6 L298.6,312.5 L344.3,317.6 L390.0,318.6 L435.7,313.5 L481.4,305.1 L527.1,308.8 L572.9,295.1 L618.6,278.5 L664.3,264.0 L710.0,252.6" fill="none" stroke="#eda100" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="70.0,77.1 76.0,83.1 70.0,89.1 64.0,83.1" fill="#eda100" stroke="#eda100" stroke-width="2"/>
+<polygon points="161.4,262.7 167.4,268.7 161.4,274.7 155.4,268.7" fill="#eda100" stroke="#eda100" stroke-width="2"/>
+<polygon points="252.9,296.6 258.9,302.6 252.9,308.6 246.9,302.6" fill="#eda100" stroke="#eda100" stroke-width="2"/>
+<polygon points="344.3,311.6 350.3,317.6 344.3,323.6 338.3,317.6" fill="#eda100" stroke="#eda100" stroke-width="2"/>
+<polygon points="435.7,307.5 441.7,313.5 435.7,319.5 429.7,313.5" fill="#eda100" stroke="#eda100" stroke-width="2"/>
+<polygon points="527.1,302.8 533.1,308.8 527.1,314.8 521.1,308.8" fill="#eda100" stroke="#eda100" stroke-width="2"/>
+<polygon points="618.6,272.5 624.6,278.5 618.6,284.5 612.6,278.5" fill="#eda100" stroke="#eda100" stroke-width="2"/>
+<polygon points="710.0,246.6 716.0,252.6 710.0,258.6 704.0,252.6" fill="#eda100" stroke="#eda100" stroke-width="2"/>
+<path d="M70.0,58.4 L115.7,208.3 L161.4,258.9 L207.1,282.0 L252.9,296.4 L298.6,306.4 L344.3,311.5 L390.0,315.1 L435.7,313.4 L481.4,307.6 L527.1,309.8 L572.9,299.6 L618.6,284.1 L664.3,270.1 L710.0,258.3" fill="none" stroke="#e87ba4" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="70.0" cy="58.4" r="4.5" fill="#fcfcfb" stroke="#e87ba4" stroke-width="2"/>
+<circle cx="161.4" cy="258.9" r="4.5" fill="#fcfcfb" stroke="#e87ba4" stroke-width="2"/>
+<circle cx="252.9" cy="296.4" r="4.5" fill="#fcfcfb" stroke="#e87ba4" stroke-width="2"/>
+<circle cx="344.3" cy="311.5" r="4.5" fill="#fcfcfb" stroke="#e87ba4" stroke-width="2"/>
+<circle cx="435.7" cy="313.4" r="4.5" fill="#fcfcfb" stroke="#e87ba4" stroke-width="2"/>
+<circle cx="527.1" cy="309.8" r="4.5" fill="#fcfcfb" stroke="#e87ba4" stroke-width="2"/>
+<circle cx="618.6" cy="284.1" r="4.5" fill="#fcfcfb" stroke="#e87ba4" stroke-width="2"/>
+<circle cx="710.0" cy="258.3" r="4.5" fill="#fcfcfb" stroke="#e87ba4" stroke-width="2"/>
+<path d="M70.0,54.9 L115.7,209.4 L161.4,263.3 L207.1,285.3 L252.9,299.6 L298.6,309.7 L344.3,316.7 L390.0,318.3 L435.7,314.6 L481.4,312.8 L527.1,315.5 L572.9,305.7 L618.6,293.0 L664.3,282.4 L710.0,273.4" fill="none" stroke="#008300" stroke-width="2" stroke-linejoin="round"/>
+<rect x="65.5" y="50.4" width="9.0" height="9.0" fill="#fcfcfb" stroke="#008300" stroke-width="2"/>
+<rect x="156.9" y="258.8" width="9.0" height="9.0" fill="#fcfcfb" stroke="#008300" stroke-width="2"/>
+<rect x="248.4" y="295.1" width="9.0" height="9.0" fill="#fcfcfb" stroke="#008300" stroke-width="2"/>
+<rect x="339.8" y="312.2" width="9.0" height="9.0" fill="#fcfcfb" stroke="#008300" stroke-width="2"/>
+<rect x="431.2" y="310.1" width="9.0" height="9.0" fill="#fcfcfb" stroke="#008300" stroke-width="2"/>
+<rect x="522.6" y="311.0" width="9.0" height="9.0" fill="#fcfcfb" stroke="#008300" stroke-width="2"/>
+<rect x="614.1" y="288.5" width="9.0" height="9.0" fill="#fcfcfb" stroke="#008300" stroke-width="2"/>
+<rect x="705.5" y="268.9" width="9.0" height="9.0" fill="#fcfcfb" stroke="#008300" stroke-width="2"/>
+<line x1="460" y1="68" x2="478" y2="68" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="469.0" cy="68.0" r="3.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<text x="484.0" y="68.0" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">MHA</text>
+<line x1="545" y1="68" x2="563" y2="68" stroke="#eb6834" stroke-width="2"/>
+<rect x="550.5" y="64.5" width="7.0" height="7.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<text x="569.0" y="68.0" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">GQA-4</text>
+<line x1="630" y1="68" x2="648" y2="68" stroke="#1baf7a" stroke-width="2"/>
+<polygon points="639.0,63.5 634.5,71.5 643.5,71.5" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<text x="654.0" y="68.0" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">GQA-2</text>
+<line x1="460" y1="88" x2="478" y2="88" stroke="#eda100" stroke-width="2"/>
+<polygon points="469.0,83.0 474.0,88.0 469.0,93.0 464.0,88.0" fill="#eda100" stroke="#eda100" stroke-width="2"/>
+<text x="484.0" y="88.0" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">MQA</text>
+<line x1="545" y1="88" x2="563" y2="88" stroke="#e87ba4" stroke-width="2"/>
+<circle cx="554.0" cy="88.0" r="3.5" fill="#fcfcfb" stroke="#e87ba4" stroke-width="2"/>
+<text x="569.0" y="88.0" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">MLA-128</text>
+<line x1="630" y1="88" x2="648" y2="88" stroke="#008300" stroke-width="2"/>
+<rect x="635.5" y="84.5" width="7.0" height="7.0" fill="#fcfcfb" stroke="#008300" stroke-width="2"/>
+<text x="654.0" y="88.0" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">MLA-64</text>
+</svg>

@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" width="820" height="400" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" font-weight="bold" fill="#0b0b0b" dominant-baseline="middle">长上下文下, 缓存越小越快; 朴素 MLA 被解压拖慢, 吸收版几乎不随长度变化</text>
+<text x="20" y="40" font-size="12" fill="#52514e" dominant-baseline="middle">8 层 1024 维 16 头, bf16, RTX 5060; 线为两次运行的均值, 小圆点为每次的原始值 (数据: results/decode.txt)</text>
+<line x1="70" y1="340.0" x2="670" y2="340.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="340.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0</text>
+<line x1="70" y1="276.8" x2="670" y2="276.8" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="276.8" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">5</text>
+<line x1="70" y1="213.6" x2="670" y2="213.6" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="213.6" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">10</text>
+<line x1="70" y1="150.5" x2="670" y2="150.5" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="150.5" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">15</text>
+<line x1="70" y1="87.3" x2="670" y2="87.3" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="87.3" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">20</text>
+<line x1="70.0" y1="340" x2="70.0" y2="344" stroke="#c9c8c2"/>
+<text x="70.0" y="356.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1,024</text>
+<line x1="470.0" y1="340" x2="470.0" y2="344" stroke="#c9c8c2"/>
+<text x="470.0" y="356.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4,096</text>
+<line x1="670.0" y1="340" x2="670.0" y2="344" stroke="#c9c8c2"/>
+<text x="670.0" y="356.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">8,192</text>
+<line x1="70" y1="340" x2="670" y2="340" stroke="#c9c8c2" stroke-width="1"/>
+<text x="370.0" y="378.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">上下文长度 (对数刻度)</text>
+<text x="20" y="201.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 20 201.0)">生成一个 token 的耗时 (ms)</text>
+<path d="M70.0,259.8 L470.0,259.2 L670.0,182.7" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="70.0" cy="259.8" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="470.0" cy="259.2" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="670.0" cy="182.7" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="70.0" cy="265.6" r="2.2" fill="none" stroke="#2a78d6" stroke-width="1" opacity="0.7"/>
+<circle cx="470.0" cy="264.1" r="2.2" fill="none" stroke="#2a78d6" stroke-width="1" opacity="0.7"/>
+<circle cx="670.0" cy="183.4" r="2.2" fill="none" stroke="#2a78d6" stroke-width="1" opacity="0.7"/>
+<circle cx="70.0" cy="253.9" r="2.2" fill="none" stroke="#2a78d6" stroke-width="1" opacity="0.7"/>
+<circle cx="470.0" cy="254.3" r="2.2" fill="none" stroke="#2a78d6" stroke-width="1" opacity="0.7"/>
+<circle cx="670.0" cy="182.0" r="2.2" fill="none" stroke="#2a78d6" stroke-width="1" opacity="0.7"/>
+<path d="M70.0,259.5 L470.0,258.7 L670.0,206.4" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round"/>
+<rect x="65.5" y="255.0" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="465.5" y="254.2" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="665.5" y="201.9" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<circle cx="70.0" cy="264.9" r="2.2" fill="none" stroke="#eb6834" stroke-width="1" opacity="0.7"/>
+<circle cx="470.0" cy="262.2" r="2.2" fill="none" stroke="#eb6834" stroke-width="1" opacity="0.7"/>
+<circle cx="670.0" cy="209.0" r="2.2" fill="none" stroke="#eb6834" stroke-width="1" opacity="0.7"/>
+<circle cx="70.0" cy="254.1" r="2.2" fill="none" stroke="#eb6834" stroke-width="1" opacity="0.7"/>
+<circle cx="470.0" cy="255.2" r="2.2" fill="none" stroke="#eb6834" stroke-width="1" opacity="0.7"/>
+<circle cx="670.0" cy="203.9" r="2.2" fill="none" stroke="#eb6834" stroke-width="1" opacity="0.7"/>
+<path d="M70.0,258.0 L470.0,255.6 L670.0,221.0" fill="none" stroke="#1baf7a" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="70.0,252.5 64.5,262.5 75.5,262.5" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<polygon points="470.0,250.1 464.5,260.1 475.5,260.1" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<polygon points="670.0,215.5 664.5,225.5 675.5,225.5" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<circle cx="70.0" cy="264.6" r="2.2" fill="none" stroke="#1baf7a" stroke-width="1" opacity="0.7"/>
+<circle cx="470.0" cy="265.1" r="2.2" fill="none" stroke="#1baf7a" stroke-width="1" opacity="0.7"/>
+<circle cx="670.0" cy="224.4" r="2.2" fill="none" stroke="#1baf7a" stroke-width="1" opacity="0.7"/>
+<circle cx="70.0" cy="251.4" r="2.2" fill="none" stroke="#1baf7a" stroke-width="1" opacity="0.7"/>
+<circle cx="470.0" cy="246.1" r="2.2" fill="none" stroke="#1baf7a" stroke-width="1" opacity="0.7"/>
+<circle cx="670.0" cy="217.7" r="2.2" fill="none" stroke="#1baf7a" stroke-width="1" opacity="0.7"/>
+<path d="M70.0,243.5 L470.0,185.3 L670.0,95.8" fill="none" stroke="#eda100" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="70.0,237.5 76.0,243.5 70.0,249.5 64.0,243.5" fill="#eda100" stroke="#eda100" stroke-width="2"/>
+<polygon points="470.0,179.3 476.0,185.3 470.0,191.3 464.0,185.3" fill="#eda100" stroke="#eda100" stroke-width="2"/>
+<polygon points="670.0,89.8 676.0,95.8 670.0,101.8 664.0,95.8" fill="#eda100" stroke="#eda100" stroke-width="2"/>
+<circle cx="70.0" cy="254.2" r="2.2" fill="none" stroke="#eda100" stroke-width="1" opacity="0.7"/>
+<circle cx="470.0" cy="186.3" r="2.2" fill="none" stroke="#eda100" stroke-width="1" opacity="0.7"/>
+<circle cx="670.0" cy="87.4" r="2.2" fill="none" stroke="#eda100" stroke-width="1" opacity="0.7"/>
+<circle cx="70.0" cy="232.8" r="2.2" fill="none" stroke="#eda100" stroke-width="1" opacity="0.7"/>
+<circle cx="470.0" cy="184.2" r="2.2" fill="none" stroke="#eda100" stroke-width="1" opacity="0.7"/>
+<circle cx="670.0" cy="104.2" r="2.2" fill="none" stroke="#eda100" stroke-width="1" opacity="0.7"/>
+<path d="M70.0,228.4 L470.0,216.5 L670.0,231.8" fill="none" stroke="#e87ba4" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="70.0" cy="228.4" r="4.5" fill="#fcfcfb" stroke="#e87ba4" stroke-width="2"/>
+<circle cx="470.0" cy="216.5" r="4.5" fill="#fcfcfb" stroke="#e87ba4" stroke-width="2"/>
+<circle cx="670.0" cy="231.8" r="4.5" fill="#fcfcfb" stroke="#e87ba4" stroke-width="2"/>
+<circle cx="70.0" cy="229.2" r="2.2" fill="none" stroke="#e87ba4" stroke-width="1" opacity="0.7"/>
+<circle cx="470.0" cy="230.8" r="2.2" fill="none" stroke="#e87ba4" stroke-width="1" opacity="0.7"/>
+<circle cx="670.0" cy="236.3" r="2.2" fill="none" stroke="#e87ba4" stroke-width="1" opacity="0.7"/>
+<circle cx="70.0" cy="227.7" r="2.2" fill="none" stroke="#e87ba4" stroke-width="1" opacity="0.7"/>
+<circle cx="470.0" cy="202.1" r="2.2" fill="none" stroke="#e87ba4" stroke-width="1" opacity="0.7"/>
+<circle cx="670.0" cy="227.4" r="2.2" fill="none" stroke="#e87ba4" stroke-width="1" opacity="0.7"/>
+<text x="680.0" y="182.7" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">MHA</text>
+<text x="680.0" y="206.4" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">GQA-4</text>
+<text x="680.0" y="221.4" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">MQA</text>
+<text x="680.0" y="95.8" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">MLA (naive)</text>
+<text x="680.0" y="236.4" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">MLA (absorbed)</text>
+<line x1="86" y1="68" x2="104" y2="68" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="95.0" cy="68.0" r="3.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<text x="110.0" y="68.0" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">MHA</text>
+<line x1="216" y1="68" x2="234" y2="68" stroke="#eb6834" stroke-width="2"/>
+<rect x="221.5" y="64.5" width="7.0" height="7.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<text x="240.0" y="68.0" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">GQA-4</text>
+<line x1="346" y1="68" x2="364" y2="68" stroke="#1baf7a" stroke-width="2"/>
+<polygon points="355.0,63.5 350.5,71.5 359.5,71.5" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<text x="370.0" y="68.0" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">MQA</text>
+<line x1="86" y1="88" x2="104" y2="88" stroke="#eda100" stroke-width="2"/>
+<polygon points="95.0,83.0 100.0,88.0 95.0,93.0 90.0,88.0" fill="#eda100" stroke="#eda100" stroke-width="2"/>
+<text x="110.0" y="88.0" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">MLA (naive)</text>
+<line x1="216" y1="88" x2="234" y2="88" stroke="#e87ba4" stroke-width="2"/>
+<circle cx="225.0" cy="88.0" r="3.5" fill="#fcfcfb" stroke="#e87ba4" stroke-width="2"/>
+<text x="240.0" y="88.0" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">MLA (absorbed)</text>
+</svg>

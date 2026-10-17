@@ -73,6 +73,10 @@ MHA ──→ MQA ──→ GQA ──────────────→ ML
 | MQA | $`2 d_h`$ | 64 |
 | MLA | $`r + d_{\text{rope}}`$ ($`r`$ 为潜向量维度) | r=128: 144 |
 
+![图 1: MHA、GQA、MQA 中查询头与 K、V 的对应关系](figures/fig_heads.svg)
+
+**图 1** 前三个节点的区别, 一张图就能看清。**怎么读**: 上排蓝框是 8 个查询头, 下排橙框是要计算的 K、V, 每条连线表示"这个查询头去这组 K、V 里查找"。绿色虚线框里的东西就是推理时要缓存的。从左到右, 连线越来越集中, 绿框里的橙框越来越少, 缓存也就越来越小。查询头的数量始终不变: 每个头仍然"问自己的问题"。MLA 走的是另一条路, 见图 2。
+
 ---
 
 ## 2. A1 MHA: 出发点
@@ -122,15 +126,24 @@ self.wv = nn.Linear(dim, n_kv_heads * self.head_dim, bias=False)
 
 ```python
 def forward(self, x, cos, sin):
-    B, S, _ = x.shape
-    q = self.wq(x).view(B, S, self.n_heads, self.head_dim).transpose(1, 2)      # (B, H,   S, d)
-    k = self.wk(x).view(B, S, self.n_kv_heads, self.head_dim).transpose(1, 2)   # (B, G,   S, d)
-    v = self.wv(x).view(B, S, self.n_kv_heads, self.head_dim).transpose(1, 2)
+    B, S, _ = x.shape                                                    # x: (B, S, C)
+    # 1) 投影, 再把最后一维拆成"头 × 每头维度", 然后把"头"挪到第 1 维,
+    #    这样 scaled_dot_product_attention 会对每个头分别算注意力
+    q = self.wq(x).view(B, S, self.n_heads, self.head_dim).transpose(1, 2)      # (B, H, S, d)
+    k = self.wk(x).view(B, S, self.n_kv_heads, self.head_dim).transpose(1, 2)   # (B, G, S, d)
+    v = self.wv(x).view(B, S, self.n_kv_heads, self.head_dim).transpose(1, 2)   # (B, G, S, d)
+    # 2) RoPE 只作用在 Q 和 K 上 (V 不需要位置信息: 它是"被取走的内容", 不参与比较)
     q, k = apply_rope(q, cos, sin), apply_rope(k, cos, sin)
-    group = self.n_heads // self.n_kv_heads
-    k, v = k.repeat_interleave(group, dim=1), v.repeat_interleave(group, dim=1)  # (B, G, S, d) → (B, H, S, d)
-    out = F.scaled_dot_product_attention(q, k, v, is_causal=True)
-    return self.wo(out.transpose(1, 2).reshape(B, S, -1))
+    # 3) 把每组 K、V 复制给组内的每个查询头: (B, G, S, d) -> (B, H, S, d)
+    #    repeat_interleave 让相邻的头属于同一组: G=2, H=8 时排成 [g0 g0 g0 g0 g1 g1 g1 g1]
+    #    复制只发生在计算时; 推理时缓存的仍然只是 G 组, 这正是省显存的地方
+    group = self.n_heads // self.n_kv_heads                              # 每组几个查询头
+    k, v = k.repeat_interleave(group, dim=1), v.repeat_interleave(group, dim=1)
+    # 4) 标准的缩放点积注意力: softmax(q·kᵀ/√d + 因果掩码) · v
+    #    is_causal=True 让每个位置只能看到自己和之前的位置
+    out = F.scaled_dot_product_attention(q, k, v, is_causal=True)       # (B, H, S, d)
+    # 5) 把头挪回去并拼接: (B, H, S, d) -> (B, S, H, d) -> (B, S, H*d), 再输出投影
+    return self.wo(out.transpose(1, 2).reshape(B, S, -1))               # (B, S, C)
 ```
 
 和 MHA 相比只多了一步 `repeat_interleave`: 把每组的 K、V 复制给组内的每个查询头。
@@ -196,17 +209,46 @@ DeepSeek-V2 的解法是**把每个头的 Q、K 拆成两段**:
 
 rope 段的 K 所有头共用 (类似 MQA), 所以缓存里只多出 $`d_{\text{rope}}`$ 个数。每层每 token 一共缓存 $`r + d_{\text{rope}}`$ 个数。
 
+![图 2: MLA 的数据流](figures/fig_mla.svg)
+
+**图 2** MLA 的完整数据流, 把 5.2 和 5.3 节合在一起看。**怎么读**: 从左边的输入 $`x`$ 出发, 有三条路:
+
+- **上面一条 (蓝)**: 查询。$`W_q`$ 投影后拆成两段, nope 段直接送进注意力, rope 段先旋转再送进去。
+- **中间一条 (橙)**: 先用 $`W_{dkv}`$ 把 $`x`$ **压缩**成 $`r`$ 维的潜向量 $`c`$, 再用 $`W_{ukv}`$ **解压**成每个头各自的 $`k^{\text{nope}}`$ 和 $`v`$。
+- **下面一条 (橙)**: $`W_{dkv}`$ 同时产出一个很短的 $`k^{\text{rope}}`$, 旋转后**所有头共用**。
+
+关键在绿色虚线框: 推理时只需要缓存框里的 $`c`$ 和 $`k^{\text{rope}}`$; 框右边的东西都可以随时从框里的东西算出来。
+
 ### 5.4 代码
 
 ```python
-c, k_rope = self.w_dkv(x).split([self.kv_rank, self.d_rope], dim=-1)   # 推理时缓存这两个
-k_rope = apply_rope(k_rope.unsqueeze(1), cos, sin)                     # (B, 1, S, d_rope) 所有头共用
-kv = self.w_ukv(self.kv_norm(c)).view(B, S, H, self.d_nope + self.d_v).transpose(1, 2)
-k_nope, v = kv.split([self.d_nope, self.d_v], dim=-1)
+def forward(self, x, cos, sin):
+    B, S, _ = x.shape                                                    # x: (B, S, C)
+    H = self.n_heads
 
-q = torch.cat([q_nope, q_rope], dim=-1)
-k = torch.cat([k_nope, k_rope.expand(B, H, S, self.d_rope)], dim=-1)
-out = F.scaled_dot_product_attention(q, k, v, is_causal=True)
+    # ── 查询: 每个头一份, 拆成 nope / rope 两段, 只旋转 rope 段 ─────────
+    q = self.wq(x).view(B, S, H, self.d_nope + self.d_rope).transpose(1, 2)   # (B, H, S, d_nope+d_rope)
+    q_nope, q_rope = q.split([self.d_nope, self.d_rope], dim=-1)        # (B, H, S, d_nope), (B, H, S, d_rope)
+    q_rope = apply_rope(q_rope, cos, sin)
+
+    # ── 键值: 先压缩 ─────────────────────────────────────────────
+    # c 和 k_rope 就是推理时要缓存的全部内容 (讲义图 2 的绿色虚线框)
+    c, k_rope = self.w_dkv(x).split([self.kv_rank, self.d_rope], dim=-1)   # (B, S, r), (B, S, d_rope)
+    # k_rope 没有"头"这一维: 插入一个长度为 1 的头维度再旋转, 之后由所有头共用
+    k_rope = apply_rope(k_rope.unsqueeze(1), cos, sin)                     # (B, 1, S, d_rope)
+
+    # ── 键值: 再解压出每个头的 k_nope 和 v ─────────────────────────
+    kv = self.w_ukv(self.kv_norm(c)).view(B, S, H, self.d_nope + self.d_v).transpose(1, 2)
+    k_nope, v = kv.split([self.d_nope, self.d_v], dim=-1)               # (B, H, S, d_nope), (B, H, S, d_v)
+
+    # ── 把两段拼回去, 做标准注意力 ────────────────────────────────
+    q = torch.cat([q_nope, q_rope], dim=-1)                              # (B, H, S, d_nope+d_rope)
+    # expand 让共享的 rope 键"看起来"每个头都有一份, 但不复制内存 (只改了读取方式)
+    k = torch.cat([k_nope, k_rope.expand(B, H, S, self.d_rope)], dim=-1)   # (B, H, S, d_nope+d_rope)
+    # 分数 = q_nope·k_nope + q_rope·k_rope (拼接后的点积正好是两段点积之和)
+    # 缩放默认为 1/√(q 的最后一维) = 1/√(d_nope+d_rope); v 的维度 d_v 可以和 q、k 不同
+    out = F.scaled_dot_product_attention(q, k, v, is_causal=True)       # (B, H, S, d_v)
+    return self.wo(out.transpose(1, 2).reshape(B, S, -1))               # (B, S, C)
 ```
 
 - `w_dkv` 一次投影同时得到潜向量 $`c`$ 和共享的 rope 键。DeepSeek 的权重里它叫 `kv_a_proj_with_mqa`, 名字里的 "with_mqa" 指的就是那份"所有头共用"的 rope 键。
@@ -233,7 +275,49 @@ DeepSeek 对 Q 也做了低秩压缩 (`q_a_proj` / `q_b_proj`), 那是为了减�
 - 分数: 先把新 token 的 $`q^h`$ 变换到潜空间 (每步只做一次), 再直接和缓存里的 $`c_j`$ 点积。
 - 输出: 先在潜空间里对 $`c_j`$ 加权求和, 最后只乘一次 $`W_{UV}^h`$。
 
+对应的代码 ([decode.py](decode.py)), 每一步都标了对应公式里的哪一项:
+
+```python
+def mla_step_absorbed(attn, h, cos, sin, cache):
+    """吸收解码 (讲义图 3 下半部分): 不解压, 注意力直接在潜向量 c 上算。
+
+    einsum 的下标约定 (同一个字母代表同一个维度, 只出现在输入里的字母会被求和掉):
+        b batch    h 头    q 查询位置 (这里是 1)    t 历史位置
+        r 潜向量维度    d nope/rope 段的维度    v 每头 v 的维度
+    """
+    B, H = h.size(0), attn.n_heads
+    _mla_new_entries(attn, h, cos, sin, cache)
+    q_nope, q_rope = _mla_query(attn, h, cos, sin)
+
+    # 1) 把解压矩阵按头拆开。w_ukv.weight 的形状是 (H*(d_nope+d_v), r) (nn.Linear 的权重是 输出×输入),
+    #    按"头"切开后, 每个头的前 d_nope 行是 W_uk (生成 k_nope), 后 d_v 行是 W_uv (生成 v)
+    W = attn.w_ukv.weight.view(H, attn.d_nope + attn.d_v, attn.kv_rank)     # (H, d_nope+d_v, r)
+    W_uk, W_uv = W[:, :attn.d_nope], W[:, attn.d_nope:]                   # (H, d_nope, r), (H, d_v, r)
+
+    # 2) 吸收 W_uk: q_lat[h] = W_uk[h]ᵀ q_nope[h]。对 d 求和, 把 q 从 d_nope 维变到 r 维 (潜空间)
+    #    每生成一个 token 只做一次, 和上下文长度无关
+    q_lat = torch.einsum("bhqd,hdr->bhqr", q_nope, W_uk)                  # (B, H, 1, r)
+
+    # 3) 注意力分数 = nope 段 + rope 段, 两段都直接和缓存做点积:
+    #    nope 段: q_lat · c_j      对 r 求和  (等价于 q_nope · k_nope_j, 但不需要算出 k_nope_j)
+    #    rope 段: q_rope · kr_j    对 d 求和  (共享的 rope 键, 所有头用同一份)
+    c, kr = cache["c"], cache["kr"]                                       # (B, t, r), (B, t, d_rope)
+    scores = (torch.einsum("bhqr,btr->bhqt", q_lat, c)
+              + torch.einsum("bhqd,btd->bhqt", q_rope, kr)) / math.sqrt(attn.d_nope + attn.d_rope)
+    a = scores.softmax(dim=-1)                                            # (B, H, 1, t) 每行和为 1
+
+    # 4) 吸收 W_uv: Σ_j a_j (W_uv c_j) = W_uv (Σ_j a_j c_j)
+    #    先在潜空间对 c 加权求和 (对 t 求和), 再只乘一次 W_uv (对 r 求和)
+    ctx = torch.einsum("bhqt,btr->bhqr", a, c)                            # (B, H, 1, r)
+    out = torch.einsum("bhqr,hvr->bhqv", ctx, W_uv)                       # (B, H, 1, d_v)
+    return attn.wo(out.transpose(1, 2).reshape(B, 1, -1))                 # (B, 1, C)
+```
+
 这样, 历史位置的 $`c_j`$ 从头到尾都不需要解压。[decode.py](decode.py) 实现了两种解码方式 (`mla_step_naive` 和 `mla_step_absorbed`), 并验证了它们与整段前向的结果一致 (第 7.1 节)。这正是 5.3 节要把 RoPE 拆出去的原因: rope 段的 $`R_j`$ 夹在中间, 没法吸收。
+
+![图 3: 朴素解码与吸收解码的计算顺序](figures/fig_absorb.svg)
+
+**图 3** 同一个结果, 两种计算顺序。**怎么读**: 上半部分是朴素解码, 每生成一个 token, 都要把缓存里**全部** $`t`$ 个潜向量乘上解压矩阵 (红字: 每步都做), 得到一大片 K、V 再算注意力。下半部分是吸收解码: 解压矩阵被拆成两半, $`W_{uk}^\top`$ 先乘到新来的 $`q`$ 上, $`W_{uv}`$ 留到最后乘到输出上, 两者都是"每步 1 次" (绿字)。缓存里的 $`c`$ 被用了两次 (一次算分数, 一次加权求和), 但从头到尾都没有被解压。两种顺序的结果完全相同, 这由矩阵乘法的结合律保证, 7.1 节有数值验证。
 
 ---
 
@@ -261,6 +345,10 @@ MLA-64     3,246,848   1.5067 ± 0.0105   +0.004     867       640B      16%    
 ```
 
 (± 为 3 个种子的标准差。原始数据: [results/compare.json](results/compare.json), 每一组的完整训练曲线在 [results/per_run/](results/per_run/)。)
+
+![图 4: 6 种注意力的验证曲线](figures/fig_curves.svg)
+
+**图 4** 6 种注意力的验证曲线 (3 个种子取均值)。**怎么读**: 先看形状: 所有曲线都是先降后升, 最低点在第 700~900 步, 之后开始过拟合, 所以要比较的是**最低点**而不是最后一步 (第 9 节坑 2)。再看间距: 在最低点附近, 6 条线几乎叠在一起, 差别比线宽还小, 这就是上表"差别在波动范围内"的直观样子。最后一步的差别反而大一些 (MLA-64 明显更低), 但那是过拟合程度不同造成的, 不代表注意力本身更好。
 
 ### 6.3 哪些差异是真的
 
@@ -338,6 +426,10 @@ MLA (absorbed)   1.19e-06
 | MLA (naive) | 4.5 KB | 36 MB | 6.8 / 8.5 ms | 12.2 / 12.3 ms | **20.0 / 18.7 ms** |
 | MLA (absorbed) | 4.5 KB | 36 MB | 8.8 / 8.9 ms | 8.6 / 10.9 ms | **8.2 / 8.9 ms** |
 
+![图 5: 生成一个 token 的耗时随上下文长度的变化](figures/fig_decode.svg)
+
+**图 5** 上表耗时部分的图形版。**怎么读**: 横轴是上下文长度 (对数刻度), 纵轴是生成一个 token 的耗时; 每条线是两次运行的均值, 旁边的小空心圆是每次运行的原始值, 两次的差距就是测量波动。注意两个"分叉": 4096 之后 MHA、GQA-4、MQA 按缓存大小依次分开; 朴素 MLA (黄) 从一开始就往上走, 吸收版 MLA (粉) 则基本是一条平线。
+
 **缓存大小**与第 1.4 节的公式完全吻合。例如 MHA: $`2 \times 16 \times 64 \times 2\ \text{字节} \times 8\ \text{层} = 32\ \text{KB}`$; MLA: $`(256 + 32) \times 2 \times 8 = 4.5\ \text{KB}`$。
 
 **速度**要分两段看:
@@ -412,17 +504,23 @@ DeepSeek-V3.2-Exp 在此之外还多了一组 `self_attn.indexer.*` 权重, 这�
 
 ### 坑 2: 过拟合会让参数少的变体"显得更好"
 
-对照实验最初的计划是比较训练 2000 步后的 val_loss。先单独跑了一个 3000 步的 MHA 看曲线:
+对照实验最初的计划是比较训练 2000 步后的 val_loss。先单独跑了一个 3000 步的 MHA 看曲线 ([overfit_check.py](overfit_check.py), 数据存在 [results/overfit_mha_3000.json](results/overfit_mha_3000.json)):
 
 ```
-step   250  train 1.5241  val 1.7214
-step   750  train 1.2072  val 1.5465   ← 最低点附近
-step  1000  train 1.1160  val 1.5491
-step  2000  train 0.5635  val 2.1655
-step  3000  train 0.1676  val 3.2745   ← 训练 loss 接近 0, 验证 loss 翻倍
+step   200  train 1.6134  val 1.7802
+step   500  train 1.3327  val 1.5798
+step   800  train 1.3021  val 1.5325
+step  1100  train 1.1295  val 1.5270   ← 最低点
+step  1500  train 0.8771  val 1.7033
+step  2000  train 0.5882  val 2.1316
+step  3000  train 0.1742  val 3.2248   ← 训练 loss 接近 0, 验证 loss 翻倍
 ```
 
-Tiny Shakespeare 只有约 100 万字符, 300 多万参数的模型约 800 步后就开始背训练集。如果比较第 2000 步, 比的就是谁背得更狠; MQA 参数最少、背得最慢, 会显得"最好", 得出完全错误的结论。
+![图 6: MHA 训练 3000 步的 train 与 val 曲线](figures/fig_overfit.svg)
+
+**图 6** **怎么读**: 两条线在第 1000 步左右"分道扬镳": 训练 loss (蓝) 一路下降到接近 0, 验证 loss (橙) 却掉头向上。两条线之间的距离, 就是模型"背下来但不会举一反三"的部分。虚线标出的最低点就是早停点。
+
+Tiny Shakespeare 只有约 100 万字符, 300 多万参数的模型约 1000 步后就开始背训练集。(这里的最低点在第 1100 步, 而 1500 步的对照实验里最低点在第 700~900 步, 原因是学习率按余弦曲线在**总步数**内衰减: 总步数越长, 同一步时的学习率越高, 最低点就往后推。)如果比较第 2000 步, 比的就是谁背得更狠; MQA 参数最少、背得最慢, 会显得"最好", 得出完全错误的结论。
 
 改为每 100 步评估一次, 比较每个模型**自己曲线上的最低点** (早停), 并用 3 个随机种子估计波动。
 
