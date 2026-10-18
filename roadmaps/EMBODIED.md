@@ -39,7 +39,7 @@ R5 VLA (视觉-语言-动作) ··········· 用一个模型同时看图
 
 | 节点 | 父节点 | 父节点怎么失败 / 新方法补上什么 | 出处 | 环境 | 状态 |
 |---|---|---|---|---|---|
-| ① 老虎机: ε-greedy、UCB | — | 只挑当前最好的臂 (贪心) 会锁死在次优臂上; 要留预算去探索 | Auer et al. 2002 (UCB1) | 纯 numpy | 🟡 [embodied-rl-basics](../projects/embodied-rl-basics/) 脚手架 |
+| ① 老虎机: ε-greedy、UCB | — | 只挑当前最好的臂 (贪心) 会锁死在次优臂上; 要留预算去探索 | Auer et al. 2002 (UCB1) | 纯 numpy | ✅ [bandit](../projects/embodied-rl-basics/bandit/TUTORIAL.md) |
 | ② FrozenLake: 价值、Q-learning | ① | 老虎机没有"状态", 这一步的选择会影响以后的处境; 引入状态、折扣回报、Q 表 | Watkins & Dayan 1992 | gymnasium | ⬜ |
 | ③ CartPole: REINFORCE、baseline | ② | 状态是连续的, Q 表放不下; 直接对策略求梯度, 再用 baseline 降方差 | Williams 1992 | gymnasium | ⬜ |
 | ④ PPO | ③ | REINFORCE 一步更新太大就崩; 限制新旧策略的差距, 让训练更稳 | Schulman et al. 2017 | gymnasium | ⬜ |

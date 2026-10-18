@@ -47,7 +47,7 @@ llm-roots/
 | `llm-minigpt` | ✅ 可用 (功能冻结) | 单文件 GPT-2, 与 transformer 的定位区别见其 README; 讲义含 5 个延伸专题 |
 | `llm-tree` | 🟡 进行中 | 生长树的新节点; 注意力线 (MHA/MQA/GQA/MLA) ✅, 含讲义、对照实验、推理实验、三级练习 |
 | `llm-anatomy` | ✅ 可用 | 读取 21 个真实模型的配置与张量名, 生成 [ANATOMY.md](projects/llm-anatomy/ANATOMY.md) |
-| `embodied-rl-basics` | 🔴 脚手架 | 具身线 R0, 老虎机案例设计待确认 |
+| `embodied-rl-basics` | 🟡 进行中 | 具身线 R0; ① 老虎机 ✅ (讲义、4 个实验、10 张图、三级练习), ②~④ 未开始 |
 | `agent-course` | 🔴 脚手架 | M1 已建(core.py),M2-M7 待建 |
 | `llm-client` (模板) | ✅ 可用 | DeepSeek/Qwen/OpenAI/Ollama 统一客户端 |
 

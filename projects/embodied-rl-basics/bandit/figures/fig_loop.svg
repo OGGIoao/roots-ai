@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 300" width="820" height="300" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">一步交互: 策略选臂 → 环境给收益 → 策略更新估计</text>
+<text x="20" y="42" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">R 局同时进行, 每个数组的第一维都是局; 策略和环境各有自己的随机数发生器</text>
+<rect x="40" y="80" width="260" height="170" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="170" y="100" font-size="14" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">策略 (agents.py)</text>
+<text x="170" y="130" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">Q   (R, k)  每个臂收益的估计</text>
+<text x="170" y="152" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">N   (R, k)  每个臂被拉过几次</text>
+<text x="170" y="186" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">select(): 按 Q (和 N) 选臂</text>
+<text x="170" y="208" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">update(): Q ← Q + 步长 × (r − Q)</text>
+<rect x="520" y="80" width="260" height="170" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.5"/>
+<text x="650" y="100" font-size="14" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">环境 (env.py)</text>
+<text x="650" y="130" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">q*  (R, k)  真实均值, 策略看不到</text>
+<text x="650" y="164" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">pull(a): r = q*[a] + N(0, 1) 噪声</text>
+<text x="650" y="198" font-size="12" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">optimal_arm() / regret_of(a)</text>
+<text x="650" y="216" font-size="12" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">只用来记指标, 不告诉策略</text>
+<line x1="300" y1="125" x2="518" y2="125" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="410" y="112" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">actions  (R,)  每局拉哪个臂</text>
+<line x1="520" y1="205" x2="302" y2="205" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="410" y="222" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">rewards  (R,)  拿到的收益</text>
+<text x="410" y="275" font-size="12" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">runner.py 把这一步重复 steps 次, 每步记下 R 局的平均收益、最优臂比例、遗憾</text>
+</svg>

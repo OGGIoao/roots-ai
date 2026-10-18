@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 340" width="820" height="340" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" font-weight="bold" fill="#0b0b0b" dominant-baseline="middle">只有 34.6% 的局停在了最好的臂上</text>
+<text x="20" y="40" font-size="12" fill="#52514e" dominant-baseline="middle">贪心, 2000 局, 1000 步 (数据: results/greedy.json 的 lock.rank_hist)</text>
+<line x1="70" y1="280.0" x2="780" y2="280.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="280.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0%</text>
+<line x1="70" y1="225.5" x2="780" y2="225.5" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="225.5" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">10%</text>
+<line x1="70" y1="171.0" x2="780" y2="171.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="171.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">20%</text>
+<line x1="70" y1="116.5" x2="780" y2="116.5" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="116.5" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">30%</text>
+<line x1="70" y1="62.0" x2="780" y2="62.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="62.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">40%</text>
+<line x1="70" y1="280" x2="780" y2="280" stroke="#c9c8c2" stroke-width="1"/>
+<text x="425.0" y="318.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle"></text>
+<text x="20" y="171.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 20 171.0)">局数占比</text>
+<path d="M78.1,280.0 L78.1,95.2 Q78.1,91.2 82.1,91.2 L128.9,91.2 Q132.9,91.2 132.9,95.2 L132.9,280.0 Z" fill="#eda100"/>
+<text x="105.5" y="82.2" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">34.6%</text>
+<path d="M149.1,280.0 L149.1,138.2 Q149.1,134.2 153.1,134.2 L199.9,134.2 Q203.9,134.2 203.9,138.2 L203.9,280.0 Z" fill="#eda100"/>
+<text x="176.5" y="125.2" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">26.8%</text>
+<path d="M220.1,280.0 L220.1,191.6 Q220.1,187.6 224.1,187.6 L270.9,187.6 Q274.9,187.6 274.9,191.6 L274.9,280.0 Z" fill="#eda100"/>
+<text x="247.5" y="178.6" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">17.0%</text>
+<path d="M291.1,280.0 L291.1,219.4 Q291.1,215.4 295.1,215.4 L341.9,215.4 Q345.9,215.4 345.9,219.4 L345.9,280.0 Z" fill="#eda100"/>
+<text x="318.5" y="206.4" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">11.8%</text>
+<path d="M362.1,280.0 L362.1,250.5 Q362.1,246.5 366.1,246.5 L412.9,246.5 Q416.9,246.5 416.9,250.5 L416.9,280.0 Z" fill="#eda100"/>
+<text x="389.5" y="237.5" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">6.2%</text>
+<path d="M433.1,280.0 L433.1,269.0 Q433.1,265.0 437.1,265.0 L483.9,265.0 Q487.9,265.0 487.9,269.0 L487.9,280.0 Z" fill="#eda100"/>
+<text x="460.5" y="256.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2.8%</text>
+<path d="M504.1,280.0 L504.1,280.0 Q504.1,276.5 507.6,276.5 L555.4,276.5 Q558.9,276.5 558.9,280.0 L558.9,280.0 Z" fill="#eda100"/>
+<text x="531.5" y="267.5" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0.7%</text>
+<path d="M575.1,280.0 L575.1,280.0 Q575.1,279.2 575.9,279.2 L629.1,279.2 Q629.9,279.2 629.9,280.0 L629.9,280.0 Z" fill="#eda100"/>
+<text x="602.5" y="270.2" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0.1%</text>
+<path d="M646.1,280.0 L646.1,280.0 Q646.1,279.5 646.6,279.5 L700.4,279.5 Q700.9,279.5 700.9,280.0 L700.9,280.0 Z" fill="#eda100"/>
+<text x="673.5" y="270.5" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0.1%</text>
+<path d="M717.1,280.0 L717.1,280.5 Q717.1,280.0 717.6,280.0 L771.4,280.0 Q771.9,280.0 771.9,280.5 L771.9,280.0 Z" fill="#eda100"/>
+<text x="744.5" y="271.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0.0%</text>
+<text x="105.5" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">第 1</text>
+<text x="176.5" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">第 2</text>
+<text x="247.5" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">第 3</text>
+<text x="318.5" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">第 4</text>
+<text x="389.5" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">第 5</text>
+<text x="460.5" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">第 6</text>
+<text x="531.5" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">第 7</text>
+<text x="602.5" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">第 8</text>
+<text x="673.5" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">第 9</text>
+<text x="744.5" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">第 10</text>
+<text x="425.0" y="318.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">贪心最后 100 步最常拉的臂, 在本局 10 个臂里按真实均值排第几</text>
+</svg>

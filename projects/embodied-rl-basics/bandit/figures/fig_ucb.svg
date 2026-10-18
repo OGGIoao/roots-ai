@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 440" width="820" height="440" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">UCB 第 30 步: 估计值最高的是臂 6, 却选了臂 5</text>
+<text x="20" y="42" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">实心柱 = 估计值 Q; 虚线柱 = 不确定性奖励 c·√(ln t / N); 两者之和 (柱顶数字) 最高的臂被选中 (env_seed=0 的第 0 局, c=2)</text>
+<line x1="80" y1="360.0" x2="790" y2="360.0" stroke="#e9e8e3"/>
+<text x="70" y="360.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">-3</text>
+<line x1="80" y1="315.0" x2="790" y2="315.0" stroke="#e9e8e3"/>
+<text x="70" y="315.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">-2</text>
+<line x1="80" y1="270.0" x2="790" y2="270.0" stroke="#e9e8e3"/>
+<text x="70" y="270.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">-1</text>
+<line x1="80" y1="225.0" x2="790" y2="225.0" stroke="#e9e8e3"/>
+<text x="70" y="225.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0</text>
+<line x1="80" y1="180.0" x2="790" y2="180.0" stroke="#e9e8e3"/>
+<text x="70" y="180.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">+1</text>
+<line x1="80" y1="135.0" x2="790" y2="135.0" stroke="#e9e8e3"/>
+<text x="70" y="135.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">+2</text>
+<line x1="80" y1="90.0" x2="790" y2="90.0" stroke="#e9e8e3"/>
+<text x="70" y="90.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">+3</text>
+<text x="30" y="225.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 30 225.0)">收益</text>
+<rect x="97.75" y="181.91675837874396" width="35.5" height="117.36630434554769" rx="2" fill="#fcfcfb" stroke="#2a78d6" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect x="97.75" y="225.0" width="35.5" height="74.28306272429165" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="115.5" y="171.91675837874396" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0.96</text>
+<line x1="91.8" y1="219.3" x2="139.2" y2="219.3" stroke="#eb6834" stroke-width="2.5"/>
+<text x="115.5" y="378" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">臂 0</text>
+<text x="115.5" y="396" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">N=2</text>
+<text x="115.5" y="412" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">Q=-1.65</text>
+<rect x="168.75" y="112.7346603410056" width="35.5" height="117.36630434554769" rx="2" fill="#fcfcfb" stroke="#2a78d6" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect x="168.75" y="225.0" width="35.5" height="5.100964686553283" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="186.5" y="102.7346603410056" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2.49</text>
+<line x1="162.8" y1="230.9" x2="210.2" y2="230.9" stroke="#eb6834" stroke-width="2.5"/>
+<text x="186.5" y="378" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">臂 1</text>
+<text x="186.5" y="396" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">N=2</text>
+<text x="186.5" y="412" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">Q=-0.11</text>
+<rect x="239.75" y="125.03642292326239" width="35.5" height="82.99050968554096" rx="2" fill="#fcfcfb" stroke="#2a78d6" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect x="239.75" y="208.02693260880335" width="35.5" height="16.97306739119665" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="257.5" y="115.03642292326239" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2.22</text>
+<line x1="233.8" y1="196.2" x2="281.2" y2="196.2" stroke="#eb6834" stroke-width="2.5"/>
+<text x="257.5" y="378" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">臂 2</text>
+<text x="257.5" y="396" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">N=4</text>
+<text x="257.5" y="412" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">Q=+0.38</text>
+<rect x="310.75" y="104.05218230666168" width="35.5" height="165.98101937108186" rx="2" fill="#fcfcfb" stroke="#2a78d6" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect x="310.75" y="225.0" width="35.5" height="45.033201677743534" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="328.5" y="94.05218230666168" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2.69</text>
+<line x1="304.8" y1="220.3" x2="352.2" y2="220.3" stroke="#eb6834" stroke-width="2.5"/>
+<text x="328.5" y="378" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">臂 3</text>
+<text x="328.5" y="396" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">N=1</text>
+<text x="328.5" y="412" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">Q=-1.00</text>
+<rect x="381.75" y="116.57513035037539" width="35.5" height="117.36630434554769" rx="2" fill="#fcfcfb" stroke="#2a78d6" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect x="381.75" y="225.0" width="35.5" height="8.941434695923078" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="399.5" y="106.57513035037539" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2.41</text>
+<line x1="375.8" y1="249.1" x2="423.2" y2="249.1" stroke="#eb6834" stroke-width="2.5"/>
+<text x="399.5" y="378" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">臂 4</text>
+<text x="399.5" y="396" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">N=2</text>
+<text x="399.5" y="412" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">Q=-0.20</text>
+<rect x="452.75" y="100.66293281721119" width="35.5" height="95.82918621426262" rx="2" fill="#fcfcfb" stroke="#008300" stroke-width="2.2" stroke-dasharray="6 4"/>
+<rect x="452.75" y="196.4921190314738" width="35.5" height="28.507880968526194" rx="2" fill="#dbe9f9" stroke="#008300" stroke-width="1.5"/>
+<text x="470.5" y="90.66293281721119" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">2.76</text>
+<line x1="446.8" y1="208.7" x2="494.2" y2="208.7" stroke="#eb6834" stroke-width="2.5"/>
+<text x="470.5" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">臂 5</text>
+<text x="470.5" y="396" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">N=3</text>
+<text x="470.5" y="412" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">Q=+0.63</text>
+<rect x="523.75" y="104.01136432463704" width="35.5" height="58.68315217277387" rx="2" fill="#fcfcfb" stroke="#2a78d6" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect x="523.75" y="162.69451649741092" width="35.5" height="62.305483502589084" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="541.5" y="94.01136432463704" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2.69</text>
+<line x1="517.8" y1="166.3" x2="565.2" y2="166.3" stroke="#eb6834" stroke-width="2.5"/>
+<text x="541.5" y="378" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">臂 6</text>
+<text x="541.5" y="396" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">N=8</text>
+<text x="541.5" y="412" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">Q=+1.38</text>
+<rect x="594.75" y="106.74026694183675" width="35.5" height="74.22896845768969" rx="2" fill="#fcfcfb" stroke="#2a78d6" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect x="594.75" y="180.96923539952644" width="35.5" height="44.03076460047356" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="612.5" y="96.74026694183675" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2.63</text>
+<line x1="588.8" y1="182.4" x2="636.2" y2="182.4" stroke="#eb6834" stroke-width="2.5"/>
+<text x="612.5" y="378" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">臂 7</text>
+<text x="612.5" y="396" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">N=5</text>
+<text x="612.5" y="412" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">Q=+0.98</text>
+<rect x="665.75" y="105.84203640881276" width="35.5" height="165.98101937108186" rx="2" fill="#fcfcfb" stroke="#2a78d6" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect x="665.75" y="225.0" width="35.5" height="46.82305577989462" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="683.5" y="95.84203640881276" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2.65</text>
+<line x1="659.8" y1="256.7" x2="707.2" y2="256.7" stroke="#eb6834" stroke-width="2.5"/>
+<text x="683.5" y="378" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">臂 8</text>
+<text x="683.5" y="396" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">N=1</text>
+<text x="683.5" y="412" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">Q=-1.04</text>
+<rect x="736.75" y="188.53584592513113" width="35.5" height="165.9810193710819" rx="2" fill="#fcfcfb" stroke="#2a78d6" stroke-width="1.5" stroke-dasharray="6 4"/>
+<rect x="736.75" y="225.0" width="35.5" height="129.51686529621304" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="754.5" y="178.53584592513113" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0.81</text>
+<line x1="730.8" y1="281.9" x2="778.2" y2="281.9" stroke="#eb6834" stroke-width="2.5"/>
+<text x="754.5" y="378" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">臂 9</text>
+<text x="754.5" y="396" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">N=1</text>
+<text x="754.5" y="412" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">Q=-2.88</text>
+<line x1="80" y1="225.0" x2="790" y2="225.0" stroke="#52514e"/>
+<rect x="20" y="59" width="14" height="10" rx="1" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="40" y="64" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">估计值 Q</text>
+<rect x="110" y="59" width="14" height="10" rx="1" fill="#fcfcfb" stroke="#2a78d6" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="130" y="64" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">奖励</text>
+<line x1="175" y1="64" x2="195" y2="64" stroke="#eb6834" stroke-width="2.5"/>
+<text x="200" y="64" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">真实均值 q* (策略看不到, 只为对照)</text>
+<rect x="420" y="59" width="14" height="10" rx="1" fill="#fcfcfb" stroke="#008300" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="440" y="64" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">绿框 = 本步选中的臂</text>
+</svg>
