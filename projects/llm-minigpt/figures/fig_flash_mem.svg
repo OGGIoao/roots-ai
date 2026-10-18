@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" width="800" height="380" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" font-weight="bold" fill="#0b0b0b" dominant-baseline="middle">手写注意力的显存按 S² 增长, 分块实现 (MEM_EFFICIENT) 按 S 增长</text>
+<text x="20" y="40" font-size="12" fill="#52514e" dominant-baseline="middle">前向+反向, B=4 H=8 D=64, bf16; 每次 S 翻倍: 手写 ×4, MEM_EFFICIENT ×2 (数据: topics_measured.json)</text>
+<line x1="70" y1="320.0" x2="650" y2="320.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="320.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">8</text>
+<line x1="70" y1="273.1" x2="650" y2="273.1" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="273.1" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">32</text>
+<line x1="70" y1="226.2" x2="650" y2="226.2" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="226.2" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">128</text>
+<line x1="70" y1="179.3" x2="650" y2="179.3" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="179.3" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">512</text>
+<line x1="70" y1="132.4" x2="650" y2="132.4" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="132.4" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">2,048</text>
+<line x1="70" y1="85.5" x2="650" y2="85.5" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="85.5" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">8,192</text>
+<line x1="70.0" y1="320" x2="70.0" y2="324" stroke="#c9c8c2"/>
+<text x="70.0" y="336.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">512</text>
+<line x1="215.0" y1="320" x2="215.0" y2="324" stroke="#c9c8c2"/>
+<text x="215.0" y="336.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1,024</text>
+<line x1="360.0" y1="320" x2="360.0" y2="324" stroke="#c9c8c2"/>
+<text x="360.0" y="336.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2,048</text>
+<line x1="505.0" y1="320" x2="505.0" y2="324" stroke="#c9c8c2"/>
+<text x="505.0" y="336.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4,096</text>
+<line x1="650.0" y1="320" x2="650.0" y2="324" stroke="#c9c8c2"/>
+<text x="650.0" y="336.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">8,192</text>
+<line x1="70" y1="320" x2="650" y2="320" stroke="#c9c8c2" stroke-width="1"/>
+<text x="360.0" y="358.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">序列长度 S (对数刻度)</text>
+<text x="20" y="191.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 20 191.0)">额外峰值显存 MB (对数刻度)</text>
+<line x1="70" y1="85.5" x2="650" y2="85.5" stroke="#8a8984" stroke-dasharray="5 4"/>
+<text x="76.0" y="76.5" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">这张卡的显存 8GB</text>
+<path d="M70.0,249.6 L215.0,202.6 L360.0,155.7 L505.0,108.8" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round"/>
+<rect x="65.5" y="245.1" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="210.5" y="198.1" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="355.5" y="151.2" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="500.5" y="104.3" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<path d="M70.0,223.1 L215.0,177.7 L360.0,131.6 L505.0,85.1" fill="none" stroke="#eda100" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="70.0,217.1 76.0,223.1 70.0,229.1 64.0,223.1" fill="#eda100" stroke="#eda100" stroke-width="2"/>
+<polygon points="215.0,171.7 221.0,177.7 215.0,183.7 209.0,177.7" fill="#eda100" stroke="#eda100" stroke-width="2"/>
+<polygon points="360.0,125.6 366.0,131.6 360.0,137.6 354.0,131.6" fill="#eda100" stroke="#eda100" stroke-width="2"/>
+<polygon points="505.0,79.1 511.0,85.1 505.0,91.1 499.0,85.1" fill="#eda100" stroke="#eda100" stroke-width="2"/>
+<path d="M70.0,301.1 L215.0,277.6 L360.0,253.6 L505.0,230.4 L650.0,206.9" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="70.0" cy="301.1" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="215.0" cy="277.6" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="360.0" cy="253.6" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="505.0" cy="230.4" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="650.0" cy="206.9" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<text x="515.0" y="108.8" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">手写 4,112MB</text>
+<text x="515.0" y="85.1" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">MATH 8,288MB</text>
+<text x="660.0" y="206.9" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">MEM_EFFICIENT 226MB</text>
+<text x="644.0" y="296.5" font-size="11" fill="#52514e" text-anchor="end" font-weight="normal" dominant-baseline="middle">S = 8192 时手写与 MATH 显存不足 (没有点)</text>
+</svg>

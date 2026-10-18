@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 502" width="900" height="502" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="24" font-size="13" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">B = 2 条样本, 每条 S = 8 个字符; 方框宽度 ∝ 最后一维的大小</text>
+<text x="210" y="64" font-size="13" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">输入 idx</text>
+<text x="318" y="64" font-size="12" fill="#52514e" text-anchor="end" font-weight="normal" dominant-baseline="middle">(2, 8)</text>
+<rect x="330" y="50" width="12.8" height="28" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="352.8" y="64" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">整数编号</text>
+<line x1="340" y1="79" x2="340" y2="97" stroke="#52514e" stroke-width="1" marker-end="url(#arrow)"/>
+<text x="210" y="112" font-size="13" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">wte (+ wpe)</text>
+<text x="318" y="112" font-size="12" fill="#52514e" text-anchor="end" font-weight="normal" dominant-baseline="middle">(2, 8, 64)</text>
+<rect x="330" y="98" width="102.4" height="28" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="442.4" y="112" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">每个编号换成 64 维向量, 再加上位置向量</text>
+<line x1="340" y1="127" x2="340" y2="145" stroke="#52514e" stroke-width="1" marker-end="url(#arrow)"/>
+<text x="210" y="160" font-size="13" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">ln_1</text>
+<text x="318" y="160" font-size="12" fill="#52514e" text-anchor="end" font-weight="normal" dominant-baseline="middle">(2, 8, 64)</text>
+<rect x="330" y="146" width="102.4" height="28" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="442.4" y="160" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">归一化不改形状</text>
+<line x1="340" y1="175" x2="340" y2="193" stroke="#52514e" stroke-width="1" marker-end="url(#arrow)"/>
+<text x="210" y="208" font-size="13" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">attn.c_attn</text>
+<text x="318" y="208" font-size="12" fill="#52514e" text-anchor="end" font-weight="normal" dominant-baseline="middle">(2, 8, 192)</text>
+<rect x="330" y="194" width="307.20000000000005" height="28" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.5"/>
+<text x="647.2" y="208" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">Q、K、V 拼在一起 (64 × 3)</text>
+<line x1="340" y1="223" x2="340" y2="241" stroke="#52514e" stroke-width="1" marker-end="url(#arrow)"/>
+<text x="210" y="256" font-size="13" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">attn 输出</text>
+<text x="318" y="256" font-size="12" fill="#52514e" text-anchor="end" font-weight="normal" dominant-baseline="middle">(2, 8, 64)</text>
+<rect x="330" y="242" width="102.4" height="28" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="442.4" y="256" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">注意力之后回到 64 维</text>
+<line x1="340" y1="271" x2="340" y2="289" stroke="#52514e" stroke-width="1" marker-end="url(#arrow)"/>
+<text x="210" y="304" font-size="13" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">mlp.c_fc</text>
+<text x="318" y="304" font-size="12" fill="#52514e" text-anchor="end" font-weight="normal" dominant-baseline="middle">(2, 8, 256)</text>
+<rect x="330" y="290" width="409.6" height="28" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.5"/>
+<text x="749.6" y="304" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">FFN 升到 4 倍</text>
+<line x1="340" y1="319" x2="340" y2="337" stroke="#52514e" stroke-width="1" marker-end="url(#arrow)"/>
+<text x="210" y="352" font-size="13" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">mlp 输出</text>
+<text x="318" y="352" font-size="12" fill="#52514e" text-anchor="end" font-weight="normal" dominant-baseline="middle">(2, 8, 64)</text>
+<rect x="330" y="338" width="102.4" height="28" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="442.4" y="352" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">再降回 64 维</text>
+<line x1="340" y1="367" x2="340" y2="385" stroke="#52514e" stroke-width="1" marker-end="url(#arrow)"/>
+<text x="210" y="400" font-size="13" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">× 第 2 层 Block</text>
+<text x="318" y="400" font-size="12" fill="#52514e" text-anchor="end" font-weight="normal" dominant-baseline="middle">(2, 8, 64)</text>
+<rect x="330" y="386" width="102.4" height="28" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="442.4" y="400" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">每个 Block 进出形状相同, 所以能任意叠加</text>
+<line x1="340" y1="415" x2="340" y2="433" stroke="#52514e" stroke-width="1" marker-end="url(#arrow)"/>
+<text x="210" y="448" font-size="13" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">ln_f → lm_head</text>
+<text x="318" y="448" font-size="12" fill="#52514e" text-anchor="end" font-weight="normal" dominant-baseline="middle">(2, 8, 65)</text>
+<rect x="330" y="434" width="104.0" height="28" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.5"/>
+<text x="444.0" y="448" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">每个位置对 65 个字符各打一个分</text>
+</svg>

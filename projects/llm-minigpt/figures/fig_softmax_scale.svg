@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" width="760" height="340" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" font-weight="bold" fill="#0b0b0b" dominant-baseline="middle">同一组分数 [1, 2, 3] 放大后, softmax 越来越接近"只选最大的"</text>
+<line x1="70" y1="280.0" x2="720" y2="280.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="280.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0</text>
+<line x1="70" y1="230.0" x2="720" y2="230.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="230.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0.25</text>
+<line x1="70" y1="180.0" x2="720" y2="180.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="180.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0.5</text>
+<line x1="70" y1="130.0" x2="720" y2="130.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="130.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0.75</text>
+<line x1="70" y1="80.0" x2="720" y2="80.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="80.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">1</text>
+<line x1="70" y1="280" x2="720" y2="280" stroke="#c9c8c2" stroke-width="1"/>
+<text x="395.0" y="318.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle"></text>
+<text x="20" y="175.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 20 175.0)">softmax 输出的概率</text>
+<text x="151.2" y="296.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">输入 × 1</text>
+<text x="313.8" y="296.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">输入 × 4</text>
+<text x="476.2" y="296.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">输入 × 8</text>
+<text x="638.8" y="296.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">输入 × 16</text>
+<path d="M87.2,280.0 L87.2,266.0 Q87.2,262.0 91.2,262.0 L124.6,262.0 Q128.6,262.0 128.6,266.0 L128.6,280.0 Z" fill="#2a78d6"/>
+<text x="107.9" y="253.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0.09</text>
+<path d="M130.6,280.0 L130.6,235.1 Q130.6,231.1 134.6,231.1 L167.9,231.1 Q171.9,231.1 171.9,235.1 L171.9,280.0 Z" fill="#eb6834"/>
+<text x="151.2" y="222.1" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0.24</text>
+<path d="M173.9,280.0 L173.9,151.0 Q173.9,147.0 177.9,147.0 L211.3,147.0 Q215.3,147.0 215.3,151.0 L215.3,280.0 Z" fill="#1baf7a"/>
+<text x="194.6" y="138.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0.67</text>
+<path d="M249.8,280.0 L249.8,280.4 Q249.8,279.9 250.2,279.9 L290.6,279.9 Q291.1,279.9 291.1,280.4 L291.1,280.0 Z" fill="#2a78d6"/>
+<text x="270.4" y="270.9" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<path d="M293.1,280.0 L293.1,280.0 Q293.1,276.4 296.7,276.4 L330.8,276.4 Q334.4,276.4 334.4,280.0 L334.4,280.0 Z" fill="#eb6834"/>
+<text x="313.8" y="267.4" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0.02</text>
+<path d="M336.4,280.0 L336.4,87.7 Q336.4,83.7 340.4,83.7 L373.8,83.7 Q377.8,83.7 377.8,87.7 L377.8,280.0 Z" fill="#1baf7a"/>
+<text x="357.1" y="74.7" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0.98</text>
+<path d="M412.2,280.0 L412.2,280.5 Q412.2,280.0 412.8,280.0 L453.1,280.0 Q453.6,280.0 453.6,280.5 L453.6,280.0 Z" fill="#2a78d6"/>
+<text x="432.9" y="271.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<path d="M455.6,280.0 L455.6,280.4 Q455.6,279.9 456.1,279.9 L496.4,279.9 Q496.9,279.9 496.9,280.4 L496.9,280.0 Z" fill="#eb6834"/>
+<text x="476.2" y="270.9" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<path d="M498.9,280.0 L498.9,84.1 Q498.9,80.1 502.9,80.1 L536.2,80.1 Q540.2,80.1 540.2,84.1 L540.2,280.0 Z" fill="#1baf7a"/>
+<text x="519.6" y="71.1" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1.00</text>
+<path d="M574.8,280.0 L574.8,280.5 Q574.8,280.0 575.2,280.0 L615.6,280.0 Q616.1,280.0 616.1,280.5 L616.1,280.0 Z" fill="#2a78d6"/>
+<text x="595.4" y="271.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<path d="M618.1,280.0 L618.1,280.5 Q618.1,280.0 618.6,280.0 L658.9,280.0 Q659.4,280.0 659.4,280.5 L659.4,280.0 Z" fill="#eb6834"/>
+<text x="638.8" y="271.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<path d="M661.4,280.0 L661.4,84.0 Q661.4,80.0 665.4,80.0 L698.8,80.0 Q702.8,80.0 702.8,84.0 L702.8,280.0 Z" fill="#1baf7a"/>
+<text x="682.1" y="71.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1.00</text>
+<rect x="80" y="46" width="12" height="12" rx="2" fill="#2a78d6"/>
+<text x="98.0" y="52.0" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">输入为 1 的位置</text>
+<rect x="230" y="46" width="12" height="12" rx="2" fill="#eb6834"/>
+<text x="248.0" y="52.0" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">输入为 2 的位置</text>
+<rect x="380" y="46" width="12" height="12" rx="2" fill="#1baf7a"/>
+<text x="398.0" y="52.0" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">输入为 3 的位置</text>
+</svg>

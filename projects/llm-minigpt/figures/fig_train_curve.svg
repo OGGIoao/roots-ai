@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 360" width="820" height="360" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" font-weight="bold" fill="#0b0b0b" dominant-baseline="middle">nano 训练 5000 步: 从"瞎猜"到困惑度约 6.7</text>
+<text x="20" y="40" font-size="12" fill="#52514e" dominant-baseline="middle">train 为每 100 步的均值, val 每 100 步评估一次 (单独的一次运行; 数据: experiments/results/nano_curve.json)</text>
+<line x1="70" y1="300.0" x2="710" y2="300.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="300.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">1.5</text>
+<line x1="70" y1="260.3" x2="710" y2="260.3" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="260.3" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">2</text>
+<line x1="70" y1="220.7" x2="710" y2="220.7" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="220.7" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">2.5</text>
+<line x1="70" y1="181.0" x2="710" y2="181.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="181.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">3</text>
+<line x1="70" y1="141.3" x2="710" y2="141.3" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="141.3" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">3.5</text>
+<line x1="70" y1="101.7" x2="710" y2="101.7" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="101.7" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">4</text>
+<line x1="70" y1="62.0" x2="710" y2="62.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="62.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">4.5</text>
+<line x1="70.0" y1="300" x2="70.0" y2="304" stroke="#c9c8c2"/>
+<text x="70.0" y="316.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<line x1="198.0" y1="300" x2="198.0" y2="304" stroke="#c9c8c2"/>
+<text x="198.0" y="316.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1000</text>
+<line x1="326.0" y1="300" x2="326.0" y2="304" stroke="#c9c8c2"/>
+<text x="326.0" y="316.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2000</text>
+<line x1="454.0" y1="300" x2="454.0" y2="304" stroke="#c9c8c2"/>
+<text x="454.0" y="316.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">3000</text>
+<line x1="582.0" y1="300" x2="582.0" y2="304" stroke="#c9c8c2"/>
+<text x="582.0" y="316.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4000</text>
+<line x1="710.0" y1="300" x2="710.0" y2="304" stroke="#c9c8c2"/>
+<text x="710.0" y="316.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">5000</text>
+<line x1="70" y1="300" x2="710" y2="300" stroke="#c9c8c2" stroke-width="1"/>
+<text x="390.0" y="338.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">训练步数</text>
+<text x="20" y="181.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 20 181.0)">loss</text>
+<line x1="70" y1="87.8" x2="710" y2="87.8" stroke="#8a8984" stroke-dasharray="5 4"/>
+<text x="706.0" y="78.8" font-size="11" fill="#52514e" text-anchor="end" font-weight="normal" dominant-baseline="middle">ln 65 = 4.17: 在 65 个字符里瞎猜的 loss (第 8.3 节)</text>
+<path d="M70.0,144.0 L82.8,210.2 L95.6,219.6 L108.4,223.2 L121.2,226.5 L134.0,230.9 L146.8,234.3 L159.6,237.1 L172.4,240.0 L185.2,242.1 L198.0,244.5 L210.8,246.5 L223.6,248.1 L236.4,249.7 L249.2,251.3 L262.0,252.5 L274.8,254.1 L287.6,255.0 L300.4,256.3 L313.2,257.5 L326.0,258.0 L338.8,259.4 L351.6,259.9 L364.4,260.4 L377.2,261.5 L390.0,263.1 L402.8,263.2 L415.6,263.1 L428.4,263.9 L441.2,264.5 L454.0,265.6 L466.8,265.2 L479.6,266.2 L492.4,266.1 L505.2,266.9 L518.0,267.3 L530.8,267.2 L543.6,267.5 L556.4,268.0 L569.2,268.6 L582.0,268.5 L594.8,268.5 L607.6,268.7 L620.4,269.0 L633.2,269.3 L646.0,269.7 L658.8,269.5 L671.6,269.4 L684.4,270.2 L697.2,270.1 L709.9,271.0" fill="none" stroke="#2a78d6" stroke-width="1.5" stroke-linejoin="round"/>
+<path d="M70.0,86.1 L82.8,197.4 L95.6,218.9 L108.4,222.9 L121.2,226.5 L134.0,230.1 L146.8,236.3 L159.6,240.0 L172.4,242.1 L185.2,244.9 L198.0,247.1 L210.8,249.1 L223.6,251.4 L236.4,252.4 L249.2,254.0 L262.0,255.2 L274.8,256.6 L287.6,257.8 L300.4,258.6 L313.2,259.5 L326.0,259.3 L338.8,260.4 L351.6,260.3 L364.4,261.3 L377.2,261.9 L390.0,262.0 L402.8,262.3 L415.6,263.1 L428.4,264.3 L441.2,264.7 L454.0,264.2 L466.8,265.0 L479.6,265.0 L492.4,265.6 L505.2,266.3 L518.0,265.8 L530.8,265.7 L543.6,266.3 L556.4,266.4 L569.2,267.1 L582.0,266.9 L594.8,267.4 L607.6,267.6 L620.4,267.4 L633.2,267.2 L646.0,267.5 L658.8,267.7 L671.6,267.8 L684.4,268.0 L697.2,268.0 L709.9,268.1" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round"/>
+<text x="720.0" y="268.1" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">val 1.90</text>
+<text x="720.0" y="283.1" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">train 1.87</text>
+<text x="80.0" y="90.1" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">第 0 步: 4.20</text>
+</svg>

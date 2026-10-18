@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 340" width="780" height="340" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" font-weight="bold" fill="#0b0b0b" dominant-baseline="middle">GPT-2 Small 规模, GPU 上生成越长, KV Cache 省得越多</text>
+<text x="20" y="40" font-size="12" fill="#52514e" dominant-baseline="middle">不用 cache 按长度的平方增长, 用 cache 接近线性 (数据: experiments/results/topics_measured.json)</text>
+<line x1="70" y1="280.0" x2="640" y2="280.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="280.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0</text>
+<line x1="70" y1="236.4" x2="640" y2="236.4" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="236.4" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">10</text>
+<line x1="70" y1="192.8" x2="640" y2="192.8" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="192.8" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">20</text>
+<line x1="70" y1="149.2" x2="640" y2="149.2" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="149.2" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">30</text>
+<line x1="70" y1="105.6" x2="640" y2="105.6" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="105.6" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">40</text>
+<line x1="70" y1="62.0" x2="640" y2="62.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="62.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">50</text>
+<line x1="70.0" y1="280" x2="70.0" y2="284" stroke="#c9c8c2"/>
+<text x="70.0" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<line x1="139.5" y1="280" x2="139.5" y2="284" stroke="#c9c8c2"/>
+<text x="139.5" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">128</text>
+<line x1="209.0" y1="280" x2="209.0" y2="284" stroke="#c9c8c2"/>
+<text x="209.0" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">256</text>
+<line x1="347.9" y1="280" x2="347.9" y2="284" stroke="#c9c8c2"/>
+<text x="347.9" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">512</text>
+<line x1="486.9" y1="280" x2="486.9" y2="284" stroke="#c9c8c2"/>
+<text x="486.9" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">768</text>
+<line x1="612.9" y1="280" x2="612.9" y2="284" stroke="#c9c8c2"/>
+<text x="612.9" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1000</text>
+<line x1="70" y1="280" x2="640" y2="280" stroke="#c9c8c2" stroke-width="1"/>
+<text x="355.0" y="318.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">生成的 token 数</text>
+<text x="20" y="171.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 20 171.0)">总耗时 (秒)</text>
+<path d="M70.0,280.0 L139.5,274.8 L347.9,232.5 L612.9,77.3" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round"/>
+<rect x="65.5" y="275.5" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="135.0" y="270.3" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="343.4" y="228.0" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="608.4" y="72.8" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<path d="M70.0,280.0 L139.5,277.4 L347.9,269.1 L612.9,257.8" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="70.0" cy="280.0" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="139.5" cy="277.4" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="347.9" cy="269.1" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="612.9" cy="257.8" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<text x="650.0" y="77.3" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">不用 cache 46.5s</text>
+<text x="650.0" y="257.8" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">用 cache 5.1s</text>
+<text x="355.9" y="220.5" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">快 4.3 倍</text>
+<text x="602.9" y="81.3" font-size="11" fill="#52514e" text-anchor="end" font-weight="normal" dominant-baseline="middle">快 9.1 倍</text>
+</svg>

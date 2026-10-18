@@ -1,0 +1,234 @@
+{
+ "source": "讲义第二部分 (专题 A~E) 引用的实测输出, 2026-10-15 在本机 (RTX 5060 Laptop, conda 环境 mlc) 由 experiments/ 下的对应脚本运行得到; 此文件只是把这些已引用的数字存成数据, 供 figures/make_charts.py 画图, 保证图与正文用的是同一批数据。重跑脚本会得到相近但不完全相同的数字。",
+ "kv_cache_small": {
+  "script": "experiments/kv_cache.py",
+  "unit": "ms, 生成 255 个 token, 3 次取最快",
+  "cpu": {
+   "nano": [
+    242,
+    153
+   ],
+   "micro": [
+    615,
+    307
+   ],
+   "6层384维": [
+    2399,
+    861
+   ]
+  },
+  "cuda": {
+   "nano": [
+    316,
+    272
+   ],
+   "micro": [
+    588,
+    485
+   ],
+   "6层384维": [
+    806,
+    731
+   ]
+  },
+  "columns": [
+   "无 cache",
+   "有 cache"
+  ]
+ },
+ "kv_cache_gpt2_long": {
+  "script": "experiments/kv_cache.py (benchmark_long)",
+  "unit": "s, GPT-2 Small 规模, cuda",
+  "lengths": [
+   128,
+   512,
+   1000
+  ],
+  "no_cache": [
+   1.2,
+   10.9,
+   46.5
+  ],
+  "cache": [
+   0.6,
+   2.5,
+   5.1
+  ],
+  "speedup": [
+   1.8,
+   4.3,
+   9.1
+  ]
+ },
+ "attention_saturation": {
+  "script": "experiments/gradients.py (第 3 部分)",
+  "d_k": [
+   16,
+   64,
+   256
+  ],
+  "scaled": {
+   "max_weight": [
+    0.162,
+    0.165,
+    0.165
+   ],
+   "effective_share": [
+    90.1,
+    90.4,
+    90.3
+   ],
+   "saturated_rows": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "grad_saturated": [
+    null,
+    null,
+    null
+   ],
+   "grad_other": [
+    0.8378,
+    1.716,
+    3.4916
+   ]
+  },
+  "unscaled": {
+   "max_weight": [
+    0.624,
+    0.819,
+    0.906
+   ],
+   "effective_share": [
+    30.9,
+    15.6,
+    10.0
+   ],
+   "saturated_rows": [
+    2.9,
+    24.0,
+    51.7
+   ],
+   "grad_saturated": [
+    0.0127,
+    0.0088,
+    0.0014
+   ],
+   "grad_other": [
+    0.8715,
+    1.1564,
+    1.8908
+   ]
+  }
+ },
+ "flash_attention": {
+  "script": "experiments/flash_attention.py",
+  "unit": "前向+反向, B=4 H=8 D=64, bf16; 耗时 ms / 额外峰值显存 MB; null = 显存不足",
+  "S": [
+   512,
+   1024,
+   2048,
+   4096,
+   8192
+  ],
+  "手写": {
+   "ms": [
+    1.37,
+    9.49,
+    40.06,
+    216.81,
+    null
+   ],
+   "mb": [
+    64,
+    257,
+    1028,
+    4112,
+    null
+   ]
+  },
+  "MEM_EFFICIENT": {
+   "ms": [
+    0.66,
+    2.93,
+    9.24,
+    39.71,
+    133.73
+   ],
+   "mb": [
+    14,
+    28,
+    57,
+    113,
+    226
+   ]
+  },
+  "MATH": {
+   "ms": [
+    3.57,
+    17.73,
+    103.07,
+    724.05,
+    null
+   ],
+   "mb": [
+    140,
+    536,
+    2096,
+    8288,
+    null
+   ]
+  }
+ },
+ "memory_static": {
+  "script": "experiments/memory_compute.py (第 1 部分)",
+  "configs": [
+   "micro",
+   "6层384维",
+   "GPT-2 Small"
+  ],
+  "params": [
+   834432,
+   10770816,
+   123849984
+  ],
+  "predicted_mb": [
+   12.7,
+   164.3,
+   1889.8
+  ],
+  "measured_mb": [
+   30.2,
+   169.8,
+   1901.1
+  ]
+ },
+ "memory_activation": {
+  "script": "experiments/memory_compute.py (第 2 部分)",
+  "unit": "GPT-2 Small, block_size=256, MB",
+  "batch": [
+   1,
+   2,
+   4,
+   8,
+   16
+  ],
+  "peak_mb": [
+   2442,
+   2711,
+   3432,
+   4941,
+   7966
+  ],
+  "activation_mb": [
+   524,
+   793,
+   1514,
+   3023,
+   6049
+  ],
+  "static_mb": 1918,
+  "static_note": "这组实验里的静态部分 = 峰值 - 激活 = 1918MB (5 个 batch 一致); 比静态表 (memory_static) 里的 1901.1MB 多约 17MB; 两者是同一脚本里两次独立的测量, 时机不同, 这 17MB 的来源未逐项拆解"
+ }
+}

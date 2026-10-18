@@ -109,6 +109,11 @@ iter  4500/5000 | train_loss 1.9622 | val_loss 1.9261 | lr 1.23e-04 | 6.1ms/iter
 
 第 0 步耗时 252ms 是因为 GPU 第一次运行要编译/加载 kernel, 之后稳定在 5~7ms。
 
+![图 1: nano 训练 5000 步的 loss 曲线](figures/fig_train_curve.svg)
+
+**图 1** 上面的日志画成曲线是这个样子 (这是单独跑的一次, 每 100 步评估一次, 所以数字和日志略有不同: 这次最后的 val_loss 是 1.90)。**怎么读**: 虚线是 $`\ln 65 = 4.17`$, 也就是"在 65 个字符里瞎猜"的 loss; 橙色的 val 曲线正好从 4.20 起步, 说明模型一开始确实是在瞎猜 (第 8.3 节)。前 500 步下降最快, 之后越来越平缓。蓝色的 train 在第 0 步只有约 3.45, 不是因为模型更聪明, 而是它画的是**第 0~99 步的平均值**, 这 100 步里模型已经学到了不少。全程 train 和 val 贴得很近, 说明 nano 这么小的模型在 5000 步内还没有过拟合 (对比第 12.2 节的 micro)。
+
+
 ### 1.3 从乱码到"像莎士比亚"
 
 同一个模型, 训练前后各让它写一段:
@@ -132,37 +137,9 @@ I sway to the ponort and in band heare brefully of te Ponter:
 
 ### 1.4 全流程图
 
-```
- tinyshakespeare.txt (111 万字符)
-        │  CharTokenizer: 每个字符 → 一个整数 (65 种)
-        ▼
- [18, 47, 56, 57, 58, 1, 15, 47, ...]
-        │  按 block_size 切块, y = x 右移一位
-        ▼
- x: (B, S)  y: (B, S)                        ← 第 2 节
-        │
-        ▼  ┌─────────────── GPT.forward ───────────────┐
- wte(x) + wpe(位置)          (B, S, C)        ← 第 4 节
-        │
-        ▼  × n_layer
- ┌─ Block ───────────────────────────────┐
- │  x = x + Attention(LayerNorm(x))      │   ← 第 5、7 节
- │  x = x + FFN(LayerNorm(x))            │   ← 第 6、7 节
- └───────────────────────────────────────┘
-        │
-        ▼
- LayerNorm → lm_head        (B, S, V)  每个位置对 65 个字符的打分 (logits)
-        │  └──────────────────────────────────────────┘
-        ▼
- cross_entropy(logits, y)   一个标量 loss          ← 第 8 节
-        │
-        ▼
- loss.backward() → 梯度裁剪 → AdamW 更新参数        ← 第 10 节
-        │
-        └──→ 重复 max_iters 次
+![图 2: 一次训练的全流程](figures/fig_pipeline.svg)
 
- 训练完: generate() 一次吐一个字符, 吐出的字符拼回输入, 再预测下一个  ← 第 11 节
-```
+**图 2** 一次训练的全流程。**怎么读**: 分三段从上往下看: **数据** (第 2 节) 把文本变成编号再切成 x、y; **模型** (第 4~8 节) 把 x 变成每个位置的打分, 再和 y 比较得到一个 loss; **更新** (第 10 节) 根据 loss 调整参数, 然后回到开头取下一个 batch (左边的绿色箭头)。最下面一行是训练完以后的生成 (第 11 节): 每生成一个字符, 就把它接到末尾再算一轮。每个方框下面的小字写的是那一步的输出形状或作用, 右侧的"← 第 N 节"告诉你去哪一节看细节。
 
 ---
 
@@ -217,6 +194,11 @@ y (答案, 后 8 个):    i  r  s  t     C  i  t
 
 **关键**: 位置 1 的题只能看 "Fi", 不能偷看后面的 "rst..."。这个"不许偷看"由第 5 节的**因果掩码**保证。正因为有掩码, 一段文本才能同时当 S 道题来用, 训练效率是"一次只问一道题"的 S 倍。
 
+![图 3: 一段文本怎么变成 S 道题](figures/fig_shift.svg)
+
+**图 3** **怎么读**: 第一行是原文 9 个字符; x 取前 8 个 (蓝), y 取后 8 个 (橙), 竖箭头把同一列的 x 和 y 连起来: 每一列就是一道题, "看到 x 这一列及其左边的所有字符, 猜 y 这一列"。绿色虚线框标出了位置 3 能看到的范围: 只有 F、i、r、s 四个字符, 它要猜的是 t。
+
+
 对应代码 ([common/text_data.py](../../common/text_data.py)):
 
 ```python
@@ -241,9 +223,10 @@ def __getitem__(self, idx):
 ### 2.5 训练/验证切分: 按顺序切, 不能先打乱
 
 ```python
-n = int(train_ratio * len(data))      # train_ratio = 0.9
-train = data[:n]                      # 前 90%
-val   = data[n:]                      # 后 10%
+# common/text_data.py 的 make_loaders() 里 (train_ratio = 0.9)
+n = int(train_ratio * len(data))
+train_ds = TextDataset(data[:n], block_size, stride)     # 前 90% 做训练集
+val_ds = TextDataset(data[n:], block_size, stride)       # 后 10% 做验证集
 ```
 
 **为什么不能先打乱再切?** 如果按"块"随机分到训练集和验证集, 相邻的两块 (比如一句话的前半句和后半句) 会分别落进两边。模型在训练集里见过前半句, 验证时猜后半句就容易得多, 验证 loss 会**虚低**, 你会以为模型泛化得很好。按位置切开, 验证集是模型完全没见过的后 10% 剧本, 测出来的才是真实水平。
@@ -309,6 +292,11 @@ lm_head                -> (2, 8, 65)    每个位置对 65 个字符各打一个
 ```
 
 **记住这条主线**: 进模型是 `(B, S)` 的整数, 中间一直是 `(B, S, C)`, 出模型是 `(B, S, V)` 的分数。每个 Block 都是 `(B, S, C) → (B, S, C)`, 这就是 Transformer 可以随意加深的原因。
+
+![图 4: 一个 batch 经过模型时张量形状的变化](figures/fig_shapes.svg)
+
+**图 4** 上面那张实测形状表的图形版, **方框宽度正比于最后一维的大小**。**怎么读**: 一眼就能看出模型里两次"变宽": `c_attn` 变成 3 倍宽 (Q、K、V 拼在一起), FFN 的 `c_fc` 变成 4 倍宽; 而每次变宽之后都会变回 64 维, 所以主干 (蓝色方框) 的宽度始终不变。最后 `lm_head` 把 64 维变成 65 维, 对应 65 个字符的打分。
+
 
 ---
 
@@ -460,12 +448,20 @@ softmax([16, 32, 48]) = [0.000, 0.000, 1.000]     ← 完全变成"只选一个"
 
 除以 $`\sqrt{d_k}`$ 把点积的标准差拉回 1 左右, 让 softmax 保持在"有主有次"的区间。
 
+![图 5: softmax 随输入放大逐渐只选最大的](figures/fig_softmax_scale.svg)
+
+**图 5** 上面三行 softmax 实测的柱状图版本 (多加了一组 ×4)。**怎么读**: 每一组柱子是同一组分数 [1, 2, 3] 放大若干倍之后的 softmax 输出。×1 时三个位置都有份 (0.09 / 0.24 / 0.67); 放大到 ×4 时最大的已经拿走 98%; ×8 以后另外两根柱子完全消失。注意力分数如果不除以 $`\sqrt{d_k}`$, 就相当于被放大了 $`\sqrt{d_k}`$ 倍 (这个模型里是 $`\sqrt{32} \approx 5.7`$ 倍), 会落到右边几组的状态。
+
+
 ### 5.5 因果掩码: 不许看未来
 
 ```python
-# __init__: 建一次, 存成 buffer (不是参数, 不训练, 但会跟着 .to(device) 搬到 GPU)
-mask = torch.triu(torch.ones(block_size, block_size, dtype=torch.bool), diagonal=1)
-self.register_buffer("mask", mask.view(1, 1, block_size, block_size))
+# CausalSelfAttention.__init__: 建一次, 存成 buffer (不是参数, 不训练, 但会跟着 .to(device) 搬到 GPU)
+# masked_fill 只接受 bool mask, 且填的是 True 处;
+# 因此这里直接标记「要屏蔽」的上三角, 下三角(含对角)保持 False
+mask = torch.triu(torch.ones(config.block_size, config.block_size, dtype=torch.bool), diagonal=1)
+mask = mask.view(1, 1, config.block_size, config.block_size)   # 前两维留给 B、H 广播
+self.register_buffer("mask", mask)
 ```
 
 `torch.triu(..., diagonal=1)` 取**严格上三角** (对角线上方)。S=5 时 (1 = 屏蔽):
@@ -480,8 +476,9 @@ self.register_buffer("mask", mask.view(1, 1, block_size, block_size))
 ```
 
 ```python
-scores = scores.masked_fill(mask[:, :, :S, :S], float("-inf"))
-attn_weights = F.softmax(scores, dim=-1)
+# scaled_dot_product_attention 里: mask 按最大长度 block_size 建好, 切出左上角 S×S 来用
+scores = scores.masked_fill(mask[:, :, :scores.size(-2), :scores.size(-1)], float("-inf"))
+attn_weights = F.softmax(scores, dim=-1)                 # (B, H, S, S) 每一行和为 1
 ```
 
 `masked_fill` 把 mask 为 True 的格子填成 $`-\infty`$; 因为 $`e^{-\infty} = 0`$, softmax 之后这些位置的权重恰好是 0。实测一组随机 Q、K 算出的注意力权重:
@@ -494,7 +491,23 @@ attn_weights = F.softmax(scores, dim=-1)
  [0.131 0.044 0.047 0.081 0.696]]     ← 每行和为 1, 右上角全是 0
 ```
 
-`mask[:, :, :S, :S]`: mask 按最大长度 64 建好, 实际输入可能更短, 切出左上角 S×S 来用。
+`mask[:, :, :scores.size(-2), :scores.size(-1)]`: mask 按最大长度 64 建好, 实际输入可能更短, 切出左上角 S×S 来用 (`scores.size(-2)` 和 `scores.size(-1)` 都等于 S)。
+
+![图 6: 训练好的 nano 模型的注意力热力图](figures/fig_attention_maps.svg)
+
+**图 6** 上面是随机 Q、K 算出的权重; 这张图是**训练好的** nano 模型在一句台词上的真实注意力 (2 层 × 2 个头)。**怎么读**: 第 $`i`$ 行是位置 $`i`$ 的注意力怎么分配给它能看到的各个位置, 每行加起来是 1; 颜色越深权重越大 (≥0.6 都画成最深); 右上角恒为空白, 那就是因果掩码。
+
+把四个头的权重统计一下 (第 3 行起的平均值; 若均匀分配给能看到的所有位置, 平均约 0.10):
+
+| 头 | 给自己 | 给前一个字符 | 给前两个字符 | 给第一个字符 |
+|---|---|---|---|---|
+| 第 1 层 · 头 0 | 0.15 | 0.21 | 0.18 | 0.06 |
+| 第 1 层 · 头 1 | 0.21 | 0.19 | 0.15 | 0.05 |
+| 第 2 层 · 头 0 | 0.20 | **0.32** | 0.18 | 0.05 |
+| 第 2 层 · 头 1 | 0.18 | **0.35** | 0.14 | 0.06 |
+
+所有头都把大部分注意力放在**最近的两三个字符**上, 图上表现为紧贴对角线的深色斜带; 第 2 层的两个头尤其偏重"前一个字符", 是均匀分配的 3 倍多。对一个字符级模型来说这很合理: 猜下一个字母, 最有用的信息就是刚刚写下的那几个字母。也有例外: 第 1 层头 0 在句末的 "." 上 (最后一行) 把 0.73 的权重给了换行符, 相当于回头看"这一行从哪里开始"。
+
 
 > ⚠️ **本项目踩过的坑 #2**: 早期版本是这样建掩码的:
 > ```python
@@ -515,21 +528,25 @@ attn_weights = F.softmax(scores, dim=-1)
 逐行拆解 [model.py](model.py) 的 `CausalSelfAttention.forward`, 以 nano (B=32, S=64, C=64, H=2, d_k=32) 为例:
 
 ```python
-B, S, C = x.shape                                   # 32, 64, 64
+def forward(self, x):
+    B, S, C = x.shape                                    # nano: B=32, S=64, C=64
 
-qkv = self.c_attn(x)                                # (32, 64, 192)  一次矩阵乘法算出 Q、K、V
-q, k, v = qkv.split(C, dim=-1)                      # 各 (32, 64, 64)
+    qkv = self.c_attn(x)                                 # (32, 64, 192)  一次矩阵乘法算出 Q、K、V
+    q, k, v = qkv.split(C, dim=-1)                       # 各 (32, 64, 64)
 
-q = q.view(B, S, self.n_heads, self.d_k)            # (32, 64, 2, 32)  把 64 维看成 2 个头 × 32 维
-q = q.transpose(1, 2)                               # (32, 2, 64, 32)  把"头"挪到前面
-# k、v 同理
+    # view:      (32, 64, 64) -> (32, 64, 2, 32)  把 64 维看成 2 个头 × 32 维 (不搬动数据)
+    # transpose: (32, 64, 2, 32) -> (32, 2, 64, 32)  把"头"挪到前面
+    q = q.view(B, S, self.n_heads, self.d_k).transpose(1, 2)
+    k = k.view(B, S, self.n_heads, self.d_k).transpose(1, 2)
+    v = v.view(B, S, self.n_heads, self.d_k).transpose(1, 2)
 
-attn_out, _ = scaled_dot_product_attention(q, k, v, self.mask)   # (32, 2, 64, 32)
+    attn_out, _ = scaled_dot_product_attention(q, k, v, self.mask)   # (32, 2, 64, 32)
 
-attn_out = attn_out.transpose(1, 2)                 # (32, 64, 2, 32)  头挪回后面
-attn_out = attn_out.contiguous().view(B, S, C)      # (32, 64, 64)     2 个头拼回 64 维
+    # transpose: (32, 2, 64, 32) -> (32, 64, 2, 32)  头挪回后面
+    # contiguous + view: -> (32, 64, 64)  2 个头拼回 64 维
+    attn_out = attn_out.transpose(1, 2).contiguous().view(B, S, C)
 
-return self.resid_dropout(self.c_proj(attn_out))    # (32, 64, 64)     输出投影, 让各头的信息混合
+    return self.resid_dropout(self.c_proj(attn_out))     # (32, 64, 64)  输出投影, 让各头的信息混合
 ```
 
 **为什么要 `transpose(1, 2)`?** `torch.matmul` 对最后两维做矩阵乘法, 前面的维度当作"批"。把形状排成 `(B, H, S, d_k)` 后, `q @ k.transpose(-2, -1)` 就自动对每条样本、每个头分别算出 `(S, S)` 的分数矩阵, 不用写循环。
@@ -539,6 +556,11 @@ return self.resid_dropout(self.c_proj(attn_out))    # (32, 64, 64)     输出投
 **为什么 Q、K、V 用一个大矩阵 `c_attn` 而不是三个小矩阵?** 数学上完全等价 (三个 64×64 的矩阵拼成一个 64×192)。一次大的矩阵乘法比三次小的在 GPU 上更快。
 
 **多头不增加参数**: 不管分几个头, `c_attn` 都是 64×192。多头只是改变了"怎么用"这些参数。
+
+![图 7: 多头注意力怎么切分和拼回](figures/fig_multihead.svg)
+
+**图 7** 上面逐行拆解的形状变化画成图。**怎么读**: 左边是一个位置序列的 q, 形状 (8, 64); 蓝色是前 32 维, 橙色是后 32 维。`view` + `transpose` 把它切成两个独立的 (8, 32) 矩阵, 也就是两个头; 两个头各自做一次完整的注意力 (各有一张 8×8 的分数矩阵), 互不干扰; 最后 `transpose` + `contiguous` + `view` 把它们拼回 (8, 64)。拼回之后两半仍然是分开算出来的, 要再经过 `c_proj` 这个线性层, 两个头的信息才真正混合。
+
 
 ---
 
@@ -551,14 +573,16 @@ return self.resid_dropout(self.c_proj(attn_out))    # (32, 64, 64)     输出投
 ### 6.2 逐行拆解
 
 ```python
-self.c_fc   = nn.Linear(64, 4 * 64)      # 升维到 256
-self.gelu   = nn.GELU()
-self.c_proj = nn.Linear(4 * 64, 64)      # 降回 64
+# __init__ (nano: config.n_embd = 64)
+self.c_fc = nn.Linear(config.n_embd, 4 * config.n_embd, bias=config.bias)    # 升维 64 -> 256
+self.gelu = nn.GELU()                                                         # 非线性, 没有它两层线性等于一层
+self.c_proj = nn.Linear(4 * config.n_embd, config.n_embd, bias=config.bias)  # 降维 256 -> 64
+self.dropout = nn.Dropout(config.dropout)
 
-def forward(self, x):                    # (B, S, 64)
-    x = self.c_fc(x)                     # (B, S, 256)
-    x = self.gelu(x)                     # 非线性
-    x = self.c_proj(x)                   # (B, S, 64)
+def forward(self, x):                                    # x: (B, S, 64), 每个位置独立计算
+    x = self.c_fc(x)                                     # (B, S, 256)
+    x = self.gelu(x)
+    x = self.c_proj(x)                                   # (B, S, 64)
     return self.dropout(x)
 ```
 
@@ -634,6 +658,11 @@ LN(x)   = [-1.342, -0.447, 0.447, 1.342]
 
 Pre-LN 的代价是主干上的数值会随层数一直累加、越来越大, 所以在所有 Block 之后要再补一个 `ln_f`, 把它拉回标准尺度再交给 `lm_head`。这就是 `GPT.forward` 末尾 `x = self.ln_f(x)` 的由来。
 
+![图 8: Pre-LN 与 Post-LN 的结构对比](figures/fig_block.svg)
+
+**图 8** 两种结构各画了两个子层 (注意力、FFN)。**怎么读**: 粗竖线是残差主干 $`x`$, 从下往上流动; 每个子层从主干上"分出去"算一个修改量, 再在 ⊕ 处加回来。左边的 Pre-LN, LN 在分支上, **主干从头到尾没有任何运算挡着** (绿色), 梯度可以沿着它直接传回第一层; 主干上的数值会一路累加, 所以最顶上要补一个 `ln_f`。右边的 Post-LN, LN 直接放在主干上 (红色), 每经过一层, 主干本身就要穿过一次 LN, 层数一多梯度就难以传回去。
+
+
 ---
 
 ## 8. 输出与损失: loss 的数值意味着什么
@@ -656,10 +685,14 @@ $`z`$ 是某个位置的 logits 向量 (长度 $`V=65`$)。
 
 ```python
 loss = F.cross_entropy(
-    logits.view(-1, logits.size(-1)),    # (B*S, 65)  把所有位置摊平成一个大 batch
-    targets.view(-1),                    # (B*S,)
+    logits.reshape(-1, logits.size(-1)),    # (B*S, 65)  把所有位置摊平成一个大 batch
+    targets.reshape(-1),                    # (B*S,)
+    ignore_index=-1,  # 答案为 -1 的位置不计入 loss (为补齐 padding 预留; 本项目用不到)
 )
 ```
+
+用 `reshape` 而不是 `view`: 如果 `targets` 是切片得到的 (例如 `x[:, 1:]`), 它在内存里不连续, `view` 会直接报错, `reshape` 会在需要时自动复制一份。
+本项目早期用的是 `view`, 因为训练时的 batch 都由 DataLoader 拼接而成、恰好总是连续的, 所以一直没出问题; 直到给代码补注释、写测试时用切片构造目标才暴露出来。
 
 对每个位置, 只看模型给**正确答案** $`y`$ 分配了多少概率, 取负对数, 再对所有 $`N = B \times S`$ 个位置取平均:
 
@@ -752,7 +785,13 @@ for pn, p in self.named_parameters():
 ### 10.1 优化器: AdamW
 
 ```python
-optimizer = optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95), eps=1e-8, weight_decay=0.1)
+optimizer = optim.AdamW(
+    model.parameters(),
+    lr=args.lr,               # 只是初始值, 每一步都会被学习率调度覆盖
+    betas=(0.9, 0.95),        # β2=0.95 比默认 0.999 记忆更短, 梯度突变时反应更快 (GPT 系列的常用设置)
+    eps=1e-8,
+    weight_decay=0.1,         # 对所有参数都施加 (更常见的做法是只对二维权重施加, 见讲义练习 3)
+)
 ```
 
 - **Adam**: 给每个参数单独维护一个"历史梯度的平均"和"历史梯度平方的平均", 用它们调节步长。梯度一直很大的参数自动走小步, 一直很小的走大步。
@@ -801,6 +840,11 @@ it=4000  lr=1.894e-04     │
 it=5000  lr=1.000e-04     ┘
 it=6000  lr=1.000e-04       之后保持最低值
 ```
+
+
+![图 9: 学习率调度曲线](figures/fig_lr.svg)
+
+**图 9** 上表的完整曲线, 由 `train.py` 里的 `get_lr()` 直接算出。**怎么读**: 最左边那段几乎竖直的线就是 100 步的热身 (相对 5000 步很短); 之后是半个余弦周期: 开头和结尾平缓、中间陡; 正中间 (第 2550 步) 恰好是峰值和最低值的平均 0.55; 第 5000 步之后保持 0.1 不变。
 
 写成公式 ($`\eta_{\max}`$ = `learning_rate`, $`\eta_{\min}`$ = `min_lr`, $`T_w`$ = `warmup_iters`, $`T`$ = `lr_decay_iters`):
 
@@ -929,6 +973,10 @@ P_T(c) = \frac{e^{z_c / T}}{\sum_j e^{z_j / T}}
 - **$`T > 1`$**: 分数差距被缩小, 分布变平, 不常见的字符也有机会被选中。
 
 top-k 是只在分数最高的 $`k`$ 个字符里抽, 其余字符的 logit 设成 $`-\infty`$, softmax 后概率为 0, 剩下 $`k`$ 个重新归一化。
+
+![图 10: 不同温度下下一个字符的概率分布](figures/fig_temperature.svg)
+
+**图 10** 先看温度对概率分布本身做了什么, 再看它生成出来的文字。这是训练好的 nano 模型读完 `"ROMEO:\nI will th"` 之后, 对下一个字符的预测。**怎么读**: 每个字符有三根柱子, 分别是温度 0.5、1.0、1.5 下的概率。温度 1.0 (橙) 是模型原本的预测: `e` 占 54%, 后面依次是 a、i、o、y (对应 the、that、this、those、thy)。温度降到 0.5 (蓝), `e` 涨到 85%, 其它都被压低; 升到 1.5 (绿), `e` 降到 38%, 其它都被抬高, 连最右边"其它 57 个字符"合计也从 0.4% 涨到 3.9%: 这就是高温下开始出现乱拼单词的原因。
 
 用第 1 节训练好的 nano 模型, 以 `"ROMEO:\n"` 开头生成 120 个字符, 同一个随机种子, 实测:
 
@@ -1221,6 +1269,11 @@ python experiments/kv_cache.py      # 其它脚本同理
 
 而真正"新"的只有每一步的最后一个位置, 一共 $`n`$ 个。生成 1000 个字符时, 约 99.8% 的计算是在重复上一步已经算过的东西。
 
+![图 11: 有无 KV Cache 时每一步计算哪些位置](figures/fig_kvcache.svg)
+
+**图 11** **怎么读**: 每一行是生成的一步, 每一列是序列中的一个位置。左边不用 cache: 第 $`t`$ 步要把位置 1 到 $`t`$ 全部重算 (浅蓝), 6 步一共算了 21 个位置; 右边用 cache: 每一步只算新来的那一个 (深蓝), 之前的位置直接从缓存读出 (绿色虚线), 一共只算 6 个。左边是一个三角形, 面积随长度平方增长; 右边是一条对角线, 随长度线性增长。
+
+
 ### 16.3 为什么可以缓存: 因果掩码让过去的结果"冻结"
 
 能缓存的前提是: **旧位置的计算结果不会因为新 token 的到来而改变。**
@@ -1243,12 +1296,17 @@ o_t = \sum_{j \le t} \mathrm{softmax}_j\!\left(\frac{q_t \cdot k_j}{\sqrt{d_k}}\
 [kv_cache.py](experiments/kv_cache.py) 用 `model.py` 里同一套权重, 手写了逐 token 的前向。核心是注意力那几行:
 
 ```python
-q, k, v = attn.c_attn(h).split(C, dim=-1)                   # 只算新 token: 各 (B, 1, C)
-q, k, v = (t.view(B, 1, H, d_k).transpose(1, 2) for t in (q, k, v))   # (B, H, 1, d_k)
-cache[i][0] = torch.cat([cache[i][0], k], dim=2)            # 新的 K 接到缓存末尾
-cache[i][1] = torch.cat([cache[i][1], v], dim=2)
-K, V = cache[i]                                              # (B, H, t+1, d_k)
-w = F.softmax(q @ K.transpose(-2, -1) / math.sqrt(d_k), dim=-1)   # (B, H, 1, t+1)
+q, k, v = attn.c_attn(h).split(model.config.n_embd, dim=-1)       # 只算新 token: 各 (B, 1, C)
+# (B, 1, C) -> (B, H, 1, d_k)
+q, k, v = (t.view(B, 1, attn.n_heads, attn.d_k).transpose(1, 2) for t in (q, k, v))
+if len(cache) <= i:
+    cache.append([k, v])
+else:  # 把新位置的 K、V 接到缓存末尾
+    cache[i][0] = torch.cat([cache[i][0], k], dim=2)
+    cache[i][1] = torch.cat([cache[i][1], v], dim=2)
+K, V = cache[i]                                                   # (B, H, pos+1, d_k)
+# 新 token 是当前最后一个位置, 前面全都可以看, 所以不需要掩码
+w = F.softmax(q @ K.transpose(-2, -1) / math.sqrt(attn.d_k), dim=-1)   # (B, H, 1, pos+1)
 ```
 
 注意这里**没有掩码**: 新 token 是当前最后一个位置, 前面所有位置它都可以看, 天然满足因果约束。
@@ -1289,6 +1347,11 @@ $`10^{-7}`$ 量级是 fp32 的舍入误差 (fp32 的相对精度约 $`1.2 \times
 ```
 
 长度从 128 增加到 1000 (约 7.8 倍), 无 cache 的耗时增加了约 39 倍, 接近 $`7.8^2 \approx 61`$ 倍的平方增长; 有 cache 的耗时增加约 8.5 倍, 接近线性。这就是 16.2 节公式在真实硬件上的样子。
+
+![图 12: GPT-2 Small 规模下有无 KV Cache 的生成耗时](figures/fig_kv_speedup.svg)
+
+**图 12** 上表画成曲线。**怎么读**: 橙线 (不用 cache) 越往右越陡, 是一条向上弯的抛物线; 蓝线 (用 cache) 几乎是直线。两条线之间的差距随长度迅速拉大, 加速比从 1.8 倍涨到 9.1 倍。
+
 
 **教训**: 优化之前先搞清楚瓶颈在哪。同一个优化, 在不同的模型规模、不同的硬件上收益可以从 1.1 倍到 9 倍。
 
@@ -1387,7 +1450,13 @@ d_k   方式      平均最大权重  有效梯度位置   饱和行   饱和行
 
 (饱和行: 最大注意力权重 > 0.99 的行。有效梯度位置: 梯度超过该行最大梯度 1% 的位置占比。)
 
+![图 13: 除不除以 √d_k 时收到有效梯度的位置比例](figures/fig_saturation.svg)
+
+**图 13** 上表"有效梯度位置"一列的柱状图。**怎么读**: 蓝柱 (除以 $`\sqrt{d_k}`$) 在三种维度下都稳定在 90% 左右, 也就是说几乎所有位置都能收到梯度、都能被学习; 橙柱 (不缩放) 随 $`d_k`$ 增大从 31% 降到 10%: 维度越大, 梯度越集中到极少数位置上。
+
 三个发现:
+
+
 
 1. **缩放后, 行为与 $`d_k`$ 无关**: 平均最大权重稳定在 0.16 左右, 90% 的位置都能收到梯度。这正是除以 $`\sqrt{d_k}`$ 的目的。
 2. **不缩放时, $`d_k`$ 越大越糟**: $`d_k=256`$ 时一半以上的行已经饱和, 而这些行收到的梯度 (0.0014) 只有其余行 (1.89) 的约 **1/1300**。这些行的注意力模式基本学不动了。
@@ -1426,6 +1495,11 @@ bf16   1 + 8 + 7              3.39e+38     1.175e-38       0.007812
 ```
 
 **bf16 的设计思路**: 直接把 fp32 的尾数砍掉 16 位, 指数原样保留。所以 bf16 的范围和 fp32 一样大, 但精度很粗: 1 和下一个可表示数之间差 $`2^{-7} \approx 0.0078`$。fp16 正好相反: 精度好一些 ($`2^{-10}`$), 但最大只能表示 65504。
+
+![图 14: fp32、fp16、bf16 的位结构](figures/fig_floats.svg)
+
+**图 14** **怎么读**: 每个小格是 1 位, 灰色是符号位, 橙色是指数位, 蓝色是尾数位。橙色越多, 能表示的数越大、越小 (范围); 蓝色越多, 相邻两个数挨得越近 (精度)。对比下面两行: fp16 把位数分给了尾数 (10 位), 指数只剩 5 位, 所以最大只到 65504; bf16 保留了和 fp32 一样的 8 位指数, 代价是尾数只剩 7 位。
+
 
 ### 18.3 三类数值事故 (实测)
 
@@ -1531,6 +1605,10 @@ NotImplementedError: "_amp_foreach_non_finite_check_and_unscale_cuda" not implem
 
 ### 19.3 核心技巧: 分块计算 softmax (online softmax)
 
+![图 15: 手写注意力与分块计算](figures/fig_tiling.svg)
+
+**图 15** **怎么读**: 两边都是 8×8 的注意力分数矩阵 (右上角是因果掩码, 不用算)。左边手写实现: 先把整个下三角 (橙色) 全部算出来, 写进显存, 再读出来做 softmax, 显存占用 ∝ $`S^2`$。右边分块实现: 每次只把一小块 (深蓝, 2×2) 搬进片上的高速缓存算完, 然后丢掉 (绿色是已经算完丢掉的), 片上缓存只需要放得下一块, 显存占用 ∝ $`S`$。难点在于 softmax 需要整行的信息, 下面的 online softmax 就是为了解决它。
+
 难点在 softmax: 它的分母要对**整行**求和, 看起来必须先拿到整行才能算。FlashAttention 用的技巧是**边看边修正**: 维护"目前见过的最大值 $`m`$"和"按 $`m`$ 折算的指数和 $`\ell`$", 每看到一块新数据就更新:
 
 ```math
@@ -1592,6 +1670,11 @@ S        手写                  MEM_EFFICIENT          MATH
 ```
 
 - **显存**: 手写版本每次 S 翻倍, 显存约变成 4 倍 (64 → 257 → 1028 → 4112MB), 是平方增长; MEM_EFFICIENT 每次约翻倍 (14 → 28 → 57 → 113 → 226MB), 是线性增长。到 8192 时手写版本已经放不下, MEM_EFFICIENT 只用了 226MB。
+
+![图 16: 三种注意力实现的显存随序列长度的变化](figures/fig_flash_mem.svg)
+
+**图 16** 上表显存部分的图形版, 两个轴都是对数刻度。**怎么读**: 对数坐标下, 平方增长和线性增长都是直线, 区别在**斜率**: 手写和 MATH 的线每向右一格 (S 翻倍) 上升两格 (显存 ×4), MEM_EFFICIENT 只上升一格 (显存 ×2)。虚线是这张卡的 8GB 显存, 手写和 MATH 在 S=4096 时已经顶到附近, 所以 S=8192 时没有点。
+
 - **速度**: MEM_EFFICIENT 比手写快 2~5 倍, 而且序列越长优势越大。
 - **MATH 后端更慢、更占显存**, 在 4096 时峰值 8288MB, 超过了这张卡 8GB 的物理显存。推测是 Windows 驱动把超出的部分放到了系统内存 (NVIDIA 驱动的"系统内存回退"功能), 这也会让它特别慢。这一点没有进一步验证。
 
@@ -1663,6 +1746,11 @@ batch      峰值       激活    激活/样本
 - batch=1 时每样本更多, 是因为有一部分临时空间与 batch 无关。
 - 其中一个大头是输出层: 每个样本的 logits 是 $`256 \times 50257 \times 4`$ 字节 = **49MB**, 计算交叉熵时还会产生同样大小的中间结果。词表越大, 这部分越大。
 - 8GB 显存下, 这个配置的 batch 最大约为 16 (峰值 7966MB)。
+
+![图 17: GPT-2 Small 训练显存随 batch 的变化](figures/fig_mem_batch.svg)
+
+**图 17** **怎么读**: 每根柱子是一个 batch 大小下的峰值显存, 蓝色是静态部分 (参数、梯度、AdamW 状态, 与 batch 无关, 约 1.9GB), 橙色是激活。蓝色部分一样高, 橙色部分随 batch 翻倍而翻倍; batch=16 时柱顶 (7966MB) 已经贴近 8GB 虚线。(这组实验里蓝色部分是 1918MB, 比 20.2 节静态表的 1901MB 多约 17MB, 两者是同一脚本里两次独立的测量。)
+
 
 ### 20.4 算力: 每个 token 约 6N 次浮点运算
 

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" width="960" height="300" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="60" y="55" font-size="15" fill="#0b0b0b" text-anchor="end" font-weight="bold" dominant-baseline="middle">fp32</text>
+<rect x="80" y="40" width="20" height="30" rx="2" fill="#efeeea" stroke="#52514e" stroke-width="1"/>
+<rect x="102" y="40" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="124" y="40" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="146" y="40" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="168" y="40" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="190" y="40" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="212" y="40" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="234" y="40" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="256" y="40" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="278" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="300" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="322" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="344" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="366" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="388" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="410" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="432" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="454" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="476" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="498" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="520" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="542" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="564" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="586" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="608" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="630" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="652" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="674" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="696" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="718" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="740" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="762" y="40" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<text x="91.0" y="84" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">符号</text>
+<text x="190.0" y="84" font-size="11" fill="#eb6834" text-anchor="middle" font-weight="normal" dominant-baseline="middle">指数 8 位</text>
+<text x="531.0" y="84" font-size="11" fill="#2a78d6" text-anchor="middle" font-weight="normal" dominant-baseline="middle">尾数 23 位</text>
+<text x="798" y="48" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">最大 3.4e38</text>
+<text x="798" y="64" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">1 之后的间距 1.2e-7</text>
+<text x="60" y="133" font-size="15" fill="#0b0b0b" text-anchor="end" font-weight="bold" dominant-baseline="middle">fp16</text>
+<rect x="80" y="118" width="20" height="30" rx="2" fill="#efeeea" stroke="#52514e" stroke-width="1"/>
+<rect x="102" y="118" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="124" y="118" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="146" y="118" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="168" y="118" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="190" y="118" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="212" y="118" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="234" y="118" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="256" y="118" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="278" y="118" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="300" y="118" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="322" y="118" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="344" y="118" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="366" y="118" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="388" y="118" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="410" y="118" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<text x="91.0" y="162" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">符号</text>
+<text x="157.0" y="162" font-size="11" fill="#eb6834" text-anchor="middle" font-weight="normal" dominant-baseline="middle">指数 5 位</text>
+<text x="322.0" y="162" font-size="11" fill="#2a78d6" text-anchor="middle" font-weight="normal" dominant-baseline="middle">尾数 10 位</text>
+<text x="446" y="126" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">最大 65504</text>
+<text x="446" y="142" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">1 之后的间距 9.8e-4</text>
+<text x="60" y="211" font-size="15" fill="#0b0b0b" text-anchor="end" font-weight="bold" dominant-baseline="middle">bf16</text>
+<rect x="80" y="196" width="20" height="30" rx="2" fill="#efeeea" stroke="#52514e" stroke-width="1"/>
+<rect x="102" y="196" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="124" y="196" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="146" y="196" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="168" y="196" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="190" y="196" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="212" y="196" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="234" y="196" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="256" y="196" width="20" height="30" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="1"/>
+<rect x="278" y="196" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="300" y="196" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="322" y="196" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="344" y="196" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="366" y="196" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="388" y="196" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<rect x="410" y="196" width="20" height="30" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1"/>
+<text x="91.0" y="240" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">符号</text>
+<text x="190.0" y="240" font-size="11" fill="#eb6834" text-anchor="middle" font-weight="normal" dominant-baseline="middle">指数 8 位</text>
+<text x="355.0" y="240" font-size="11" fill="#2a78d6" text-anchor="middle" font-weight="normal" dominant-baseline="middle">尾数 7 位</text>
+<text x="446" y="204" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">最大 3.4e38 (同 fp32)</text>
+<text x="446" y="220" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">1 之后的间距 7.8e-3</text>
+<text x="480" y="280" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">指数位数决定范围 (能表示多大、多小) · 尾数位数决定精度 (相邻两个数隔多远)  ——  bf16 = fp32 砍掉 16 位尾数</text>
+</svg>
