@@ -80,7 +80,11 @@ LARGE = GPTConfig(
 
 
 def count_parameters(config: GPTConfig) -> int:
-    """估算模型参数量 (含 token/位置 Embedding, 输出头与 token embedding 权重共享, 故不另计)"""
+    """估算模型参数量 (含 token/位置 Embedding, 输出头与 token embedding 权重共享, 故不另计)
+
+    这是公式估算: 忽略了各 Linear 层的 bias, 所以比实际创建模型后数出来的参数量略少
+    (nano 预设估算 119.4K; 实际训练时词表只有 65, 参数量又会不同, 见讲义 12.3 节)。
+    """
     # 每层 Transformer Block:
     #   Attention: 4 * n_embd^2 (Q, K, V, O 投影)
     #   FFN: 8 * n_embd^2 (4* up, 4* down, 无 bias 时)
