@@ -6,7 +6,7 @@ make_charts.py — 由实验结果生成注意力线讲义里的数据图 (SVG)
   per_run/*.json          → fig_curves.svg    6 个变体的验证曲线 (3 个种子的均值)
   decode.txt              → fig_decode.svg    生成一个 token 的耗时随上下文长度的变化
 
-运行: python figures/make_charts.py   (只依赖标准库; 实验重跑后再运行一次即可更新图)
+运行: python figures/make_charts.py   (用到 common/svgfig.py; 实验重跑后再运行一次即可更新图)
 
 画法约定 (dataviz 规范):
   - 颜色按固定顺序分配给变体, 同一个变体在所有图里颜色相同;
@@ -22,106 +22,15 @@ import os
 import re
 import statistics
 
-from make_diagrams import BG, FONT, INK, INK2, MUTED
+from common.svgfig import BG, INK, INK2, MUTED, SERIES, Chart, spread  # noqa: F401
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RES = os.path.join(os.path.dirname(HERE), "results")
 
 # 固定的类别色顺序 (dataviz 参考调色板, 浅色模式)
-SERIES = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300"]
 ORDER = ["MHA", "GQA-4", "GQA-2", "MQA", "MLA-128", "MLA-64"]
 COLOR = dict(zip(ORDER, SERIES))
 MARK = dict(zip(ORDER, ["circle", "square", "triangle", "diamond", "circle-open", "square-open"]))
-GRID, AXIS = "#e9e8e3", "#c9c8c2"
-
-
-class Chart:
-    """一个只有一组坐标轴的折线图。"""
-
-    def __init__(self, w, h, left=70, right=150, top=50, bottom=60):
-        self.w, self.h = w, h
-        self.x0, self.x1, self.y0, self.y1 = left, w - right, h - bottom, top   # 绘图区: y0 在下
-        self.items = []
-
-    def scales(self, xmin, xmax, ymin, ymax, xlog=False):
-        import math
-        self.xmin, self.xmax, self.ymin, self.ymax, self.xlog = xmin, xmax, ymin, ymax, xlog
-        f = math.log2 if xlog else (lambda v: v)
-        self._fx = f
-        self.X = lambda v: self.x0 + (f(v) - f(xmin)) / (f(xmax) - f(xmin)) * (self.x1 - self.x0)
-        self.Y = lambda v: self.y0 - (v - ymin) / (ymax - ymin) * (self.y0 - self.y1)
-
-    def add(self, s):
-        self.items.append(s)
-
-    def text(self, x, y, s, size=12, color=INK2, anchor="middle", weight="normal"):
-        self.add(f'<text x="{x:.1f}" y="{y:.1f}" font-size="{size}" fill="{color}" text-anchor="{anchor}" '
-                 f'font-weight="{weight}" dominant-baseline="middle">{s}</text>')
-
-    def axes(self, xticks, yticks, xlabel, ylabel, xfmt=str, yfmt=str):
-        for v in yticks:                                  # 水平网格 + y 刻度
-            y = self.Y(v)
-            self.add(f'<line x1="{self.x0}" y1="{y:.1f}" x2="{self.x1}" y2="{y:.1f}" stroke="{GRID}" stroke-width="1"/>')
-            self.text(self.x0 - 8, y, yfmt(v), 11, MUTED, "end")
-        for v in xticks:                                  # x 刻度
-            x = self.X(v)
-            self.add(f'<line x1="{x:.1f}" y1="{self.y0}" x2="{x:.1f}" y2="{self.y0 + 4}" stroke="{AXIS}"/>')
-            self.text(x, self.y0 + 16, xfmt(v), 11, MUTED)
-        self.add(f'<line x1="{self.x0}" y1="{self.y0}" x2="{self.x1}" y2="{self.y0}" stroke="{AXIS}" stroke-width="1"/>')
-        self.text((self.x0 + self.x1) / 2, self.y0 + 38, xlabel, 12, INK2)
-        self.add(f'<text x="{self.x0 - 50}" y="{(self.y0 + self.y1) / 2:.1f}" font-size="12" fill="{INK2}" '
-                 f'text-anchor="middle" transform="rotate(-90 {self.x0 - 50} {(self.y0 + self.y1) / 2:.1f})">{ylabel}</text>')
-
-    def marker(self, x, y, kind, color, size=4.5):
-        open_ = kind.endswith("-open")
-        fill = BG if open_ else color
-        k = kind.replace("-open", "")
-        if k == "circle":
-            self.add(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{size}" fill="{fill}" stroke="{color}" stroke-width="2"/>')
-        elif k == "square":
-            self.add(f'<rect x="{x - size:.1f}" y="{y - size:.1f}" width="{2 * size}" height="{2 * size}" '
-                     f'fill="{fill}" stroke="{color}" stroke-width="2"/>')
-        elif k == "triangle":
-            p = f"{x:.1f},{y - size - 1:.1f} {x - size - 1:.1f},{y + size:.1f} {x + size + 1:.1f},{y + size:.1f}"
-            self.add(f'<polygon points="{p}" fill="{fill}" stroke="{color}" stroke-width="2"/>')
-        elif k == "diamond":
-            p = f"{x:.1f},{y - size - 1.5:.1f} {x + size + 1.5:.1f},{y:.1f} {x:.1f},{y + size + 1.5:.1f} {x - size - 1.5:.1f},{y:.1f}"
-            self.add(f'<polygon points="{p}" fill="{fill}" stroke="{color}" stroke-width="2"/>')
-
-    def series(self, pts, color, mark=None, every=1, dash=False, width=2):
-        d = " ".join(f"{'M' if i == 0 else 'L'}{self.X(x):.1f},{self.Y(y):.1f}" for i, (x, y) in enumerate(pts))
-        da = ' stroke-dasharray="6 4"' if dash else ""
-        self.add(f'<path d="{d}" fill="none" stroke="{color}" stroke-width="{width}" stroke-linejoin="round"{da}/>')
-        if mark:
-            for i, (x, y) in enumerate(pts):
-                if i % every == 0 or i == len(pts) - 1:
-                    self.marker(self.X(x), self.Y(y), mark, color)
-
-    def end_label(self, x, y, label, dy=0):
-        """线末端的直接标签: 文字用正文色, 不用系列色 (dataviz 规范)。"""
-        self.text(self.X(x) + 10, self.Y(y) + dy, label, 12, INK, "start")
-
-    def save(self, name, title, subtitle=None):
-        head = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {self.w} {self.h}" width="{self.w}" '
-                f'height="{self.h}" font-family="{FONT}">\n<rect width="100%" height="100%" fill="{BG}"/>\n')
-        t = f'<text x="20" y="22" font-size="15" font-weight="bold" fill="{INK}" dominant-baseline="middle">{title}</text>\n'
-        if subtitle:
-            t += f'<text x="20" y="40" font-size="12" fill="{INK2}" dominant-baseline="middle">{subtitle}</text>\n'
-        with open(os.path.join(HERE, name), "w", encoding="utf-8") as f:
-            f.write(head + t + "\n".join(self.items) + "\n</svg>\n")
-        print("写入", name)
-
-
-def spread(labels, min_gap=15):
-    """末端标签按 y 坐标排开, 避免重叠。labels: [(y, ...)] → 返回调整后的 y 列表 (保持原顺序)。"""
-    order = sorted(range(len(labels)), key=lambda i: labels[i])
-    ys = [labels[i] for i in order]
-    for i in range(1, len(ys)):
-        ys[i] = max(ys[i], ys[i - 1] + min_gap)
-    out = [0] * len(labels)
-    for k, i in enumerate(order):
-        out[i] = ys[k]
-    return out
 
 
 # ── 图: 过拟合 ──────────────────────────────────────────────────────
@@ -147,7 +56,7 @@ def fig_overfit():
     ys = spread([c.Y(val[-1][1]), c.Y(train[-1][1])])
     c.text(c.x1 + 10, ys[0], f"val {val[-1][1]:.2f}", 12, INK, "start")
     c.text(c.x1 + 10, ys[1], f"train {train[-1][1]:.2f}", 12, INK, "start")
-    c.save("fig_overfit.svg", "MHA 训练 3000 步: 约 1000 步后开始背训练集",
+    c.save(os.path.join(HERE, "fig_overfit.svg"), "MHA 训练 3000 步: 约 1000 步后开始背训练集",
            "Tiny Shakespeare 字符级, 4 层 256 维; 每 100 步评估一次 (数据: results/overfit_mha_3000.json)")
 
 
@@ -180,7 +89,7 @@ def fig_curves():
         c.add(f'<line x1="{x}" y1="{y}" x2="{x + 18}" y2="{y}" stroke="{COLOR[name]}" stroke-width="2"/>')
         c.marker(x + 9, y, MARK[name], COLOR[name], 3.5)
         c.text(x + 24, y, name, 11, INK, "start")
-    c.save("fig_curves.svg", "6 种注意力的验证曲线几乎重合",
+    c.save(os.path.join(HERE, "fig_curves.svg"), "6 种注意力的验证曲线几乎重合",
            "同一解码器只换注意力模块; 最低点都在第 700~900 步附近, 之后一起过拟合 (数据: results/per_run/)")
 
 
@@ -221,7 +130,7 @@ def fig_decode():
         c.add(f'<line x1="{x}" y1="{y}" x2="{x + 18}" y2="{y}" stroke="{colors[name]}" stroke-width="2"/>')
         c.marker(x + 9, y, marks[name], colors[name], 3.5)
         c.text(x + 24, y, name, 11, INK, "start")
-    c.save("fig_decode.svg", "长上下文下, 缓存越小越快; 朴素 MLA 被解压拖慢, 吸收版几乎不随长度变化",
+    c.save(os.path.join(HERE, "fig_decode.svg"), "长上下文下, 缓存越小越快; 朴素 MLA 被解压拖慢, 吸收版几乎不随长度变化",
            "8 层 1024 维 16 头, bf16, RTX 5060; 线为两次运行的均值, 小圆点为每次的原始值 (数据: results/decode.txt)")
 
 

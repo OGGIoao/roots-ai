@@ -4,7 +4,7 @@ make_diagrams.py — 生成注意力线讲义里的结构图 (SVG)
 结构图用代码生成而不是手工绘制: 坐标由循环算出, 对齐准确, 改起来也方便。
 输出与本文件同目录: fig_heads.svg、fig_mla.svg、fig_absorb.svg
 
-运行: python figures/make_diagrams.py   (只依赖标准库)
+运行: python figures/make_diagrams.py   (用到 common/svgfig.py, 需先 pip install -e . --no-deps)
 
 配色约定 (与数据图一致, 来自 dataviz 参考调色板):
   查询 Q  蓝    #2a78d6 / 浅底 #dbe9f9
@@ -16,61 +16,11 @@ make_diagrams.py — 生成注意力线讲义里的结构图 (SVG)
 
 import os
 
+from common.svgfig import (  # noqa: F401
+    BG, CACHE, FONT, INK, INK2, KV_FILL, KV_LINE, MUTED, OP_FILL, OP_LINE, Q_FILL, Q_LINE, Svg,
+)
+
 HERE = os.path.dirname(os.path.abspath(__file__))
-
-FONT = "'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif"
-INK, INK2, MUTED = "#0b0b0b", "#52514e", "#8a8984"
-BG = "#fcfcfb"
-Q_LINE, Q_FILL = "#2a78d6", "#dbe9f9"
-KV_LINE, KV_FILL = "#eb6834", "#fde3d7"
-CACHE = "#008300"
-OP_LINE, OP_FILL = "#52514e", "#efeeea"
-
-
-class Svg:
-    """一个极简的 SVG 拼装器: 每个方法追加一个图元, save() 时补上外壳。"""
-
-    def __init__(self, w, h):
-        self.w, self.h, self.items = w, h, []
-
-    def rect(self, x, y, w, h, fill, stroke, dash=False, rx=4, sw=1.5):
-        d = ' stroke-dasharray="6 4"' if dash else ""
-        self.items.append(f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="{rx}" '
-                          f'fill="{fill}" stroke="{stroke}" stroke-width="{sw}"{d}/>')
-
-    def text(self, x, y, s, size=14, color=INK, anchor="middle", weight="normal", italic=False):
-        style = ' font-style="italic"' if italic else ""
-        self.items.append(f'<text x="{x}" y="{y}" font-size="{size}" fill="{color}" text-anchor="{anchor}" '
-                          f'font-weight="{weight}" dominant-baseline="middle"{style}>{s}</text>')
-
-    def box(self, x, y, w, h, label, fill=OP_FILL, stroke=OP_LINE, size=14, sub=None, dash=False):
-        """带文字的方框; sub 是方框下方的小字说明 (通常写形状)。"""
-        self.rect(x, y, w, h, fill, stroke, dash)
-        self.text(x + w / 2, y + h / 2, label, size)
-        if sub:
-            self.text(x + w / 2, y + h + 13, sub, 11, MUTED)
-
-    def line(self, x1, y1, x2, y2, color=OP_LINE, arrow=True, width=1.4, dash=False):
-        m = ' marker-end="url(#arrow)"' if arrow else ""
-        d = ' stroke-dasharray="4 3"' if dash else ""
-        self.items.append(f'<line x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" stroke="{color}" '
-                          f'stroke-width="{width}"{m}{d}/>')
-
-    def path(self, d, color=OP_LINE, arrow=True, width=1.4):
-        m = ' marker-end="url(#arrow)"' if arrow else ""
-        self.items.append(f'<path d="{d}" fill="none" stroke="{color}" stroke-width="{width}"{m}/>')
-
-    def save(self, name):
-        head = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {self.w} {self.h}" '
-                f'width="{self.w}" height="{self.h}" font-family="{FONT}">\n'
-                '<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" '
-                f'markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="{OP_LINE}"/>'
-                '</marker></defs>\n'
-                f'<rect width="100%" height="100%" fill="{BG}"/>\n')
-        with open(os.path.join(HERE, name), "w", encoding="utf-8") as f:
-            f.write(head + "\n".join(self.items) + "\n</svg>\n")
-        print("写入", name)
-
 
 # ── 图 1: MHA / GQA / MQA 的头与 KV 的对应关系 ──────────────────────────
 
@@ -104,7 +54,7 @@ def fig_heads():
         s.text(x0 + pw / 2, 290, f"每个 token 缓存 {G} 组 K、V", 14, weight="bold")
         s.text(x0 + pw / 2, 314, f"= 2 × {G} × d_h 个数", 13, INK2)
         s.text(x0 + pw / 2, 334, f"(MHA 的 {G}/8)" if G != H else "(基准)", 12, MUTED)
-    s.save("fig_heads.svg")
+    s.save(os.path.join(HERE, "fig_heads.svg"))
 
 
 # ── 图 2: MLA 的数据流 ───────────────────────────────────────────────
@@ -173,7 +123,7 @@ def fig_mla():
 
     s.text(500, 420, "rope 段单独走一条路: 位置旋转 R_j 不能和解压矩阵交换次序, 拆出去之后, nope 段才能做吸收 (图 3)", 12, INK2)
     s.text(500, 445, "真实权重名: W_dkv = kv_a_proj_with_mqa · RMSNorm = kv_a_layernorm · W_ukv = kv_b_proj (DeepSeek-V3)", 11, MUTED)
-    s.save("fig_mla.svg")
+    s.save(os.path.join(HERE, "fig_mla.svg"))
 
 
 # ── 图 3: 吸收技巧 ─────────────────────────────────────────────────
@@ -233,7 +183,7 @@ def fig_absorb():
     s.line(864, 266, 894, 266)
     s.box(896, 248, 70, 36, "输出", OP_FILL, OP_LINE, 13)
     s.text(500, 440, "每生成一个 token 的计算量 ∝ t × r × H  —— 少了 (d_nope + d_v) 这个因子; 结果与朴素解码完全相同 (结合律)", 12, INK2)
-    s.save("fig_absorb.svg")
+    s.save(os.path.join(HERE, "fig_absorb.svg"))
 
 
 if __name__ == "__main__":
