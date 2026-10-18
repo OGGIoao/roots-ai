@@ -31,7 +31,7 @@ Transformer (Vaswani et al., 2017, encoder-decoder)
 **输入层与其它板块的接口**:
 - 分词 (BPE) 是整棵树的输入端: ✅ [llm-bpe-tokenizer](../projects/llm-bpe-tokenizer/)
 - 微调 (QLoRA) 是"拿到一个训好的叶子之后怎么改造它": 🟡 [llm-qlora-finetune](../projects/llm-qlora-finetune/)
-- 后训练与推理模型 (RL、GRPO) 在 RL 板块; 多模态与 VLA 在 RL 板块的具身分支。见 [ROADMAP](ROADMAP.md)。
+- 后训练与推理模型 (RL、GRPO) 在汇合点 ⓐ; 多模态与 VLA 在具身线的 R5 (汇合点 ⓑ), 见 [EMBODIED.md](EMBODIED.md)。两条线的关系见 [ROADMAP](ROADMAP.md) 第 1 节。
 
 ---
 

@@ -1,10 +1,11 @@
 # llm-roots · 根系
 
-> 从 Transformer 这个根出发, 亲手长出大模型的整棵树: **LLM → 强化学习 → Agent**。
+> 从 Transformer 这个根出发, 亲手长出大模型的整棵树; 另一条线从经典强化学习一路长到具身智能的 VLA。两条线并行, 在后训练和 VLA 两处汇合, 最后走向 Agent。
 > 每个节点都要能自己写出最小闭环, 所有数字都在本机实测。
 
-- **LLM 板块**以 [架构生长树](roadmaps/LLM_TREE.md) 为主干: 从 GPT-2 到 LLaMA 配方, 再长出注意力、位置编码、MoE、归一化、混合架构、效率六条分支, 叶子是具体的前沿模型。
-- **RL 板块** (规划中) 服务大模型后训练与具身智能; **Agent 板块** (规划中) 手写 Agent 循环、工具与记忆。
+- **LLM 线**以 [架构生长树](roadmaps/LLM_TREE.md) 为主干: 从 GPT-2 到 LLaMA 配方, 再长出注意力、位置编码、MoE、归一化、混合架构、效率六条分支, 叶子是具体的前沿模型。
+- **具身线**以 [具身线总图](roadmaps/EMBODIED.md) 为主干: 经典 RL (老虎机 → PPO) → 仿真器解剖台 → 连续控制 → 模仿学习 → 扩散策略 → VLA, 全部仿真。
+- **汇合点**: 后训练 (RL / DPO / GRPO) 需要两条线的成果; **Agent 板块** (规划中) 手写 Agent 循环、工具与记忆。
 - 学习方式: 讲义 + 参考实现 + 三级手写练习 (填空 → 接口 → 白纸)。总体设计见 [ROADMAP](roadmaps/ROADMAP.md)。
 
 本仓库最初从 [github-claw-for-ioao](https://github.com/OGGIoao/github-claw-for-ioao) 单开 (旧名 `github-claw-llm`)。
@@ -22,14 +23,16 @@ llm-roots/
 │   ├── llm-qlora-finetune/    # L3: QLoRA 微调实战 (RTX 5060 8GB)
 │   ├── llm-tree/              # 架构生长树上的新节点 (注意力线: MHA/GQA/MQA/MLA)
 │   ├── llm-anatomy/           # 解剖台: 读真实模型的配置与张量名, 核对生长树
+│   ├── embodied-rl-basics/    # 具身线 R0: 经典 RL 主干 (老虎机 → FrozenLake → CartPole → PPO)
 │   └── agent-course/          # L4: Agent 课程 (M1-M7, 仅 M1 已建)
 ├── common/                    # 多项目共享: 语料定位/下载、字符级分词、数据集
 ├── tests/                     # 冒烟/回归测试 (python -m pytest tests -q)
 ├── templates/
 │   └── llm-client/            # LLM API 统一客户端模板
 ├── roadmaps/
-│   ├── ROADMAP.md             # 学习路线图: 三个板块 (LLM → RL → Agent) 与练习设计
-│   └── LLM_TREE.md            # LLM 架构生长树总图 (LLM 板块的主干)
+│   ├── ROADMAP.md             # 学习路线图: 两条并行线、汇合点与练习设计
+│   ├── LLM_TREE.md            # LLM 架构生长树总图 (LLM 线的主干)
+│   └── EMBODIED.md            # 具身线总图 (R0 RL 主干 → R5 VLA)
 ├── verify_env.py              # 环境健康检查 (先跑这个)
 └── README.md
 ```
@@ -44,6 +47,7 @@ llm-roots/
 | `llm-minigpt` | ✅ 可用 (功能冻结) | 单文件 GPT-2, 与 transformer 的定位区别见其 README; 讲义含 5 个延伸专题 |
 | `llm-tree` | 🟡 进行中 | 生长树的新节点; 注意力线 (MHA/MQA/GQA/MLA) ✅, 含讲义、对照实验、推理实验、三级练习 |
 | `llm-anatomy` | ✅ 可用 | 读取 21 个真实模型的配置与张量名, 生成 [ANATOMY.md](projects/llm-anatomy/ANATOMY.md) |
+| `embodied-rl-basics` | 🔴 脚手架 | 具身线 R0, 老虎机案例设计待确认 |
 | `agent-course` | 🔴 脚手架 | M1 已建(core.py),M2-M7 待建 |
 | `llm-client` (模板) | ✅ 可用 | DeepSeek/Qwen/OpenAI/Ollama 统一客户端 |
 
