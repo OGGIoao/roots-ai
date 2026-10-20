@@ -236,6 +236,34 @@ def fast():
         t0 = time.perf_counter(); gpt2.encode(val_text); sp["gpt2_hf_s"] = time.perf_counter() - t0
     out["encode_speed"] = sp
 
+    # BPE 的贪心编码 vs 同一张词表下"token 最少"的切法 (动态规划)
+    toks = set(ours.vocab.values())
+    maxlen = max(len(b) for b in toks)
+    def min_split(b: bytes) -> int:
+        best = [0] + [10 ** 9] * len(b)
+        for i in range(1, len(b) + 1):
+            for j in range(max(0, i - maxlen), i):
+                if b[j:i] in toks and best[j] + 1 < best[i]:
+                    best[i] = best[j] + 1
+        return best[-1]
+    n_bpe = n_dp = 0
+    diff = []
+    for p in ours._pretokenize(val):
+        a, b = len(ours._encode_chunk(list(p.encode("utf-8")))), min_split(p.encode("utf-8"))
+        n_bpe, n_dp = n_bpe + a, n_dp + b
+        if a > b and len(diff) < 8 and p not in [d[0] for d in diff]:
+            diff.append([p, segments(p, ours), a, b])
+    out["greedy_vs_optimal"] = {"bpe_tokens": n_bpe, "min_tokens": n_dp, "examples": diff}
+
+    # "每轮选 rank 最小的" 与 "按训练顺序把每条规则依次应用一遍" 结果是否相同 (在整个验证集上逐词比对)
+    def in_order(ids):
+        for pair, new_id in ours.merges.items():
+            ids = list(_merge_pair_in_sequence(tuple(ids), pair, new_id))
+        return ids
+    pts = ours._pretokenize(val_text)
+    same = sum(in_order(list(p.encode("utf-8"))) == ours._encode_chunk(list(p.encode("utf-8"))) for p in pts)
+    out["min_rank_vs_in_order"] = {"pretokens": len(pts), "identical": same}
+
     # 7. 边界情况 -------------------------------------------------------------
     nihao = list("你".encode("utf-8"))
     out["edge"] = {

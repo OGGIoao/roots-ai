@@ -1,1804 +1,1269 @@
-# BPE Tokenizer 深度教程
+# BPE 分词器讲义 — 从 256 个字节到一张词表
 
-> 本教程是 [tokenizer.py](tokenizer.py) 的**逐行讲解 + 数学原理 + 学习资源导航**。
-> 建议打开代码文件对照阅读,每个核心函数都会在下文展开。
+> 本讲义配合 [tokenizer.py](tokenizer.py)、[train.py](train.py)、[data.py](data.py) 阅读。
+> 讲义里**所有数字、分词结果和日志都是在本机 (conda 环境 `mlc`) 实际跑出来的**, 不是从别处抄来的示意值:
+> 示例出自 [experiments/examples.py](experiments/examples.py), 主流模型的数据出自 [experiments/tokenizer_anatomy.py](experiments/tokenizer_anatomy.py),
+> 结果文件都在 [experiments/results/](experiments/results/)。你照着跑, 应该看到完全相同的结果 (BPE 训练没有随机性)。
 
 ---
 
 ## 目录
 
-1. [BPE 算法全景图](#1-bpe-算法全景图)
-2. [从零理解:为什么需要 BPE](#2-从零理解为什么需要-bpe)
-3. [训练过程图解](#3-训练过程图解)
+**第一部分 · 读懂这份代码**
+
+0. [阅读指南](#0-阅读指南)
+1. [全景: 分词器在 LLM 里做什么](#1-全景-分词器在-llm-里做什么)
+2. [为什么是"子词", 为什么从"字节"开始](#2-为什么是子词-为什么从字节开始)
+3. [训练过程图解: 三个手算得出来的例子](#3-训练过程图解-三个手算得出来的例子)
 4. [tokenizer.py 逐行拆解](#4-tokenizerpy-逐行拆解)
-5. [关键数据结构详解](#5-关键数据结构详解)
-6. [Pre-tokenization 的作用](#6-pre-tokenization-的作用)
-7. [编码(encode)的贪心策略](#7-编码encode的贪心策略)
-8. [解码(decode)的简洁之美](#8-解码decode的简洁之美)
-9. [压缩率:衡量 tokenizer 好坏的核心指标](#9-压缩率衡量-tokenizer-好坏的核心指标)
-10. [BPE vs WordPiece vs Unigram:三种子词算法对比](#10-bpe-vs-wordpiece-vs-unigram三种子词算法对比)
-11. [中文分词的特殊挑战](#11-中文分词的特殊挑战)
-12. [从我们的 BPE 到 GPT-4 的 cl100k:差在哪?](#12-从我们的-bpe-到-gpt-4-的-cl100k差在哪)
-13. [思考练习 & 答案](#13-思考练习--答案)
-14. [辅助学习资源大全](#14-辅助学习资源大全)
-15. [编码知识专题:从字符到 Token ID 的完整链路](#15-编码知识专题从字符到-token-id-的完整链路)
-16. [正则表达式专题:预分词的正则原理与实战](#16-正则表达式专题预分词的正则原理与实战)
-17. [原始 0-255 词表全景:初始字节 token 详解](#17-原始-0-255-词表全景初始字节-token-详解)
+5. [在莎士比亚上真实训练一次](#5-在莎士比亚上真实训练一次)
+6. [预分词: 合并不许跨越的边界](#6-预分词-合并不许跨越的边界)
+7. [编码: 按 rank 贪心合并](#7-编码-按-rank-贪心合并)
+8. [解码: 只需要 vocab](#8-解码-只需要-vocab)
+9. [压缩率: 词表越大越好吗](#9-压缩率-词表越大越好吗)
+10. [BPE、WordPiece、Unigram 三种子词算法](#10-bpewordpieceunigram-三种子词算法)
+11. [中文: 字节级 BPE 的软肋](#11-中文-字节级-bpe-的软肋)
+12. [从教学实现到工业分词器: 差在哪](#12-从教学实现到工业分词器-差在哪)
+13. [本项目踩坑记录汇总](#13-本项目踩坑记录汇总)
+14. [练习](#14-练习)
+15. [延伸学习资源](#15-延伸学习资源)
+
+**第二部分 · 延伸专题** (每个专题的数字都出自 [experiments/](experiments/) 里的脚本)
+
+16. [专题 A · 编码知识: 从字符到字节](#16-专题-a--编码知识-从字符到字节)
+17. [专题 B · 正则表达式与预分词](#17-专题-b--正则表达式与预分词)
+18. [专题 C · 初始词表: 256 个字节全景](#18-专题-c--初始词表-256-个字节全景)
+19. [专题 D · 主流分词器解剖](#19-专题-d--主流分词器解剖)
+20. [专题 E · 信息论视角: 熵、压缩与 loss](#20-专题-e--信息论视角-熵压缩与-loss)
+21. [延伸专题练习](#21-延伸专题练习)
 
 ---
 
-## 1. BPE 算法全景图
+# 第一部分 · 读懂这份代码
 
-BPE(Byte Pair Encoding)最初是一种**数据压缩算法**(Gage, 1994),被 Sennrich et al. (2016) 引入 NLP 领域后,成为了现代 LLM tokenizer 的事实标准。
+## 0. 阅读指南
 
-**一句话概括:**
-> BPE 训练 = "反复把语料中出现次数最多的**相邻字节对**合并为一个新 token,直到词表达到目标大小。"
+### 0.1 这个项目在整个仓库里的位置
 
+LLM 的第一道工序是把文字变成整数。后面所有项目 (Transformer、miniGPT、微调) 吃进去的都是这一串整数,
+所以分词器做得好不好, 直接决定了模型"一次能看多少字"、"中文贵不贵"、"数字算不算得对"。
+
+本项目从零实现**字节级 BPE** (GPT-2 起被广泛采用的方案), 一共不到 400 行, 没有任何第三方依赖。
+
+### 0.2 文件和命令
+
+| 文件 | 内容 | 读多久 |
+|---|---|---|
+| [tokenizer.py](tokenizer.py) | BPE 核心: `train` / `encode` / `decode` | 40 分钟 |
+| [train.py](train.py) | 训练入口: 训练 → 演示 → 压缩率 → 保存 | 10 分钟 |
+| [data.py](data.py) | 语料 (TinyShakespeare, 入库在 `data/`) | 5 分钟 |
+| [modern_tokenizers.py](modern_tokenizers.py) | tiktoken / SentencePiece / HuggingFace 的动手演示 | 第 19 节 |
+| [information_theory.py](information_theory.py) | 熵、交叉熵、Huffman 与分词效率 | 第 20 节 |
+| [experiments/](experiments/) | 本讲义所有数字和图的来源 | 按需 |
+
+```bash
+cd projects/llm-bpe-tokenizer
+python train.py                    # 默认: 莎士比亚, 词表 500, 约 15 秒
+python train.py --vocab_size 1000  # 更大词表 (写到 tokenizer_shakespeare_1000.json, 不覆盖入库的 tokenizer.json)
+python experiments/examples.py fast   # 重新生成讲义里的全部示例 (约 1 分钟)
 ```
-┌─────────────────────────────────────────────────────┐
-│                  BPE 全流程                           │
-│                                                     │
-│  训练 (train)                                       │
-│  ┌────────────┐     ┌──────────┐     ┌──────────┐  │
-│  │ 原始语料   │ ──→ │ 词频统计  │ ──→ │ 迭代合并  │  │
-│  │ (字符串)   │     │ (字节对)  │     │ (N轮)    │  │
-│  └────────────┘     └──────────┘     └──────────┘  │
-│                                          │          │
-│                                          ▼          │
-│                                   ┌──────────────┐  │
-│                                   │ 合并规则表    │  │
-│                                   │ merges: dict  │  │
-│                                   └──────────────┘  │
-│                                                     │
-│  编码 (encode)                                      │
-│  ┌────────┐   ┌──────────┐   ┌──────────────────┐  │
-│  │ 新文本  │ → │ 字节拆分  │ → │ 按 rank 顺序合并 │  │
-│  └────────┘   └──────────┘   └──────────────────┘  │
-│                                      │              │
-│                                      ▼              │
-│                              ┌───────────────┐      │
-│                              │ token ID 列表  │      │
-│                              └───────────────┘      │
-│                                                     │
-│  解码 (decode)                                      │
-│  ┌───────────────┐   ┌──────────┐   ┌───────────┐  │
-│  │ token ID 列表 │ → │ 查词表    │ → │ UTF-8文本  │  │
-│  └───────────────┘   └──────────┘   └───────────┘  │
-└─────────────────────────────────────────────────────┘
-```
+
+### 0.3 怎么读
+
+- **第一遍**: 读第 1~3 节, 然后跑一次 `python train.py`, 对照第 5 节看懂每一行日志。约 1 小时。
+- **第二遍**: 打开 `tokenizer.py`, 跟着第 4、6、7、8 节逐行读, 把每节「动手验证」里的代码贴进 Python 跑。约 3 小时。
+- **第三遍**: 做第 14 节的三道练习, 不看参考实现。
+- 第二部分的专题按兴趣读; 其中专题 A (编码知识) 如果你对 `0x41`、`U+0041` 这类写法不熟, **建议先读**。
+
+### 0.4 记号约定
+
+| 记号 | 含义 |
+|---|---|
+| `␣` | 图里的空格 (空格本身看不见) |
+| `↵` 或 `\n` | 换行 |
+| `E4 BD A0` | 十六进制写的字节, 通常是"半个汉字"这类不能单独显示的字节 |
+| $`V`$ | 词表大小 (vocab size) |
+| $`M`$ | 合并次数, $`M = V - 256`$ |
+| rank | 一条合并规则学到的先后次序; 本实现直接用新 token 的 ID 表示 |
 
 ---
 
-## 2. 从零理解:为什么需要 BPE
+## 1. 全景: 分词器在 LLM 里做什么
 
-### 2.1 三种分词粒度的困境
+**一句话**: BPE 训练 = 反复把语料里**出现次数最多的相邻一对 token** 合并成一个新 token, 直到词表达到目标大小。
+编码时按同样的先后次序把这些合并重放一遍; 解码时把每个 token 代表的字节拼回去。
 
-LLM 需要把文本变成数字。怎么切分文本?
+![图 1: BPE 的三件事](figures/fig_pipeline.svg)
 
-| 方案 | 词表大小 | 优点 | 致命缺陷 |
-|------|---------|------|---------|
-| **字符级** (character) | ~100 | 不会有未知词 | 序列太长 → 注意力 $O(n^2)$ 爆炸 |
-| **词级** (word) | ~50,000+ | 序列短 | 遇到新词/OOV 直接崩 → `<UNK>` |
-| **子词级** (subword/BPE) | ~30,000-100,000 | ✅ 平衡长度与覆盖率 | — |
+**图 1** BPE 做的三件事。**怎么读**: 从上往下三行。**训练** (只做一次) 的产物是两张表: `merges` 记录"哪两个 token 合成了哪个新 token",
+`vocab` 记录"每个 token 代表哪些字节"; 两张表一起存进 `tokenizer.json`。**编码** (每次用) 只需要 `merges`: 先预分词、
+转成字节, 再按学到的先后次序合并。**解码** 只需要 `vocab`: 查表、拼字节、按 UTF-8 解码。三者的输入输出形状都写在方框里, 后面第 4~8 节逐个展开。
 
-**核心矛盾**:词表越大 → 序列越短(计算快)→ 但 embedding 层参数越多,且低频词学不好。
-
-BPE 的精妙之处在于:**让高频词保持完整,把低频词拆成有意义的碎片。**
-
-例如(以 `vocab_size=500` 训练后):
-- `"the"` → 1个 token(高频词,完整保留)
-- `"unbelievable"` → 3个 token:`"un"` + `"believ"` + `"able"`(低频词,拆成子词)
-- `"xyzabc"` → 6个 token(完全没见过,退回字节级)
-
-### 2.2 为什么是"字节级"?
-
-我们的实现是 **Byte-level BPE**(GPT-2 首创),初始词表 = 256 个字节值(0-255)。
-
-**好处:**
-- 🌍 **万国通用**:中文、日文、emoji、代码、数学符号——任何文本都能编码,因为 UTF-8 本身就是字节序列
-- 🚫 **零 OOV**:不可能遇到"未知字符",最多就是退回到单个字节
-- 🔗 **和后续 LLM 无缝对接**:所有主流 LLM(GPT-2/3/4, LLaMA, Claude)都用字节级 BPE
-
-**代价:**
-- 中文字符 = 3 个字节(UTF-8),在字节级 BPE 下如果没有足够的中文训练数据,一个汉字可能被拆成 3 个 token
-
-### 2.3 一个直观的例子
-
-```
-训练语料: "low lower lowest" (假设各出现 1 次)
-
-初始词频表:
-  "low"    → (108, 111, 119)    # l=108, o=111, w=119
-  "lower"  → (108, 111, 119, 101, 114)  # +e=101, r=114
-  "lowest" → (108, 111, 119, 101, 115, 116)  # +s=115, t=116
-
-第1轮: 统计所有相邻对的频率
-  (108,111) = (l,o): 出现在所有3个词中 → 频率=3  ⭐最高
-  (111,119) = (o,w): 也是3
-  (119,101) = (w,e): 出现在 lower 和 lowest → 2
-  ...
-
-选择 (108,111) → 合并为新 token "lo" (ID=256)
-更新词频表:
-  "lo" + "w"       → (256, 119)
-  "lo" + "w"+"e"+"r" → (256, 119, 101, 114)
-  "lo" + "w"+"e"+"s"+"t" → (256, 119, 101, 115, 116)
-
-第2轮: (111,119) 不再存在了(111 已被合并)→ 但 (256,119) 也没学过
-  新的最高频对: (256,119) = "low" → 出现在3个词 → 频率=3
-  合并为 "low" (ID=257)
-
-第3轮: (119,101) = (w,e): 出现在 lower 和 lowest → 频率=2
-  合并为 "we" (ID=258) → 不对,应该是 "we"... 这里就是简单的贪心
-  ...
-
-继续... 直到词表达到目标大小
-```
+BPE (Byte Pair Encoding) 原本是 Gage 在 1994 年提出的一种数据压缩算法; Sennrich 等人 2016 年把它用到机器翻译的分词上,
+GPT-2 (2019) 把起点从"字符"换成"字节", 就是本项目实现的**字节级 BPE**。
 
 ---
 
-## 3. 训练过程图解
+## 2. 为什么是"子词", 为什么从"字节"开始
 
-用一个更小的例子走完整训练流程:
+### 2.1 三种切分粒度
 
+模型只认整数。把文本切成什么单位再编号, 有三种选择:
+
+| 方案 | 词表大小 | 好处 | 致命问题 |
+|---|---|---|---|
+| 字符级 | 几十 ~ 几千 | 不会遇到没见过的单位 | 序列很长; 注意力的计算量随长度平方增长 |
+| 词级 | 几万 ~ 几十万 | 序列短 | 没见过的词只能变成 `<UNK>`; 词表随语料无限膨胀 |
+| **子词级 (BPE 等)** | 几百 ~ 几十万, 自己定 | 常见词完整, 罕见词拆成片段 | 需要训练; 切法不总是符合人的直觉 |
+
+子词的效果用我们自己训练的分词器 (莎士比亚, 词表 500) 和 GPT-2 (词表 50257) 对比最直观 (实测, 出自 `examples.json` 的 `words`):
+
+| 输入 | 我们的 (500) | GPT-2 (50257) |
+|---|---|---|
+| `" the"` | `␣the` (1 个) | `␣the` (1 个) |
+| `"the"` (前面没空格) | `t` `he` (2 个) | `the` (1 个) |
+| `"Hello"` | `H` `ell` `o` | `Hello` |
+| `"unbelievable"` | 11 个: `u` `n` `b` `e` `l` `i` `e` `v` `a` `b` `le` | `un` `bel` `iev` `able` |
+| `" unbelievable"` | 11 个 | `␣unbelievable` (1 个) |
+| `"xyzabc"` | 6 个单字节 | `xy` `z` `abc` |
+
+![图 2: 同一句话, 两个分词器的切法](figures/fig_tokenized.svg)
+
+**图 2** 两句话在我们的分词器 (蓝, 词表 500) 和 GPT-2 (橙, 词表 50257) 下的切法, 每个方块是一个 token, 深浅交替只为分清边界。**怎么读**: 先数个数: 第一句 18 vs 13, 第二句 26 vs 16。
+第一句的差别全在 `question`: 我们切成 `␣` `qu` `est` `ion`, GPT-2 是一个 `␣question`。第二句的红框是"不完整的字节": 我们把每个汉字和 emoji 都拆成单字节 (`E4` `BD` `A0`), GPT-2 把"你"切成 `E4 BD` + `A0` 两段,
+还出现了 `20 F0 9F` 这种"空格 + 半个 emoji"的 token。字节级分词器的 token 不必是完整的字符。
+
+两点观察:
+
+1. **同一个词, 前面有没有空格是两个不同的 token** (`" the"` vs `"the"`)。这是预分词把空格挂在词前面造成的, 第 6 节细讲。
+2. 词表 500 的分词器只学到了莎士比亚里最高频的片段, 罕见词基本退回到单字节; GPT-2 的词表大 100 倍, 连 `" unbelievable"` 都是一个 token。
+   "常见词完整, 罕见词拆碎"在两者身上都成立, 只是"常见"的门槛不同。
+
+### 2.2 为什么从字节开始
+
+我们的初始词表就是 256 个字节值 (0~255)。任何文本先按 UTF-8 编码成字节, 每个字节必然在 0~255 之内, 所以:
+
+- **不存在未知字符**: 中文、emoji、代码、乱码, 最差也能退回到单字节编码, 永远不需要 `<UNK>`;
+- **代价**: 一个汉字占 3 个字节。如果训练语料里没有中文, 一个汉字就要 3 个 token (第 11 节实测)。
+
+并不是所有模型都这么做。第 19 节读了 12 个模型官方仓库里的 `tokenizer.json`, 实际情况是:
+
+| 做法 | 实测到的模型 |
+|---|---|
+| 字节级 BPE + 正则预分词 | GPT-2、phi-2、phi-4、Qwen2.5、DeepSeek-V3、GLM-4.5、gpt-oss |
+| 在字符上做 BPE, 不认识的字符**退回字节** (byte_fallback) | Mistral-7B、Phi-3-mini |
+| WordPiece (从字符开始, 不认识的变 `[UNK]`) | BERT |
+| Unigram (不认识的变 `<unk>`) | T5 |
+
+旧版讲义里"所有主流 LLM 都用字节级 BPE"的说法是错的; 但"最终都能处理任意字节"在今天的主流 LLM 上基本成立 (要么字节级, 要么有字节回退)。
+
+---
+
+## 3. 训练过程图解: 三个手算得出来的例子
+
+下面三个例子都很小, 可以用纸笔算; 每一轮的结果都是用 `tokenizer.py` 自己的函数实际跑出来的 (`examples.py` 里的 `trace_train`)。
+
+### 3.1 最小的例子: low / lower / lowest
+
+先跳过预分词, 直接给定三个词, 各出现 1 次。用 $`c(w)`$ 表示词 $`w`$ 出现的次数, 一对相邻 token $`(a, b)`$ 的频率是:
+
+```math
+f(a, b) = \sum_{w} c(w) \cdot \#\{\, i : w_i = a,\ w_{i+1} = b \,\}
 ```
-训练语料: "abababd" (只考虑这一个词,频率=1)
 
-═══ 第 0 步: 初始化 ═══
-  词频表: { (97, 98, 97, 98, 97, 98, 100): 1 }
-  即: 'a','b','a','b','a','b','d' 各为独立字节
-  vocab = {0: b'\x00', ..., 97: b'a', 98: b'b', ..., 100: b'd', ..., 255: b'\xff'}
+也就是"把每个词里这对 token 出现的次数, 乘上这个词的出现次数, 再全部加起来"。
 
-═══ 第 1 轮: ═══
-  统计相邻对频率:
-    (97,98) = (a,b): 出现在位置0-1, 2-3, 4-5 → 频率=3 ⭐
-    (98,97) = (b,a): 出现在位置1-2, 3-4 → 频率=2
-    (98,100) = (b,d): 出现在位置5-6 → 频率=1
+| 轮次 | 最高频的几对 | 选中 | 合并后 |
+|---|---|---|---|
+| 1 | `l+o`=3, `o+w`=3, `w+e`=2, `e+r`=1 | `l+o` → `lo` (ID 256) | `lo w` / `lo w e r` / `lo w e s t` |
+| 2 | `lo+w`=3, `w+e`=2, ... | `lo+w` → `low` (257) | `low` / `low e r` / `low e s t` |
+| 3 | `low+e`=2, `e+r`=1, `e+s`=1, `s+t`=1 | `low+e` → `lowe` (258) | `low` / `lowe r` / `lowe s t` |
+| 4 | `s+t`=1, `lowe+r`=1, `lowe+s`=1 | `s+t` → `st` (259) | `low` / `lowe r` / `lowe st` |
 
-  最高频: (97,98) → 合并为 ID=256, 即 "ab"
-  更新: { (256, 256, 256, 100): 1 }   "ab","ab","ab","d"
+**三个细节**:
 
-═══ 第 2 轮: ═══
-  统计相邻对频率:
-    (256,256) = ("ab","ab"): 位置0-1, 1-2 → 频率=2 ⭐
-    (256,100) = ("ab","d"): 位置2-3 → 频率=1
+- 第 1 轮 `l+o` 和 `o+w` 并列 3 次。代码规定频率相同时选 **ID 更小**的那对: `l`=108 < `o`=111, 所以选 `l+o`。这条规则让训练结果完全确定 (第 4.2 节)。
+- 第 3 轮合并出的是 `lowe` 而不是 `we`: 第 2 轮之后 `w` 已经并进了 `low`, 不存在单独的 `w` 了。旧版讲义在这里写成了 `we`, 是错的。
+- 第 4 轮三对都是 1 次, 比较 ID: `s`=115 和 `t`=116 都是单字节, 而 `lowe`=258 更大, 所以选 `s+t`。
 
-  最高频: (256,256) → 合并为 ID=257, 即 "abab"
-  更新: { (257, 256, 100): 1 }   "abab","ab","d"
+### 3.2 词频的作用: Sennrich 论文里的例子
 
-═══ 第 3 轮: ═══
-  (257,256) → 频率=1
-  (256,100) → 频率=1
+把每个词的出现次数考虑进来: `low`×5、`lower`×2、`newest`×6、`widest`×3 (Sennrich 等 2016 论文里的经典例子)。
 
-  并列最高 → 选字典序最小的 (256,100) → 合并为 ID=258, 即 "abd"
-  更新: { (257, 258): 1 }   "abab","abd"
+![图 3: 前 7 轮合并](figures/fig_train_rounds.svg)
 
-...继续直到达到目标 vocab_size
-```
+**图 3** 前 7 轮合并, 每行是一轮之后四个词的样子, 橙色是这一轮新合并出的 token。**怎么读**: 先看左边一列: 第 1 轮选 `e+s`, 频率 9,
+是因为 `es` 同时出现在 `newest` (6 次) 和 `widest` (3 次) 里, 6+3=9; 它压过了在 `low` (5 次) 和 `lower` (2 次) 里出现的 `l+o` (5+2=7)。
+**出现次数多的词说了算**: `newest` 虽然只是一个词, 但它出现 6 次, 所以第 5~7 轮把它一路合并成了一个完整的 token, 而只出现 3 次的 `widest` 到第 7 轮还是 4 段。
+第 8~10 轮 (图里没画) `widest` 也合成了一个 token, 依次是 `d+est`、`i+dest`、`w+idest`, 频率都是 3。
 
-**核心观察**:BPE 是一种**贪心算法**,每一步都选当前最频繁的 pair 合并。它不保证全局最优,但实践中效果非常好。
+### 3.3 重叠的 pair: abababd 与 aaaa
+
+| 轮次 | 序列 | 统计到的频率 | 选中 | 实际替换 |
+|---|---|---|---|---|
+| 1 | `a b a b a b d` | `a+b`=3, `b+a`=2, `b+d`=1 | `a+b` → `ab` (256) | 3 处 |
+| 2 | `ab ab ab d` | `ab+ab`=**2**, `ab+d`=1 | `ab+ab` → `abab` (257) | **1 处** |
+| 3 | `abab ab d` | `ab+d`=1, `abab+ab`=1 | `ab+d` → `abd` (258) | 1 处 |
+| 4 | `abab abd` | `abab+abd`=1 | → `abababd` (259) | 1 处 |
+
+注意第 2 轮: `ab ab ab` 里 `(ab, ab)` 在位置 0-1 和 1-2 各出现一次, **统计**是 2 次; 但合并是从左到右进行的, 位置 0-1 合并后,
+位置 1 已经被用掉了, 所以**实际只能替换 1 处**。更极端的是 `aaaa`: `(a, a)` 统计 3 次, 实际替换 2 处, 得到 `aa aa`。
+
+这就是 `_get_pair_freqs` 注释里说的"重叠的 pair 会被重复计数": 统计频率在少数情况下偏高。它不影响正确性
+(合并规则仍然是确定的), 只是选中的 pair 可能不是"真正能替换最多次"的那个。GPT-2 和 HuggingFace 的实现也是这样数的。
+
+第 3 轮又是并列 (都是 1 次): 比较第一个 ID, `ab`=256 < `abab`=257, 所以选 `ab+d`。
+
+### 3.4 真正调用 train() 时: 空格也是词的一部分
+
+上面三个例子都跳过了预分词。如果直接 `tok.train("low lower lowest", 260)`, 预分词先把文本切成 `["low", " lower", " lowest"]`
+(空格挂在后面的词上, 第 6 节), 学到的 4 条合并是 `lo`、`low`、**`␣low`**、**`␣lowe`**: 带空格的 `" low"` 是一个独立的 token。
 
 ---
 
 ## 4. tokenizer.py 逐行拆解
 
-### 4.1 `__init__()` — 初始词表构建
+本节的代码块都是从 `tokenizer.py` 原样摘出来的 (只省略了日志打印), 行内注释也是源码里的。
+
+### 4.1 `__init__`: 两张表
 
 ```python
-def __init__(self):
-    # 256 个字节 token,ID 就是字节值本身
-    self.vocab: dict[int, bytes] = {i: bytes([i]) for i in range(256)}
-    # 合并规则:(id_a, id_b) → new_id
-    # new_id 同时也是"优先级":值越小 = 越早学到 = 编码时越优先应用
-    self.merges: dict[tuple[int, int], int] = {}
+# tokenizer.py
+        self.vocab: dict[int, bytes] = {i: bytes([i]) for i in range(256)}
+        self.merges: dict[tuple[int, int], int] = {}
 ```
 
-**为什么是 256?** 因为一个字节的取值范围是 0-255,所以任何文本的 UTF-8 字节序列都能用这 256 个 token 表示。这就是"字节级"的含义。
+| 表 | 键 → 值 | 例子 (莎士比亚, 词表 500) |
+|---|---|---|
+| `vocab` | ID → 这个 token 代表的字节 | `vocab[65] = b'A'`, `vocab[266] = b' the'` |
+| `merges` | (左 ID, 右 ID) → 新 ID | `merges[(256, 257)] = 266`, 即 `" t" + "he" → " the"` |
 
-### 4.2 `train()` — BPE 训练主循环(核心!)
+`merges` 的值同时就是 **rank**: 新 ID 按学到的顺序分配 (256, 257, ...), 所以 ID 越小越早学到, 编码时越优先。
+Python 3.7 起 `dict` 保持插入顺序, 遍历 `merges` 的顺序就是学到的顺序, `save` 时直接按这个顺序写出。
+
+### 4.2 `train`: 训练主循环
 
 ```python
-def train(self, text: str, vocab_size: int, verbose: bool = True) -> None:
-    num_merges = vocab_size - 256  # 需要学习多少次合并
-
-    # Step 1: 预分词 — 把文本拆成"词"级别的片段
-    pretokens = self._pretokenize(text)
-
-    # Step 2: 构建词频表
-    word_freqs: dict[tuple[int, ...], int] = defaultdict(int)
-    for token in pretokens:
-        byte_ids = tuple(token.encode("utf-8"))  # "low" → (108, 111, 119)
-        word_freqs[byte_ids] += 1
-
-    # Step 3: 迭代合并
-    for merge_idx in range(num_merges):
-        # 3a. 统计所有相邻对的频率
-        pair_freqs = self._get_pair_freqs(word_freqs)
-
-        # 3b. 找最高频对(频率相同时取字典序最小的,确保确定性)
-        best_pair = max(pair_freqs, key=lambda p: (pair_freqs[p], -p[0], -p[1]))
-
-        # 3c. 分配新 ID,记录合并规则
-        new_id = 256 + merge_idx
-        self.merges[best_pair] = new_id
-        self.vocab[new_id] = self.vocab[best_pair[0]] + self.vocab[best_pair[1]]
-
-        # 3d. 把词频表中所有出现该 pair 的地方替换为 new_id
-        word_freqs = self._apply_merge_to_freqs(best_pair, new_id, word_freqs)
+# tokenizer.py
+        num_merges = vocab_size - 256                      # 每次合并新增 1 个 token
+        pretokens = self._pretokenize(text)
+        word_freqs: dict[tuple[int, ...], int] = defaultdict(int)
+        for token in pretokens:
+            byte_ids = tuple(token.encode("utf-8"))  # str → UTF-8 字节 → ID 元组 (元组才能当 dict 的键)
+            word_freqs[byte_ids] += 1
+        for merge_idx in range(num_merges):
+            pair_freqs = self._get_pair_freqs(word_freqs)
+            if not pair_freqs:                             # 每个词都只剩 1 个 token 了
+                break
+            best_pair = max(pair_freqs, key=lambda p: (pair_freqs[p], -p[0], -p[1]))
+            best_freq = pair_freqs[best_pair]
+            new_id = 256 + merge_idx
+            self.merges[best_pair] = new_id
+            self.vocab[new_id] = self.vocab[best_pair[0]] + self.vocab[best_pair[1]]
+            word_freqs = self._apply_merge_to_freqs(best_pair, new_id, word_freqs)
 ```
 
-**逐行注解:**
+逐行看:
 
-1. **`num_merges = vocab_size - 256`**:初始词表已有 256 个字节 token,需要学习的合并次数 = 目标词表大小 - 256。
+1. **`num_merges = vocab_size - 256`**: 每合并一次词表加 1, 所以 $`M = V - 256`$。
+2. **预分词 + 词频表**: 莎士比亚训练集预分词后有 182,499 个片段, 但只有 **25,117 种**。同一个词只存一份, 记下次数,
+   后面统计 pair 时乘上次数。这让每轮扫描的工作量从 18 万降到 2.5 万 (第 5 节)。
+   `"low"` 出现 5 次 → `{(108, 111, 119): 5}`。
+3. **`if not pair_freqs: break`**: 每个词都已经合成一个 token 时, 没有任何 pair 可数, 训练**提前结束**, 词表会小于 `vocab_size` (第 18.5 节有实例)。
+4. **`max(..., key=lambda p: (pair_freqs[p], -p[0], -p[1]))`**: 选频率最高的 pair; Python 比较元组时逐个元素比, 所以频率相同时比 `-p[0]`
+   (第一个 ID 越小, 取负后越大), 再相同比 `-p[1]`。写成公式:
 
-2. **`_pretokenize()`**:先把文本按"词"拆开,防止 "The" 和 "the" 的字节被合并到一起。这一步对结果影响很大,详见第 6 节。
-
-3. **`tuple(token.encode("utf-8"))`**:把字符串转成 UTF-8 字节序列。例如 `"low"` → `(108, 111, 119)`。每个字节值就是一个 token ID。
-
-4. **`_get_pair_freqs()`**:遍历词频表中所有词的相邻对,累加频率。这是 BPE 的心脏——每轮都要重新统计,复杂度 $O(V \times N)$(V = 词频表条目数,N = 平均词长)。
-
-5. **`max(..., key=lambda ...)`**:选最高频的 pair。`-p[0], -p[1]` 是 tie-breaker——频率相同时取字典序最小的对,确保训练结果确定性(给定相同数据+参数,tokenizer 结果唯一)。
-
-6. **`self.vocab[new_id] = self.vocab[best_pair[0]] + self.vocab[best_pair[1]]`**:新 token 的字节内容 = 两个父 token 的字节内容拼接。例如 `vocab[256] = vocab[108] + vocab[111] = b'\x6c' + b'\x6f' = b'lo'`。
-
-7. **`_apply_merge_to_freqs()`**:把词频表中所有出现 `(id_a, id_b)` 的地方替换为 `new_id`。注意这会改变词的长度(两个 ID 变成一个),从而改变相邻关系。
-
-### 4.3 `_get_pair_freqs()` — 统计相邻对频率
-
-```python
-def _get_pair_freqs(self, word_freqs):
-    pair_freqs: dict[tuple[int, int], int] = defaultdict(int)
-    for word_ids, freq in word_freqs.items():
-        for i in range(len(word_ids) - 1):
-            pair = (word_ids[i], word_ids[i + 1])
-            pair_freqs[pair] += freq  # 注意:乘以词频!
-    return pair_freqs
+```math
+(a^*, b^*) = \arg\max_{(a,b)} \big(f(a,b),\ -a,\ -b\big) \quad \text{(按字典序比较)}
 ```
 
-**关键细节**:`pair_freqs[pair] += freq` 是加上**整个词的频率**,不是 1。
+   这条 tie-break 规则让训练**完全确定**: 同样的语料、同样的词表大小, 永远得到同一张 `merges`。
+5. **`vocab[new_id] = vocab[a] + vocab[b]`**: 新 token 的字节就是两个父 token 的字节拼起来, 例如 `b' t' + b'he' = b' the'`。
+6. **`_apply_merge_to_freqs`**: 把词频表里所有出现这对 pair 的地方换成新 ID。词变短了, 相邻关系变了, 所以下一轮必须重新统计。
 
-例如,如果 `"the"` 出现 100 次,那么 `(t, h)` 和 `(h, e)` 各贡献 100 次,而不是各 1 次。
-
-**复杂度**:$O(\text{总词长})$。这是每轮合并的瓶颈操作。
-
-### 4.4 `_apply_merge_to_freqs()` — 应用合并到词频表
+### 4.3 `_get_pair_freqs`: 数 pair (整个训练的瓶颈)
 
 ```python
-def _apply_merge_to_freqs(self, pair, new_id, word_freqs):
-    new_word_freqs = {}
-    for word_ids, freq in word_freqs.items():
-        new_ids = _merge_pair_in_sequence(word_ids, pair, new_id)
-        new_word_freqs[new_ids] = freq
-    return new_word_freqs
+# tokenizer.py
+        pair_freqs: dict[tuple[int, int], int] = defaultdict(int)
+        for word_ids, freq in word_freqs.items():
+            for i in range(len(word_ids) - 1):
+                pair = (word_ids[i], word_ids[i + 1])
+                pair_freqs[pair] += freq                   # 加的是这个词出现的次数, 不是 1
+        return pair_freqs
 ```
 
-这里调用了模块底部的辅助函数 `_merge_pair_in_sequence()`:
+就是 3.1 节那个求和公式的直接翻译。每一轮都要把**所有不同的词**完整扫一遍, 工作量是
+
+```math
+\text{每轮代价} \propto \sum_{w \in \text{不同的词}} (\,|w| - 1\,)
+```
+
+$`|w|`$ 是这个词当前的 token 数。它几乎不随轮次变化 (词只会越变越短, 但变化很慢), 所以总训练时间大约正比于合并次数 $`M`$: 实测每次合并约 46 毫秒 (第 5.4 节)。
+工业实现只更新"包含被合并 pair 的那些词", 不再全量重扫 (第 12 节, 也是练习 ③)。
+
+### 4.4 `_apply_merge_to_freqs` 与 `_merge_pair_in_sequence`: 执行一次合并
 
 ```python
-def _merge_pair_in_sequence(
-    ids: tuple[int, ...], pair: tuple[int, int], new_id: int
-) -> tuple[int, ...]:
-    """
-    把序列中所有 (id_a, id_b) 替换为 new_id。
+# tokenizer.py
+        new_word_freqs: dict[tuple[int, ...], int] = {}
+        for word_ids, freq in word_freqs.items():
+            new_ids = _merge_pair_in_sequence(word_ids, pair, new_id)
+            # 不同的词合并后不会变成同一个序列 (合并可逆), 所以这里直接赋值, 不需要累加
+            new_word_freqs[new_ids] = freq
+        return new_word_freqs
+```
 
-    例: ids=(97,98,97,98), pair=(97,98), new_id=256
-        → (256, 256)
-
-    注意:是替换"所有"出现,从左到右扫描一次。
-    """
-    result = []
+```python
+# tokenizer.py
+    result: list[int] = []
     i = 0
     while i < len(ids):
         if i < len(ids) - 1 and ids[i] == pair[0] and ids[i + 1] == pair[1]:
             result.append(new_id)
-            i += 2  # 跳过两个
+            i += 2                                         # 跳过已被合并的两个位置
         else:
             result.append(ids[i])
             i += 1
     return tuple(result)
 ```
 
-**逐行注解**:
-- 从左到右扫描序列
-- 如果当前位置和下一个位置恰好是 `(pair[0], pair[1])`,就用 `new_id` 替换,然后跳过两个位置
-- 否则保留当前位置,向前一步
+从左到右扫描: 当前位置和下一个位置恰好是要合并的 pair, 就写入新 ID 并跳过两格; 否则原样抄一个、前进一格。
+重叠时"先到先得": `(97, 97, 97)` 合并 `(97, 97)` 得到 `(256, 97)`, 这就是 3.3 节"统计 2 次、只替换 1 处"的来源。
 
-### 4.5 `encode()` — 编码流程
+**为什么可以直接赋值不累加?** 合并是可逆的: 新 ID 唯一对应那一对, 把它展开就能还原原序列。所以两个不同的词合并后不可能变成同一个序列, 不会发生键冲突。
 
-```python
-def encode(self, text: str) -> list[int]:
-    pretokens = self._pretokenize(text)
-    result = []
-    for token in pretokens:
-        byte_ids = list(token.encode("utf-8"))
-        merged = self._encode_chunk(byte_ids)
-        result.extend(merged)
-    return result
-```
-
-**三步走**:
-1. **Pre-tokenize**:把文本按词拆分
-2. **`_encode_chunk()`**:对每个词的字节序列贪心应用合并规则
-3. **拼接**:把所有词的 token ID 合在一起
-
-**关键设计**:合并规则只在词内部应用,不会跨词合并。这保证了编码的确定性和效率。
-
-### 4.6 `_encode_chunk()` — 贪心合并(编码的核心!)
+### 4.5 `encode` 与 `_encode_chunk`
 
 ```python
-def _encode_chunk(self, ids: list[int]) -> list[int]:
-    while len(ids) >= 2:
-        # 找当前序列中 rank 最小的可用合并
-        best_pair = None
-        best_rank = float("inf")
-        for i in range(len(ids) - 1):
-            pair = (ids[i], ids[i + 1])
-            if pair in self.merges:
-                rank = self.merges[pair]  # new_id = rank
-                if rank < best_rank:
-                    best_rank = rank
-                    best_pair = pair
-
-        if best_pair is None:
-            break  # 没有可用合并了
-
-        new_id = self.merges[best_pair]
-        ids = list(_merge_pair_in_sequence(tuple(ids), best_pair, new_id))
-
-    return ids
+# tokenizer.py
+        pretokens = self._pretokenize(text)
+        result: list[int] = []
+        for token in pretokens:
+            byte_ids = list(token.encode("utf-8"))     # 例: " the" → [32, 116, 104, 101]
+            merged = self._encode_chunk(byte_ids)
+            result.extend(merged)
+        return result
 ```
-
-**逐行注解**:
-
-1. **`while len(ids) >= 2`**:只要序列中还有至少 2 个 token,就有可能合并。
-
-2. **`rank = self.merges[pair]`**:`merges` 字典的 key 是 `(id_a, id_b)`,value 是 `new_id`。因为 `new_id` 是按训练顺序递增分配的(256, 257, 258...),所以 **`new_id` 天然就是 rank**——值越小 = 越早学到 = 越优先应用。
-
-3. **选 rank 最小的**:这是贪心策略。如果一个序列中同时存在多种可合并的 pair,优先应用最早学到的合并。
-
-4. **`_merge_pair_in_sequence()`**:执行替换。注意这里可能同时替换多个出现位置。
-
-**举例**:
-```
-输入: "lowest" → 字节 ID = [108, 111, 119, 101, 115, 116]
-                   即: l    o    w    e    s    t
-
-假设训练时学到:
-  merge #0: (108,111) → 256   即 "lo"
-  merge #1: (256,119) → 257   即 "low"
-
-编码过程:
-  第1轮: 扫描序列,找到 (108,111) 的 rank=0, (111,119) 无合并规则
-         → 选 (108,111) → 替换为 256
-         → [256, 119, 101, 115, 116]
-
-  第2轮: 扫描序列,找到 (256,119) 的 rank=1, (119,101) 无合并规则
-         → 选 (256,119) → 替换为 257
-         → [257, 101, 115, 116]
-
-  第3轮: 扫描,所有相邻对都无合并规则
-         → break
-
-最终: [257, 101, 115, 116]
-即: "low" + "e" + "s" + "t" → 4 个 token(原来需要 6 个字节)
-```
-
-### 4.7 `decode()` — 解码
 
 ```python
-def decode(self, ids: list[int]) -> str:
-    raw_bytes = b"".join(self.vocab[i] for i in ids)
-    return raw_bytes.decode("utf-8", errors="replace")
+# tokenizer.py
+        while len(ids) >= 2:
+            best_pair = None
+            best_rank = float("inf")
+            for i in range(len(ids) - 1):
+                pair = (ids[i], ids[i + 1])
+                if pair in self.merges:
+                    rank = self.merges[pair]  # new_id 即 rank
+                    if rank < best_rank:
+                        best_rank = rank
+                        best_pair = pair
+            if best_pair is None:
+                break  # 没有可用合并了，结束
+            new_id = self.merges[best_pair]
+            ids = list(_merge_pair_in_sequence(tuple(ids), best_pair, new_id))
+        return ids
 ```
 
-**极简!** 两行搞定:
-1. 把每个 ID 查词表得到字节序列,拼接成一大块字节
-2. UTF-8 解码成字符串
+编码对每个预分词片段**独立**进行: 在当前序列的所有相邻对里, 找出在 `merges` 里且 rank 最小的那一对, 合并, 重复, 直到没有任何相邻对在 `merges` 里。第 7 节用真实例子走一遍。
 
-`errors="replace"` 是安全网:如果模型生成了无效的 UTF-8 字节序列,不会崩溃,而是用 `�` 替换。
-
----
-
-## 5. 关键数据结构详解
-
-### `self.vocab: dict[int, bytes]`
-
-| 键 | 值 | 说明 |
-|----|-----|------|
-| 0 | `b'\x00'` | 空字节 |
-| 10 | `b'\n'` | 换行符 |
-| 32 | `b' '` | 空格 |
-| 65 | `b'A'` | 大写 A |
-| 97 | `b'a'` | 小写 a |
-| 256 | `b'lo'` | 训练时学到的第一个合并 |
-| 257 | `b'low'` | 训练时学到的第二个合并 |
-| ... | ... | ... |
-
-### `self.merges: dict[tuple[int,int], int]`
-
-| 键 | 值 | 说明 |
-|----|-----|------|
-| `(108, 111)` | 256 | "l"+"o" → "lo"(第 1 轮学到的) |
-| `(256, 119)` | 257 | "lo"+"w" → "low"(第 2 轮学到的) |
-| `(104, 101)` | 258 | "h"+"e" → "he"(第 3 轮学到的) |
-
-**注意**:`merges` 的 value(`new_id`)同时也是 rank。因为 `new_id = 256 + merge_idx`,所以先学到的合并 rank 更小。
-
----
-
-## 6. Pre-tokenization 的作用
-
-Pre-tokenization 是 BPE 训练和编码前的**预处理步骤**,决定哪些字节可以被合并。
-
-### 6.1 为什么需要?
-
-如果不做 pre-tokenization:
-- `"the cat"` 和 `"thecat"` 会被当作一样的字节序列
-- 空格会参与合并,产生很多无意义的 token(如 `" e"`, `" a"`, `"t "`)
-- 大小写不同的词可能被合并到一起
-
-### 6.2 GPT-2 的做法
-
-GPT-2 使用一个复杂的正则表达式把文本拆分成"词"级别的片段:
+### 4.6 `decode`
 
 ```python
-# GPT-2 的 pretokenization 正则(简化版)
-import re
-pat = re.compile(r"""'s|'t|'re|'ve|'m|'ll|'d| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+""")
+# tokenizer.py
+        raw_bytes = b"".join(self.vocab[i] for i in ids)
+        return raw_bytes.decode("utf-8", errors="replace")
 ```
 
-这个正则会把:
-- 缩写(`'s`, `'t`, `'re`)拆成独立 token
-- 连续字母、数字、标点分别拆成一组
-- 空格**附加到后面词的开头**
+两行: 查表拼字节, 再按 UTF-8 解码。`errors="replace"` 让不合法的字节序列变成 `�` 而不是抛异常, 第 8 节讲它什么时候会触发。
 
-### 6.3 我们的简化实现
+### 4.7 `save` / `load`
 
 ```python
-def _pretokenize(self, text: str) -> list[str]:
-    tokens = re.findall(r"\S+|\s+", text)  # 连续非空白 或 连续空白
-    result, pending_space = [], ""
-    for t in tokens:
-        if re.match(r"^\s+$", t):
-            pending_space = t       # 空白暂存
-        else:
-            result.append(pending_space + t)  # 空白附在词前面
-            pending_space = ""
-    if pending_space:
-        result.append(pending_space)
-    return result
+# tokenizer.py
+        data = {
+            "vocab": {str(k): list(v) for k, v in self.vocab.items()},
+            "merges": [[a, b, c] for (a, b), c in self.merges.items()],
+        }
 ```
 
-**效果**:
-```
-"Hello world"  → ["Hello", " world"]   # 空格附在 "world" 前面
-" foo  bar"    → [" foo", "  bar"]     # 多个空格也附在前面
-"line1\nline2" → ["line1\n", "line2"]  # 换行附在前一个词后面
-```
+字节存成整数列表而不是字符串, 因为很多 token 不是合法的 UTF-8 (例如半个汉字 `b'\xe4'`), 没法写成 JSON 字符串。
+`load` 时 JSON 的键只能是字符串, 所以要 `int(k)` 转回来。
 
-**为什么把空格附在前面而不是后面?** 这是 GPT-2 的设计惯例——空格+词 = 一个 token。例如 `" the"` 是一个 token,而单独的 `"the"` 是另一个。这让 tokenizer 在编码时天然知道词的边界。
+> **动手验证**
+> ```python
+> from tokenizer import BPETokenizer
+> t = BPETokenizer()
+> t.train("low lower lowest", 260, verbose=False)
+> print(t._pretokenize("low lower lowest"))   # ['low', ' lower', ' lowest']
+> print([t.vocab[i] for i in t.merges.values()])   # [b'lo', b'low', b' low', b' lowe']
+> ```
 
 ---
 
-## 7. 编码(encode)的贪心策略
+## 5. 在莎士比亚上真实训练一次
 
-### 7.1 为什么是贪心?
+### 5.1 日志逐行读
 
-`_encode_chunk()` 使用的是**贪心策略**:每次都选当前 rank 最小的 pair 合并。
-
-这**不保证全局最优**(最优解是 NP-hard),但:
-- 实践中效果非常好
-- 复杂度低(线性扫描 × 合并次数)
-- 结果确定性(给定相同 merges 表,编码结果唯一)
-
-### 7.2 等价于按训练顺序应用合并
+`python train.py` 的完整输出 (本机实测, 只截取训练部分):
 
 ```
-训练时学到的合并顺序:
-  merge #0: (A, B) → AB    rank = 256
-  merge #1: (AB, C) → ABC  rank = 257
-  merge #2: (D, E) → DE    rank = 258
+[数据] 语料大小：1,115,394 字符 / 1,115,394 字节
+[数据] 训练集：1,003,854 字符 / 验证集：111,540 字符
 
-编码时(对于序列 [A, B, C, D, E]):
-  1. 找 rank 最小的 pair → (A,B) rank=256 → 合并为 AB
-  2. 序列变成 [AB, C, D, E]
-  3. 找 rank 最小的 pair → (AB,C) rank=257 → 合并为 ABC
-  4. 序列变成 [ABC, D, E]
-  5. 找 rank 最小的 pair → (D,E) rank=258 → 合并为 DE
-  6. 序列变成 [ABC, DE]
-  7. 没有更多可合并的 → 结束
+[训练] 语料 pre-token 统计：182,499 个（25,117 种）
+[训练] 目标：244 次合并，词表 256 → 500
+-------------------------------------------------------
+  合并 #  24/244： (101, 115) →   279  'es'  (频率=4748)
+  合并 #  48/244： (111, 109) →   303  'om'  (频率=3238)
+  合并 #  72/244： ( 99, 104) →   327  'ch'  (频率=1786)
+  合并 #  96/244： ( 39, 100) →   351  "'d"  (频率=1325)
+  合并 # 120/244： ( 10,  83) →   375  '\nS'  (频率=1075)
+  合并 # 144/244： (282, 111) →   399  ' no'  (频率=861)
+  合并 # 168/244： (117, 115) →   423  'us'  (频率=689)
+  合并 # 192/244： ( 10,  89) →   447  '\nY'  (频率=597)
+  合并 # 216/244： (304, 384) →   471  ' good'  (频率=533)
+  合并 # 240/244： ( 32,  71) →   495  ' G'  (频率=469)
+-------------------------------------------------------
+[训练完成] 词表大小：500
+
+[耗时] 训练用时 14.9 秒
 ```
 
-### 7.3 复杂度分析
+- 字符数等于字节数: TinyShakespeare 全是 ASCII, 每个字符 1 字节。
+- 每 24 次合并 (总数的 10%) 打印一行: `(左 ID, 右 ID) → 新 ID  新 token  (频率)`。频率从几千一路降到几百。
+- `'\nS'`、`'\nY'`: **换行 + 大写字母**成了 token。莎士比亚剧本每行台词以换行开头、首字母大写, 预分词又把换行挂在了后面的词上 (第 6 节), 于是 `\n` 和下一行的首字母天天相邻。
+  整张词表里以 `\n` 开头的 token 有 20 个, 包括 `'\n\n'`、`'\nThe'`、`'\nAnd'`、`'\nBut'`、`'\nThat'`。这是**语料的指纹**: 换一份语料, 这些 token 就不会出现。
+- `"'d"` 是 `'` 和 `d` 的合并: 莎士比亚大量使用 `call'd`、`belov'd` 这类省略写法。
 
-假设序列长度为 $L$,共有 $M$ 种合并规则:
+### 5.2 前 30 条合并
 
-- 每轮扫描:$O(L)$
-- 最多合并 $L-1$ 次(每次合并至少减少一个 token)
-- 每轮查找匹配:$O(L)$
+| ID | 合并 | ID | 合并 | ID | 合并 |
+|---|---|---|---|---|---|
+| 256 | `␣` + `t` | 266 | `␣t` + `he` = `␣the` | 276 | `o` + `n` |
+| 257 | `h` + `e` | 267 | `n` + `d` | 277 | `␣` + `d` |
+| 258 | `␣` + `a` | 268 | `␣` + `b` | 278 | `␣` + `c` |
+| 259 | `o` + `u` | 269 | `i` + `s` | 279 | `e` + `s` |
+| 260 | `␣` + `s` | 270 | `o` + `r` | 280 | `␣` + `l` |
+| 261 | `␣` + `m` | 271 | `\n` + `\n` | 281 | `e` + `n` |
+| 262 | `i` + `n` | 272 | `␣` + `f` | 282 | `␣` + `n` |
+| 263 | `␣` + `w` | 273 | `e` + `r` | 283 | `␣` + `y` |
+| 264 | `r` + `e` | 274 | `l` + `l` | 284 | `a` + `r` |
+| 265 | `h` + `a` | 275 | `i` + `t` | 285 | `␣t` + `h` |
 
-总复杂度:$O(L^2)$(最坏情况)
+前 30 条里有 12 条是"空格 + 首字母": 英文里最常见的相邻对就是"空格后面跟一个词的开头"。第 11 条就合成了完整的 `␣the`。
 
-实际中因为每次合并通常减少多个 pair,远快于最坏情况。
+### 5.3 一个 token 是怎么长出来的
+
+![图 4: token "␣shall" 的合并树](figures/fig_merge_tree.svg)
+
+**图 4** 词表 500 里最长的 token 是 `␣shall` (ID 431, 6 字节)。**怎么读**: 从下往上看, 底层蓝色是初始字节, 每个橙色节点是一次合并, 小字是 ID。
+`␣`+`s` 在第 5 次合并 (ID 260) 就学到了, `h`+`a` 是第 10 次 (265), `l`+`l` 是第 19 次 (274); 直到第 138 次 (393) 才有 `␣sha`, 第 176 次 (431) 才有 `␣shall`。
+**一个长 token 的每一个"前缀片段"都必须先成为 token**, 所以长 token 都出现在训练后期。词表 500 里新 token 的长度分布: 2 字节 122 个、3 字节 81 个、4 字节 26 个、5 字节 14 个、6 字节 1 个。
+
+### 5.4 合并频率与训练耗时
+
+![图 5: 每次合并时被合并 pair 的出现次数](figures/chart_merge_freq.svg)
+
+**图 5** 继续训练到词表 4096 (共 3840 次合并), 记录每次被合并的 pair 在语料里出现了多少次。**怎么读**: 横轴第几次合并, 纵轴频率, 两轴都是对数。
+第 1 次合并的 `␣t` 出现 21,591 次; 到第 244 次 (默认词表 500 到此为止) 只剩 465 次; 到第 3840 次只剩 14 次。
+越往后学到的 token 越罕见, 每个新 token 能省下的 token 数也越少, 这就是第 9 节"压缩率越来越难降"的原因。
+
+![图 6: 累计训练时间](figures/chart_train_time.svg)
+
+**图 6** 累计训练时间随合并次数的变化。**怎么读**: 几乎是一条直线, 斜率约 46 毫秒/次: 第 4.3 节说过, 每轮都要把 2.5 万个不同的词全扫一遍,
+这个工作量几乎不随轮次变化。词表 500 (244 次) 用 14.9 秒, 4096 (3840 次) 用 176 秒。照这个斜率粗略外推, 训练 5 万词表要 40 分钟左右; 工业实现用增量更新避免了全量重扫。
+
+> **动手验证**: 训练到 4096 再只保留前 $`k`$ 条合并, 与直接训练到 $`256+k`$ **完全相同** (BPE 每一步只依赖之前的结果)。
+> `examples.py sweep` 就是这样一次训练得到所有词表大小的, 并且逐条核对了前 244 条与 `train(vocab_size=500)` 一致。
 
 ---
 
-## 8. 解码(decode)的简洁之美
+## 6. 预分词: 合并不许跨越的边界
+
+### 6.1 为什么要预分词
+
+预分词先把文本切成片段, **合并只在片段内部发生**。不做预分词会怎样?
+
+- 训练会学到横跨两个词的 token, 例如 `"e t"` (`the time` 里 `e` 和 `t` 相邻)、`"of the"`。同一个词跟不同的邻居组合, 会产生大量只出现在特定搭配里的 token, 浪费词表;
+- 整篇语料是一个几百万字节的长序列, 不能"同一个词只存一份", 每轮都得扫全文, 慢得多。
+
+旧版讲义说预分词是为了"防止 The 和 the 合并到一起", 这是错的: `The` 和 `the` 的字节本来就不同, 跟预分词无关。
+
+### 6.2 我们的实现
 
 ```python
-def decode(self, ids: list[int]) -> str:
-    raw_bytes = b"".join(self.vocab[i] for i in ids)
-    return raw_bytes.decode("utf-8", errors="replace")
+# tokenizer.py
+        tokens = re.findall(r"\S+|\s+", text)
+        result: list[str] = []
+        pending_space = ""
+        for t in tokens:
+            if re.match(r"^\s+$", t):
+                pending_space = t
+            else:
+                result.append(pending_space + t)
+                pending_space = ""
+        if pending_space:
+            result.append(pending_space)
+        return result
 ```
 
-解码之所以这么简单,是因为我们选择了**字节级** BPE:
+先用 `\S+|\s+` 把文本切成"连续非空白"和"连续空白"交替的片段, 再把每段空白**挂到后面那个词的开头**; 文本末尾剩下的空白单独成一段。实测:
 
-- 每个 token ID → 一个字节序列(可能 1 字节或多字节)
-- 所有 token 的字节拼接起来 → 完整的 UTF-8 字节流
-- UTF-8 解码 → 原始文本
+| 输入 | 预分词结果 |
+|---|---|
+| `"Hello world"` | `Hello` `␣world` |
+| `" foo  bar"` | `␣foo` `␣␣bar` |
+| `"line1\nline2\n"` | `line1` `\nline2` `\n` |
+| `"It's 2026, hello world!"` | `It's` `␣2026,` `␣hello` `␣world!` |
 
-**对比 WordPiece**:WordPiece 的 tokenizer 词表里存的是字符串而非字节,解码时需要手动处理词之间的连接符(`##` 前缀),更加复杂。
+注意最后一行: 标点和数字都**粘在词上** (`␣2026,`、`␣world!`), 换行也挂在后面的词上 (`\nline2`)。这就是 5.1 节 `'\nS'` 的来源。
+旧版讲义写成 `"line1\n"` (换行挂在前面), 与代码不符。
+
+### 6.3 与 GPT-2 的差别
+
+GPT-2 用一条更细的正则 (专题 B 逐个分支拆解), 同一句话切成 `It` `'s` `␣2026` `,` `␣hello` `␣world` `!`:
+缩写、数字、标点都单独成段。差别的后果:
+
+- 我们的分词器会学到 `s,` 这类"词尾 + 标点"的 token (第 7.2 节的 `mathematics,` 就切出了 `s,`), GPT-2 不会;
+- 我们把连续空格整体挂在词前 (`␣␣bar`), GPT-2 会拆成 `␣` + `␣bar`, 让 `␣bar` 和单空格时的 token 一致。
+
+**为什么空格挂在前面?** 这样 `" the"` 是一个整体, 一个 token 就同时表达了"这里有个词边界"和"这个词是 the"。代价是 `"the"` 和 `" the"` 成了两个 token (第 2.1 节)。
 
 ---
 
-## 9. 压缩率:衡量 tokenizer 好坏的核心指标
+## 7. 编码: 按 rank 贪心合并
 
-$$\text{compression\_ratio} = \frac{\text{token 数}}{\text{原始字节数}}$$
+### 7.1 走一遍真实例子
 
-| Tokenizer | 压缩率 | 说明 |
-|-----------|--------|------|
-| 字节级(无 BPE) | 1.000 | 每个字节 = 1 个 token |
-| 我们的 BPE (500) | ~0.4-0.6 | 取决于训练数据 |
-| GPT-2 cl100k | ~0.250 | 英文为主的语料训练 |
-| GPT-4 cl100k | ~0.250 | 类似 GPT-2 |
+![图 7: 编码 "␣lowest" 的每一轮](figures/fig_encode_trace.svg)
 
-**为什么压缩率重要?**
-- 压缩率越低 → 同样的文本需要的 token 越少 → 推理速度越快
-- 压缩率越低 → 同样的上下文窗口能装更多文本 → 信息密度更高
-- 但压缩率太低(词表太大)→ embedding 层参数爆炸,低频 token 学不好
+**图 7** 用莎士比亚词表 500 编码 `" lowest"`。**怎么读**: 每行是一轮。左边是当前的 token 序列, 橙色是这一轮被合并的一对; 右边列出所有"在 merges 里"的相邻对和它们的 rank。
+第 1 轮有 4 个候选, `e+s` 的 rank 279 最小, 先合并它; 第 2 轮 `␣+l` (280) 最小; ……; 第 5 轮没有任何相邻对在 `merges` 里, 结束。
+结果 `␣l` `ow` `est` 是 3 个 token。注意合并的**顺序**和字符的左右位置无关, 只看 rank。
 
-**经验法则**:对于英文,vocab_size=50,000 左右可以达到 ~0.3 的压缩率。
+同样的方法编码 `"Hello"` 只有 2 轮: 先 `l+l` (274), 再 `e+ll` (427), 结果 `H` `ell` `o`。旧版讲义里那条 `He → Hel → Hell → Hello` 的合并链是虚构的, 这张词表里根本没有 `He`。
 
----
+### 7.2 贪心不是最少 token
 
-## 10. BPE vs WordPiece vs Unigram:三种子词算法对比
+rank 小的先合并, 是**贪心**的: 它不保证切出的 token 数最少。用同一张词表 (500), 对验证集前 1 万字节的每个预分词片段, 再用动态规划求"token 数最少的切法", 实测对比:
 
-| 特性 | BPE | WordPiece | Unigram |
-|------|-----|-----------|---------|
-| **代表模型** | GPT-2/3/4, LLaMA | BERT, DistilBERT | T5, ALBERT |
-| **训练方向** | 自底向上(合并) | 自底向上(合并) | 自顶向下(删除) |
-| **初始词表** | 256 字节 | 字符集 | 全部子词候选 |
-| **合并/删除依据** | 最频繁对 | 似然增益最大 | 边际似然损失最小 |
-| **编码策略** | 贪心 rank 最小 | 贪心/最长匹配 | Viterbi 最优路径 |
-| **概率模型** | 无(纯计数) | 无(纯似然) | 有(Unigram LM) |
+| 切法 | token 总数 |
+|---|---|
+| BPE 贪心 (`_encode_chunk`) | 5,026 |
+| 同一词表下的最少切法 | 4,984 |
 
-### BPE(我们的实现)
+只多 0.8%。差别出在这样的词上:
 
-```
-训练: 从单个字节开始,反复合并最高频 pair
-编码: 按训练顺序贪心合并
-```
+| 片段 | BPE 的切法 | 最少只需 |
+|---|---|---|
+| `␣house,` | `␣h` `ou` `se` `,` (4) | 3 |
+| `␣present` | `␣p` `re` `s` `ent` (4) | 3 |
+| `␣mathematics,` | `␣m` `at` `he` `m` `at` `ic` `s,` (7) | 6 |
 
-### WordPiece(BERT 使用)
+既然更少的切法存在, 为什么不用? 因为**模型是在 BPE 的切法上训练的**。同一个词, 训练时总被切成 `␣h ou se`, 推理时就必须也这样切,
+换成"更省"的切法反而是模型没见过的输入。分词器的首要要求是**确定、一致**, 其次才是短。
 
-```
-训练: 同样从单个字节开始,但合并依据是"最大化语言模型似然"
-编码: 贪心最长匹配优先
-区别: WordPiece 用 "##" 前缀标记词中间的子词
-      例如 "playing" → ["play", "##ing"]
-```
+### 7.3 "选 rank 最小" = "按学到的顺序重放"
 
-### Unigram(T5 使用)
+另一种写法是: 按 `merges` 的顺序, 把每条规则依次在序列上应用一遍。两种写法结果相同吗? 在整个验证集的 20,154 个预分词片段上逐个比对: **全部相同**。
+直觉上, 一条 rank 为 $`r`$ 的规则 $`(a, b)`$ 要想用上, $`a`$ 和 $`b`$ 本身必须先被造出来, 而造它们的规则 rank 都比 $`r`$ 小, 所以不会出现"顺序颠倒"。
+"选最小 rank"的写法只需扫描当前序列里实际出现的 pair, 而"顺序重放"每个片段都要过一遍全部规则, 词表大时慢得多。
 
-```
-训练: 从一个很大的候选词表开始,反复删除对似然影响最小的 token
-编码: 用 Viterbi 算法找全局最优分词
-优势: 有概率模型,可以输出分词的概率
-劣势: 训练更复杂
-```
+### 7.4 复杂度
+
+设片段长度 $`L`$ (字节数)。每轮扫描 $`O(L)`$, 每轮至少合并一处所以最多 $`L-1`$ 轮, 最坏 $`O(L^2)`$。
+预分词把片段控制在一个词的长度, $`L`$ 通常不到 10, 所以实际上很快: 编码 111,540 字符的验证集用 0.16 秒 (HuggingFace 的 Rust 版 GPT-2 分词器 0.04 秒)。
+如果**不做**预分词, 一整篇文章就是一个片段, $`L^2`$ 会变得不可接受: 这是预分词的另一个好处。
 
 ---
 
-## 11. 中文分词的特殊挑战
+## 8. 解码: 只需要 vocab
 
-### 11.1 UTF-8 编码
+### 8.1 为什么不需要 merges
 
-```
-字符 '你' 的 UTF-8 编码: 0xE4 0xBD 0xA0 (3 个字节)
-字符 '好' 的 UTF-8 编码: 0xE5 0xA5 0xBD (3 个字节)
-```
+每个 token 记着自己代表的字节, 把它们按顺序拼起来就是原文的 UTF-8 字节, 合并的历史无关紧要。
+所以 `decode` 只有两行, 而且**对任何编码结果都能无损还原**: 在整个验证集上 `decode(encode(x)) == x` 实测成立。
 
-每个中文字符 = 3 个字节。如果 tokenizer 训练数据中中文很少,一个汉字可能需要 3 个 token(退回到字节级),导致:
-- 序列变长 3 倍
-- 注意力计算量增加 9 倍
-- 模型对中文的理解变差
+### 8.2 `errors="replace"` 什么时候触发
 
-### 11.2 解决方案
-
-| 方案 | 说明 |
-|------|------|
-| **增加中文训练数据** | 让 BPE 学到中文字符的合并规则,如 `"你好"` → 1 个 token |
-| **使用 SentencePiece** | 直接在 Unicode 字符上操作,不依赖字节级 |
-| **大词表** | GPT-4 cl100k 有 ~100K 词表,足够覆盖常用汉字 |
-
-### 11.3 实验
-
-你可以用我们的 tokenizer 测试中文:
+单独解码一个不完整的字节序列, 例如"你"的第一个字节 `0xE4`:
 
 ```python
-from tokenizer import BPETokenizer
-
-tok = BPETokenizer()
-tok.train("你好世界" * 100, vocab_size=300, verbose=False)
-
-print(tok.encode("你好"))
-# 如果训练数据只有中文,"你好" 可能被编码为 1-2 个 token
-# 如果训练数据只有英文,"你好" 会被编码为 6 个字节 = 6 个 token
+>>> tok.decode([0xE4])
+'�'
+>>> tok.decode([228, 189, 160])        # "你" 的三个字节
+'你'
+>>> [tok.decode([b]) for b in [228, 189, 160]]   # 一个一个解码
+['�', '�', '�']
 ```
+
+**真实的坑: 流式输出**。LLM 生成时一次吐一个 token, 如果每吐一个就单独 `decode` 一次再打印, 汉字和 emoji 会变成一串 `�`:
+它们的字节可能分散在好几个 token 里 (第 11 节, GPT-2 把"你"切成 `E4 BD` + `A0`)。正确做法是把字节攒起来, 只输出已经完整的字符。这是练习 ② 的内容。
 
 ---
 
-## 12. 从我们的 BPE 到 GPT-4 的 cl100k:差在哪?
+## 9. 压缩率: 词表越大越好吗
 
-| 差距 | 我们的实现 | GPT-4 cl100k |
-|------|-----------|--------------|
-| Pre-tokenization | 简化正则 | 复杂 Unicode 正则(`\p{L}`, `\p{N}`) |
-| 词表大小 | ~500 | ~100,000 |
-| 训练数据 | TinyShakespeare (~1MB) | 数万亿字节的多语言语料 |
-| 训练效率 | O(V×N) 每轮扫描 | 使用优先队列+增量更新,大幅加速 |
-| 辅助 token | 无 | 特殊 token(`<\|endoftext\|>`, `<|im_start|>` 等) |
-| 分词质量 | 中等 | 极高(英文压缩率~0.25) |
+### 9.1 定义
 
-**核心差异是训练数据量**:tokenizer 的质量主要取决于训练数据,而非算法本身。
+```math
+\text{压缩率} = \frac{\text{token 数}}{\text{原始字节数}}, \qquad \text{每个 token 平均字节数} = \frac{1}{\text{压缩率}}
+```
+
+越低越好: 同样的文本用的 token 越少, 模型一次能看的内容越多, 生成越快。不做任何合并时压缩率是 1。
+
+### 9.2 实测: 压缩率随词表大小的变化
+
+![图 8: 压缩率 vs 词表大小](figures/chart_vocab_ratio.svg)
+
+**图 8** 在同一段验证集 (前 10,000 字节) 上, 不同词表大小的压缩率。**怎么读**: 横轴对数刻度, 每格词表翻一倍。
+从 256 到 500 (翻一倍不到), 压缩率从 1.0 降到 0.503; 从 2048 到 4096 (同样翻一倍), 只从 0.335 降到 0.273。**每翻一倍, 收益越来越小**, 原因就是图 5: 后学到的 token 越来越罕见。
+橙色虚线是 GPT-2 官方分词器在同一段文本上的 0.323。
+
+| 词表 | 300 | 400 | 500 | 750 | 1000 | 1500 | 2000 | 3000 | 4096 | GPT-2 (50257) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 压缩率 | 0.719 | 0.559 | 0.503 | 0.430 | 0.400 | 0.356 | 0.335 | 0.303 | 0.273 | 0.323 |
+
+一个反直觉的结果: **词表 3000 时我们就比 GPT-2 好了**。不是因为我们的分词器更高明, 而是因为它只在莎士比亚上训练, 测的也是莎士比亚:
+它的每一个 token 都是为这种文本准备的; GPT-2 的 5 万词表要覆盖网页、代码、各种语言, 分给莎士比亚式英文的只是一小部分。
+**压缩率永远是"某个分词器在某类文本上"的压缩率**, 离开文本谈压缩率没有意义。旧版讲义里"GPT-4 约 0.25"这类不注明文本的数字, 已全部删除。
+
+### 9.3 词表变大的代价
+
+词表不能无限大, 因为:
+
+- **Embedding 和输出层随词表线性增长**: 参数量 $`V \times d`$。GPT-2 small 的 $`d = 768`$, 词表这一项就是 $`50257 \times 768 = 38{,}597{,}376`$ 个参数, 占全部 1.24 亿的 31%。
+  词表 500 时只有 38.4 万。
+- **罕见 token 学不好**: 第 3840 个 token 在百万字符的训练集里只出现 14 次 (图 5), 模型几乎见不到它。
+- **用不满**: 用词表 500 编码整个验证集 (11 万字符), 实际用到了 300 个不同的 token; GPT-2 用到了 3,999 个, 只占它词表的 8%。
+  这不是 GPT-2 不好, 而是一段莎士比亚本来就用不到它为代码和其它语言准备的 token。旧版讲义"利用率应 > 90%"的说法没有依据, 已删除。
+
+### 9.4 不同分词器的 loss 不能直接比
+
+模型的 loss 是**每个 token** 的平均交叉熵 (以 e 为底的 nats)。分词器不同, 同一段文本的 token 数不同, 每个 token 的 loss 自然不可比。
+要比较, 先换算成**每字节多少比特** (bits per byte):
+
+```math
+\text{bpb} = \frac{\mathcal{L}_{\text{token}}}{\ln 2} \times \frac{N_{\text{token}}}{N_{\text{byte}}}
+= \frac{\mathcal{L}_{\text{token}}}{\ln 2} \times \text{压缩率}
+```
+
+例: 两个模型 loss 都是 3.0, 一个用压缩率 0.5 的分词器, 一个用 0.3 的, 换算后分别是 $`3.0/0.693 \times 0.5 = 2.16`$ 和 $`1.30`$ bit/字节: 后者实际上好得多。
 
 ---
 
-## 13. 思考练习 & 答案
+## 10. BPE、WordPiece、Unigram 三种子词算法
 
-### 练习 1:vocab_size=300 vs 1000
+| | BPE (本项目) | WordPiece | Unigram |
+|---|---|---|---|
+| 代表 (第 19 节实测) | GPT-2、Qwen2.5、DeepSeek-V3、Mistral 等 | BERT | T5 |
+| 训练方向 | 自底向上: 不断合并 | 自底向上: 不断合并 | 自顶向下: 从大候选集里不断删除 |
+| 初始单位 | 字节 (或字符 + 字节回退) | **字符** | 大量候选子串 |
+| 选择依据 | 频率最高的 pair | 合并后似然提升最大的 pair | 删掉后似然损失最小的 token |
+| 编码 | 按 rank 重放合并 | 从左到右最长匹配 | Viterbi 求概率最大的切法 |
+| 没见过的字符 | 退回字节, 不会未知 | `[UNK]` | `<unk>` (除非开了字节回退) |
 
-> 用哪个训练出的 tokenizer 编码同一段文字,token 数更少?
+**WordPiece 的打分**: 合并 $`(a, b)`$ 的分数是
 
-**答案**:`vocab_size=1000` 的 token 数更少。因为词表更大 → 学到更多合并规则 → 更多常见子词被合并为单个 token → 序列更短。
+```math
+\text{score}(a, b) = \frac{f(a, b)}{f(a)\, f(b)}
+```
 
-但更大的词表也有代价:
-- embedding 层参数更多
-- 低频 token 可能学不充分
-- 训练时间更长
+两个各自很常见的部分凑在一起, 分数并不高; 优先合并"一起出现远比各自出现更频繁"的组合。WordPiece 用 `##` 标记"词中间的片段", 例如 `tokenization` → `token` `##ization`。
+旧版讲义说 WordPiece "从字节开始", 不对: 它从字符开始, 所以英文 BERT 遇到汉字会输出 `[UNK]` (第 19 节实测: 193 字符的中文切出 183 个 token, 其中 123 个是 `[UNK]`)。
 
-### 练习 2:纯中文训练
-
-> 如果训练语料是纯中文,BPE 有什么不同?每个汉字几个字节?
-
-**答案**:
-- 每个常用汉字 = 3 字节(UTF-8)
-- 纯中文训练时,BPE 会很快学会把常用汉字的 3 个字节合并为 1 个 token
-- 例如 `"你"` 的字节 `(0xE4, 0xBD, 0xA0)` 会被合并为 ID=256, 257, 258 三个 token 之一
-- 最终常见汉字 = 1 个 token,罕见汉字 = 2-3 个 token
-
-### 练习 3:空格处理
-
-> `"hello"` 和 `" hello"` 为什么是不同的 token?
-
-**答案**:
-- Pre-tokenization 时,空格被附加到后面词的开头
-- `" hello"` 被处理为一个 pre-token(包含前导空格)
-- `"hello"` 被处理为另一个 pre-token(无空格)
-- 两者的字节序列不同,BPE 合并规则分别作用
-- 这是 GPT-2 的设计:**空格是词的一部分**,不是分隔符
-
-### 练习 4:未见过的词
-
-> 如果训练语料里没有数字,编码 `"2026年"` 会怎样?
-
-**答案**:
-- `"2026"` 会被拆成 4 个字节 token:`'2'`, `'0'`, `'2'`, `'6'`(因为训练时没见过数字组合,没有学到合并规则)
-- `"年"` 会被拆成 3 个字节 token(UTF-8: 0xE5 0xB9 0xB4)
-- 总共 7 个 token 来表示 `"2026年"`
-- 这就是为什么 tokenizer 训练数据的多样性非常重要
+**Unigram 的模型**: 每个 token 有一个概率 $`p(t)`$, 一种切法 $`x = (t_1, \dots, t_k)`$ 的概率是 $`P(x) = \prod_i p(t_i)`$, 编码时用 Viterbi 动态规划找概率最大的切法。
+训练从一个很大的候选集开始, 反复删掉"删了以后整体似然下降最少"的 token。它天然能给出多种切法及其概率 (可用于训练时随机换切法做正则化, 见 Kudo 2018)。
+T5 的词表里汉字很少, 实测一段 193 字的中文被切成 32 个 token, 其中 11 个是 `<unk>`: 很多连续的不认识的汉字被并成**一个** `<unk>`, 信息直接丢了。
 
 ---
 
-## 14. 辅助学习资源大全
+## 11. 中文: 字节级 BPE 的软肋
 
-### 📄 必读论文
+### 11.1 英文语料训练的分词器遇到中文
 
-| 论文 | 年份 | 链接 | 重要性 |
-|------|------|------|--------|
-| **Neural Machine Translation of Rare Words with Subword Units** (Sennrich et al.) | 2016 | https://arxiv.org/abs/1508.07909 | ⭐⭐⭐⭐⭐ BPE 引入 NLP 的原始论文 |
-| **Language Models are Unsupervised Multitask Learners** (GPT-2) | 2019 | https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf | ⭐⭐⭐⭐⭐ 字节级 BPE 的起源 |
-| **SentencePiece** (Kudo & Richardson) | 2018 | https://arxiv.org/abs/1808.06226 | ⭐⭐⭐⭐ 语言无关的 tokenizer 框架 |
-| **BPE-Dropout** (Provilkov et al.) | 2020 | https://arxiv.org/abs/1910.13267 | ⭐⭐⭐ BPE 的正则化变体 |
-| **Canine: Pre-training an Efficient Tokenization-Free Encoder** (Clark et al.) | 2022 | https://arxiv.org/abs/2103.06874 | ⭐⭐⭐ 完全不需要 tokenizer 的替代方案 |
+一个常用汉字在 UTF-8 里占 3 个字节。用莎士比亚训练的词表 500 编码一段 193 字的中文 (自写, 539 字节): **539 个 token**, 一个字节一个 token, 一个合并都用不上。
+每个汉字 3 个 token, 同样内容的序列长度是英文的好几倍, 注意力的计算量按长度平方增长。
 
-### 💻 必看开源项目
+### 11.2 在中文上训练会怎样: 合并跨过了汉字边界
 
-| 项目 | 作者 | 链接 | 适合阶段 |
-|------|------|------|---------|
-| **minbpe** | Andrej Karpathy | https://github.com/karpathy/minbpe | ⭐⭐⭐⭐⭐ 入门首选,极简 BPE 实现(~300 行) |
-| **tiktoken** | OpenAI | https://github.com/openai/tiktoken | ⭐⭐⭐⭐⭐ GPT-4 的实际 tokenizer,Rust 实现 |
-| **SentencePiece** | Google | https://github.com/google/sentencepiece | ⭐⭐⭐⭐ 工业级 tokenizer 框架 |
-| **tokenizers** | HuggingFace | https://github.com/huggingface/tokenizers | ⭐⭐⭐⭐ Rust 实现,支持 BPE/WordPiece/Unigram |
-| **cs336-bpe** | Stanford CS336 | https://github.com/stanford-cs336/cs336-bpe-2025 | ⭐⭐⭐⭐ 课程配套实现,有详细评测 |
+旧版讲义建议"在 `"你好世界" * 100` 上训练试试", 实测结果很能说明问题:
 
-### 📚 教程与博客
+- 这段文本没有空格, 预分词后是**一个** 1200 字节的片段;
+- 只合并了 19 次训练就提前结束了: 整个片段已经合成了**一个 1200 字节的 token**;
+- 再编码 `"你好"`:
 
-| 资源 | 链接 | 说明 |
-|------|------|------|
-| **Lilian Weng: Tokenizers** | https://lilianweng.github.io/posts/2023-01-27-the-transformer-family-v2/#tokenizer | 简洁全面的技术博客 |
-| **HuggingFace Tokenizer 教程** | https://huggingface.co/docs/tokenizers/en/quicktour | 交互式教程,带代码 |
-| **Jay Alammar: 可视化 GPT-2 tokenizer** | https://jalammar.github.io/illustrated-gpt2/#gpt-2-tokenizer | 直观的可视化 |
-| **Karpathy: Let's build the GPT Tokenizer** | https://www.youtube.com/watch?v=zduSFxRajkE | YouTube 视频教程,2 小时从零实现 |
-| **Wikipedia: Byte Pair Encoding** | https://en.wikipedia.org/wiki/Byte_pair_encoding | 原始压缩算法的背景 |
+![图 9: token 边界切在了汉字中间](figures/fig_zh_cross.svg)
 
-### 🎓 课程
+**图 9** 编码 `"你好"` 的结果。**怎么读**: 第一行是两个汉字, 第二行是它们的 6 个 UTF-8 字节, 第三行是分词结果。
+第一个 token 是 `E4 BD A0 E5`: "你"的 3 个字节**加上"好"的第 1 个字节**; 第二个 token 是"好"剩下的 2 个字节。
+BPE 只看字节, 不知道哪里是汉字的边界, 只要两个字节经常相邻, 它就会合并。
 
-| 课程 | 链接 | 说明 |
-|------|------|------|
-| **Stanford CS336: Language Modeling** | https://stanford-cs336.github.io/spring2025/ | 最前沿的 LLM 课程,Assignment 1 就是手写 BPE |
-| **Stanford CS224N** | https://web.stanford.edu/class/cs224n/ | NLP 经典课程 |
-| **fast.ai NLP** | https://www.fast.ai/ | 实战导向的深度学习课程 |
+用自写的那段 193 字中文 (标点后有空格, 预分词成 11 段) 训练到词表 400, 学到的 144 个 token 里有 **115 个不是合法的 UTF-8**: 都是"半个汉字"或"一个半汉字"。
+这些 token 单独解码会变成 `�`, 也是流式输出乱码的来源之一 (第 8.2 节)。
 
-### 🛠️ 在线工具
+### 11.3 工业界的做法
 
-| 工具 | 链接 | 用途 |
-|------|------|------|
-| **Tiktokenizer** | https://tiktokenizer.vercel.app/ | 可视化 GPT tokenizer 的分词过程 |
-| **HuggingFace Tokenizer Playground** | https://huggingface.co/spaces/narsil/tokenizer-playground | 交互式对比不同 tokenizer |
-| **Tokenizer visualizer** | https://platform.openai.com/tokenizer | OpenAI 官方 tokenizer 查看器 |
-
-### 📋 学习路径建议
-
-```
-入门 (1-2天)
-  ├── 看 Karpathy 的 minbpe 源码(~300行,极简)
-  ├── 运行我们的 train.py,观察训练过程
-  └── 用 Tiktokenizer 在线可视化
-
-深入 (3-5天)
-  ├── 读 Sennrich 2016 原始论文
-  ├── 对比 BPE vs WordPiece vs Unigram
-  ├── 用 HuggingFace tokenizers 库实验不同分词策略
-  └── 尝试修改我们的 _pretokenize() 方法
-
-进阶 (1周+)
-  ├── 读 SentencePiece 论文,理解语言无关的分词
-  ├── 在中文语料上训练 tokenizer,观察差异
-  ├── 研究 BPE-Dropout 和 CANINE 等新方法
-  └── 尝试用 Rust 重写 BPE 以理解性能优化
-```
+| 做法 | 实测例子 (第 19 节) |
+|---|---|
+| 大量中文语料 + 大词表, 让常用字和词都成为完整 token | Qwen2.5 (15 万词表): 每 token 1.46 字; DeepSeek-V3: 1.64 字 |
+| 预分词时把中文单独成段, 避免中文和标点、数字粘在一起 | DeepSeek-V3 的第二条正则就是 `[一-龥぀-ゟ゠-ヿ]+` (连续的中日文字符) |
+| 在字符上做 BPE, 词表外的字符退回字节 | Mistral-7B: 几乎每个汉字一个 token (1.01 字/token) |
+| 什么都不做 | GPT-2: 0.51 字/token, 常见汉字也要 2 个 token ("你" = `E4 BD` + `A0`) |
 
 ---
 
+## 12. 从教学实现到工业分词器: 差在哪
+
+| | 本项目 | 工业实现 (GPT-2 / tiktoken / HuggingFace tokenizers) |
+|---|---|---|
+| 预分词 | `\S+\|\s+`, 空白挂在词前 | 细粒度的 Unicode 正则, 拆开缩写、数字、标点 (专题 B) |
+| 词表 | 500 | 5 万 ~ 20 万 (实测: GPT-2 50,257, Qwen2.5 151,665, gpt-oss 200,019) |
+| 训练语料 | 100 万字符的莎士比亚 | 数百 GB 的多语言文本 |
+| 训练算法 | 每轮全量重新统计 pair | 增量更新: 记录每个 pair 出现在哪些词里, 合并后只更新这些词; 用堆取最大值 |
+| 特殊 token | 无 | `<\|endoftext\|>`、对话模板用的标记等, 不参与合并, 编码时整体匹配 |
+| 编码速度 | 纯 Python, 11 万字符 0.16 秒 | Rust 实现, 同样文本 0.04 秒 (HuggingFace GPT-2) |
+| 字节的显示 | 直接用字节 | GPT-2 把 256 个字节映射成可打印字符 (空格 → `Ġ`) 再处理, 所以 HF 里看到 `Ġthe` |
+
+增量更新的做法可以直接看 HuggingFace tokenizers 的训练器源码
+([trainers/bpe/mod.rs](https://github.com/huggingface/tokenizers/blob/main/tokenizers/tk-train/src/trainers/bpe/mod.rs)):
+它维护 `where_to_update` (pair → 包含它的词) 和一个堆。算法与我们**等价**, 只是快; 练习 ③ 要你自己实现这个加速, 并保证结果与 `train()` 逐条相同。
+
 ---
 
-## 15. 编码知识专题:从字符到 Token ID 的完整链路
+## 13. 本项目踩坑记录汇总
 
-这一节是编码知识的**系统性深挖**,把「文本 -> token ID」的每一步拆开讲透。
+| 坑 | 现象 | 原因 | 处理 |
+|---|---|---|---|
+| 静默退回小语料 | 下载失败时 `--source shakespeare` 悄悄改用 3KB 的内置样例训练, 日志看不出来 | `data.py` 捕获异常后自动换语料 | 改为直接报错; 离线演示必须显式写 `--source sample` |
+| 覆盖入库的 `tokenizer.json` | 换个词表大小跑一次, 入库的默认产物就被改掉 | `train.py` 总是写同一个文件 | 只有"莎士比亚 + 词表 500"写 `tokenizer.json`, 其它写 `tokenizer_<来源>_<词表>.json` |
+| Windows 控制台崩溃 | 训练跑完后打印 ✅ 时抛 `UnicodeEncodeError: 'gbk'` | 控制台默认 GBK | `train.py` 开头把 stdout 改成 UTF-8 |
+| SentencePiece 演示训练失败 | 报词表大小的错, 开大开小都不行 | `byte_fallback` 要求至少 ~292 个片段, 而 24 行的演示语料只能产出 ~56 次合并 | 加厚演示语料, 词表定为 300 |
+| 日志被换行切断 | 合并 `'\nS'` 时日志断成两行 | 直接打印了含换行的字符串 | 改用 `repr` 打印 |
+| 讲义示例与代码不符 | 旧版讲义里的 `Hello` 合并链、`line1\n` 预分词结果、低频词切法都是想象的 | 示例是手写的 | 所有示例改由 `experiments/examples.py` 实际运行生成 |
+| 逐 token 解码乱码 | 流式打印汉字变成 `�` | 一个汉字的字节分在多个 token 里 | 攒够完整字符再输出 (练习 ②) |
+| 正则加注释后失效 | 多行带注释的 GPT-2 正则只匹配出 `'s` | 没加 `VERBOSE`; 加了又因空格被忽略而报错 | 专题 B, 17.4 节 |
 
-> ⚠️ **小白先读这里**:如果看到 `0x41`、`U+0041`、`01000001b` 一脸懵,先读完 15.1 再往下,否则后面的例子你会看不懂。
+---
 
-### 15.1 先看懂记号:0x41、U+0041、01000001b 到底是什么意思?
+## 14. 练习
 
-教程里到处出现 `0x41`、`U+0041`、`01000001b` 这类记号。对熟悉编程的人来说这是家常便饭,但对小白确实是门槛。这一节把它彻底讲清楚。
+### 14.1 动手写代码 (三级递进)
 
-#### 15.1.1 同一个数字,有三种写法
+练习文件在 [exercises/](exercises/), 每道都配了验收测试, 测试通过就是做对了。卡住了可以要提示, 按"方向 → 哪一行 → 代码"分级给, 每次只升一级。
 
-计算机里的"数字"可以用不同**进制**(进位制)书写,就像同一个时间可以写成"下午1点"或"13:00"。
+| 级别 | 练习 | 给你什么 | 验收 |
+|---|---|---|---|
+| ① 填空 | [ex1_bpe_fill.py](exercises/ex1_bpe_fill.py): 补全 BPE 的四个核心步骤 | 完整的类, 四处 `TODO` | 与 `tokenizer.py` 学到的 merges 逐条相同, 编码结果相同 |
+| ② 接口 | [ex2_stream_decode.py](exercises/ex2_stream_decode.py): 流式解码器 | 只有类的签名 | 逐个喂 token, 拼起来等于整体解码; 中途从不输出 `�` |
+| ③ 白纸 | [ex3_fast_train.py](exercises/ex3_fast_train.py): 增量更新的快速训练 | 只有验收标准 | merges 与 `train()` 逐条相同, 且至少快 3 倍 |
 
-以"字符 A 的编号是 65"为例:
-
-| 写法 | 含义 | 说明 |
-|------|------|------|
-| `65` | 十进制 | 我们日常用的写法 |
-| `01000001b` | 二进制 | 计算机内部真正的样子,末尾 `b` 表示二进制 |
-| `0x41` | 十六进制 | 编程里最常用的写法,`0x` 前缀表示十六进制 |
-
-**它们都是同一个数**,只是"数法"不同:
-
-```
-十进制  65   = 6×10 + 5        (逢十进一)
-二进制  01000001b = 0×128+1×64+0×32+0×16+0×8+0×4+0×2+1×1
-                   = 64 + 1 = 65                          (逢二进一)
-十六进制 0x41  = 4×16 + 1     = 64 + 1 = 65              (逢十六进一)
-```
-
-**为什么编程里爱用十六进制?** 因为一个字节正好是 8 个二进制位,而 4 个二进制位恰好等于 1 个十六进制位:
-
-```
-0100 0001    ← 8 位,分成两组
-  4    1     ← 每组转成十六进制
-= 0x41
+```bash
+cd projects/llm-bpe-tokenizer/exercises
+python -m pytest test_ex1.py -q     # 一道一道来
 ```
 
-所以 `0x41` 一眼就能看出"这是 1 个字节",而 `65` 看不出。十六进制是"字节的速记法"。
+### 14.2 思考题
 
-#### 15.1.2 十六进制速查表(记住这个就够了)
+<details>
+<summary><b>1.</b> 词表 300 和 1000 的分词器编码同一段莎士比亚, token 数差多少? 差距为什么不是 1000/300 倍?</summary>
 
-十六进制用 16 个符号:0-9 和 A-F(对应十进制的 10-15)。
+实测 (第 9.2 节): 7,192 vs 4,000, 比值约 1.8。词表大 3.3 倍, token 只少了 44%, 因为后学到的 token 越来越罕见 (图 5), 每个新 token 能省的越来越少。
+</details>
+
+<details>
+<summary><b>2.</b> <code>"hello"</code> 和 <code>" hello"</code> 在我们的分词器里分别切成什么? 为什么不同?</summary>
+
+`he` `ll` `o` 和 `␣he` `ll` `o`。预分词把空格挂在词前, 两者的字节序列不同 (`" hello"` 多一个 32), 合并规则分别作用。`␣he` 是一个 token, 因为"空格 + 词首"是英文里最常见的组合 (第 5.2 节)。
+</details>
+
+<details>
+<summary><b>3.</b> 莎士比亚语料里几乎没有阿拉伯数字。编码 <code>"2026年"</code> 得到几个 token?</summary>
+
+7 个: `2` `0` `2` `6` 各一个, "年"的 3 个字节 `E5` `B9` `B4` 各一个。没有学到数字和汉字的合并, 全部退回单字节。对比 GPT-2: `20` `26` `E5 B9` `B4`, 4 个。
+</details>
+
+<details>
+<summary><b>4.</b> 第 3.3 节 <code>aaaa</code> 的第 1 轮, <code>(a, a)</code> 统计频率 3, 实际只替换 2 处。能不能构造一个例子, 让"统计频率最高"的 pair 实际替换次数反而比第二名少?</summary>
+
+可以。语料 `aaa` ×10 加上 `bc` ×15: `(a,a)` 统计 20 次 (每个 `aaa` 数 2 次), `(b,c)` 15 次, 所以选 `(a,a)`; 但它实际只能替换 10 处 (每个 `aaa` 只能换 1 处), 少于 `(b,c)` 的 15 处。
+这说明 BPE 按"统计频率"选并不等于按"能省多少 token"选。它只是个启发式, 不影响确定性和正确性。
+</details>
+
+<details>
+<summary><b>5.</b> 为什么 <code>_apply_merge_to_freqs</code> 里写 <code>new_word_freqs[new_ids] = freq</code> 而不需要 <code>+=</code>?</summary>
+
+合并是可逆的: 新 ID 唯一对应一对 ID, 展开就能还原。所以两个不同的词合并后不可能变成同一个元组, 不会有键冲突 (第 4.4 节)。
+</details>
+
+<details>
+<summary><b>6.</b> 一个模型用我们的词表 500 训练, loss 是 2.0; 另一个用 GPT-2 分词器, loss 是 2.8。只看这些, 能说前者更好吗? 用第 9.4 节的公式换算。</summary>
+
+不能直接比。换算成 bit/字节: $`2.0/0.693 \times 0.503 = 1.45`$, $`2.8/0.693 \times 0.323 = 1.31`$。后者每字节的不确定性更低, 反而更好。
+</details>
+
+---
+
+## 15. 延伸学习资源
+
+链接都在 2026-10-20 检查过可以打开 (YouTube 在本机网络下无法访问, 未能核验)。
+
+**论文**
+
+| 论文 | 说明 |
+|---|---|
+| [Sennrich et al. 2016, Neural Machine Translation of Rare Words with Subword Units](https://arxiv.org/abs/1508.07909) | 把 BPE 引入 NLP; 第 3.2 节的例子出自这里 |
+| [Radford et al. 2019, GPT-2 论文](https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf) | 2.2 节讲字节级 BPE 的动机 |
+| [Kudo & Richardson 2018, SentencePiece](https://arxiv.org/abs/1808.06226) | 不依赖预分词、语言无关的分词框架 |
+| [Kudo 2018, Subword Regularization](https://arxiv.org/abs/1804.10959) | Unigram 分词模型 |
+| [Provilkov et al. 2020, BPE-Dropout](https://arxiv.org/abs/1910.13267) | 训练时随机跳过合并, 让模型见到多种切法 |
+| [Clark et al. 2022, CANINE](https://arxiv.org/abs/2103.06874) | 不用分词器, 直接在字符上建模 |
+| [Pagnoni et al. 2024, Byte Latent Transformer](https://arxiv.org/abs/2412.09871) | 不用固定词表, 按内容动态地把字节分成块 |
+
+**代码**
+
+| 项目 | 说明 |
+|---|---|
+| [karpathy/minbpe](https://github.com/karpathy/minbpe) | 与本项目最接近的极简实现, 也有 GPT-4 正则版本 |
+| [openai/gpt-2 的 encoder.py](https://github.com/openai/gpt-2/blob/master/src/encoder.py) | GPT-2 原版的预分词正则和字节到字符的映射 |
+| [openai/tiktoken](https://github.com/openai/tiktoken) | OpenAI 的 Rust 实现 |
+| [huggingface/tokenizers](https://github.com/huggingface/tokenizers) | BPE / WordPiece / Unigram 的 Rust 实现, 训练器支持增量更新 |
+| [google/sentencepiece](https://github.com/google/sentencepiece) | SentencePiece |
+
+**教程与课程**
+
+| 资源 | 说明 |
+|---|---|
+| [Karpathy: Let's build the GPT Tokenizer](https://www.youtube.com/watch?v=zduSFxRajkE) | 2 小时视频, 从零写 BPE |
+| [HuggingFace LLM Course 第 6 章: BPE](https://huggingface.co/learn/llm-course/chapter6/5) / [WordPiece](https://huggingface.co/learn/llm-course/chapter6/6) / [Unigram](https://huggingface.co/learn/llm-course/chapter6/7) | 三种算法各有一节, 带可运行的代码 |
+| [Stanford CS336](https://stanford-cs336.github.io/spring2025/) | 作业 1 包含从零手写 BPE 分词器 |
+| [Wikipedia: Byte pair encoding](https://en.wikipedia.org/wiki/Byte_pair_encoding) | 原始压缩算法 |
+| [Tiktokenizer](https://tiktokenizer.vercel.app/) | 在线看各种分词器怎么切一段文本 |
+| [regex101](https://regex101.com/) | 在线调试正则 (选 PCRE 风格可以用 `\p{L}`) |
+
+---
+
+# 第二部分 · 延伸专题
+
+## 16. 专题 A · 编码知识: 从字符到字节
+
+### 16.1 先看懂记号: 0x41、U+0041、01000001
+
+同一个数有不同的写法。以"字符 A 的编号是 65"为例:
+
+| 写法 | 进制 | 说明 |
+|---|---|---|
+| `65` | 十进制 | 日常写法 |
+| `0b01000001` | 二进制 | 计算机内部的样子 (Python 用 `0b` 前缀) |
+| `0x41` | 十六进制 | 编程最常用, `0x` 前缀 |
+
+```math
+65 = 6\times 10 + 5 = 4\times 16 + 1 = 2^6 + 2^0
+```
+
+**为什么爱用十六进制?** 1 个字节 = 8 个二进制位, 4 个二进制位正好是 1 个十六进制位, 所以**一个字节永远是两位十六进制** (`0x00`~`0xFF`), 一眼就能看出字节边界:
+
+```
+0100 0001
+  4    1    →  0x41
+```
 
 | 十进制 | 十六进制 | 二进制 |
-|--------|---------|--------|
-| 0 | 0x0 | 0000 |
-| 1 | 0x1 | 0001 |
-| 9 | 0x9 | 1001 |
-| 10 | 0xA | 1010 |
-| 11 | 0xB | 1011 |
-| 15 | 0xF | 1111 |
+|---|---|---|
+| 0 | 0x00 | 0000 0000 |
+| 10 | 0x0A | 0000 1010 |
+| 15 | 0x0F | 0000 1111 |
 | 16 | 0x10 | 0001 0000 |
 | 65 | 0x41 | 0100 0001 |
+| 128 | 0x80 | 1000 0000 |
 | 255 | 0xFF | 1111 1111 |
 
-**换算技巧**:
-- 十进制 → 十六进制:除 16 取余。`65 ÷ 16 = 4 余 1` → `0x41`
-- 十六进制 → 十进制:`0x41 = 4×16 + 1 = 65`
-- 一个字节(0-255)在十六进制里永远只占 **2 位**(`0x00` ~ `0xFF`)
+**`0x` 和 `U+` 不是一回事**:
 
-#### 15.1.3 `0x` 前缀 vs `U+` 前缀:两个不同的东西
+| 记号 | 指什么 | 例子 |
+|---|---|---|
+| `U+4F60` | Unicode 给字符分配的编号 (**码点**), 与怎么存储无关 | "你"的码点 |
+| `0xE4 0xBD 0xA0` | 按 UTF-8 编码后**实际存储的字节** | "你"的 3 个字节 |
 
-这是最容易混淆的地方,务必要分清:
-
-| 记号 | 前缀来源 | 指什么 | 示例 |
-|------|---------|--------|------|
-| `0x41` | C 语言风格,`0x` = hex(十六进制) | **字节的值**(计算机里存的) | `0x41` = 字节值 65 |
-| `U+0041` | Unicode 标准写法,`U+` = Unicode | **字符的码点**(人类定义的名字) | `U+0041` = 字符 'A' |
-| `01000001b` | 二进制,`b` = binary | 字节的二进制展开 | `01000001b` = 65 |
-
-**关键区别:码点 ≠ 字节值,它们不在同一个体系里。**
-
-- `U+0041` 是 Unicode 给字符 'A' 分配的**身份证号**(码点)。Unicode 只负责"编号",不管怎么存储。
-- `0x41` 是 'A' 在 **UTF-8 编码后**实际占用的字节值。
-
-**为什么恰好数值一样?** 因为 UTF-8 故意把 ASCII 字符(U+0000~U+007F)编码成与码点相同的 1 个字节。所以:
-
-```
-字符 'A':
-  码点:   U+0041     (Unicode 定义的编号)
-  UTF-8:  0x41       (编码后的字节,恰好和码点一样)
-  → 两者数值巧合地相同!
-
-字符 '你':
-  码点:   U+4F60     (Unicode 定义的编号)
-  UTF-8:  0xE4 0xBD 0xA0   (编码后的 3 个字节,和码点完全不同!)
-```
-
-> 💡 **一句话区分**:`U+` 是"Unicode 给字符起的名字",`0x` 是"字节在内存里的值"。ASCII 字符两者恰好相等,非 ASCII 字符(如中文)就完全不一样了。
-
-#### 15.1.4 为什么教程里两个记号混着用?
-
-因为我们一直在讲"字符 → 字节 → token"的转换:
-
-```
-字符 'A'  ──Unicode码点──▶  U+0041   (它"叫"什么)
-字符 'A'  ──UTF-8编码──▶   0x41     (它"存"成什么)
-字节 0x41 ──查表──▶        65       (十进制的 token ID)
-```
-
-在本教程的场景里:
-- 讲 **Unicode 标准**时用 `U+XXXX`(如 15.2 节的码点表)
-- 讲 **内存里的字节**时用 `0xXX`(如 17 节的初始词表)
-- 讲 **token ID** 时用十进制数字(如 `ID 65 = b'A'`)
-
-看到 `0x` 想"字节",看到 `U+` 想"Unicode 名字",就完全不会乱了。
-
-#### 15.1.5 实操:Python 里怎么换算
+ASCII 字符的码点和 UTF-8 字节恰好数值相同 (`A` = U+0041 = `0x41`), 是 UTF-8 故意设计成兼容 ASCII 的结果; 其它字符两者完全不同。
 
 ```python
-# 十进制 ↔ 十六进制
-hex(65)          # '0x41'
-int("0x41", 16)  # 65
-
-# 十进制 ↔ 二进制
-bin(65)          # '0b1000001'
-int("1000001", 2)  # 65
-
-# 字符 ↔ 码点 ↔ UTF-8 字节
-ord('A')           # 65        (码点)
-hex(ord('A'))      # '0x41'    (码点十六进制)
-'A'.encode('utf-8')  # b'A'    (UTF-8 编码)
-list('A'.encode('utf-8'))      # [65]          (字节列表)
-list('你'.encode('utf-8'))     # [228, 189, 160] = [0xE4, 0xBD, 0xA0]
+>>> hex(65), int("41", 16), bin(65)
+('0x41', 65, '0b1000001')
+>>> ord("你"), hex(ord("你"))          # 码点
+(20320, '0x4f60')
+>>> list("你".encode("utf-8"))         # UTF-8 字节
+[228, 189, 160]
 ```
 
-> 建议把这段在 Python 里跑一遍,亲手验证 `65 == 0x41 == 0b1000001`,这个门槛就彻底迈过去了。
+### 16.2 ASCII → Unicode → UTF-8
 
-### 15.2 字符编码演进史:ASCII -> Unicode -> UTF-8
+- **ASCII (1963)**: 7 位, 128 个字符, 英文字母、数字、标点、控制字符。存储时一个字符一个字节, 最高位为 0。
+- **Unicode**: 给全世界所有字符编号, 码点范围 U+0000 ~ U+10FFFF。只规定编号, 不规定怎么存。
+- **UTF-8** (Ken Thompson 和 Rob Pike 设计, [RFC 3629](https://datatracker.ietf.org/doc/html/rfc3629)): 把码点变成 1~4 个字节的变长编码。
 
-LLM 处理的是文本,但计算机只能存储字节。我们需要一套规则把字符映射成字节。
+| 码点范围 | 字节数 | 字节模板 | 典型字符 |
+|---|---|---|---|
+| U+0000 ~ U+007F | 1 | `0xxxxxxx` | ASCII |
+| U+0080 ~ U+07FF | 2 | `110xxxxx 10xxxxxx` | `é`、`ñ`、希腊、西里尔字母 |
+| U+0800 ~ U+FFFF | 3 | `1110xxxx 10xxxxxx 10xxxxxx` | 常用汉字 |
+| U+10000 ~ U+10FFFF | 4 | `11110xxx 10xxxxxx 10xxxxxx 10xxxxxx` | emoji、生僻字 |
 
-**第一阶段: ASCII (1963)**
+![图 10: UTF-8 的位布局](figures/fig_utf8.svg)
 
-用 7 位(0-127)表示英文字母、数字和标点。一个字符 = 一个字节(最高位为 0)。
+**图 10** 四个字符的 UTF-8 字节, 逐位展开。**怎么读**: 每个格子是一位。橙色是**前缀位**: 首字节开头有几个 1 就表示一共几个字节 (`1110` = 3 字节), 后续字节一律以 `10` 开头。
+蓝色是**数据位**: 把所有蓝色位按顺序拼起来, 就是码点的二进制。以"你"为例, 3 个字节的数据位分别是 `0100`、`111101`、`100000`, 拼起来是 `0100 1111 0110 0000` = `0x4F60`。
 
-```
-'A' = 65  = 01000001b = 0x41
-'a' = 97  = 01100001b = 0x61
-'0' = 48  = 00110000b = 0x30
-' ' = 32  = 00100000b = 0x20
-newline = 10 = 0x0A
-```
+写成公式, 3 字节字符的码点是:
 
-ASCII 的局限: 只有 128 个字符,无法表示中文、日文、emoji。
-
-**第二阶段: Unicode (1991-)**
-
-给全世界所有字符分配一个唯一的**码点**(code point),如:
-
-```
-'A'   = U+0041
-'你'  = U+4F60
-'你好' = U+4F60 U+597D
-'😀' = U+1F600
+```math
+\text{cp} = (b_0 \,\&\, \texttt{0x0F}) \ll 12 \;\;|\;\; (b_1 \,\&\, \texttt{0x3F}) \ll 6 \;\;|\;\; (b_2 \,\&\, \texttt{0x3F})
 ```
 
-但 Unicode 只定义了码点,没有规定如何存储为字节。
+`& 0x0F` 取首字节的低 4 位, `& 0x3F` 取续字节的低 6 位, `<<` 左移到正确的位置。代入 `E4 BD A0`: $`4 \ll 12 \,|\, 61 \ll 6 \,|\, 32 = 16384 + 3904 + 32 = 20320`$ = U+4F60。
 
-**第三阶段: UTF-8 (1993, Ken Thompson & Rob Pike)**
+**这个设计对 BPE 意味着什么**:
 
-UTF-8 是 Unicode 的**变长字节编码**,是当今互联网的事实标准(占比 > 98%)。
+- 英文 1 字节 1 个初始 token, 汉字 3 个, emoji 4 个;
+- 续字节 (`10xxxxxx`, 即 128~191) 永远不会出现在字符开头, 所以从任意位置都能找到字符边界: 往回跳过所有续字节即可。练习 ② 的流式解码就靠这个性质。
 
-变长规则:
+### 16.3 编码与解码全链路
 
-```
-1 字节: 0xxxxxxx                              (U+0000~U+007F, ASCII)
-2 字节: 110xxxxx 10xxxxxx                     (U+0080~U+07FF)
-3 字节: 1110xxxx 10xxxxxx 10xxxxxx            (U+0800~U+FFFF, 含中文)
-4 字节: 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx   (U+10000~U+10FFFF, 含emoji)
-```
-
-编码实例:
+以 `"Hello world"` 为例 (莎士比亚词表 500, 实测):
 
 ```
-'A'  = U+0041 -> 0x41                          (1字节)
-'n'  = U+00F1 -> 0xC3 0xB1                     (2字节)
-'你' = U+4F60 -> 0xE4 0xBD 0xA0               (3字节)
-'😀' = U+1F600 -> 0xF0 0x9F 0x98 0x80          (4字节)
+"Hello world"
+   │ 预分词
+   ▼
+["Hello", " world"]
+   │ UTF-8
+   ▼
+[72, 101, 108, 108, 111]   [32, 119, 111, 114, 108, 100]
+   │ 每段独立按 rank 合并
+   ▼
+[72, 427, 111]             [263, 270, 316]
+ H   ell  o                 ␣w   or   ld
+   │ 拼接
+   ▼
+[72, 427, 111, 263, 270, 316]          6 个 token, 原文 11 字节
 ```
 
-**为什么这对 BPE 很重要?** 因为字节级 BPE 的初始词表 = 256 个字节值(0-255)。UTF-8 编码决定了:
-- 英文字符 = 1 个字节 = 1 个初始 token
-- 中文字符 = 3 个字节 = 3 个初始 token
-- emoji = 4 个字节 = 4 个初始 token
+解码是反过来查 `vocab`: `vocab[72]=b'H'`, `vocab[427]=b'ell'`, ……, 拼成 `b'Hello world'` 再 UTF-8 解码。
 
-BPE 训练的任务就是: 把这些分散的字节重新合并成有意义的 token。
-
-### 15.3 编码全链路图解: 文本 -> Token ID
-
-```
-输入文本: "Hello world"
-        |
-        v  Step 1: Pre-tokenize
-        |
-    ["Hello", " world"]          按空格拆分, 空格附加到下一个词
-        |
-        v  Step 2: UTF-8 字节化 (每个字符串 -> bytes -> 整数列表)
-        |
-    [72, 101, 108, 108, 111]     "Hello" -> 5 个字节
-    [32, 119, 111, 114, 108, 100] " world" -> 6 个字节
-        |
-        v  Step 3: 贪心 BPE 合并 (_encode_chunk)
-        |
-    对每个 pre-token 独立应用合并规则:
-      "Hello" -> [72,101,108,108,111]
-        -> 找 rank 最小的 pair -> (72,101) rank=256 合并为 "He"
-        -> [256, 108, 108, 111]
-        -> (256,108) rank=257 合并为 "Hel"
-        -> [257, 108, 111]
-        -> (257,108) rank=258 合并为 "Hell"
-        -> [258, 111]
-        -> (258,111) rank=259 合并为 "Hello"
-        -> [259]   最终: 1 个 token!
-        |
-        v  Step 4: 拼接所有 pre-token 的结果
-        |
-    token_ids = [259, 32, 119, 111, 114, 108, 100]
-    "Hello" + " " + "w" + "o" + "r" + "l" + "d"
-    (注: "world" 没有学到合并规则, 退回字节级)
-```
-
-### 15.4 解码全链路图解: Token ID -> 文本
-
-解码是编码的逆过程, 极其简洁(只需 vocab 字典, 不需要 merges):
-
-```
-token_ids = [259, 32, 119, 111, 114, 108, 100]
-        |
-        v  Step 1: 查词表 (每个 ID -> bytes)
-        |
-    vocab[259] = b'Hello'    # 合并 token, 对应多字节
-    vocab[32]  = b' '        # 单字节 token
-    vocab[119] = b'w'
-    vocab[111] = b'o'
-    vocab[114] = b'r'
-    vocab[108] = b'l'
-    vocab[100] = b'd'
-        |
-        v  Step 2: 拼接所有字节
-        |
-    raw_bytes = b'Hello world'
-        |
-        v  Step 3: UTF-8 解码 -> 字符串
-        |
-    text = "Hello world"
-```
-
-**关键洞察:** 解码不需要合并规则(merges), 只需要词表(vocab)。这就是为什么 decode() 只有两行代码:
-```python
-raw_bytes = b"".join(self.vocab[i] for i in ids)   # ID -> bytes -> 拼接
-return raw_bytes.decode("utf-8", errors="replace")  # bytes -> str
-```
-
-### 15.5 Token ID 与字节的映射关系
-
-```
-ID 范围          含义                      字节数      示例
----------------------------------------------------------------
-0 ~ 255          初始字节 token            1 字节      ID=72   -> b'H'
-256 ~ 256+N-1    BPE 合并生成的 token      可变(2+)   ID=256  -> b'He'
-256+N ~ ...      更复杂的合并              可变(3+)   ID=500  -> b'the'
-```
-
-**vocab 字典的作用:**
+### 16.4 编码的边界情况
 
 ```python
-# ID -> bytes 的映射
-# 初始: ID 0-255 对应 256 个单字节
-# 训练后: ID 256+ 对应合并产生的多字节
-
-tok.vocab[72]    = b'H'        # 单字节
-tok.vocab[256]   = b'He'       # 2 字节 (学到的合并)
-tok.vocab[259]   = b'Hello'    # 5 字节 (学到的合并)
+>>> tok.encode("")
+[]
+>>> tok.decode([])
+''
+>>> BPETokenizer().encode("Hello 你好")      # 还没训练: 没有任何合并, 就是 UTF-8 字节
+[72, 101, 108, 108, 111, 32, 228, 189, 160, 229, 165, 189]
 ```
 
-**merges 字典的作用:**
-
-```python
-# (id_a, id_b) -> new_id 的映射
-# 同时 new_id 也是 rank: 值越小 = 越早学到 = 编码时越优先
-
-tok.merges[(72, 101)]   = 256   # H+e -> He (rank=256, 最优先)
-tok.merges[(256, 108)]  = 257   # He+l -> Hel
-tok.merges[(257, 108)]  = 258   # Hell+l -> Hell
-tok.merges[(258, 111)]  = 259   # Hell+o -> Hello
-```
-
-**为什么 rank = new_id?**
-
-因为 new_id = 256 + merge_idx, 先学到的合并 rank 更小。编码时选 rank 最小的 pair 合并, 就是优先应用最早学到的规则。
-
-### 15.6 字节级 vs 字符级 BPE
-
-```
-字符级 BPE (BERT 的 SentencePiece):
-  初始词表 = 所有 Unicode 字符 (数千个)
-  优点: 每个字符天然就是 1 个 token
-  缺点: 遇到罕见字符会 OOV (unknown token)
-
-字节级 BPE (GPT-2/3/4, 我们的实现):
-  初始词表 = 256 个字节值
-  优点: 零 OOV, 任何文本都能编码
-  缺点: 非 ASCII 字符默认需要多个 token (需要训练数据来合并)
-```
-
-**实际编码对比:**
-
-```
-文本: "Hello"
-  字符级: 5 token (H, e, l, l, o) -> 如果有合并规则则更少
-  字节级: 如果训练数据包含 "Hello" 可能 = 1 token
-
-文本: "你好"
-  字符级: 2 token (你, 好) -> 每个字符天然 1 token
-  字节级: 默认 6 token (每个汉字 3 字节) -> 训练中文数据后可降为 2 token
-```
-
-### 15.7 编码中的边界情况
-
-**1. 未见过的字节组合 (fallback 到字节级):**
-```python
-tok = BPETokenizer()
-tok.train("hello world", vocab_size=300, verbose=False)
-
-# 编码从未在训练中出现的字符
-ids = tok.encode("xyz")
-# x=120, y=121, z=122 都没有合并规则 -> 各自独立
-# 结果: [120, 121, 122]  (退回到最原始的字节级)
-```
-
-**2. 空字符串:**
-```python
-ids = tok.encode("")    # -> [] (空列表)
-text = tok.decode([])   # -> "" (空字符串)
-```
-
-**3. 多字节字符的字节被独立处理:**
-```python
-# "你" 的 UTF-8 编码 = 0xE4 0xBD 0xA0 (3 个字节)
-# 如果训练数据全是英文, 这 3 个字节各自独立 -> 3 个 token
-# 但解码时: b'ä½ '.decode('utf-8') -> "你" (正确还原!)
-```
-
-**4. decode 的安全网 (errors="replace"):**
-```python
-# 如果模型生成了无效的 UTF-8 字节序列
-# 例如只有 "你" 的第 1 个字节 0xE4, 缺少后 2 个
-# decode 会用 U+FFFD () 替换, 而不是报错
-tok.decode([0xE4])  # -> "�" ()
-```
-
-### 15.8 完整编码流程代码走读
-
-```python
-# tokenizer.py 中的 encode 方法 (逐行解析)
-def encode(self, text: str) -> list[int]:
-    # Step 1: 预分词
-    #   "Hello world" -> ["Hello", " world"]
-    #   空格被附加到下一个词的开头, 这是 GPT-2 的惯例
-    pretokens = self._pretokenize(text)
-
-    result: list[int] = []
-    for token in pretokens:
-        # Step 2: 字符串 -> UTF-8 字节序列 -> 整数列表
-        #   "Hello" -> b'Hello' -> [72, 101, 108, 108, 111]
-        #   " world" -> b' world' -> [32, 119, 111, 114, 108, 100]
-        byte_ids = list(token.encode("utf-8"))
-
-        # Step 3: 贪心应用合并规则
-        #   [72,101,108,108,111] -> [259]  ("Hello" 合并为 1 个 token)
-        #   [32,119,111,114,108,100] -> [32,119,111,114,108,100]  (无合并规则, 保持字节)
-        merged = self._encode_chunk(byte_ids)
-
-        # Step 4: 拼接到最终结果
-        result.extend(merged)
-
-    return result
-```
-
-**_encode_chunk 贪心合并的详细过程:**
-
-```
-输入: [72, 101, 108, 108, 111]  ("Hello" 的字节)
-合并规则: {(72,101):256, (256,108):257, (257,108):258, (258,111):259}
-
-第 1 轮扫描:
-  (72,101)  rank=256  <- 最小!
-  (101,108) 无规则
-  (108,108) 无规则
-  (108,111) 无规则
-  -> 合并 (72,101) 为 256
-  -> [256, 108, 108, 111]
-
-第 2 轮扫描:
-  (256,108) rank=257  <- 最小!
-  (108,108) 无规则
-  (108,111) 无规则
-  -> 合并 (256,108) 为 257
-  -> [257, 108, 111]
-
-第 3 轮扫描:
-  (257,108) rank=258  <- 最小!
-  (108,111) 无规则
-  -> 合并 (257,108) 为 258
-  -> [258, 111]
-
-第 4 轮扫描:
-  (258,111) rank=259  <- 最小!
-  -> 合并 (258,111) 为 259
-  -> [259]
-
-第 5 轮: 序列长度=1, 循环结束
-输出: [259]  ("Hello" -> 1 个 token)
-```
-
-### 15.9 编码质量评估
-
-**压缩率 (Compression Ratio):**
-```
-压缩率 = token 数 / 原始字节数
-
-越低越好:
-  无 BPE:    1.000 (每个字节 1 个 token)
-  我们的 BPE: 0.4-0.6 (取决于训练数据和 vocab_size)
-  GPT-4:     ~0.25 (万亿字节语料训练)
-```
-
-**词表利用率:**
-```
-利用率 = 训练后实际使用的 token 数 / 词表大小
-理想值: > 90% (大部分 token 都被用到了)
-利用率太低 -> 词表太大, 有冗余
-```
-
-**编码实验 (在你自己的 tokenizer 上测试):**
-
-```python
-from tokenizer import BPETokenizer
-
-tok = BPETokenizer()
-tok.train(open("sample.txt").read(), vocab_size=500, verbose=False)
-
-# 测试编码
-test = "Hello, this is a test of our BPE tokenizer!"
-ids = tok.encode(test)
-bytes_count = len(test.encode("utf-8"))
-compression = len(ids) / bytes_count
-print(f"Token 数: {len(ids)}, 字节数: {bytes_count}, 压缩率: {compression:.3f}")
-
-# 查看每个 token 的编码过程
-for i, token_id in enumerate(ids):
-    byte_repr = tok.vocab[token_id]
-    readable = byte_repr.decode("utf-8", errors="replace")
-    print(f"  [{i}] ID={token_id} -> {repr(byte_repr)} -> '{readable}'")
-```
-
+最后一个例子: `"Hello 你好"` 是 5 + 1 + 6 = 12 字节, 未训练的分词器给出 12 个 token。字节级分词器在训练之前也是一个能用的 (只是很低效的) 分词器。
 
 ---
 
-## 16. 正则表达式专题:预分词的正则原理与实战
+## 17. 专题 B · 正则表达式与预分词
 
-这一节把 tokenizer 中**用到的正则表达式**讲透,从语法到实战。看完你就能自己读懂 GPT-2/LLaMA 的预分词正则。
-
-### 16.1 我们 tokenizer 里的两处正则
-
-打开 `tokenizer.py`,正则只出现在 `_pretokenize()` 一个方法里,共两处:
+### 17.1 我们代码里的两处正则
 
 ```python
-# 第 1 处: 把文本切成"连续非空白"和"连续空白"两类片段
-tokens = re.findall(r"\S+|\s+", text)
-
-# 第 2 处: 判断一个片段是否"纯空白"
-if re.match(r"^\s+$", t):
+# tokenizer.py
+        tokens = re.findall(r"\S+|\s+", text)
+            if re.match(r"^\s+$", t):
 ```
 
-逐个拆解:
+| 正则 | 含义 |
+|---|---|
+| `\S+` | 一个或多个**非**空白字符 (一个"词", 含标点) |
+| `\s+` | 一个或多个空白 (空格、换行、制表符) |
+| `\|` | 或 |
+| `^\s+$` | 从头到尾全是空白 |
 
-| 正则 | 含义 | 在代码中的作用 |
-|------|------|---------------|
-| `\S+` | `\S` = 非空白字符,`+` = 一个或多个。匹配**连续非空白** | 匹配一个"词" |
-| `\s+` | `\s` = 空白字符(空格/换行/制表符),`+` = 一个或多个。匹配**连续空白** | 匹配空白片段 |
-| `^\s+$` | `^` = 字符串开头,`$` = 字符串结尾。整个片段**全是空白** | 判断是否为纯空白 |
-| `\|` | 正则里的**或** | 两种片段任一匹配 |
+`re.findall(r"\S+|\s+", "Hello  world\n")` 的结果是 `['Hello', '  ', 'world', '\n']`: 两类字符互补, 每个位置恰好命中其中一个分支, 所以两个分支谁写在前面都一样。
 
-**`re.findall(r"\S+|\s+", text)` 的执行过程:**
+### 17.2 语法速查
 
-```python
-text = "Hello  world\n"
+| 语法 | 含义 | 例子 |
+|---|---|---|
+| `.` | 任意字符 (默认不含换行) | `h.t` 匹配 `hat`、`h7t` |
+| `\d` `\w` `\s` | 数字 / 单词字符 / 空白 | Python 3 的 `re` 里 `\w` **包含汉字** (Unicode 模式) |
+| `\S` `\W` `\D` | 上面三个的反面 | |
+| `[abc]` `[^abc]` `[a-z]` | 字符集合 / 排除 / 范围 | `[^0-9]` |
+| `*` `+` `?` | 0 次以上 / 1 次以上 / 0 或 1 次 | `colou?r` |
+| `{n}` `{n,m}` | 恰好 n 次 / n 到 m 次 | `\d{1,3}` |
+| `(?:...)` | 分组但不捕获 | `(?:ab)+` |
+| `(?i:...)` | 这一段不区分大小写 | `(?i:'s)` 匹配 `'s` 和 `'S` |
+| `(?=...)` `(?!...)` | 后面是 / 后面不是 (不消耗字符) | `\s+(?!\S)` |
+| `\p{L}` `\p{N}` | Unicode 字母 / 数字 (需要 `regex` 库) | `\p{L}+` 匹配 `你好`、`café` |
+| `\p{Lu}` `\p{Ll}` | 大写 / 小写字母 | gpt-oss 用它们区分大小写 |
 
-# 从左到右扫描,遇到能匹配的就"吞掉":
-#   "Hello"  → \S+ 匹配 (非空白)
-#   "  "     → \s+ 匹配 (两个空格)
-#   "world"  → \S+ 匹配
-#   "\n"     → \s+ 匹配 (换行)
-# 结果: ["Hello", "  ", "world", "\n"]
-```
+`re` 和第三方 `regex` 库的关键差别: 只有 `regex` 支持 `\p{...}` 这类 Unicode 属性。GPT-2 原版代码用的就是 `regex`。
+旧版讲义说"`\w` 不含中文", 在 Python 3 里不对: `re.findall(r"\w+", "你好")` 返回 `['你好']`; 但 `\w` 也包含数字和下划线, 不能代替"只要字母"的 `\p{L}`。
 
-**为什么两个分支的顺序是 `\S+|\s+` 而不是反过来?** 因为 `findall` 从左到右扫描,先匹配哪种都无所谓——两类字符集互补,任何位置恰好只会命中其中之一。这个顺序其实可以随意,但写成 `\S+|\s+` 语义上更自然。
-
-**`re.match(r"^\s+$", t)` 为什么不直接用 `t.isspace()`?** 两者等价,但用正则的写法与第 1 处风格统一,且能自然扩展到更复杂的空白判断(比如只匹配空格不匹配换行)。
-
-### 16.2 预分词里的核心正则语法速查
-
-| 语法 | 含义 | 示例 | 匹配结果 |
-|------|------|------|---------|
-| `.` | 任意字符(除换行) | `h.t` | "hat", "hit", "h7t" |
-| `\w` | 单词字符(字母数字下划线) | `\w+` | "hello123", "a_b" |
-| `\d` | 数字 | `\d{4}` | "2026", "1984" |
-| `\s` | 空白(空格/换行/制表) | `\s+` | "  ", "\n\t" |
-| `\S` | 非空白 | `\S+` | "word", "你好" |
-| `[abc]` | 字符集合:a、b 或 c 之一 | `[aeiou]` | "a", "e", "i" |
-| `[^abc]` | 排除:a、b、c 之外 | `[^0-9]` | "a", "x", "你" |
-| `[a-z]` | 范围:小写字母 | `[a-zA-Z]` | "H", "e", "l" |
-| `^` | 字符串开头(在字符集外) | `^\\S` | 开头的非空白 |
-| `$` | 字符串结尾 | `\s+$` | 结尾的空白 |
-| `*` | 0 个或多个 | `ab*c` | "ac", "abc", "abbbc" |
-| `+` | 1 个或多个 | `ab+c` | "abc", "abbbc"(不匹配"ac") |
-| `?` | 0 个或 1 个(可选) | `colou?r` | "color", "colour" |
-| `{n}` | 恰好 n 个 | `\d{4}` | "2026"(不匹配"26") |
-| `{n,m}` | n 到 m 个 | `\d{2,4}` | "26", "2026", "20260" |
-| `a\|b` | 或 | `cat\|dog` | "cat", "dog" |
-| `(...)` | 分组(可捕获) | `(ab)+` | "ab", "ababab" |
-| `(?:...)` | 非捕获分组 | `(?:ab)+` | 同上,但不存分组 |
-| `(?=...)` | 正向先行断言 | `\d(?=px)` | "2" in "2px" |
-| `(?!...)` | 负向先行断言 | `\d(?!px)` | "2" in "2em" |
-| `\p{L}` | Unicode 字母(需 `regex` 库) | `\p{L}+` | "你好", "Hello" |
-| `\p{N}` | Unicode 数字 | `\p{N}+` | "2026", "１２３" |
-
-**Python `re` 与 `regex` 库的关键差异:**
-
-| 能力 | `re`(内置) | `regex`(第三方) |
-|------|------------|----------------|
-| `\p{L}` 等 Unicode 属性 | ❌ 不支持 | ✅ 支持 |
-| 变长 lookbehind | ❌ | ✅ |
-| 原子组 `(?>...)` | ❌ | ✅ |
-| 性能(复杂模式) | 一般 | 更快 |
-
-> GPT-2 的官方实现用的是 `regex` 库,因为它需要 `\p{L}`、`\p{N}` 这类 Unicode 属性。我们的教学实现用 `re` 就够了。
-
-### 16.3 GPT-2 官方预分词正则逐块拆解
-
-GPT-2 论文和官方代码中的正则(这里是 tiktoken / gpt-2 通用的版本):
-
-```python
-import regex  # 注意: GPT-2 用的是 regex 库,不是 re
-
-pat = regex.compile(
-    r"""'s|'t|'re|'ve|'m|'ll|'d|   # 英文缩写后缀
-        ?\p{L}+|                    # 可选空格 + 连续字母
-        ?\p{N}+|                    # 可选空格 + 连续数字
-        ?[^\s\p{L}\p{N}]+|          # 可选空格 + 连续标点/符号
-        \s+(?!\S)|                  # 空格(后面不是非空白)
-        \s+"""                      # 兜底: 任何空白
-)
-```
-
-**逐块拆解(共 6 个分支,按 `|` 分隔):**
-
-**分支 1: `'s|'t|'re|'ve|'m|'ll|'d`**
+### 17.3 GPT-2 的预分词正则
 
 ```
-匹配英文的缩写后缀:
-  "it's"    → 's 单独成一个 token
-  "don't"   → 't
-  "they're" → 're
-  "I've"    → 've
-  "I'm"     → 'm
-  "she'll"  → 'll
-  "he'd"    → 'd
-
-为什么要把缩写拆开? 因为 's 和 is / has 在语义上不同源,
-拆开可以让模型分别学到 "it" 和 "'s" 的组合规则,
-而不是把每个带缩写的词都当成一个全新 token。
+'s|'t|'re|'ve|'m|'ll|'d| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+
 ```
 
-**分支 2: ` ?\p{L}+`**
+按 `|` 分成 7 种分支, 从左到右尝试, 第一个能匹配的胜出:
+
+| 分支 | 匹配什么 | 例子 |
+|---|---|---|
+| `'s\|'t\|'re\|'ve\|'m\|'ll\|'d` | 英文缩写后缀 | `It's` → `It` + `'s` |
+| ` ?\p{L}+` | 可选的一个空格 + 连续字母 | `␣hello`、`你好` (汉字也是 `\p{L}`) |
+| ` ?\p{N}+` | 可选空格 + 连续数字 | `␣2026` |
+| ` ?[^\s\p{L}\p{N}]+` | 可选空格 + 连续"非空白非字母非数字" (标点、符号、emoji) | `,`、`!!!`、`(` |
+| `\s+(?!\S)` | 连续空白, 但**后面不能紧跟非空白** | 行尾空格、文末换行 |
+| `\s+` | 兜底: 其它空白 | |
+
+**第 5 个分支最难懂**, 看实测: `"Hello  world  "` (两个空格) 被切成 `Hello` `␣` `␣world` `␣␣`。
+中间两个空格: 第 5 分支想吞掉两个, 但吞完后面紧跟 `w`, `(?!\S)` 失败; 正则回溯成只吞一个空格, 这时后面是另一个空格, 断言成功, 于是第一个空格单独成段, 第二个空格留给 `␣world`。
+效果是: **无论前面有几个空格, 词前面最多挂一个空格**, `␣world` 永远是同一个 token。末尾的两个空格后面是文本结尾, 整体成段。
+
+实测 GPT-2 正则 (`regex` 库) 与 HuggingFace 版 GPT-2 分词器的预分词结果, 在 7 个测试句上**完全一致**。
+
+| 输入 | GPT-2 正则的切法 |
+|---|---|
+| `It's 2026, hello world!` | `It` `'s` `␣2026` `,` `␣hello` `␣world` `!` |
+| `我 爱 Python 3.12` | `我` `␣爱` `␣Python` `␣3` `.` `12` |
+| `line1\nline2\n` | `line` `1` `\n` `line` `2` `\n` |
+| `I'M HERE, they'RE` | `I` `'` `M` `␣HERE` `,` `␣they` `'` `RE` |
+
+最后一行暴露了 GPT-2 的一个缺陷: 缩写分支区分大小写, `'M`、`'RE` 匹配不上, 撇号被单独切出来。后来的模型都改成了 `(?i:...)`。
+
+### 17.4 坑: 给正则加注释
+
+旧版讲义把 GPT-2 的正则写成多行、每行带 `#` 注释的样子, 实测这样写是**错的**:
+
+| 写法 | 在 `It's 2026, hello world!` 上的结果 |
+|---|---|
+| 多行带注释, 不加任何 flag | `["'s"]`: 注释和换行都被当成了要匹配的字面字符, 几乎什么都匹配不上 |
+| 同样的字符串, 加 `regex.VERBOSE` | 报错 `nothing to repeat at position 24`: VERBOSE 模式会**忽略空格**, ` ?` 变成了孤零零的 `?` |
+| 单行原样 | `It` `'s` `␣2026` `,` `␣hello` `␣world` `!` ✓ |
+
+要在 VERBOSE 模式下写这个正则, 必须把有意义的空格写成 `\ ` 或 `[ ]`。最稳妥的做法是像 GPT-2 原版一样写成一行。
+
+### 17.5 现代模型的预分词正则
+
+下面的正则都是从各模型官方 `tokenizer.json` 里读出来的 (第 19 节), 不是转述。phi-4 和 GLM-4.5 用的是同一条:
 
 ```
-?  = 0 或 1 个空格(可选)
-\p{L}+ = 一个或多个 Unicode 字母
-
-匹配:
-  "Hello"     → "Hello" (\p{L}+ 匹配)
-  " world"    → " world" (空格 + 字母)
-  "你好世界"   → "你好世界" (中文是字母属性!)
-  "café"      → "café" (é 也是 \p{L})
-
-关键: \p{L} 让正则天然支持所有语言的文字,
-     这就是 GPT-2 tokenizer "万国通用" 的底层原因之一。
+(?i:'s|'t|'re|'ve|'m|'ll|'d)|[^\r\n\p{L}\p{N}]?\p{L}+|\p{N}{1,3}| ?[^\s\p{L}\p{N}]+[\r\n]*|\s*[\r\n]+|\s+(?!\S)|\s+
 ```
 
-**分支 3: ` ?\p{N}+`**
+和 GPT-2 比, 改了四处:
 
-```
-可选空格 + 连续数字:
-  "2026"      → "2026"
-  " 42"       → " 42"
+1. `(?i:...)`: 缩写不区分大小写;
+2. `[^\r\n\p{L}\p{N}]?\p{L}+`: 字母前面可以挂**任意一个非字母非数字非换行的字符** (不只是空格), 所以 `(a` 是一段;
+3. `\p{N}{1,3}`: 数字**最多 3 位一段**, `1234567` → `123` `456` `7`;
+4. ` ?[^\s\p{L}\p{N}]+[\r\n]*` 和 `\s*[\r\n]+`: 换行跟着标点走, 或者单独成段。
 
-为什么数字单独拆? 数字组合无穷无尽,把它和字母混在一起
-会浪费词表空间。拆开后模型只需学会 "2" "0" 的合并规则,
-就能组合出任意数字。
-```
+Qwen2.5 的区别只有一处: `\p{N}` 不带 `{1,3}`, **每个数字单独一段**。DeepSeek-V3 串联了 3 条正则, 第一条 `\p{N}{1,3}`, 第二条 `[一-龥぀-ゟ゠-ヿ]+` 把连续的中日文字符切成一段。
 
-**分支 4: ` ?[^\s\p{L}\p{N}]+`**
+![图 11: 四种预分词对同一句话的切法](figures/fig_pretok.svg)
 
-```
-[^\s\p{L}\p{N}] = 排除(空白、字母、数字)之外的字符 → 标点和符号
+**图 11** 三句话在四种预分词下的切法 (每段用深浅交替的颜色区分)。**怎么读**: 先看数字: 我们和 GPT-2 都把 `1234567` 当成一段, Qwen2.5 拆成 7 个单字, phi-4/GLM 按 3 位一组。
+再看代码那一句: 我们的实现把 `foo(a,b)` 整体当一段、把换行和缩进挂在 `return` 上; GPT-2 把每个标点拆开; Qwen2.5 和 phi-4 让 `(` 挂在 `a` 前、换行跟着 `)`。
 
-匹配:
-  "!!!"     → "!!!"
-  "..."     → "..."
-  "😀"      → "😀" (emoji 既不是字母也不是数字)
-  "©"       → "©"
-  "$100"    → "$" 单独匹配, "100" 交给分支 3
-```
+**数字为什么要拆?** 如果 `1234567` 整体参与合并, 词表里会出现大量没有规律的数字片段 (`123`、`2345`、`67`……), 同一个数在不同上下文里切法不一样, 模型很难学会算术。
+固定每 1 位或每 3 位一段, 数字的 token 就只有 10 个或 1000 个, 切法也完全规则。
 
-**分支 5: `\s+(?!\S)`**
+### 17.6 调试与自查
 
-```
-\s+ = 连续空白
-(?!\S) = 后面不是非空白(即:后面是空白或字符串结尾)
+- 用 `regex.findall(pattern, text)` 直接看切分结果, 比 `match` / `search` 直观;
+- 在 [regex101](https://regex101.com/) 上逐步看匹配过程;
+- 回溯灾难: `(a+)+b` 这类嵌套量词在长串上会指数级变慢, 预分词正则必须避免。
 
-这匹配"句子末尾的空格"——也就是下一个词不存在时的尾随空白:
-  "hello world " → 结尾空格单独成 token
-  "line1\nline2\n" → 结尾换行单独成 token
-
-为什么尾随空白要单独处理? 如果空白后面没有词,
-就没有"词来领走它",它需要自己成为一个 token,
-否则信息(比如结尾的换行)会丢失。
-```
-
-**分支 6: `\s+`(兜底)**
-
-```
-匹配任何剩余的空白。由于分支 5 已经处理了尾部空白,
-这里实际命中的是"后面还有词的空白":
-  "hello world" → " " 会作为后续分支 2 的 " ?" 被吞掉
-
-这个兜底分支保证了正则总能匹配成功,不会漏掉任何字符。
-```
-
-**完整匹配示例(走一遍):**
-
-```python
-text = "It's 2026, hello world!"
-
-GPT-2 正则的匹配结果:
-  "It"      ← \p{L}+ (注意: 's 被分支 1 抢走了)
-  "'s"      ← 分支 1
-  " 2026"   ← 分支 3 (空格 + 数字)
-  ","       ← 分支 4 (标点)
-  " hello"  ← 分支 2
-  " world"  ← 分支 2
-  "!"       ← 分支 4 (标点)
-```
-
-**对比我们的简化实现:**
-
-| 能力 | GPT-2 官方正则 | 我们的 `\S+|\s+` |
-|------|--------------|-----------------|
-| 缩写拆分 | ✅ `'s`, `'ll` 等 | ❌ 不拆 |
-| Unicode 支持 | ✅ `\p{L}` | ⚠️ `\S` 也能匹配中文,但靠的是"非空白" |
-| 数字单独拆 | ✅ | ❌ 不拆 |
-| 标点单独拆 | ✅ | ❌ 不拆 |
-| 尾随空白处理 | ✅ `(?!\S)` | ✅ 用 `pending_space` 变量处理 |
-
-我们的实现**效果上等价**的关键在于:虽然不拆数字/标点,但训练时 BPE 会自然学会这些合并规则,只是需要更大的词表。GPT-2 拆得细,是为了**在同样词表大小下压缩率更高**。
-
-### 16.4 用正则可视化理解预分词
-
-**动手实验:对比两种正则的分词结果**
-
-```python
-import re
-import regex
-
-GPT2_PAT = regex.compile(
-    r"""'s|'t|'re|'ve|'m|'ll|'d| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+"""
-)
-SIMPLIFIED_PAT = re.compile(r"\S+|\s+")
-
-texts = [
-    "It's 2026, hello world!",
-    "我 爱 Python 3.12",
-    "line1\nline2\n",
-]
-
-for text in texts:
-    print(f"输入: {repr(text)}")
-    print(f"  GPT-2 正则: {GPT2_PAT.findall(text)}")
-    print(f"  简化正则:   {SIMPLIFIED_PAT.findall(text)}")
-    print()
-```
-
-运行结果:
-
-```
-输入: 'It\x27s 2026, hello world!'
-  GPT-2 正则: ["It", "'s", " 2026", ",", " hello", " world", "!"]
-  简化正则:   ["It", "'s", " 2026", ",", " hello", " world", "!"]
-```
-
-> 对于常见英文文本,两种正则的分词结果几乎一样!差别主要体现在:
-> 1. 中文:简化版把每个"字+空格"组合拆得更碎,GPT-2 版按 `\p{L}` 整块处理
-> 2. 长数字串:`\p{N}` 把连续数字聚在一起,简化版遇到空格才断
-> 3. 特殊符号:GPT-2 版把 `&` `#` 等单独成 token,简化版粘在词上
-
-### 16.5 预分词正则的工程细节
-
-**1. 为什么用 `regex` 而不是 `re`?**
-
-GPT-2 的正则需要 `\p{L}`、`\p{N}` 这类 **Unicode 属性**,内置 `re` 模块不支持。如果硬用 `re` 写,只能用笨办法:
-
-```python
-# re 版本的痛苦写法 (不推荐)
-UNICODE_LETTERS = r"\w"  # 不支持中文!
-```
-
-而 `regex` 库一行搞定:`\p{L}+`。这也是为什么所有工业级 tokenizer 都用 `regex`。
-
-**2. 预分词正则与 BPE 的关系**
-
-```
-完整 tokenizer 流水线:
-
-  原始文本
-    │
-    ▼  Step 1: 预分词 (正则)
-    │   "It's" → ["It", "'s"]
-    │
-    ▼  Step 2: 字节化 (UTF-8)
-    │   "It" → (73, 116)
-    │
-    ▼  Step 3: BPE 合并 (贪心)
-    │   (73, 116) → 如果能合并就合并
-    │
-    ▼  Step 4: 输出 token ID
-    [  73, 116, 39, 115, ...]
-
-关键原则: BPE 合并规则永远不会跨预分词边界!
-  即: "It" 和 "'s" 之间的字节对永远不会被合并。
-  这保证了分词结果的稳定性和可解释性。
-```
-
-**3. 为什么 GPT-2 要保留"可选空格"(` ?`)而不是直接分开?**
-
-`" hello"` 作为一个 token,而不是 `" "` + `"hello"` 两个 token。原因:
-- 训练时 BPE 更容易学到 `" hello"` 这种高频组合(空格+词的共现频率高)
-- 解码时 `" hello"` 自然包含空格,不会出现词粘连
-- 这符合"空格是词的一部分"的 GPT-2 设计哲学
-
-### 16.6 常见正则调试技巧
-
-**1. 用 `re.DEBUG` 查看正则的解析过程:**
-
-```python
-import re
-re.compile(r"\S+|\s+", re.DEBUG)
-# 输出:
-#   MAX_REPEAT 1 MAXREPEAT
-#     IN
-#       CATEGORY CATEGORY_NOT_SPACE
-#   ...
-```
-
-**2. 用 `re.findall` 快速验证匹配结果**(比 `match`/`search` 直观):
-
-```python
-re.findall(r"\S+|\s+", "Hello  world")   # ['Hello', '  ', 'world']
-re.findall(r"\d+", "a1b22c333")          # ['1', '22', '333']
-```
-
-**3. 在线工具:**
-
-| 工具 | 链接 | 用途 |
-|------|------|------|
-| regex101 | https://regex101.com/ | 实时匹配+逐步解释 |
-| RegExr | https://regexr.com/ | 可视化正则构建器 |
-| Regex Crossword | https://regexcrossword.com/ | 游戏化练习 |
-
-**4. 常见陷阱:**
-
-| 陷阱 | 例子 | 正确写法 |
-|------|------|---------|
-| `\w` 不含中文 | `\w+` 匹配不到"你好" | 用 `\p{L}+` |
-| `$` 在 `re.MULTILINE` 下含义不同 | `\s+$` 只匹配末尾 | 明确用 `\Z` 表示绝对末尾 |
-| 贪婪 vs 非贪婪 | `\d+` 贪婪吃掉全部 | `\d+?` 非贪婪,一个一个 |
-| 回溯灾难 | `(a+)+b` 在长串上极慢 | 用原子组 `(?>a+)` 或避免嵌套量词 |
-
-### 16.7 正则知识自查清单
-
-读完这一节,你应该能回答:
-
-1. `\S` 和 `\s` 的区别?`\d`、`\w` 又是什么?
-2. `*`、`+`、`?`、`{n,m}` 这四种量词的区别?
-3. `^` 和 `$` 的作用?在字符集 `[^...]` 里含义为什么不同?
-4. `\p{L}` 是什么?为什么 `re` 模块不支持它?
-5. GPT-2 正则的 6 个分支分别匹配什么?
-6. 为什么 ` ?\p{L}+` 里的空格是可选的?
-7. 为什么合并规则不会跨预分词边界?
-8. 我们的简化版和 GPT-2 官方版在什么场景下分词结果会不同?
-
-**附加练习:读懂下面这个真实世界的正则**
-
-```python
-# LLaMA (SentencePiece) 的 pretokenizer 用的正则
-r"""(?:[sdmt]|ll|ve|re)| ?\p{L}+| ?\p{N}+| ?[^\s\p{L}\p{N}]+|\s+(?!\S)|\s+"""
-```
-
-> 和 GPT-2 的只差一点点:它把缩写拆成了 `[sdmt]|ll|ve|re`(字符集 + 或),效果等价,只是写法更紧凑。这就是为什么说"理解了 GPT-2 的正则,所有主流 tokenizer 的预分词你都能看懂"。
-
+读完这一节应该能回答: GPT-2 正则 `\s+(?!\S)` 为什么让 `␣world` 前只挂一个空格? `(?i:...)` 修复了什么? `\p{N}{1,3}` 和 `\p{N}` 对 `"2026"` 分别切成什么? (答: `202` `6` 和 `2` `0` `2` `6`。)
 
 ---
 
-## 17. 原始 0-255 词表全景:初始字节 token 详解
+## 18. 专题 C · 初始词表: 256 个字节全景
 
-这一节把 tokenizer 的**起点**——256 个初始字节 token——讲透。它们是 BPE 合并的"原子",理解它们才能理解整个分词系统。
-
-### 17.1 词表是怎么构建的?
-
-`tokenizer.py` 里只有一行代码:
+### 18.1 一行代码建好的词表
 
 ```python
-def __init__(self):
-    # 初始词表:256 个字节,每个 ID 就是它自身的字节值
-    self.vocab: dict[int, bytes] = {i: bytes([i]) for i in range(256)}
+# tokenizer.py
+        self.vocab: dict[int, bytes] = {i: bytes([i]) for i in range(256)}
 ```
 
-即 `vocab[65] = b'A'`, `vocab[97] = b'a'`, `vocab[228] = b'\xe4'`。**ID 与字节值一一对应**,没有映射表,直接就是"我是我自己"。
+ID 就是字节值本身: `vocab[65] = b'A'`, `vocab[10] = b'\n'`, `vocab[228] = b'\xe4'`。
 
-### 17.2 三大区域总览
+### 18.2 256 个字节在 UTF-8 里的角色
 
-| 区域 | ID 范围 | 数量 | 性质 |
-|------|---------|------|------|
-| **控制字符** | 0-31, 127 | 33 个 | 不可打印,协议控制 |
-| **可打印 ASCII** | 32-126 | 95 个 | 英文/数字/标点 |
-| **扩展字节** | 128-255 | 128 个 | UTF-8 多字节字符的片段 |
+![图 12: 256 个字节的角色](figures/fig_byte_map.svg)
+
+**图 12** 16×16 的格子, 第 $`i`$ 行第 $`j`$ 列是字节 `0x`$`ij`$ (下方小字是十进制)。颜色是这个字节在 UTF-8 里的角色, 粗框表示它在莎士比亚训练集里出现过。
+**怎么读**: 上半部分 (0~127) 是 ASCII, 灰色控制字符和蓝色可打印字符; 下半部分 (128~255) 全是多字节字符的组成部分。
+粗框全在上半部分: 莎士比亚全是 ASCII, 只用到了 65 个不同的字节 (含换行 `0A`)。另外的 191 个字节在这份语料里一次都没出现, 它们的 token 嵌入在训练语言模型时也永远得不到更新。
+
+| 区域 | 字节 | 个数 | 作用 |
+|---|---|---|---|
+| 控制字符 | 0~31, 127 | 33 | 换行 `0A`、制表 `09`、回车 `0D` 最常见 |
+| 可打印 ASCII | 32~126 | 95 | 空格 (32)、数字 (48~57)、大写 (65~90)、小写 (97~122)、标点 |
+| 续字节 | 128~191 | 64 | 多字节字符的第 2~4 个字节, 形如 `10xxxxxx` |
+| 2 字节首字节 | 194~223 | 30 | 拉丁扩展、希腊、西里尔字母等 |
+| 3 字节首字节 | 224~239 | 16 | 汉字、日文、韩文等 (U+0800~U+FFFF) |
+| 4 字节首字节 | 240~244 | 5 | emoji、生僻字 |
+| **从不出现** | 192、193、245~255 | 13 | 合法的 UTF-8 里不会出现 |
+
+**为什么有 13 个字节从不出现?** 这是实测出来的: 把全部合法码点 (U+0000~U+10FFFF, 去掉代理区) 编码一遍, 统计出现过的字节, 正好缺这 13 个。
+
+- `0xC0`、`0xC1`: 用它们做首字节编码出的码点都小于 U+0080, 本应只用 1 个字节表示, UTF-8 禁止这种"超长编码";
+- `0xF5`~`0xFF`: 首字节 `0xF5` 及以上会编码出大于 U+10FFFF 的码点, 超出 Unicode 范围。
+
+旧版讲义写"4 字节首字节 240~247", 不对, 应为 240~244。
+
+### 18.3 记住几个锚点
+
+| 字节 | 字符 | 规律 |
+|---|---|---|
+| 10 | `\n` | 换行 |
+| 32 | 空格 | 预分词时挂在词前 |
+| 48 | `0` | `'0'` ~ `'9'` 是 48~57 |
+| 65 | `A` | `'A'` ~ `'Z'` 是 65~90 |
+| 97 | `a` | 小写 = 大写 + 32 (二进制只差一位) |
+| 228 | `0xE4` | 很多常用汉字 (U+4000~U+4FFF) 的首字节, 例如"你" |
+
+### 18.4 四个结论
+
+1. **不会有未知字符**: 任何文本的 UTF-8 字节都在 0~255 之内。
+2. **所有 token 都由这 256 个原子拼成**: 图 4 的合并树最底层永远是它们。
+3. **语言之间天生不平等**: 英文 1 字节/字符, 中文 3 字节/字符。没有足够的中文合并规则, 中文的序列长度就是英文的好几倍 (第 11 节)。
+4. **解码正确与否不依赖合并**: 即使"你"的 3 个字节从没被合并过, `decode([228, 189, 160])` 仍然是"你"。
+
+### 18.5 实战: 提前结束的训练
 
 ```python
-# 验证三大区域的划分
-for i in range(256):
-    if i < 32 or i == 127:      region = "控制字符"
-    elif i < 128:               region = "可打印 ASCII"
-    else:                       region = "扩展字节(UTF-8片段)"
+>>> t = BPETokenizer()
+>>> t.train("Hello hello hello", 300)
+...
+[!] 语料已无可合并的 pair，在第 6 次合并时提前结束
+[训练完成] 词表大小：262
 ```
 
-### 17.3 区域一:控制字符 (ID 0-31, 127)
-
-这些字节来自 ASCII 时代的"通信协议",没有可打印的字符形状:
-
-```
-ID   0 = NUL 空字节        ID   9 = TAB 制表符
-ID  10 = LF 换行(\n) ⭐    ID  13 = CR 回车
-ID  27 = ESC 转义          ID 127 = DEL 删除
-其余 (1-8, 11-12, 14-26, 28-31):
-  SOH STX ETX EOT ENQ ACK BEL BS VT FF SO SI DLE DC1-4 NAK SYN ETB CAN EM SUB FS GS RS US
-```
-
-**对 LLM 最重要的三个:**
-
-| ID | 字符 | 出现场景 | 频率 |
-|----|------|---------|------|
-| 10 | `\n` 换行 | 段落/行分隔,代码、诗歌、聊天都大量使用 | 极高 |
-| 9 | `\t` 制表符 | 代码缩进、表格数据 | 中 |
-| 13 | `\r` 回车 | Windows 换行 `\r\n` 的一半 | 中 |
-
-> 为什么这些"看不见的字符"重要?因为它们是**结构化文本的骨架**。代码、Markdown、聊天记录全靠它们分隔,模型必须学会预测它们。
-
-### 17.4 区域二:可打印 ASCII (ID 32-126, 95 个)
-
-这是英文世界的全部可见字符,按块排列:
-
-```
-ID 32 = 空格 SPACE ⭐(预分词时被附在词前," the" 的开头就是它)
-ID 33-47  = ! " # $ % & ' ( ) * + , - . /
-ID 48-57  = 0 1 2 3 4 5 6 7 8 9        ← 数字
-ID 58-64  = : ; < = > ? @
-ID 65-90  = A B C ... Z                ← 大写字母
-ID 91-96  = [ \ ] ^ _ `
-ID 97-122 = a b c ... z                ← 小写字母
-ID 123-126= { | } ~
-```
-
-**三个必须记住的锚点值:**
-
-| ID | 字符 | 规律 |
-|----|------|------|
-| 48 | `'0'` | 数字起点,`'9'` = 57 |
-| 65 | `'A'` | 大写起点,`'Z'` = 90 |
-| 97 | `'a'` | 小写起点,`'z'` = 122 |
-
-**关键性质:** UTF-8 完全兼容 ASCII——英文文本的每个字符恰好 = 1 字节 = 1 个初始 token。所以英文在字节级 BPE 下"天然高效"。
-
-### 17.5 区域三:扩展字节 (ID 128-255, 128 个)——UTF-8 片段区
-
-这 128 个字节**没有独立的字符含义**(Latin-1 里的符号与 LLM 无关)。它们的真正角色是: **UTF-8 多字节字符的组成部分**。
-
-**UTF-8 编码规则回顾:**
-
-```
-1 字节: 0xxxxxxx               → ASCII, ID 0-127
-2 字节: 110xxxxx 10xxxxxx      → 首字节 192-223, 续字节 128-191
-3 字节: 1110xxxx 10xxxxxx 10xxxxxx  → 首字节 224-239, 续字节 128-191
-4 字节: 11110xxx ...           → 首字节 240-247, 续字节 128-191
-```
-
-**关键规律:续字节永远在 128-191 (0x80-0xBF)。**
-
-```python
-# 验证: 中文字符的字节分解
-'你' → U+4F60 → UTF-8: 0xE4 0xBD 0xA0
-  → 0xE4 = 228 (首字节, 在 224-239 区间)
-  → 0xBD = 189 (续字节, 在 128-191 区间)
-  → 0xA0 = 160 (续字节, 在 128-191 区间)
-  → 初始 token ID: [228, 189, 160]
-
-'😀' → U+1F600 → UTF-8: 0xF0 0x9F 0x98 0x80
-  → 初始 token ID: [240, 159, 152, 128]
-```
-
-| 字符 | UTF-8 字节数 | 初始 token 数 |
-|------|-------------|--------------|
-| 英文 `'A'` | 1 | 1 |
-| 拉丁 `'é'` | 2 | 2 |
-| 中文 `'你'` | 3 | 3 |
-| emoji `'😀'` | 4 | 4 |
-
-**为什么说 128-255 是"片段"?** 因为它们单独出现时是"半个汉字""四分之一 emoji",只有拼接起来再 UTF-8 解码才有意义。BPE 训练的任务,就是把它们重新合并成完整的字符和词。
-
-### 17.6 这 256 个 token 的四条核心洞察
-
-**1. 零 OOV 的根源**
-
-任何文本 → UTF-8 字节序列 → 每个字节都在 0-255 → 必然能编码。这是"字节级"设计最大的优势:模型永远不会遇到"未知字符"。
-
-**2. BPE 合并的原子单位**
-
-ID 256+ 的合并 token 全部由这些原子字节组合而成:
-
-```python
-# 训练时学到第一个合并 (假设 (108,111) 最高频)
-new_id = 256
-self.vocab[256] = self.vocab[108] + self.vocab[111]  # b'l' + b'o' = b'lo'
-
-# 再往后
-self.vocab[257] = self.vocab[256] + self.vocab[119]  # b'lo' + b'w' = b'low'
-```
-
-合并次数越多,token 越长、越接近真实"词"。但无论多长,根源都是这 256 个字节。
-
-**3. 压缩率的天花板**
-
-```
-初始状态:  1 字节 = 1 token → 压缩率 1.000
-训练后:    英文 ~0.25, 中文需要足够的合并规则才能把 3 字节合成 1 个汉字
-```
-
-中文的"3 字节/字"意味着:**如果训练数据里中文很少,一个汉字就是 3 个 token**,序列长度和计算量直接翻 3 倍。这就是为什么中文 LLM 需要专门的中文 tokenizer 或大量中文语料。
-
-**4. 解码的正确性不依赖合并**
-
-即使 `'你'` 的 3 个字节从未被合并过,解码依然正确:
-
-```python
-# 编码: [228, 189, 160]  (3 个独立字节 token)
-# 解码: b'\xe4' + b'\xbd' + b'\xa0' = b'\xe4\xbd\xa0'
-#      .decode('utf-8') → '你'  ✅
-```
-
-这就是 `decode()` 只需要 vocab 查表 + UTF-8 解码的原因——字节拼接天然还原。
-
-### 17.7 实战验证:完整跑一遍
-
-```python
-from tokenizer import BPETokenizer
-
-tok = BPETokenizer()  # 此时 vocab 就是 0-255
-
-# 1. 直接查看初始词表
-print(len(tok.vocab))          # 256
-print(tok.vocab[65])           # b'A'
-print(tok.vocab[97])           # b'a'
-print(tok.vocab[228])          # b'\xe4'
-
-# 2. 编码一段混合文本
-text = "Hello 你好"
-ids = tok.encode(text)         # 还没训练,merges 为空
-print(ids)                     # [72, 101, 108, 108, 111, 32, 228, 189, 160, 229, 165, 189]
-#  "H" "e" "l" "l" "o" " " "你"的三字节   "好"的三字节
-
-# 3. 解码还原
-print(tok.decode(ids))         # "Hello 你好"  ✅ 无损还原
-
-# 4. 训练后: 合并 token 加入词表
-tok.train("Hello hello hello", vocab_size=300, verbose=False)
-print(len(tok.vocab))          # 300 (256 + 44 个合并)
-print(tok.vocab[256])          # b'He' 或类似的高频合并
-```
-
-**观察:** 未训练时 `"Hello 你好"` 编码为 12 个 token(9 字节 + 6 中文字节里的 9 个?不——`"Hello 你好"` 是 5+1+6=12 字节,恰好 12 个 token)。训练后 "Hello" 可能合并为 1 个 token,编码显著变短。
-
-### 17.8 记忆口诀
-
-```
-0-31 控制,127 删除;    ← 33 个看不见的协议字节
-32 空格,48 零,65 A,97 a;  ← ASCII 锚点
-128-255 是片段,         ← UTF-8 多字节字符的原料
-中文字三字节,emoji 四个;  ← 语言差异的根源
-```
-
-> 一句话总结:**这 256 个字节是"万国文字的最小公分母"**。任何语言的任何字符,最终都落到这张表里;BPE 的一切合并,都是从这张表出发。
-
-
-## 附录:代码文件索引
-
-| 文件 | 内容 | 阅读时间 |
-|------|------|---------|
-| [tokenizer.py](tokenizer.py) | BPE 核心算法(train/encode/decode) | 30 分钟 |
-| [train.py](train.py) | 训练入口 + demo 演示 + 统计输出 | 10 分钟 |
-| [data.py](data.py) | 语料获取(TinyShakespeare / sample) | 5 分钟 |
-| [README.md](README.md) | 教练讲义 + 快速开始 + 思考练习 | 15 分钟 |
-| **TUTORIAL.md**(本文件) | 深度讲解 + 学习资源 | 60 分钟 |
+目标词表 300, 实际只有 262。预分词得到 `Hello`、`␣hello`、`␣hello` 三段, 依次学到 `el`、`lo`、`ello`、`␣h`、`␣hello`、`Hello` 6 条合并之后, 每段都只剩一个 token, 没有 pair 可数了。
+旧版讲义说这里会得到 300 个 token, 不对。
 
 ---
 
-> 💡 **学习建议**:先运行 `python train.py` 看一遍训练输出,再回来对照本教程逐行读 `tokenizer.py`。
-> 代码中的每个"教练注"都是对初学者特别有用的设计决策解释。
+## 19. 专题 D · 主流分词器解剖
+
+### 19.1 方法
+
+[experiments/tokenizer_anatomy.py](experiments/tokenizer_anatomy.py) 从 HuggingFace 下载 14 个模型官方仓库里的 `tokenizer.json` (只下载分词器文件, 不下载权重), 读出:
+算法、词表大小、预分词方式 (含正则)、是否字节回退、规范化方式; 再在同一段英文 (莎士比亚验证集前 1 万字节) 和同一段中文 (自写 193 字) 上实测 token 数、未知 token 数、能否无损还原。
+两个 Llama 仓库需要登录授权 (gated), 没能读取。`python modern_tokenizers.py` 会打印这张表。
+
+### 19.2 结果
+
+| 模型 | 算法 | 词表 | 预分词 | 字节回退 | 英文 字节/token | 中文 字/token |
+|---|---|---|---|---|---|---|
+| GPT-2 | BPE | 50,257 | ByteLevel (GPT-2 正则) | — | 3.10 | 0.51 |
+| BERT-base-uncased | WordPiece | 30,522 | BertPreTokenizer | — | (转小写, 不可还原) | 123 个 `[UNK]` |
+| BERT-base-chinese | WordPiece | 21,128 | BertPreTokenizer | — | 406 个 `[UNK]` | 1.05 |
+| T5-small | Unigram | 32,100 | Metaspace | — | 3.20 | 11 个 `<unk>` |
+| Mistral-7B | BPE | 32,000 | Metaspace | 是 | 2.93 | 1.01 |
+| phi-2 | BPE | 50,295 | ByteLevel | 否 | 3.10 | 0.51 |
+| Phi-3-mini | BPE | 32,011 | 无 (规范化时把空格换成 `▁`) | 是 | 2.91 | 0.78 |
+| phi-4 | BPE | 100,352 | 正则 + ByteLevel | 否 | 3.60 | 0.95 |
+| Qwen2.5 | BPE | 151,665 | 正则 + ByteLevel | 否 | 3.60 | 1.46 |
+| DeepSeek-V3 | BPE | 128,815 | 3 条正则 + ByteLevel | 否 | 3.59 | 1.64 |
+| GLM-4.5 | BPE | 151,365 | 正则 + ByteLevel | 否 | 3.60 | 1.56 |
+| gpt-oss | BPE | 200,019 | 正则 + ByteLevel | 否 | 3.65 | 1.27 |
+
+几个值得注意的点:
+
+- **phi-2 的分词器就是 GPT-2 的** (效率完全相同), phi-4 换成了新的 10 万词表 (英文与 Qwen2.5 一样都是 2,780 个 token)。
+- **SentencePiece 风格** (Mistral、Phi-3): 没有正则预分词, 空格变成 `▁` 当作普通字符参与合并; 词表外的字符用 `<0xE8>` 这样的字节 token 表示。实测 Phi-3 遇到"词"字时输出 `<0xE8>` `<0xAF>` `<0x8D>` 三个字节 token。
+- gpt-oss 的分词器 (o200k 系列) 用 `\p{Lu}` / `\p{Ll}` 区分大小写字母: 一段是"若干大写 + 若干小写", 所以实测 `camelCase` → `camel` `Case`, `getHTTPResponse` → `get` `HTTPResponse`; 但 `HTTPServer` 仍是一整段 (大写串后面直接接小写, 符合同一个模式)。
+
+![图 13: 同一段英文的效率](figures/chart_anatomy_en.svg)
+
+**图 13** 同一段英文 (莎士比亚验证集前 1 万字节), 每个 token 平均几个字节, 越高越省。**怎么读**: 蓝色是各家官方分词器, 橙色是我们的。
+大词表的现代分词器 (phi-4、Qwen2.5、GLM-4.5、DeepSeek-V3、gpt-oss) 都在 3.6 左右, 32K 词表的 Mistral/Phi-3 不到 3.0。
+我们的 4096 词表达到 3.66, 和 gpt-oss 持平: 同第 9.2 节, 这是"在同类文本上训练"的优势, 不代表它在别的文本上也这么好。
+
+![图 14: 同一段中文的效率](figures/chart_anatomy_zh.svg)
+
+**图 14** 同一段中文 (193 字), 每个 token 平均几个汉字。**怎么读**: 差距比英文大得多。最左边的我们 (0.36) 和 GPT-2 (0.51) 每个汉字要 2~3 个 token;
+中间的 Mistral 和 BERT-zh 约一字一 token; 右边的中文模型 (Qwen2.5、GLM-4.5、DeepSeek-V3) 每个 token 平均 1.5 个字以上, 它们的词表里有大量完整的中文词。
+英文差距不到 1.3 倍, 中文差距 3 倍以上: **分词器决定了一个模型用中文有多"贵"**。
+
+### 19.3 GPT-2 的 `Ġ` 是什么
+
+在 HuggingFace 里看 GPT-2 的 token, 会看到 `Ġthe`、`ä½` 这样的字符串。GPT-2 先把 256 个字节一一映射成 256 个**可打印**的 Unicode 字符 (可打印 ASCII 保持不变, 空格 → `Ġ`, 其它字节映射到 U+0100 起的字符),
+再在这些字符上做 BPE。这样词表文件可以存成普通的 JSON 字符串。本项目直接在字节上做, 把字节存成整数列表 (第 4.7 节), 不需要这层映射。
+`examples.py` 里的 `_byte_decoder()` 实现了它的逆映射。
+
+---
+
+## 20. 专题 E · 信息论视角: 熵、压缩与 loss
+
+[information_theory.py](information_theory.py) 演示熵、交叉熵、KL 散度、Huffman 编码。这里只讲和分词直接相关的一点。
+
+### 20.1 一元字符熵
+
+把文本里的字符当作独立抽取, 字符 $`x`$ 的频率是 $`p(x)`$, 一元熵是:
+
+```math
+H = -\sum_x p(x) \log_2 p(x) \quad \text{(bit / 字符)}
+```
+
+它是"每个字符**独立地**用一个码表示"时, 平均码长的下界 (Huffman 编码可以逼近它)。莎士比亚验证集前 1 万字符实测 $`H = 4.814`$ bit/字符。
+
+### 20.2 分词能"打破"这个下界
+
+把"每个 token 用 $`\log_2 V`$ 位的定长编号存储"作为分词器的代价, 定义效率 = (一元熵 × 字符数) / (token 数 × $`\log_2 V`$), 实测:
+
+| 方法 | token 数 | 每 token 比特 | 总比特 | 效率 |
+|---|---|---|---|---|
+| 字符级 | 10,000 | 5.9 | 58,826 | 0.818 |
+| 词级 (只算这段文本里出现的词) | 1,828 | 9.7 | 17,662 | 2.726 |
+| 我们的 BPE (500) | 5,026 | 9.0 | 45,062 | 1.068 |
+| GPT-2 (50257) | 3,231 | 15.6 | 50,459 | 0.954 |
+
+效率大于 1, 并不违反信息论: 一元熵只是"逐字符独立编码"的下界。BPE 和词级把常见的**字符组合**当成一个符号, 利用了字符之间的相关性 (`t` 后面很可能是 `h`), 当然能低于它。
+旧版代码注释里"tokenizer 的压缩率不可能低于熵"的说法, 混淆了这两件事, 已改正。
+
+文本真正的下界是考虑了全部上下文的**熵率**, 要用语言模型去估: 这正是第 9.4 节 bpb 的含义。语言模型的 loss 越低, 它对文本的"压缩"就越接近熵率。
+
+---
+
+## 21. 延伸专题练习
+
+<details>
+<summary><b>1.</b> 手算 "é" (U+00E9) 的 UTF-8 字节, 再用 Python 验证。</summary>
+
+U+00E9 在 U+0080~U+07FF 之间, 用 2 字节模板 `110xxxxx 10xxxxxx`。`0xE9` = `000 1110 1001` (11 位), 前 5 位 `00011` 填进首字节 → `11000011` = `0xC3`, 后 6 位 `101001` 填进续字节 → `10101001` = `0xA9`。
+`"é".encode("utf-8")` 返回 `b'\xc3\xa9'`。
+</details>
+
+<details>
+<summary><b>2.</b> 一个字节流里看到字节 <code>0xBD</code>, 它可能是一个字符的开头吗? 看到 <code>0xC0</code> 呢?</summary>
+
+`0xBD` = `10111101`, 以 `10` 开头, 是续字节, 不可能是开头。`0xC0` 在合法的 UTF-8 里根本不会出现 (超长编码, 18.2 节); 见到它说明数据不是合法的 UTF-8。
+</details>
+
+<details>
+<summary><b>3.</b> 用 GPT-2 正则和 Qwen2.5 正则分别切 <code>"I've 100 apples"</code>, 结果有什么不同? 先手推, 再用 <code>regex.findall</code> 验证。</summary>
+
+GPT-2: `I` `'ve` `␣100` `␣apples` (`␣100` 是一段, 数字前可以挂空格)。Qwen2.5: `I` `'ve` `␣` `1` `0` `0` `␣apples`: 数字分支 `\p{N}` 不允许挂空格, 空格只能单独成段, 每个数字各一段。
+</details>
+
+<details>
+<summary><b>4.</b> 为什么 GPT-2 的分词器在中文上 (0.51 字/token) 比我们的 (0.36) 好, 尽管它也是字节级、也没专门为中文设计?</summary>
+
+GPT-2 的训练语料 (WebText) 里有少量中文, 5 万词表里学到了一些常见汉字的字节合并 (例如"的"是一个 token, "你"是 `E4 BD` + `A0` 两个); 我们的语料里一个中文字节都没有, 所以中文完全退回单字节。
+</details>
+
+<details>
+<summary><b>5.</b> 第 20.2 节词级的效率高达 2.7, 为什么实际中没人用纯词级分词?</summary>
+
+那个数字只把这段文本里出现过的 810 个词当作词表。真实的词级分词器要覆盖所有可能出现的词, 词表巨大 (每个 token 的比特数随之上升), 而且遇到没见过的词只能输出 `<UNK>`, 信息直接丢失。
+</details>

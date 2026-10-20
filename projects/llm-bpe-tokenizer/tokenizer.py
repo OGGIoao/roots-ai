@@ -3,7 +3,7 @@ tokenizer.py — 字节级 BPE Tokenizer 从零实现
 
 教练注：
   这是本项目的核心文件，对应 CS336 Assignment 1 的主要编码任务。
-  讲义: TUTORIAL.md 第 3~8 节 (逐函数拆解) 与图 2~5。
+  讲义: TUTORIAL.md 第 3~8 节 (逐函数拆解) 与图 3、4、7。
 
   阅读路径建议：
     1. __init__()       —— 了解数据结构
@@ -122,7 +122,7 @@ class BPETokenizer:
                 print(
                     f"  合并 #{merge_idx + 1:4d}/{num_merges}："
                     f" ({best_pair[0]:3d}, {best_pair[1]:3d}) → {new_id:5d}"
-                    f"  '{token_repr}'  (频率={best_freq})"
+                    f"  {token_repr!r}  (频率={best_freq})"     # !r: 换行显示成 \n, 不会把日志断成两行
                 )
 
         if verbose:

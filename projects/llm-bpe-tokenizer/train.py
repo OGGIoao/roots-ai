@@ -148,8 +148,8 @@ def main():
     print("  🎉 全部完成！接下来你可以：")
     print("  1. 修改 --vocab_size 观察压缩率变化")
     print("  2. 阅读 tokenizer.py 理解 BPE 核心算法")
-    print("  3. 回答 README.md 中的思考练习题")
-    print("  4. 继续 L2：Transformer 组件拆解")
+    print("  3. 做 TUTORIAL.md 第 14 节和 exercises/ 里的练习")
+    print("  4. 下一步: projects/llm-minigpt 从零训练一个 GPT")
     print("=" * 60)
 
 

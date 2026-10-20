@@ -3297,8 +3297,121 @@
  },
  "encode_speed": {
   "chars": 111540,
-  "ours_s": 0.16054889999941224,
-  "gpt2_hf_s": 0.04112959999838495
+  "ours_s": 0.1592229000016232,
+  "gpt2_hf_s": 0.040474499997799285
+ },
+ "greedy_vs_optimal": {
+  "bpe_tokens": 5026,
+  "min_tokens": 4984,
+  "examples": [
+   [
+    " Pray,",
+    [
+     " ",
+     "P",
+     "r",
+     "ay",
+     ","
+    ],
+    5,
+    4
+   ],
+   [
+    " Katharina,",
+    [
+     " ",
+     "K",
+     "at",
+     "ha",
+     "r",
+     "in",
+     "a",
+     ","
+    ],
+    8,
+    7
+   ],
+   [
+    " Katharina.",
+    [
+     " ",
+     "K",
+     "at",
+     "ha",
+     "r",
+     "in",
+     "a",
+     "."
+    ],
+    8,
+    7
+   ],
+   [
+    " house,",
+    [
+     " h",
+     "ou",
+     "se",
+     ","
+    ],
+    4,
+    3
+   ],
+   [
+    " present",
+    [
+     " p",
+     "re",
+     "s",
+     "ent"
+    ],
+    4,
+    3
+   ],
+   [
+    " mathematics,",
+    [
+     " m",
+     "at",
+     "he",
+     "m",
+     "at",
+     "ic",
+     "s,"
+    ],
+    7,
+    6
+   ],
+   [
+    " fully",
+    [
+     " f",
+     "u",
+     "ll",
+     "y"
+    ],
+    4,
+    3
+   ],
+   [
+    " sciences,",
+    [
+     " s",
+     "c",
+     "i",
+     "en",
+     "c",
+     "es",
+     ","
+    ],
+    7,
+    6
+   ]
+  ]
+ },
+ "min_rank_vs_in_order": {
+  "pretokens": 20154,
+  "identical": 20154
  },
  "edge": {
   "encode_empty": [],
