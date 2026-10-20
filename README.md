@@ -1,11 +1,11 @@
 # llm-roots · 根系
 
-> 从 Transformer 这个根出发, 亲手长出大模型的整棵树; 另一条线从经典强化学习一路长到具身智能的 VLA。两条线并行, 在后训练和 VLA 两处汇合, 最后走向 Agent。
+> 从 Transformer 这个根出发, 亲手长出大模型的整棵树; 另一条线从经典强化学习出发, 一路做到一台听得懂话、看得见目标的四足机器人。两条线并行, 在后训练和"语言与视觉"两处汇合, Agent 板块在后者接入。
 > 每个节点都要能自己写出最小闭环, 所有数字都在本机实测。
 
 - **LLM 线**以 [架构生长树](roadmaps/LLM_TREE.md) 为主干: 从 GPT-2 到 LLaMA 配方, 再长出注意力、位置编码、MoE、归一化、混合架构、效率六条分支, 叶子是具体的前沿模型。
-- **具身线**以 [具身线总图](roadmaps/EMBODIED.md) 为主干: 经典 RL (老虎机 → PPO) → 仿真器解剖台 → 连续控制 → 模仿学习 → 扩散策略 → VLA, 全部仿真。
-- **汇合点**: 后训练 (RL / DPO / GRPO) 需要两条线的成果; **Agent 板块** (规划中) 手写 Agent 循环、工具与记忆。
+- **具身线**以 [具身线总图](roadmaps/EMBODIED.md) 为主干: 经典 RL (老虎机 → PPO), 然后在同一台 Pupper 四足上做 本体与经典控制 → RL 步态 → 模仿学习 → 多峰行为 → 语言与视觉, 全部仿真; 与 Datawhale《动手学具身智能》的 CS123 四足课逐章对齐。
+- **汇合点**: 后训练 (RL / DPO / GRPO) 需要两条线的成果; "语言与视觉"让 LLM 通过工具调用驱动四足, 同时汇合 LLM 线和 **Agent 板块** (规划中, 手写 Agent 循环、工具与记忆)。
 - 学习方式: 讲义 + 参考实现 + 三级手写练习 (填空 → 接口 → 白纸)。总体设计见 [ROADMAP](roadmaps/ROADMAP.md)。
 
 本仓库最初从 [github-claw-for-ioao](https://github.com/OGGIoao/github-claw-for-ioao) 单开 (旧名 `github-claw-llm`)。
@@ -32,7 +32,7 @@ llm-roots/
 ├── roadmaps/
 │   ├── ROADMAP.md             # 学习路线图: 两条并行线、汇合点与练习设计
 │   ├── LLM_TREE.md            # LLM 架构生长树总图 (LLM 线的主干)
-│   └── EMBODIED.md            # 具身线总图 (R0 RL 主干 → R5 VLA)
+│   └── EMBODIED.md            # 具身线总图 (R0 RL 主干 → R1–R5 Pupper 四足)
 ├── verify_env.py              # 环境健康检查 (先跑这个)
 └── README.md
 ```
