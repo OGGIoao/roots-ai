@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="900" height="400" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" font-weight="bold" fill="#0b0b0b" dominant-baseline="middle">英文 (莎士比亚验证集): 在同类文本上训练的 4096 词表, 追平了大模型的分词器</text>
+<text x="20" y="40" font-size="12" fill="#52514e" dominant-baseline="middle">只画能无损还原的分词器 (BERT-en 会转小写, BERT-zh 遇到部分英文字符输出 [UNK], 不计入)</text>
+<line x1="80" y1="320.0" x2="870" y2="320.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="320.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0.0</text>
+<line x1="80" y1="286.2" x2="870" y2="286.2" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="286.2" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0.5</text>
+<line x1="80" y1="252.5" x2="870" y2="252.5" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="252.5" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">1.0</text>
+<line x1="80" y1="218.8" x2="870" y2="218.8" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="218.8" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">1.5</text>
+<line x1="80" y1="185.0" x2="870" y2="185.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="185.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">2.0</text>
+<line x1="80" y1="151.2" x2="870" y2="151.2" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="151.2" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">2.5</text>
+<line x1="80" y1="117.5" x2="870" y2="117.5" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="117.5" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">3.0</text>
+<line x1="80" y1="83.8" x2="870" y2="83.8" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="83.8" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">3.5</text>
+<line x1="80" y1="50.0" x2="870" y2="50.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="50.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">4.0</text>
+<line x1="80" y1="320" x2="870" y2="320" stroke="#c9c8c2" stroke-width="1"/>
+<text x="475.0" y="358.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle"></text>
+<text x="30" y="185.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 30 185.0)">每个 token 平均几个字节 (越高越省)</text>
+<path d="M89.9,320.0 L89.9,189.7 Q89.9,185.7 93.9,185.7 L132.0,185.7 Q136.0,185.7 136.0,189.7 L136.0,320.0 Z" fill="#eb6834"/>
+<text x="112.9" y="176.7" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1.99</text>
+<text x="112.9" y="336.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">我们的 500</text>
+<path d="M155.7,320.0 L155.7,127.4 Q155.7,123.4 159.7,123.4 L197.8,123.4 Q201.8,123.4 201.8,127.4 L201.8,320.0 Z" fill="#2a78d6"/>
+<text x="178.8" y="114.4" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2.91</text>
+<text x="178.8" y="336.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">Phi-3-mini</text>
+<path d="M221.5,320.0 L221.5,125.9 Q221.5,121.9 225.5,121.9 L263.6,121.9 Q267.6,121.9 267.6,125.9 L267.6,320.0 Z" fill="#2a78d6"/>
+<text x="244.6" y="112.9" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2.93</text>
+<text x="244.6" y="336.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">Mistral-7B</text>
+<path d="M287.4,320.0 L287.4,115.1 Q287.4,111.1 291.4,111.1 L329.5,111.1 Q333.5,111.1 333.5,115.1 L333.5,320.0 Z" fill="#2a78d6"/>
+<text x="310.4" y="102.1" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">3.10</text>
+<text x="310.4" y="336.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">GPT-2</text>
+<path d="M353.2,320.0 L353.2,115.1 Q353.2,111.1 357.2,111.1 L395.3,111.1 Q399.3,111.1 399.3,115.1 L399.3,320.0 Z" fill="#2a78d6"/>
+<text x="376.2" y="102.1" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">3.10</text>
+<text x="376.2" y="336.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">phi-2</text>
+<path d="M419.0,320.0 L419.0,107.9 Q419.0,103.9 423.0,103.9 L461.1,103.9 Q465.1,103.9 465.1,107.9 L465.1,320.0 Z" fill="#2a78d6"/>
+<text x="442.1" y="94.9" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">3.20</text>
+<text x="442.1" y="336.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">T5</text>
+<path d="M484.9,320.0 L484.9,81.8 Q484.9,77.8 488.9,77.8 L527.0,77.8 Q531.0,77.8 531.0,81.8 L531.0,320.0 Z" fill="#2a78d6"/>
+<text x="507.9" y="68.8" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">3.59</text>
+<text x="507.9" y="336.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">DeepSeek-V3</text>
+<path d="M550.7,320.0 L550.7,81.2 Q550.7,77.2 554.7,77.2 L592.8,77.2 Q596.8,77.2 596.8,81.2 L596.8,320.0 Z" fill="#2a78d6"/>
+<text x="573.8" y="68.2" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">3.60</text>
+<text x="573.8" y="336.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">phi-4</text>
+<path d="M616.5,320.0 L616.5,81.2 Q616.5,77.2 620.5,77.2 L658.6,77.2 Q662.6,77.2 662.6,81.2 L662.6,320.0 Z" fill="#2a78d6"/>
+<text x="639.6" y="68.2" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">3.60</text>
+<text x="639.6" y="336.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">Qwen2.5</text>
+<path d="M682.4,320.0 L682.4,81.1 Q682.4,77.1 686.4,77.1 L724.5,77.1 Q728.5,77.1 728.5,81.1 L728.5,320.0 Z" fill="#2a78d6"/>
+<text x="705.4" y="68.1" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">3.60</text>
+<text x="705.4" y="336.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">GLM-4.5</text>
+<path d="M748.2,320.0 L748.2,77.9 Q748.2,73.9 752.2,73.9 L790.3,73.9 Q794.3,73.9 794.3,77.9 L794.3,320.0 Z" fill="#2a78d6"/>
+<text x="771.2" y="64.9" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">3.65</text>
+<text x="771.2" y="336.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">gpt-oss</text>
+<path d="M814.0,320.0 L814.0,77.1 Q814.0,73.1 818.0,73.1 L856.1,73.1 Q860.1,73.1 860.1,77.1 L860.1,320.0 Z" fill="#eb6834"/>
+<text x="837.1" y="64.1" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">3.66</text>
+<text x="837.1" y="336.0" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">我们的 4096</text>
+</svg>

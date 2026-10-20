@@ -1,0 +1,243 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1075 502" width="1075" height="502" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="173" y="30" font-size="13" fill="#52514e" text-anchor="start" font-weight="bold" dominant-baseline="middle">"low" × 5</text>
+<text x="398" y="30" font-size="13" fill="#52514e" text-anchor="start" font-weight="bold" dominant-baseline="middle">"lower" × 2</text>
+<text x="623" y="30" font-size="13" fill="#52514e" text-anchor="start" font-weight="bold" dominant-baseline="middle">"newest" × 6</text>
+<text x="848" y="30" font-size="13" fill="#52514e" text-anchor="start" font-weight="bold" dominant-baseline="middle">"widest" × 3</text>
+<text x="12" y="65" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">开始: 全是单字节</text>
+<rect x="173" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="182.9" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">l</text>
+<rect x="194.8" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="204.70000000000002" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">o</text>
+<rect x="216.60000000000002" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="226.50000000000003" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="398" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="407.9" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">l</text>
+<rect x="419.8" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="429.7" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">o</text>
+<rect x="441.6" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="451.5" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="463.40000000000003" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="473.3" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">e</text>
+<rect x="485.20000000000005" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="495.1" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">r</text>
+<rect x="623" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="632.9" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">n</text>
+<rect x="644.8" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="654.6999999999999" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">e</text>
+<rect x="666.5999999999999" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="676.4999999999999" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="688.3999999999999" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="698.2999999999998" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">e</text>
+<rect x="710.1999999999998" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="720.0999999999998" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">s</text>
+<rect x="731.9999999999998" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="741.8999999999997" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">t</text>
+<rect x="848" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="857.9" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="869.8" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="879.6999999999999" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">i</text>
+<rect x="891.5999999999999" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="901.4999999999999" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">d</text>
+<rect x="913.3999999999999" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="923.2999999999998" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">e</text>
+<rect x="935.1999999999998" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="945.0999999999998" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">s</text>
+<rect x="956.9999999999998" y="52" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="966.8999999999997" y="66.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">t</text>
+<text x="12" y="112" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">第 1 轮: e+s</text>
+<text x="12" y="130" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">频率 9 → 新 ID 256</text>
+<rect x="173" y="106" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="182.9" y="120.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">l</text>
+<rect x="194.8" y="106" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="204.70000000000002" y="120.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">o</text>
+<rect x="216.60000000000002" y="106" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="226.50000000000003" y="120.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="398" y="106" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="407.9" y="120.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">l</text>
+<rect x="419.8" y="106" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="429.7" y="120.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">o</text>
+<rect x="441.6" y="106" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="451.5" y="120.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="463.40000000000003" y="106" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="473.3" y="120.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">e</text>
+<rect x="485.20000000000005" y="106" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="495.1" y="120.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">r</text>
+<rect x="623" y="106" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="632.9" y="120.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">n</text>
+<rect x="644.8" y="106" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="654.6999999999999" y="120.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">e</text>
+<rect x="666.5999999999999" y="106" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="676.4999999999999" y="120.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="688.3999999999999" y="106" width="27.6" height="26" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="702.1999999999998" y="120.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">es</text>
+<rect x="717.9999999999999" y="106" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="727.8999999999999" y="120.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">t</text>
+<rect x="848" y="106" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="857.9" y="120.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="869.8" y="106" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="879.6999999999999" y="120.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">i</text>
+<rect x="891.5999999999999" y="106" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="901.4999999999999" y="120.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">d</text>
+<rect x="913.3999999999999" y="106" width="27.6" height="26" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="927.1999999999998" y="120.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">es</text>
+<rect x="942.9999999999999" y="106" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="952.8999999999999" y="120.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">t</text>
+<text x="12" y="166" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">第 2 轮: es+t</text>
+<text x="12" y="184" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">频率 9 → 新 ID 257</text>
+<rect x="173" y="160" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="182.9" y="174.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">l</text>
+<rect x="194.8" y="160" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="204.70000000000002" y="174.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">o</text>
+<rect x="216.60000000000002" y="160" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="226.50000000000003" y="174.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="398" y="160" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="407.9" y="174.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">l</text>
+<rect x="419.8" y="160" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="429.7" y="174.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">o</text>
+<rect x="441.6" y="160" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="451.5" y="174.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="463.40000000000003" y="160" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="473.3" y="174.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">e</text>
+<rect x="485.20000000000005" y="160" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="495.1" y="174.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">r</text>
+<rect x="623" y="160" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="632.9" y="174.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">n</text>
+<rect x="644.8" y="160" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="654.6999999999999" y="174.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">e</text>
+<rect x="666.5999999999999" y="160" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="676.4999999999999" y="174.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="688.3999999999999" y="160" width="35.4" height="26" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="706.0999999999999" y="174.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">est</text>
+<rect x="848" y="160" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="857.9" y="174.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="869.8" y="160" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="879.6999999999999" y="174.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">i</text>
+<rect x="891.5999999999999" y="160" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="901.4999999999999" y="174.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">d</text>
+<rect x="913.3999999999999" y="160" width="35.4" height="26" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="931.0999999999999" y="174.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">est</text>
+<text x="12" y="220" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">第 3 轮: l+o</text>
+<text x="12" y="238" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">频率 7 → 新 ID 258</text>
+<rect x="173" y="214" width="27.6" height="26" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="186.8" y="228.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">lo</text>
+<rect x="202.6" y="214" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="212.5" y="228.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="398" y="214" width="27.6" height="26" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="411.8" y="228.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">lo</text>
+<rect x="427.6" y="214" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="437.5" y="228.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="449.40000000000003" y="214" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="459.3" y="228.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">e</text>
+<rect x="471.20000000000005" y="214" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="481.1" y="228.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">r</text>
+<rect x="623" y="214" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="632.9" y="228.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">n</text>
+<rect x="644.8" y="214" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="654.6999999999999" y="228.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">e</text>
+<rect x="666.5999999999999" y="214" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="676.4999999999999" y="228.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="688.3999999999999" y="214" width="35.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="706.0999999999999" y="228.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">est</text>
+<rect x="848" y="214" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="857.9" y="228.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="869.8" y="214" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="879.6999999999999" y="228.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">i</text>
+<rect x="891.5999999999999" y="214" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="901.4999999999999" y="228.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">d</text>
+<rect x="913.3999999999999" y="214" width="35.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="931.0999999999999" y="228.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">est</text>
+<text x="12" y="274" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">第 4 轮: lo+w</text>
+<text x="12" y="292" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">频率 7 → 新 ID 259</text>
+<rect x="173" y="268" width="35.4" height="26" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="190.7" y="282.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">low</text>
+<rect x="398" y="268" width="35.4" height="26" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="415.7" y="282.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">low</text>
+<rect x="435.4" y="268" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="445.29999999999995" y="282.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">e</text>
+<rect x="457.2" y="268" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="467.09999999999997" y="282.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">r</text>
+<rect x="623" y="268" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="632.9" y="282.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">n</text>
+<rect x="644.8" y="268" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="654.6999999999999" y="282.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">e</text>
+<rect x="666.5999999999999" y="268" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="676.4999999999999" y="282.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="688.3999999999999" y="268" width="35.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="706.0999999999999" y="282.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">est</text>
+<rect x="848" y="268" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="857.9" y="282.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="869.8" y="268" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="879.6999999999999" y="282.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">i</text>
+<rect x="891.5999999999999" y="268" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="901.4999999999999" y="282.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">d</text>
+<rect x="913.3999999999999" y="268" width="35.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="931.0999999999999" y="282.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">est</text>
+<text x="12" y="328" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">第 5 轮: e+w</text>
+<text x="12" y="346" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">频率 6 → 新 ID 260</text>
+<rect x="173" y="322" width="35.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="190.7" y="336.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">low</text>
+<rect x="398" y="322" width="35.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="415.7" y="336.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">low</text>
+<rect x="435.4" y="322" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="445.29999999999995" y="336.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">e</text>
+<rect x="457.2" y="322" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="467.09999999999997" y="336.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">r</text>
+<rect x="623" y="322" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="632.9" y="336.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">n</text>
+<rect x="644.8" y="322" width="27.6" height="26" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="658.5999999999999" y="336.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">ew</text>
+<rect x="674.4" y="322" width="35.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="692.1" y="336.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">est</text>
+<rect x="848" y="322" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="857.9" y="336.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="869.8" y="322" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="879.6999999999999" y="336.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">i</text>
+<rect x="891.5999999999999" y="322" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="901.4999999999999" y="336.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">d</text>
+<rect x="913.3999999999999" y="322" width="35.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="931.0999999999999" y="336.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">est</text>
+<text x="12" y="382" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">第 6 轮: n+ew</text>
+<text x="12" y="400" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">频率 6 → 新 ID 261</text>
+<rect x="173" y="376" width="35.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="190.7" y="390.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">low</text>
+<rect x="398" y="376" width="35.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="415.7" y="390.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">low</text>
+<rect x="435.4" y="376" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="445.29999999999995" y="390.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">e</text>
+<rect x="457.2" y="376" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="467.09999999999997" y="390.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">r</text>
+<rect x="623" y="376" width="35.4" height="26" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="640.7" y="390.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">new</text>
+<rect x="660.4" y="376" width="35.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="678.1" y="390.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">est</text>
+<rect x="848" y="376" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="857.9" y="390.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="869.8" y="376" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="879.6999999999999" y="390.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">i</text>
+<rect x="891.5999999999999" y="376" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="901.4999999999999" y="390.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">d</text>
+<rect x="913.3999999999999" y="376" width="35.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="931.0999999999999" y="390.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">est</text>
+<text x="12" y="436" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">第 7 轮: new+est</text>
+<text x="12" y="454" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">频率 6 → 新 ID 262</text>
+<rect x="173" y="430" width="35.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="190.7" y="444.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">low</text>
+<rect x="398" y="430" width="35.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="415.7" y="444.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">low</text>
+<rect x="435.4" y="430" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="445.29999999999995" y="444.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">e</text>
+<rect x="457.2" y="430" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="467.09999999999997" y="444.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">r</text>
+<rect x="623" y="430" width="58.8" height="26" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="652.4" y="444.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">newest</text>
+<rect x="848" y="430" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="857.9" y="444.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">w</text>
+<rect x="869.8" y="430" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="879.6999999999999" y="444.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">i</text>
+<rect x="891.5999999999999" y="430" width="19.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="901.4999999999999" y="444.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">d</text>
+<rect x="913.3999999999999" y="430" width="35.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="931.0999999999999" y="444.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">est</text>
+</svg>

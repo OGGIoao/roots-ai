@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 592" width="760" height="592" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="26" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">原文: It&#x27;s␣2026,␣hello␣world!</text>
+<text x="20" y="61" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">我们的 _pretokenize</text>
+<rect x="170" y="48" width="40.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="190.4" y="62.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">It&#x27;s</text>
+<rect x="213.8" y="48" width="55.2" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="241.4" y="62.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣2026,</text>
+<rect x="272.0" y="48" width="55.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="299.6" y="62.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣hello</text>
+<rect x="330.2" y="48" width="62.400000000000006" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="361.4" y="62.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣world!</text>
+<text x="20" y="97" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">GPT-2</text>
+<rect x="170" y="84" width="26.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="183.2" y="98.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">It</text>
+<rect x="199.4" y="84" width="26.4" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="212.6" y="98.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">&#x27;s</text>
+<rect x="228.8" y="84" width="48.0" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="252.8" y="98.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣2026</text>
+<rect x="279.8" y="84" width="19.2" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="289.40000000000003" y="98.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">,</text>
+<rect x="302.0" y="84" width="55.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="329.6" y="98.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣hello</text>
+<rect x="360.2" y="84" width="55.2" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="387.8" y="98.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣world</text>
+<rect x="418.4" y="84" width="19.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="428.0" y="98.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">!</text>
+<text x="20" y="133" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">Qwen2.5</text>
+<rect x="170" y="120" width="26.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="183.2" y="134.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">It</text>
+<rect x="199.4" y="120" width="26.4" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="212.6" y="134.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">&#x27;s</text>
+<rect x="228.8" y="120" width="19.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="238.4" y="134.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣</text>
+<rect x="251.0" y="120" width="19.2" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="260.6" y="134.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2</text>
+<rect x="273.2" y="120" width="19.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="282.8" y="134.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<rect x="295.4" y="120" width="19.2" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="305.0" y="134.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2</text>
+<rect x="317.59999999999997" y="120" width="19.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="327.2" y="134.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">6</text>
+<rect x="339.79999999999995" y="120" width="19.2" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="349.4" y="134.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">,</text>
+<rect x="361.99999999999994" y="120" width="55.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="389.59999999999997" y="134.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣hello</text>
+<rect x="420.19999999999993" y="120" width="55.2" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="447.79999999999995" y="134.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣world</text>
+<rect x="478.3999999999999" y="120" width="19.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="487.99999999999994" y="134.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">!</text>
+<text x="20" y="169" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">phi-4 / GLM-4.5</text>
+<rect x="170" y="156" width="26.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="183.2" y="170.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">It</text>
+<rect x="199.4" y="156" width="26.4" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="212.6" y="170.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">&#x27;s</text>
+<rect x="228.8" y="156" width="19.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="238.4" y="170.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣</text>
+<rect x="251.0" y="156" width="33.599999999999994" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="267.8" y="170.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">202</text>
+<rect x="287.6" y="156" width="19.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="297.20000000000005" y="170.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">6</text>
+<rect x="309.8" y="156" width="19.2" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="319.40000000000003" y="170.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">,</text>
+<rect x="332.0" y="156" width="55.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="359.6" y="170.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣hello</text>
+<rect x="390.2" y="156" width="55.2" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="417.8" y="170.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣world</text>
+<rect x="448.4" y="156" width="19.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="458.0" y="170.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">!</text>
+<text x="20" y="210" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">原文: 价格是␣1234567␣元</text>
+<text x="20" y="245" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">我们的 _pretokenize</text>
+<rect x="170" y="232" width="48" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="194.0" y="246.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">价格是</text>
+<rect x="221" y="232" width="69.60000000000001" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="255.8" y="246.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣1234567</text>
+<rect x="293.6" y="232" width="31.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="309.20000000000005" y="246.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣元</text>
+<text x="20" y="281" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">GPT-2</text>
+<rect x="170" y="268" width="48" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="194.0" y="282.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">价格是</text>
+<rect x="221" y="268" width="69.60000000000001" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="255.8" y="282.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣1234567</text>
+<rect x="293.6" y="268" width="31.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="309.20000000000005" y="282.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣元</text>
+<text x="20" y="317" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">Qwen2.5</text>
+<rect x="170" y="304" width="48" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="194.0" y="318.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">价格是</text>
+<rect x="221" y="304" width="19.2" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="230.6" y="318.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣</text>
+<rect x="243.2" y="304" width="19.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="252.79999999999998" y="318.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1</text>
+<rect x="265.4" y="304" width="19.2" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="275.0" y="318.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2</text>
+<rect x="287.59999999999997" y="304" width="19.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="297.2" y="318.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">3</text>
+<rect x="309.79999999999995" y="304" width="19.2" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="319.4" y="318.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4</text>
+<rect x="331.99999999999994" y="304" width="19.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="341.59999999999997" y="318.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">5</text>
+<rect x="354.19999999999993" y="304" width="19.2" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="363.79999999999995" y="318.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">6</text>
+<rect x="376.3999999999999" y="304" width="19.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="385.99999999999994" y="318.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">7</text>
+<rect x="398.5999999999999" y="304" width="31.2" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="414.19999999999993" y="318.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣元</text>
+<text x="20" y="353" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">phi-4 / GLM-4.5</text>
+<rect x="170" y="340" width="48" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="194.0" y="354.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">价格是</text>
+<rect x="221" y="340" width="19.2" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="230.6" y="354.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣</text>
+<rect x="243.2" y="340" width="33.599999999999994" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="260.0" y="354.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">123</text>
+<rect x="279.79999999999995" y="340" width="33.599999999999994" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="296.59999999999997" y="354.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">456</text>
+<rect x="316.4" y="340" width="19.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="326.0" y="354.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">7</text>
+<rect x="338.59999999999997" y="340" width="31.2" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="354.2" y="354.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣元</text>
+<text x="20" y="394" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">原文: x␣=␣foo(a,b)↵␣␣␣␣return␣x</text>
+<text x="20" y="429" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">我们的 _pretokenize</text>
+<rect x="170" y="416" width="19.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="179.6" y="430.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">x</text>
+<rect x="192.2" y="416" width="26.4" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="205.39999999999998" y="430.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣=</text>
+<rect x="221.6" y="416" width="76.80000000000001" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="260.0" y="430.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣foo(a,b)</text>
+<rect x="301.4" y="416" width="91.20000000000002" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="347.0" y="430.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">↵␣␣␣␣return</text>
+<rect x="395.6" y="416" width="26.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="408.8" y="430.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣x</text>
+<text x="20" y="465" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">GPT-2</text>
+<rect x="170" y="452" width="19.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="179.6" y="466.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">x</text>
+<rect x="192.2" y="452" width="26.4" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="205.39999999999998" y="466.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣=</text>
+<rect x="221.6" y="452" width="40.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="242.0" y="466.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣foo</text>
+<rect x="265.4" y="452" width="19.2" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="275.0" y="466.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">(</text>
+<rect x="287.59999999999997" y="452" width="19.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="297.2" y="466.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">a</text>
+<rect x="309.79999999999995" y="452" width="19.2" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="319.4" y="466.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">,</text>
+<rect x="331.99999999999994" y="452" width="19.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="341.59999999999997" y="466.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">b</text>
+<rect x="354.19999999999993" y="452" width="19.2" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="363.79999999999995" y="466.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">)</text>
+<rect x="376.3999999999999" y="452" width="40.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="396.7999999999999" y="466.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">↵␣␣␣</text>
+<rect x="420.19999999999993" y="452" width="62.400000000000006" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="451.3999999999999" y="466.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣return</text>
+<rect x="485.5999999999999" y="452" width="26.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="498.7999999999999" y="466.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣x</text>
+<text x="20" y="501" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">Qwen2.5</text>
+<rect x="170" y="488" width="19.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="179.6" y="502.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">x</text>
+<rect x="192.2" y="488" width="26.4" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="205.39999999999998" y="502.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣=</text>
+<rect x="221.6" y="488" width="40.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="242.0" y="502.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣foo</text>
+<rect x="265.4" y="488" width="26.4" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="278.59999999999997" y="502.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">(a</text>
+<rect x="294.79999999999995" y="488" width="26.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="307.99999999999994" y="502.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">,b</text>
+<rect x="324.19999999999993" y="488" width="26.4" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="337.3999999999999" y="502.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">)↵</text>
+<rect x="353.5999999999999" y="488" width="33.599999999999994" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="370.3999999999999" y="502.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣␣␣</text>
+<rect x="390.19999999999993" y="488" width="62.400000000000006" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="421.3999999999999" y="502.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣return</text>
+<rect x="455.5999999999999" y="488" width="26.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="468.7999999999999" y="502.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣x</text>
+<text x="20" y="537" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">phi-4 / GLM-4.5</text>
+<rect x="170" y="524" width="19.2" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="179.6" y="538.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">x</text>
+<rect x="192.2" y="524" width="26.4" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="205.39999999999998" y="538.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣=</text>
+<rect x="221.6" y="524" width="40.8" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="242.0" y="538.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣foo</text>
+<rect x="265.4" y="524" width="26.4" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="278.59999999999997" y="538.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">(a</text>
+<rect x="294.79999999999995" y="524" width="26.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="307.99999999999994" y="538.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">,b</text>
+<rect x="324.19999999999993" y="524" width="26.4" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="337.3999999999999" y="538.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">)↵</text>
+<rect x="353.5999999999999" y="524" width="33.599999999999994" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="370.3999999999999" y="538.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣␣␣</text>
+<rect x="390.19999999999993" y="524" width="62.400000000000006" height="26" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="421.3999999999999" y="538.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣return</text>
+<rect x="455.5999999999999" y="524" width="26.4" height="26" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="468.7999999999999" y="538.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣x</text>
+</svg>

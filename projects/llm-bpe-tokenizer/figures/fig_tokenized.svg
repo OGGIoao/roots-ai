@@ -1,0 +1,161 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" width="1000" height="300" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="30" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">原文: To be, or not to be, that is the question.</text>
+<text x="20" y="62" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">我们的 (500)</text>
+<text x="20" y="76" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">18 个 token</text>
+<rect x="130" y="54" width="19.2" height="24" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="139.6" y="67.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">T</text>
+<rect x="151.2" y="54" width="19.2" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="160.79999999999998" y="67.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">o</text>
+<rect x="172.39999999999998" y="54" width="33.599999999999994" height="24" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="189.2" y="67.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣be</text>
+<rect x="207.99999999999997" y="54" width="19.2" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="217.59999999999997" y="67.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">,</text>
+<rect x="229.19999999999996" y="54" width="19.2" height="24" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="238.79999999999995" y="67.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣</text>
+<rect x="250.39999999999995" y="54" width="26.4" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="263.59999999999997" y="67.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">or</text>
+<rect x="278.79999999999995" y="54" width="40.8" height="24" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="299.19999999999993" y="67.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣not</text>
+<rect x="321.59999999999997" y="54" width="33.599999999999994" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="338.4" y="67.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣to</text>
+<rect x="357.19999999999993" y="54" width="33.599999999999994" height="24" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="373.99999999999994" y="67.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣be</text>
+<rect x="392.79999999999995" y="54" width="19.2" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="402.4" y="67.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">,</text>
+<rect x="413.99999999999994" y="54" width="48.0" height="24" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="437.99999999999994" y="67.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣that</text>
+<rect x="463.99999999999994" y="54" width="33.599999999999994" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="480.79999999999995" y="67.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣is</text>
+<rect x="499.5999999999999" y="54" width="40.8" height="24" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="519.9999999999999" y="67.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣the</text>
+<rect x="542.3999999999999" y="54" width="19.2" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="551.9999999999999" y="67.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣</text>
+<rect x="563.5999999999999" y="54" width="26.4" height="24" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="576.8" y="67.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">qu</text>
+<rect x="591.9999999999999" y="54" width="33.599999999999994" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="608.7999999999998" y="67.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">est</text>
+<rect x="627.5999999999999" y="54" width="33.599999999999994" height="24" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="644.3999999999999" y="67.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">ion</text>
+<rect x="663.1999999999999" y="54" width="19.2" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="672.8" y="67.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.</text>
+<text x="20" y="100" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">GPT-2 (50257)</text>
+<text x="20" y="114" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">13 个 token</text>
+<rect x="130" y="94" width="26.4" height="24" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="143.2" y="107.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">To</text>
+<rect x="158.4" y="94" width="33.599999999999994" height="24" rx="4" fill="#f9c9b3" stroke="#eb6834" stroke-width="1.2"/>
+<text x="175.2" y="107.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣be</text>
+<rect x="194.0" y="94" width="19.2" height="24" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="203.6" y="107.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">,</text>
+<rect x="215.2" y="94" width="33.599999999999994" height="24" rx="4" fill="#f9c9b3" stroke="#eb6834" stroke-width="1.2"/>
+<text x="232.0" y="107.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣or</text>
+<rect x="250.79999999999998" y="94" width="40.8" height="24" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="271.2" y="107.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣not</text>
+<rect x="293.59999999999997" y="94" width="33.599999999999994" height="24" rx="4" fill="#f9c9b3" stroke="#eb6834" stroke-width="1.2"/>
+<text x="310.4" y="107.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣to</text>
+<rect x="329.19999999999993" y="94" width="33.599999999999994" height="24" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="345.99999999999994" y="107.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣be</text>
+<rect x="364.79999999999995" y="94" width="19.2" height="24" rx="4" fill="#f9c9b3" stroke="#eb6834" stroke-width="1.2"/>
+<text x="374.4" y="107.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">,</text>
+<rect x="385.99999999999994" y="94" width="48.0" height="24" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="409.99999999999994" y="107.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣that</text>
+<rect x="435.99999999999994" y="94" width="33.599999999999994" height="24" rx="4" fill="#f9c9b3" stroke="#eb6834" stroke-width="1.2"/>
+<text x="452.79999999999995" y="107.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣is</text>
+<rect x="471.5999999999999" y="94" width="40.8" height="24" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="491.9999999999999" y="107.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣the</text>
+<rect x="514.3999999999999" y="94" width="76.80000000000001" height="24" rx="4" fill="#f9c9b3" stroke="#eb6834" stroke-width="1.2"/>
+<text x="552.7999999999998" y="107.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣question</text>
+<rect x="593.1999999999998" y="94" width="19.2" height="24" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="602.7999999999998" y="107.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.</text>
+<text x="20" y="154" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">原文: Hello, world! 你好世界 🌍</text>
+<text x="20" y="186" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">我们的 (500)</text>
+<text x="20" y="200" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">26 个 token</text>
+<rect x="130" y="178" width="19.2" height="24" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="139.6" y="191.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">H</text>
+<rect x="151.2" y="178" width="33.599999999999994" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="168.0" y="191.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">ell</text>
+<rect x="186.79999999999998" y="178" width="19.2" height="24" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="196.39999999999998" y="191.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">o</text>
+<rect x="207.99999999999997" y="178" width="19.2" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="217.59999999999997" y="191.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">,</text>
+<rect x="229.19999999999996" y="178" width="26.4" height="24" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="242.39999999999995" y="191.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣w</text>
+<rect x="257.59999999999997" y="178" width="26.4" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="270.79999999999995" y="191.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">or</text>
+<rect x="285.99999999999994" y="178" width="26.4" height="24" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="299.19999999999993" y="191.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">ld</text>
+<rect x="314.3999999999999" y="178" width="19.2" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="323.99999999999994" y="191.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">!</text>
+<rect x="335.5999999999999" y="178" width="19.2" height="24" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="345.19999999999993" y="191.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣</text>
+<rect x="356.7999999999999" y="178" width="24.0" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="368.7999999999999" y="191.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">E4</text>
+<rect x="382.7999999999999" y="178" width="24.0" height="24" rx="4" fill="#fbe1e1" stroke="#e34948" stroke-width="1.2"/>
+<text x="394.7999999999999" y="191.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">BD</text>
+<rect x="408.7999999999999" y="178" width="24.0" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="420.7999999999999" y="191.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">A0</text>
+<rect x="434.7999999999999" y="178" width="24.0" height="24" rx="4" fill="#fbe1e1" stroke="#e34948" stroke-width="1.2"/>
+<text x="446.7999999999999" y="191.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">E5</text>
+<rect x="460.7999999999999" y="178" width="24.0" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="472.7999999999999" y="191.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">A5</text>
+<rect x="486.7999999999999" y="178" width="24.0" height="24" rx="4" fill="#fbe1e1" stroke="#e34948" stroke-width="1.2"/>
+<text x="498.7999999999999" y="191.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">BD</text>
+<rect x="512.8" y="178" width="24.0" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="524.8" y="191.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">E4</text>
+<rect x="538.8" y="178" width="24.0" height="24" rx="4" fill="#fbe1e1" stroke="#e34948" stroke-width="1.2"/>
+<text x="550.8" y="191.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">B8</text>
+<rect x="564.8" y="178" width="24.0" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="576.8" y="191.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">96</text>
+<rect x="590.8" y="178" width="24.0" height="24" rx="4" fill="#fbe1e1" stroke="#e34948" stroke-width="1.2"/>
+<text x="602.8" y="191.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">E7</text>
+<rect x="616.8" y="178" width="24.0" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="628.8" y="191.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">95</text>
+<rect x="642.8" y="178" width="24.0" height="24" rx="4" fill="#fbe1e1" stroke="#e34948" stroke-width="1.2"/>
+<text x="654.8" y="191.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">8C</text>
+<rect x="668.8" y="178" width="19.2" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="678.4" y="191.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣</text>
+<rect x="690.0" y="178" width="24.0" height="24" rx="4" fill="#fbe1e1" stroke="#e34948" stroke-width="1.2"/>
+<text x="702.0" y="191.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">F0</text>
+<rect x="716.0" y="178" width="24.0" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="728.0" y="191.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">9F</text>
+<rect x="742.0" y="178" width="24.0" height="24" rx="4" fill="#fbe1e1" stroke="#e34948" stroke-width="1.2"/>
+<text x="754.0" y="191.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">8C</text>
+<rect x="768.0" y="178" width="24.0" height="24" rx="4" fill="#c4dbf5" stroke="#2a78d6" stroke-width="1.2"/>
+<text x="780.0" y="191.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">8D</text>
+<text x="20" y="224" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">GPT-2 (50257)</text>
+<text x="20" y="238" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">16 个 token</text>
+<rect x="130" y="218" width="48.0" height="24" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="154.0" y="231.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">Hello</text>
+<rect x="180.0" y="218" width="19.2" height="24" rx="4" fill="#f9c9b3" stroke="#eb6834" stroke-width="1.2"/>
+<text x="189.6" y="231.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">,</text>
+<rect x="201.2" y="218" width="55.2" height="24" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="228.79999999999998" y="231.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣world</text>
+<rect x="258.4" y="218" width="19.2" height="24" rx="4" fill="#f9c9b3" stroke="#eb6834" stroke-width="1.2"/>
+<text x="268.0" y="231.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">!</text>
+<rect x="279.59999999999997" y="218" width="19.2" height="24" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="289.2" y="231.0" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣</text>
+<rect x="300.79999999999995" y="218" width="42.0" height="24" rx="4" fill="#f9c9b3" stroke="#eb6834" stroke-width="1.2"/>
+<text x="321.79999999999995" y="231.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">E4 BD</text>
+<rect x="344.79999999999995" y="218" width="24.0" height="24" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="356.79999999999995" y="231.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">A0</text>
+<rect x="370.79999999999995" y="218" width="42.0" height="24" rx="4" fill="#f9c9b3" stroke="#eb6834" stroke-width="1.2"/>
+<text x="391.79999999999995" y="231.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">E5 A5</text>
+<rect x="414.79999999999995" y="218" width="24.0" height="24" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="426.79999999999995" y="231.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">BD</text>
+<rect x="440.79999999999995" y="218" width="42.0" height="24" rx="4" fill="#f9c9b3" stroke="#eb6834" stroke-width="1.2"/>
+<text x="461.79999999999995" y="231.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">E4 B8</text>
+<rect x="484.79999999999995" y="218" width="24.0" height="24" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="496.79999999999995" y="231.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">96</text>
+<rect x="510.79999999999995" y="218" width="42.0" height="24" rx="4" fill="#f9c9b3" stroke="#eb6834" stroke-width="1.2"/>
+<text x="531.8" y="231.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">E7 95</text>
+<rect x="554.8" y="218" width="24.0" height="24" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="566.8" y="231.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">8C</text>
+<rect x="580.8" y="218" width="60.0" height="24" rx="4" fill="#f9c9b3" stroke="#eb6834" stroke-width="1.2"/>
+<text x="610.8" y="231.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">20 F0 9F</text>
+<rect x="642.8" y="218" width="24.0" height="24" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.2"/>
+<text x="654.8" y="231.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">8C</text>
+<rect x="668.8" y="218" width="24.0" height="24" rx="4" fill="#f9c9b3" stroke="#eb6834" stroke-width="1.2"/>
+<text x="680.8" y="231.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">8D</text>
+<text x="20" y="256" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">红框 = 不是完整字符的字节 (十六进制); ␣ = 空格</text>
+</svg>
