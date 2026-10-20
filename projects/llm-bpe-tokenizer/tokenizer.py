@@ -3,7 +3,7 @@ tokenizer.py — 字节级 BPE Tokenizer 从零实现
 
 教练注：
   这是本项目的核心文件，对应 CS336 Assignment 1 的主要编码任务。
-  建议你先读 README.md 理解算法原理，再来看这份代码。
+  讲义: TUTORIAL.md 第 3~8 节 (逐函数拆解) 与图 2~5。
 
   阅读路径建议：
     1. __init__()       —— 了解数据结构
@@ -13,6 +13,12 @@ tokenizer.py — 字节级 BPE Tokenizer 从零实现
     5. encode()         —— 编码流程
     6. _encode_chunk()  —— 贪心应用合并规则
     7. decode()         —— 解码（最简单）
+
+  术语:
+    字节 (byte)      0~255 的整数, 文本经 UTF-8 编码后的最小单位
+    pre-token        预分词切出的片段 (一个"词"加上它前面的空白), BPE 合并不会跨越它的边界
+    pair             相邻的两个 token ID
+    rank             一条合并规则学到的先后次序; 本实现里直接用 new_id 表示 (越小越早学到)
 """
 
 import re
@@ -36,9 +42,11 @@ class BPETokenizer:
 
     def __init__(self):
         # 初始词表：256 个字节，每个字节值就是它对应的 1 字节序列
+        # 例: vocab[65] = b'A', vocab[10] = b'\n', vocab[228] = b'\xe4' (汉字"你"的第 1 个字节)
         self.vocab: dict[int, bytes] = {i: bytes([i]) for i in range(256)}
 
         # 合并规则表：按训练顺序记录，new_id 即为 rank（越小越优先）
+        # Python 3.7+ 的 dict 保持插入顺序, 所以遍历 merges 的顺序就是学到的顺序
         self.merges: dict[tuple[int, int], int] = {}
 
     # ─────────────────────────────────────────────────────────────────────────
@@ -53,22 +61,27 @@ class BPETokenizer:
             text:       训练语料（完整字符串）
             vocab_size: 目标词表大小，必须 > 256
             verbose:    是否打印训练进度
+
+        注意: 如果语料里已经没有可合并的 pair (例如语料太短), 会提前结束,
+              此时词表小于 vocab_size。
         """
         assert vocab_size > 256, "vocab_size 必须 > 256（初始词表已有 256 个字节 token）"
-        num_merges = vocab_size - 256
+        num_merges = vocab_size - 256                      # 每次合并新增 1 个 token
 
         # ── Step 1：Pre-tokenize（预分词）────────────────────────────────────
         # 把整段文本拆成更小的"词"单元，BPE 合并不会跨越这些单元的边界。
-        # 这是 GPT-2 的关键设计：防止 "the" 和 "The" 的字节被合并到一起。
+        # 作用: 让学到的 token 都落在词的内部 (例如学到 " the", 而不会学到 "e t" 这种
+        # 横跨两个词的片段), 同时把语料压缩成"不同的词 + 出现次数", 统计快得多。
         pretokens = self._pretokenize(text)
 
         # ── Step 2：构建初始词频表 ────────────────────────────────────────────
         # word_freqs: { 字节ID元组 : 出现次数 }
         # 例："low" (freq=5) → { (108, 111, 119): 5 }
         #      l=108, o=111, w=119
+        # 同一个词只存一份, 后面统计 pair 时乘上它的次数 —— 这是训练能在几秒内完成的关键
         word_freqs: dict[tuple[int, ...], int] = defaultdict(int)
         for token in pretokens:
-            byte_ids = tuple(token.encode("utf-8"))  # str → UTF-8 字节 → ID 元组
+            byte_ids = tuple(token.encode("utf-8"))  # str → UTF-8 字节 → ID 元组 (元组才能当 dict 的键)
             word_freqs[byte_ids] += 1
 
         if verbose:
@@ -83,22 +96,25 @@ class BPETokenizer:
         for merge_idx in range(num_merges):
             # 3a. 统计当前词频表中所有相邻 token 对的频率
             pair_freqs = self._get_pair_freqs(word_freqs)
-            if not pair_freqs:
+            if not pair_freqs:                             # 每个词都只剩 1 个 token 了
                 if verbose:
                     print(f"[!] 语料已无可合并的 pair，在第 {merge_idx} 次合并时提前结束")
                 break
 
             # 3b. 找最高频对
             #     频率相同时，取 ID 对字典序最小的——确保结果确定性（可复现）
+            #     key 是一个三元组: 先比频率 (越大越好), 再比 -id_a、-id_b (id 越小越好)
             best_pair = max(pair_freqs, key=lambda p: (pair_freqs[p], -p[0], -p[1]))
             best_freq = pair_freqs[best_pair]
 
             # 3c. 分配新 token ID，并记录合并规则
+            #     新 token 的字节内容 = 两个父 token 的字节内容拼接
             new_id = 256 + merge_idx
             self.merges[best_pair] = new_id
             self.vocab[new_id] = self.vocab[best_pair[0]] + self.vocab[best_pair[1]]
 
             # 3d. 把词频表里所有出现该 pair 的地方都替换成 new_id
+            #     (被替换的词变短了, 相邻关系随之改变, 所以下一轮要重新统计)
             word_freqs = self._apply_merge_to_freqs(best_pair, new_id, word_freqs)
 
             if verbose and (merge_idx + 1) % log_interval == 0:
@@ -123,8 +139,8 @@ class BPETokenizer:
         pretokens = self._pretokenize(text)
         result: list[int] = []
         for token in pretokens:
-            byte_ids = list(token.encode("utf-8"))
-            # 对每个 pre-token 独立应用合并规则
+            byte_ids = list(token.encode("utf-8"))     # 例: " the" → [32, 116, 104, 101]
+            # 对每个 pre-token 独立应用合并规则 (与训练时一致, 合并不跨越 pre-token 边界)
             merged = self._encode_chunk(byte_ids)
             result.extend(merged)
         return result
@@ -135,8 +151,10 @@ class BPETokenizer:
 
         流程：
           每个 ID → self.vocab 查字节 → 合并所有字节 → UTF-8 解码
+        解码只需要 vocab, 不需要 merges: 每个 token 记着自己代表哪些字节, 拼起来就是原文。
         """
         # errors="replace"：遇到无效 UTF-8 序列时用 U+FFFD 替换，而不是报错
+        # (例如单独解码汉字 3 个字节中的第 1 个, 或模型生成了不完整的多字节字符)
         raw_bytes = b"".join(self.vocab[i] for i in ids)
         return raw_bytes.decode("utf-8", errors="replace")
 
@@ -153,6 +171,7 @@ class BPETokenizer:
             "vocab":  { "id": [byte, ...], ... },
             "merges": [ [id_a, id_b, new_id], ... ]
           }
+        字节存成整数列表而不是字符串: 很多 token 不是合法的 UTF-8 (例如半个汉字), 无法存成文本。
         """
         data = {
             "vocab": {str(k): list(v) for k, v in self.vocab.items()},
@@ -168,7 +187,7 @@ class BPETokenizer:
         with open(path, encoding="utf-8") as f:
             data = json.load(f)
         tok = cls()
-        tok.vocab = {int(k): bytes(v) for k, v in data["vocab"].items()}
+        tok.vocab = {int(k): bytes(v) for k, v in data["vocab"].items()}   # JSON 的键只能是字符串, 转回 int
         tok.merges = {(row[0], row[1]): row[2] for row in data["merges"]}
         return tok
 
@@ -180,20 +199,24 @@ class BPETokenizer:
         """
         预分词：把文本分割成不跨词边界的片段。
 
-        这里使用简化版：把空白字符附加到其后面的词的开头，
+        这里使用简化版：把空白字符（空格、换行等）附加到其后面的词的开头，
         模仿 GPT-2 的 "Ġ"（▁）前缀设计。
 
-        例：
-          "Hello world" → ["Hello", " world"]
-          " foo  bar"   → [" foo", "  bar"]
+        例 (实测)：
+          "Hello world"   → ["Hello", " world"]
+          " foo  bar"     → [" foo", "  bar"]
+          "line1\\nline2"  → ["line1", "\\nline2"]          换行也附在后面的词上
+          "line1\\nline2\\n" → ["line1", "\\nline2", "\\n"]  末尾的空白单独成一段
 
         注：完整的 GPT-2 pretokenization 使用复杂的 Unicode 正则
             （regex 库的 \\p{L} 等），这里为了不引入额外依赖而简化。
+            两者的差别见讲义「正则表达式专题」。
         """
         if not text:
             return []
 
         # 找到所有连续的"非空白"片段和"空白"片段
+        # 例: "Hello  world\\n" → ["Hello", "  ", "world", "\\n"]
         tokens = re.findall(r"\S+|\s+", text)
 
         result: list[str] = []
@@ -223,6 +246,10 @@ class BPETokenizer:
           这是 BPE 最核心的一步。每次合并后词频表会更新，
           所以每轮都要重新统计。这也是 BPE 训练 O(V * N) 复杂度的来源。
 
+          一个容易忽略的细节: 重叠的 pair 会被重复计数。
+          例如 "aaaa" 里 (a, a) 被数了 3 次, 但合并时从左到右只能替换 2 处
+          ("aaa" 数 2 次, 只能替换 1 处)。所以这里的频率在少数情况下会偏高 (讲义「训练过程图解」的 abababd 例子)。
+
         Args:
             word_freqs: { token_id_tuple: count }
 
@@ -233,7 +260,7 @@ class BPETokenizer:
         for word_ids, freq in word_freqs.items():
             for i in range(len(word_ids) - 1):
                 pair = (word_ids[i], word_ids[i + 1])
-                pair_freqs[pair] += freq
+                pair_freqs[pair] += freq                   # 加的是这个词出现的次数, 不是 1
         return pair_freqs
 
     def _apply_merge_to_freqs(
@@ -261,6 +288,7 @@ class BPETokenizer:
         new_word_freqs: dict[tuple[int, ...], int] = {}
         for word_ids, freq in word_freqs.items():
             new_ids = _merge_pair_in_sequence(word_ids, pair, new_id)
+            # 不同的词合并后不会变成同一个序列 (合并可逆), 所以这里直接赋值, 不需要累加
             new_word_freqs[new_ids] = freq
         return new_word_freqs
 
@@ -292,13 +320,13 @@ class BPETokenizer:
                 break  # 没有可用合并了，结束
 
             new_id = self.merges[best_pair]
-            # 替换所有出现的 best_pair
+            # 替换所有出现的 best_pair (序列变短, 下一轮重新扫描)
             ids = list(_merge_pair_in_sequence(tuple(ids), best_pair, new_id))
 
         return ids
 
     def _token_repr(self, token_id: int) -> str:
-        """把 token 的字节内容转成可读字符串（用于打印）。"""
+        """把 token 的字节内容转成可读字符串（用于打印）。不是合法 UTF-8 的 (如半个汉字) 显示为 bytes。"""
         raw = self.vocab[token_id]
         try:
             return raw.decode("utf-8")
@@ -320,6 +348,8 @@ def _merge_pair_in_sequence(
     例：
       ids = (72, 101, 108, 108, 111)，pair = (108, 108)，new_id = 256
       → (72, 101, 256, 111)
+      ids = (97, 97, 97)，pair = (97, 97)，new_id = 256
+      → (256, 97)          重叠时从左到右, 先匹配的先替换
 
     教练注：
       这个函数设计成纯函数（不修改输入），方便测试和理解。
@@ -329,7 +359,7 @@ def _merge_pair_in_sequence(
     while i < len(ids):
         if i < len(ids) - 1 and ids[i] == pair[0] and ids[i + 1] == pair[1]:
             result.append(new_id)
-            i += 2
+            i += 2                                         # 跳过已被合并的两个位置
         else:
             result.append(ids[i])
             i += 1

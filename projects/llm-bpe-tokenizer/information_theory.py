@@ -25,9 +25,10 @@ from typing import List, Dict, Tuple
 #   - 熵 H(X) = 期望信息量 = -sum(p(x) * log2(p(x)))
 #
 # 为什么和 Tokenizer 有关?
-#   - 熵 = 理论最优压缩率 (每个字符最少需要多少 bit)
-#   - Tokenizer 的压缩率不可能低于熵
-#   - 如果 tokenizer 压缩率远高于熵, 说明模型 "浪费" 了 token
+#   - 这里算的是"一元字符熵": 把每个字符当作独立抽取, 每个字符平均最少需要多少 bit
+#   - 它只是"逐字符、互相独立地编码"这种做法的下界 (Huffman 能逼近它)
+#   - 它不是 tokenizer 的下界: tokenizer 把常见的多字符组合当成一个符号, 利用了上下文,
+#     完全可以低于它 (第 4 节实测会看到效率 > 1)。真正的下界是文本的熵率, 要用语言模型去估
 
 def shannon_entropy(text: str) -> float:
     """
@@ -248,19 +249,18 @@ def tokenization_efficiency(text: str, token_counts: Dict[str, int]) -> float:
     """
     计算 tokenizer 的编码效率.
 
-    效率 = 理论最优比特数 / 实际比特数
-    理论最优 = 熵 * 字节数
+    效率 = 逐字符编码的下界 / 实际比特数
+    逐字符编码的下界 = 一元字符熵 (bit/字符) * 字符数   (注意单位: 乘字符数, 不是字节数)
 
     Args:
         text: 原始文本
         token_counts: {token: count} tokenizer 输出的 token 统计
 
     Returns:
-        效率 (0-1, 越高越好)
+        效率; 可以大于 1 (说明 tokenizer 利用了字符之间的相关性, 见 demo_tokenization_efficiency)
     """
     entropy = shannon_entropy(text)
-    n_bytes = len(text.encode("utf-8"))
-    theoretical_bits = entropy * n_bytes
+    theoretical_bits = entropy * len(text)
 
     # 实际比特数: 每个 token 至少需要 log2(vocab_size) bit
     n_tokens = sum(token_counts.values())
@@ -272,50 +272,51 @@ def tokenization_efficiency(text: str, token_counts: Dict[str, int]) -> float:
 
 
 def demo_tokenization_efficiency():
-    """演示 Tokenization Efficiency"""
+    """演示 Tokenization Efficiency (全部用真实分词器实测, 不用估算系数)"""
     print("\n" + "=" * 60)
     print("4. Tokenization Efficiency")
     print("=" * 60)
-    print("   Efficiency = Theoretical Min Bits / Actual Bits")
+    print("   Efficiency = (一元字符熵 x 字符数) / (token 数 x log2(词表大小))")
+    print("   分母: 每个 token 用定长 ID 存储时需要的比特数")
     print()
 
-    text = "the quick brown fox jumps over the lazy dog " * 10
-    n_bytes = len(text.encode("utf-8"))
+    import os
+    from data import get_corpus, get_train_val_split
+    from tokenizer import BPETokenizer
+
+    _, val = get_train_val_split(get_corpus("shakespeare", verbose=False), 0.1)
+    text = val[:10000]                      # 与 train.py 的压缩率统计用同一段
     h = shannon_entropy(text)
-    theoretical_min = h * n_bytes
+    theoretical_min = h * len(text)
 
-    # 模拟不同 tokenizer 的结果
-    # Char-level: 每个字符 1 token
-    char_tokens = len(text)
-    vocab_char = len(set(text))
-
-    # Word-level: 每个词 1 token
+    rows = [("Char-level", len(text), len(set(text)))]
     words = text.split()
-    word_tokens = len(words)
-    vocab_word = len(set(words))
+    # 词级的词表只算了这段文本里出现过的词, 偏小; 真实的词级分词器还要面对 OOV
+    rows.append(("Word-level*", len(words), len(set(words))))
 
-    # BPE: 合并高频组合
-    # 粗略估算: 约 0.3-0.5 tokens per character for English
-    bpe_tokens = int(char_tokens * 0.35)
-    vocab_bpe = 30000
+    here = os.path.dirname(os.path.abspath(__file__))
+    ours = BPETokenizer.load(os.path.join(here, "tokenizer.json"))
+    rows.append(("Our BPE (500)", len(ours.encode(text)), len(ours.vocab)))
+    try:
+        from tokenizers import Tokenizer
+        gpt2 = Tokenizer.from_pretrained("openai-community/gpt2")
+        rows.append(("GPT-2 (50257)", len(gpt2.encode(text).ids), gpt2.get_vocab_size()))
+    except Exception as e:  # 离线时跳过, 不让脚本崩掉
+        print(f"  [SKIP] GPT-2 tokenizer 无法加载: {str(e)[:60]}")
 
-    print(f"  Text: {len(text)} chars, {n_bytes} bytes")
-    print(f"  Shannon entropy: {h:.3f} bpc")
-    print(f"  Theoretical min: {theoretical_min:.0f} bits")
+    print(f"  Text: 莎士比亚验证集前 {len(text)} 字符")
+    print(f"  一元字符熵: {h:.3f} bit/字符  ->  逐字符编码下界 {theoretical_min:.0f} bits")
     print()
     print(f"  {'Method':<15} {'Tokens':<10} {'Bits/token':<12} {'Total bits':<12} {'Efficiency':<10}")
     print(f"  {'-'*60}")
-
-    for name, n_tok, vsize in [
-        ("Char-level", char_tokens, vocab_char),
-        ("Word-level", word_tokens, vocab_word),
-        ("BPE", bpe_tokens, vocab_bpe),
-        ("GPT-4 (est.)", int(char_tokens * 0.25), 100000),
-    ]:
+    for name, n_tok, vsize in rows:
         bpt = math.log2(vsize) if vsize > 1 else 1
         total = n_tok * bpt
         eff = theoretical_min / total if total > 0 else 0
         print(f"  {name:<15} {n_tok:<10} {bpt:<12.1f} {total:<12.0f} {eff:<10.3f}")
+    print()
+    print("  效率 > 1 并不违反信息论: 一元字符熵只是'逐字符独立编码'的下界,")
+    print("  而 BPE / 词级把常见组合当成一个符号, 利用了字符之间的相关性。")
 
 
 # ============================================================
@@ -463,21 +464,20 @@ def print_summary():
     print("=" * 60)
     print("""
   1. Shannon Entropy -> Theoretical compression limit
-     - Tokenizer can never compress below the entropy
-     - GPT-4 tokenizer approaches this limit for English
+     - 一元字符熵只是"逐字符独立编码"的下界, 不是 tokenizer 的下界
+     - 真正的下界是文本的熵率 (考虑上下文), 需要用语言模型估计
 
   2. Cross Entropy -> LLM training objective
      - LLM loss = cross entropy of next-token prediction
-     - Lower loss = better model = more efficient tokenizer
+     - 注意: 不同分词器的 loss 不能直接比, 要换算成 bit/字节 (讲义「压缩率」一节)
 
   3. KL Divergence -> Comparing tokenizers
      - D_KL(tokenizer_A || tokenizer_B) measures distribution difference
      - Helps choose tokenizer for specific languages/domains
 
   4. Tokenization Efficiency = Entropy / Actual Bits
-     - BPE achieves ~0.7-0.9 efficiency for English
-     - Character-level achieves ~0.4-0.6
-     - Word-level achieves ~0.5-0.7 (but has OOV problem)
+     - 实测 (莎士比亚 1 万字符): 字符级 0.82, 我们的 BPE-500 1.07, GPT-2 0.95, 词级 2.7 (词表偏小, 且有 OOV)
+     - 大于 1 说明分词利用了字符间的相关性; 词表越大, 每个 ID 的定长比特数也越高
 
   5. Huffman Coding -> Ancestor of BPE
      - Same principle: high freq = short code

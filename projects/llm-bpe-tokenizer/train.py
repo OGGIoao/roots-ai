@@ -190,9 +190,11 @@ def _print_compression_stats(tokenizer: BPETokenizer, text: str) -> None:
     print(f"  平均每个 token：{n_bytes / n_tokens:.2f} 字节")
     print()
     print("  参考值（越低越好）：")
-    print("  - 字节级（无压缩）= 1.000")
-    print(f"  - 你的 tokenizer  = {ratio:.3f}")
-    print("  - GPT-2 cl100k    ≈ 0.250")
+    print("  - 字节级（无压缩）          = 1.000")
+    print(f"  - 你的 tokenizer           = {ratio:.3f}")
+    # 2026-10-20 实测: GPT-2 官方分词器 (词表 50257) 在同一段验证集前 10000 字节上的结果
+    # (测量代码见 experiments/examples.py; 讲义「压缩率」一节)
+    print("  - GPT-2 (词表 50257, 实测) = 0.323")
 
 
 def _print_vocab_samples(tokenizer: BPETokenizer, n: int = 20) -> None:
