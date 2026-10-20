@@ -147,7 +147,7 @@ Datawhale 对照: [强化学习与控制](https://datawhalechina.github.io/dive-
 
 - Datawhale 用的 STL 网格与 G-Levine 仓库里的 13 个网格文件名完全一致, 两者应是同一套模型。从 MIT 的上游直接取, 避开 CC BY-NC-SA 的"非商业、相同方式共享"条件。
 - MJCF 场景文件 (浮动基座、地面、执行器增益、传感器) 由我们自己写, 这本身就是 R1.4 的练习内容; 写的时候可以阅读 Datawhale 的版本作参考, 但不复制。
-- 本仓库目前没有 LICENSE 文件。复制 MIT 文件时把原 LICENSE 放在同一目录, 满足 MIT 的署名要求。
+- 本仓库采用 MIT 许可 (根目录 [LICENSE](../LICENSE), 2026-10-20 加入)。复制上游 MIT 文件时把原 LICENSE 放在同一目录, 保留原作者的版权声明。
 
 ---
 
