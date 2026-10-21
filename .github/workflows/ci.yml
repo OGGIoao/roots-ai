@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      # tests/ 只 import torch / numpy / pytest; 其余依赖 (bitsandbytes、transformers 等)
+      # 只在各项目的演示脚本里用到, CI 不装。torch 用 CPU 版 wheel。
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install "numpy==2.2.6" "pytest>=8"
+          pip install -e . --no-deps
+
+      - name: Run tests
+        run: python -m pytest tests -q

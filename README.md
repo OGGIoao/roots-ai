@@ -1,5 +1,7 @@
 # llm-roots · 根系
 
+[![CI](https://github.com/OGGIoao/llm-roots/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/OGGIoao/llm-roots/actions/workflows/ci.yml)
+
 > 一套玩具级的完整链路: 在一台 8GB 显存的笔记本上, 亲手搭出小号的大模型、强化学习、仿真四足机器人和 Agent, 边搭边学。
 > 每个环节都要能自己写出最小闭环; 讲义里的每个数字都在测量平台上实测, 不用示意值。
 
