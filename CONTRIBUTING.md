@@ -1,10 +1,10 @@
 # 贡献与写作规范
 
-本仓库每个节点都由 **讲义 + 参考实现 + 三级练习** 组成。新增或修改节点时请遵守下面的规范; 整体方向见 [ROADMAP](roadmaps/ROADMAP.md)。
+本仓库每一章都由 **讲义 + 参考实现 + 三级练习** 组成。新增或修改章节时请遵守下面的规范; 整体方向见 [ROADMAP](ROADMAP.md), 产品目标见 [PRODUCT.md](PRODUCT.md)。
 
 ## 1. 讲义规范
 
-样章: [llm-minigpt/TUTORIAL.md](projects/llm-minigpt/TUTORIAL.md)。
+样章: [A2-minigpt/TUTORIAL.md](mainline/A2-minigpt/TUTORIAL.md)。
 
 - **所有数字、形状、输出都实测**, 不用示意值, 并写明测量平台。
 - 每节: 一句话 → 直觉 → 公式逐项 → 逐行拆解 → 带数字的例子 → 动手验证。
@@ -52,7 +52,9 @@
 
 ## 3. 仓库组织
 
-- 两条线按目录区分: `projects/llm-*`、`projects/embodied-*`; 多个项目共用的代码放 `common/`。
+- 主线放 `mainline/`, 按章节编号命名 (如 `A1-bpe`、`E1-bandit`); 选修放 `electives/`; 多章共用的代码放 `common/`。
+- 新内容先回答"小车的哪个版本需要它": 答得上来进主线, 答不上来进选修 (见 ROADMAP 第 1 节)。
+- 每篇主线讲义结尾加"这一节在整个领域里的位置"小框: 学了什么、跳过了什么、跳过的内容在哪个选修里。
 - 依赖只有一份: 根目录 [requirements.txt](requirements.txt), 子项目不单独维护 requirements。
 - 往主环境装新包前先 `pip install --dry-run`, 确认不会替换已装好的 torch。
 - 实验结果入库 (`results/`), 让图和讲义里的数字可以追溯; 模型权重、checkpoint 不入库。

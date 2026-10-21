@@ -1,69 +1,73 @@
-# llm-roots · 根系
+# roots-car · 根系
 
-[![CI](https://github.com/OGGIoao/llm-roots/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/OGGIoao/llm-roots/actions/workflows/ci.yml)
+[![CI](https://github.com/OGGIoao/roots-car/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/OGGIoao/roots-car/actions/workflows/ci.yml)
 
-> 一套玩具级的完整链路: 在一台 8GB 显存的笔记本上, 亲手搭出小号的大模型、强化学习、仿真四足机器人和 Agent, 边搭边学。
-> 每个环节都要能自己写出最小闭环; 讲义里的每个数字都在测量平台上实测, 不用示意值。
+> **造一台听得懂话的小车, 把大模型、Agent、强化学习和硬件连成一条链一起打通。**
+> 不是把几个领域分开学, 而是每学一样东西, 小车就多一项本事。全部在一台 8GB 显存的笔记本和几百元的硬件上完成; 讲义里的每个数字都实测, 不用示意值。
 
-**终点 demo** (建设中): 自己预训练的小模型 → 自己做后训练 → 跑在自己写的推理服务上 → 被自己写的 Agent 调用 → 一句话指挥仿真里的四足机器人走过去。
+**终点 demo** (建设中): 你对小车说"去找那个红色杯子"。芯片上自己训练的唤醒词模型听到指令 → 笔记本上**自己微调的小模型**把这句话拆成工具调用 → 小车转身、前进、用摄像头确认、避开障碍 → 停在杯子前, 用语音回答"找到了"。
 
-- **LLM 线**以 [架构生长树](roadmaps/LLM_TREE.md) 为主干: 从 GPT-2 到 LLaMA 配方, 再长出注意力、位置编码、MoE、归一化、混合架构、效率六条分支, 叶子是具体的前沿模型。
-- **具身线**以 [具身线总图](roadmaps/EMBODIED.md) 为主干: 经典 RL (老虎机 → PPO), 然后在同一台 Pupper 四足上做 本体与经典控制 → RL 步态 → 模仿学习 → 多峰行为 → 语言与视觉, 全部仿真; 与 Datawhale《动手学具身智能》的 CS123 四足课逐章对齐。
-- **汇合点**: 后训练 (RL / DPO / GRPO) 需要两条线的成果; "语言与视觉"让 LLM 通过工具调用驱动四足, 同时接入 Agent 板块。
-- **学习方式**: 讲义 + 参考实现 + 三级手写练习 (填空 → 接口 → 白纸), 练习由测试判定对错。总体设计见 [ROADMAP](roadmaps/ROADMAP.md), 写作规范见 [CONTRIBUTING](CONTRIBUTING.md)。
+- **为什么做成一条链**: 大模型、Agent、强化学习、嵌入式的资料各有很多, 但散落各处, 很难自己串起来。这里只学通往同一个 demo 的那部分, 每一章都让小车多一项本事。
+- **产品具体, 原理通用**: 车是具体的, 讲义把原理讲成通用的 (PID 换到机械臂上也成立, 工具调用的安全设计换到别的设备上也成立)。
+- **学习方式**: 讲义 + 参考实现 + 三级手写练习 (填空 → 接口 → 白纸), 练习由测试判定对错。
 
-## 和同类项目的区别
+| 文档 | 内容 |
+|---|---|
+| [PRODUCT.md](PRODUCT.md) | 产品规格书: 版本路线 v0.1–v1.0、验收标准、工具接口、安全规则、预算 |
+| [ROADMAP.md](ROADMAP.md) | 主线章节与选修总图 |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | 讲义与练习的写作规范 |
 
-| 同类 | 它的重点 | 本仓库 |
+## 版本路线
+
+| 版本 | 小车能做什么 | 状态 |
 |---|---|---|
-| nanoGPT / minimind | 把一个模型做到底 | 做的是一条**链路**: LLM、RL、具身、Agent 串在一起 |
-| 课程类 (CS336、Datawhale) | 讲得广 | 每个节点手写最小实现, 与父节点在同一任务上**对照实测**, 配三级练习 |
-| 生产框架 (LangChain、LeRobot) | 好用、性能 | 明确是**玩具**: 不追求性能, 追求每一环都能自己写出来 |
-
----
+| v0.1 能动 | 手机网页遥控 | ⬜ |
+| v0.2 走得准 | 执行"走 1 米""转 90 度" | ⬜ |
+| v0.3 不撞墙 | 自己避障, 安全层生效 | ⬜ |
+| v0.4 听懂文字 | 打字指挥, 由 API 大模型调用工具 | ⬜ |
+| v0.5 自己的大脑 | 换成自己微调的小模型, 本地运行 | 🟡 模型基础 (A1–A3) 已完成 |
+| v0.6 看得见 | 用摄像头找到指定物体 | ⬜ |
+| v0.7 自己学 | 仿真里用 RL 训练的策略上真车 | 🟡 RL 第一章 (E1) 已完成 |
+| v1.0 听得懂话 | 语音唤醒 + 全链路 | ⬜ |
 
 ## 现在能跑什么
 
-| 项目 | 状态 | 说明 |
+| 章节 | 状态 | 说明 |
 |---|---|---|
-| [`llm-bpe-tokenizer`](projects/llm-bpe-tokenizer) | ✅ 完成 | 字节级 BPE 分词器, 训练 + 编解码; 讲义、图解、三级练习 |
-| [`llm-minigpt`](projects/llm-minigpt) | ✅ 完成 | 单文件 GPT-2, 端到端训练与生成; 讲义含 5 个延伸专题 (KV cache、FlashAttention、精度、显存账本等) |
-| [`llm-tree`](projects/llm-tree) | 🟡 进行中 | 生长树的新节点; 注意力线 MHA / MQA / GQA / MLA ✅, 含对照实验、推理实验、三级练习 |
-| [`llm-anatomy`](projects/llm-anatomy) | ✅ 可用 | 读取 20 多个真实开源模型的配置与张量名, 生成 [ANATOMY.md](projects/llm-anatomy/ANATOMY.md) 核对生长树 |
-| [`llm-transformer`](projects/llm-transformer) | 🟡 代码完整 | LLaMA 配方各组件: MHA/GQA/MLA、RoPE/ALiBi、RMSNorm、SwiGLU |
-| [`llm-qlora-finetune`](projects/llm-qlora-finetune) | 🟡 待验证 | 8GB 显存上的 QLoRA 微调, 尚未端到端跑通 |
-| [`embodied-rl-basics`](projects/embodied-rl-basics) | 🟡 进行中 | 具身线 R0; ① 老虎机 ✅ (讲义、4 个实验、10 张图、三级练习), ②~④ 未开始 |
-| [`templates/llm-client`](templates/llm-client) | ✅ 可用 | DeepSeek / Qwen / OpenAI / Ollama 统一客户端 |
-| Agent 板块 | ⬜ 未开始 | 手写 Agent 循环与工具调用, 第一个真实场景是驱动四足 (见 ROADMAP) |
+| [A1 BPE 分词器](mainline/A1-bpe) | ✅ | 字节级 BPE, 训练 + 编解码; 讲义、图解、三级练习 |
+| [A2 miniGPT](mainline/A2-minigpt) | ✅ | 单文件 GPT-2, 端到端训练与生成; 讲义含 KV cache、FlashAttention、精度、显存账本等延伸专题 |
+| [A3 注意力与推理延迟](mainline/A3-attention) | ✅ | MHA / MQA / GQA / MLA, 对照实验、推理实验、三级练习 |
+| [A4 现代小模型](mainline/A4-modern-small-model) | 🟡 | LLaMA 配方各组件: RoPE、RMSNorm、SwiGLU 等; 待精简 |
+| [C2 微调工具调用模型](mainline/C2-tool-finetune) | 🟡 | 现为通用 QLoRA 演示, 待改造为小车工具调用微调 |
+| [E1 老虎机](mainline/E1-bandit) | ✅ | 探索与利用; 讲义、4 个实验、10 张图、三级练习 |
+| [选修](electives/README.md) | — | LLM 架构生长树、解剖台、四足机器人、后训练、规模化与上云 |
 
 ## 项目结构
 
 ```
-llm-roots/
-├── projects/
-│   ├── llm-bpe-tokenizer/     # 字节级 BPE 分词器从零实现
-│   ├── llm-minigpt/           # 单文件 GPT-2, 端到端可训练
-│   ├── llm-transformer/       # LLaMA 配方的各个组件
-│   ├── llm-tree/              # 架构生长树上的新节点 (注意力线已完成)
-│   ├── llm-anatomy/           # 解剖台: 读真实模型的配置与张量名
-│   ├── llm-qlora-finetune/    # QLoRA 微调
-│   └── embodied-rl-basics/    # 具身线 R0: 经典 RL 主干
-├── common/                    # 多项目共享: 语料定位、字符级分词、数据集、对照实验框架、SVG 作图
-├── tests/                     # 冒烟/回归测试
-├── templates/llm-client/      # LLM API 统一客户端模板
-├── roadmaps/                  # 路线图、LLM 生长树总图、具身线总图
+roots-car/
+├── mainline/                  # 主线: 按章节编号, 每章服务于小车的某个版本
+│   ├── A1-bpe/  A2-minigpt/  A3-attention/  A4-modern-small-model/
+│   ├── C2-tool-finetune/
+│   └── E1-bandit/
+├── electives/                 # 选修: 更大的地图, 全部保留
+├── common/                    # 多章共享: 语料定位、字符级分词、对照实验框架、SVG 作图
+├── templates/llm-client/      # LLM API 统一客户端 (C1 会用到)
+├── tests/                     # 回归测试
+├── PRODUCT.md  ROADMAP.md  CONTRIBUTING.md
 ├── verify_env.py              # 环境健康检查 (先跑这个)
-├── requirements.txt           # 全仓库唯一依赖清单
-└── CONTRIBUTING.md            # 讲义与练习的写作规范
+└── requirements.txt           # 全仓库唯一依赖清单
 ```
+
+硬件部分 (物料清单、接线图、固件) 做到主线 B 部分时放进 `hardware/`。
 
 ## 安装
 
 需要 Python 3.10+。推荐用 conda 建一个独立环境:
 
 ```bash
-conda create -n llm-roots python=3.10 pip -y
-conda activate llm-roots
+conda create -n roots-car python=3.10 pip -y
+conda activate roots-car
 
 # torch 三件套必须用同一条命令一起装。cu128 适用于 RTX 50 系;
 # 老显卡换成对应的 CUDA 索引, 没有 GPU 就去掉 --index-url 装 CPU 版
@@ -83,15 +87,13 @@ python verify_env.py --full   # 环境自检, 会告诉你缺什么、该敲什�
 以下命令都从仓库根目录执行:
 
 ```bash
-python -m pytest tests -q                                          # 全部测试, CPU 上也能跑
-python projects/llm-bpe-tokenizer/train.py                         # 训练 BPE 分词器, 约 15 秒
-python projects/embodied-rl-basics/bandit/experiments/greedy_fails.py  # 老虎机: 看贪心怎么失败, 约 15 秒
-python projects/llm-minigpt/train.py --config nano                 # 训练 miniGPT 并生成文本, GPU 上约 40 秒
+python -m pytest tests -q                                   # 全部测试, CPU 上也能跑
+python mainline/A1-bpe/train.py                             # 训练 BPE 分词器, 约 15 秒
+python mainline/E1-bandit/experiments/greedy_fails.py       # 老虎机: 看贪心怎么失败, 约 15 秒
+python mainline/A2-minigpt/train.py --config nano           # 训练 miniGPT 并生成文本, GPU 上约 40 秒
 ```
 
 (耗时在测量平台上实测; miniGPT 的 checkpoint 写到当前目录的 `checkpoints/`, 不入库。)
-
-每个项目目录下的 `README.md` 和 `TUTORIAL.md` 是入口; 讲义里的命令和输出都能照着复现。
 
 ## 测量平台
 

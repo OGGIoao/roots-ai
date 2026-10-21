@@ -1,4 +1,4 @@
-"""llm-transformer 回归测试 (CPU, 极小模型)。"""
+"""A4-modern-small-model 回归测试 (CPU, 极小模型)。"""
 
 import os
 import sys
@@ -7,7 +7,7 @@ import pytest
 import torch
 
 _PROJ = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                     "projects", "llm-transformer")
+                     "mainline", "A4-modern-small-model")
 sys.path.insert(0, _PROJ)
 
 from model import GPTModel, LlamaModel  # noqa: E402

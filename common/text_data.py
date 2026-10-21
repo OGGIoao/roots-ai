@@ -1,4 +1,4 @@
-"""字符级分词器与定长块数据集 (llm-transformer / llm-minigpt 共用)。"""
+"""字符级分词器与定长块数据集 (A4-modern-small-model / A2-minigpt 共用)。"""
 
 import torch
 from torch.utils.data import DataLoader, Dataset
@@ -9,7 +9,7 @@ class CharTokenizer:
 
     优点: 无外部依赖, 适合教学和小规模实验。
     缺点: 压缩率低; 词表外字符在 encode 时被**静默丢弃**, 在 decode 时对未知 ID 输出 "?"。
-    实际 LLM 用 BPE / SentencePiece (见 llm-bpe-tokenizer 项目)。
+    实际 LLM 用 BPE / SentencePiece (见 A1-bpe 项目)。
     """
 
     def __init__(self, text: str):
