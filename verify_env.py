@@ -4,7 +4,7 @@ verify_env.py — 环境健康检查
 一次跑完, 明确告诉你: 哪些能用、哪些不能、下一步该敲什么命令。
 
 用法:
-    python verify_env.py            # 先 conda activate llm-roots 再跑
+    python verify_env.py            # 先 conda activate roots-car 再跑
     python verify_env.py --full     # 额外做一次真实 forward 前向计算
 
 设计原则: 不抛异常中断, 逐项检查并给出可操作的修复建议。
@@ -179,7 +179,7 @@ def check_sm120_forward(torch, full=False):
 
 
 def check_packages():
-    # QLoRA 链路 (llm-qlora-finetune) 需要的包
+    # QLoRA 链路 (C2-tool-finetune) 需要的包
     groups = {
         "QLoRA 链路": [
             ("transformers", "4.37+"),
@@ -211,7 +211,7 @@ def check_packages():
                     continue
                 record("FAIL", f"[{group}] {pkg}", False, "未安装", advice)
 
-    # 仓库自带的共享包 common/ (llm-transformer / llm-minigpt / llm-bpe-tokenizer 依赖它)
+    # 仓库自带的共享包 common/ (A4-modern-small-model / A2-minigpt / A1-bpe 依赖它)
     # 注意: 从仓库根运行本脚本时, 脚本所在目录 (含 common/) 自动在 sys.path[0], 直接 import
     # 永远成功; 所以排除它, 只看"其它目录运行项目脚本时"是否找得到 common。
     import importlib.util
@@ -233,11 +233,11 @@ def check_packages():
 
 
 def _repo_root() -> str:
-    """从本脚本位置向上找到仓库根 (含 projects/ 的那一层)。"""
+    """从本脚本位置向上找到仓库根 (含 mainline/ 的那一层)。"""
     here = os.path.dirname(os.path.abspath(__file__))
     cur = here
     for _ in range(6):
-        if os.path.isdir(os.path.join(cur, "projects")):
+        if os.path.isdir(os.path.join(cur, "mainline")):
             return cur
         parent = os.path.dirname(cur)
         if parent == cur:
@@ -251,10 +251,10 @@ def check_corpus():
     root = _repo_root()
     cands = {
         "BPE 语料": os.path.join(
-            root, "projects", "llm-bpe-tokenizer", "data", "tinyshakespeare.txt"
+            root, "mainline", "A1-bpe", "data", "tinyshakespeare.txt"
         ),
         "BPE tokenizer": os.path.join(
-            root, "projects", "llm-bpe-tokenizer", "tokenizer.json"
+            root, "mainline", "A1-bpe", "tokenizer.json"
         ),
     }
     for label, path in cands.items():
@@ -387,7 +387,7 @@ def main():
     args = ap.parse_args()
 
     print("=" * 68)
-    print("  环境健康检查 — llm-roots")
+    print("  环境健康检查 — roots-car")
     print("=" * 68)
 
     check_python()
@@ -416,8 +416,8 @@ def main():
         print(f"结论: {len(fails)} 项失败, {len(warns)} 项警告 —— 见上面 → 的建议")
         print()
         print("重建环境的完整命令 (注意三件套要一起装):")
-        print("  conda create -n llm-roots python=3.10 pip -y")
-        print("  conda activate llm-roots")
+        print("  conda create -n roots-car python=3.10 pip -y")
+        print("  conda activate roots-car")
         print("  pip install torch torchvision torchaudio \\")
         print("      --index-url https://download.pytorch.org/whl/cu128")
         print("  pip install bitsandbytes")

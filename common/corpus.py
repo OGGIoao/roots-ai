@@ -1,6 +1,6 @@
 """Tiny Shakespeare 语料: 全仓库唯一的定位 / 下载逻辑。
 
-语料只有一份, 入库在 llm-bpe-tokenizer/data/ 下 (该项目是语料的所有者)。
+语料只有一份, 入库在 A1-bpe/data/ 下 (该项目是语料的所有者)。
 其余项目直接读取这一份, 不再各自复制副本。
 
 获取顺序: 本地入库文件 -> 在线下载到同一路径 -> 带操作指引的明确报错。
@@ -15,7 +15,7 @@ import urllib.request
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SHAKESPEARE_PATH = os.path.join(
-    REPO_ROOT, "projects", "llm-bpe-tokenizer", "data", "tinyshakespeare.txt"
+    REPO_ROOT, "mainline", "A1-bpe", "data", "tinyshakespeare.txt"
 )
 SHAKESPEARE_URL = (
     "https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt"

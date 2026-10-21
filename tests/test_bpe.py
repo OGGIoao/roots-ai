@@ -1,4 +1,4 @@
-"""llm-bpe-tokenizer 的回归测试 (纯标准库路径, 不联网)。"""
+"""A1-bpe 的回归测试 (纯标准库路径, 不联网)。"""
 
 import os
 import sys
@@ -6,7 +6,7 @@ import sys
 import pytest
 
 _PROJ = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                     "projects", "llm-bpe-tokenizer")
+                     "mainline", "A1-bpe")
 sys.path.insert(0, _PROJ)
 
 import data  # noqa: E402

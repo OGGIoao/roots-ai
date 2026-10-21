@@ -1,6 +1,6 @@
 """统一的对照实验框架: 树上的每个节点都在同一个任务、同一套训练设置下比较。
 
-任务: Tiny Shakespeare 字符级语言模型 (与 llm-minigpt 相同的数据与切分)。
+任务: Tiny Shakespeare 字符级语言模型 (与 A2-minigpt 相同的数据与切分)。
 被比较的模型只需满足一个接口:
 
     model(idx, targets) -> (logits, loss)          # idx, targets: (B, S) 整数
