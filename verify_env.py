@@ -4,7 +4,7 @@ verify_env.py — 环境健康检查
 一次跑完, 明确告诉你: 哪些能用、哪些不能、下一步该敲什么命令。
 
 用法:
-    python verify_env.py            # 先 conda activate mlc 再跑
+    python verify_env.py            # 先 conda activate llm-roots 再跑
     python verify_env.py --full     # 额外做一次真实 forward 前向计算
 
 设计原则: 不抛异常中断, 逐项检查并给出可操作的修复建议。
@@ -105,9 +105,9 @@ def check_torch():
 
 
 TORCH_FIX = (
-    "RTX 5060 是 Blackwell(sm_120), 需要 CUDA 12.8+ 构建。\n"
+    "RTX 50 系是 Blackwell(sm_120), 需要 CUDA 12.8+ 构建。\n"
     "注意: torch/torchvision/torchaudio 必须**同一条命令一起装**,\n"
-    "否则会像旧的 ml 环境那样出现 ABI 不匹配 (torchaudio 加载失败):\n"
+    "否则容易出现 ABI 不匹配 (torchaudio 加载失败):\n"
     "    pip install --force-reinstall torch torchvision torchaudio \\\n"
     "        --index-url https://download.pytorch.org/whl/cu128"
 )
@@ -117,7 +117,7 @@ def check_torch_stack():
     """
     检查 torch 三件套是否版本自洽且都能 import。
 
-    血泪教训: 旧 ml 环境里 conda 装的 torchaudio 2.2.2(cu118) 被 pip 的
+    真实事故: 一个旧环境里 conda 装的 torchaudio 2.2.2(cu118) 被 pip 的
     torch 2.11.0+cpu 覆盖后残留, ABI 不匹配 → libtorchaudio.pyd 加载失败。
     """
     vers = {}
@@ -326,7 +326,7 @@ def check_proxy():
                     "出网连通性",
                     False,
                     f"代理 {proxy} 在监听, 但仍无法出网 ({direct_err})",
-                    "代理进程活着但节点不通 —— 检查 Clash 是否选到了可用节点,\n"
+                    "代理进程活着但节点不通 —— 检查代理软件是否选到了可用节点,\n"
                     "或代理规则是否把 pypi.org / download.pytorch.org 走了直连。",
                 )
                 return
@@ -416,12 +416,12 @@ def main():
         print(f"结论: {len(fails)} 项失败, {len(warns)} 项警告 —— 见上面 → 的建议")
         print()
         print("重建环境的完整命令 (注意三件套要一起装):")
-        print("  conda create -n mlc python=3.10 pip -y")
-        print("  conda activate mlc")
+        print("  conda create -n llm-roots python=3.10 pip -y")
+        print("  conda activate llm-roots")
         print("  pip install torch torchvision torchaudio \\")
         print("      --index-url https://download.pytorch.org/whl/cu128")
         print("  pip install bitsandbytes")
-        print("  pip install -r requirements-mlc.txt")
+        print("  pip install -r requirements.txt")
         print("  pip install -e . --no-deps    # 仓库自带的共享包 common/")
         print("  python verify_env.py --full   # 应为全绿")
         return 1

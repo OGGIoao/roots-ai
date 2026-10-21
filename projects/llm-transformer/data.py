@@ -27,7 +27,7 @@ except ModuleNotFoundError as e:  # 只拦 common 本身缺失, 不吞其它依�
     raise SystemExit(
         "找不到共享包 `common`。请在仓库根目录执行一次:\n"
         "    pip install -e . --no-deps\n"
-        "(需在 conda 环境 mlc 中; 详见根目录 README)"
+        "(详见根目录 README 的「安装」一节)"
     ) from None
 
 

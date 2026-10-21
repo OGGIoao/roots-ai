@@ -710,7 +710,7 @@ class CharTokenizer:
 实际 LLM 使用 BPE/SentencePiece(你在 `llm-bpe-tokenizer/` 项目中已经实现过):
 - GPT-2: 50,257 个 token(字节级 BPE)
 - LLaMA: 32,000 个 token(SentencePiece)
-- Claude: ~100,000 个 token
+- Qwen3: 151,936 个, DeepSeek-V3: 129,280 个 (数字出自 `llm-anatomy/snapshots/`, 2026-10 抓取)
 
 ### 8.2 TextDataset — 滑动窗口切分
 

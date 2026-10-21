@@ -52,7 +52,7 @@ llm-transformer/
 └── train.py              # 训练脚本
 ```
 
-> 依赖统一由仓库根目录 `requirements-mlc.txt` 声明（conda 环境 `mlc`），
+> 依赖统一由仓库根目录 `requirements.txt` 声明，
 > 本目录不再单独维护 requirements 文件，避免版本漂移。
 
 ## 每个模块覆盖的架构决策
@@ -94,7 +94,7 @@ llm-transformer/
 
 ```bash
 # 安装依赖（仓库根目录，全仓库唯一依赖清单）
-pip install -r ../../requirements-mlc.txt
+pip install -r ../../requirements.txt
 
 # 训练 GPT-2 Style (默认)
 python train.py gpt2

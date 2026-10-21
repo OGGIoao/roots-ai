@@ -1,7 +1,7 @@
 # miniGPT 讲义 — 从一行字符到会写莎士比亚的模型
 
 > 本讲义配合 [model.py](model.py)、[train.py](train.py)、[config.py](config.py) 阅读。
-> 讲义里**所有数字、张量形状和模型输出都是在本机 (RTX 5060 Laptop, conda 环境 `mlc`) 实际跑出来的**,
+> 讲义里**所有数字、张量形状和模型输出都是在测量平台 (RTX 5060 Laptop 8GB, 见根目录 README) 实际跑出来的**,
 > 不是从别处抄来的示意值。你照着跑, 应该看到同样量级的结果 (随机种子不同, 生成的具体文字会不同)。
 
 ---
@@ -90,7 +90,7 @@
 ### 1.2 先跑起来
 
 ```bash
-conda activate mlc
+conda activate llm-roots
 cd projects/llm-minigpt
 python train.py --config nano          # 默认 5000 步, 本机约 30 秒
 ```

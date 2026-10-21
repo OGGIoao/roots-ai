@@ -23,7 +23,7 @@
 
 **前置**: 会用 numpy 的数组索引 (`Q[rows, actions]` 这种两个数组一起索引的写法)。不需要任何 RL 基础。
 
-**运行环境**: conda 环境 `mlc`, 只用 numpy, 不需要新装依赖。所有实验加起来本机约 1 分钟。
+**运行环境**: 只用 numpy, 不需要新装依赖。所有实验加起来本机约 1 分钟。
 
 ```bash
 cd projects/embodied-rl-basics/bandit
@@ -585,11 +585,11 @@ RuntimeWarning: invalid value encountered in divide
 
 ### 9.3 `conda run` 打印中文时崩溃
 
-**现象**: 用 `conda run -n mlc python env.py` 运行, conda 自己报 `UnicodeEncodeError: 'gbk' codec can't encode character`, 脚本的输出一行都没打印出来。
+**现象**: 用 `conda run -n llm-roots python env.py` 运行, conda 自己报 `UnicodeEncodeError: 'gbk' codec can't encode character`, 脚本的输出一行都没打印出来。
 
 **原因**: `conda run` 会捕获子进程的输出, 再用控制台的编码 (中文 Windows 是 GBK) 重新打印; 子进程按 UTF-8 输出的中文和特殊符号经过这一转手就出错了。出错的是 conda, 不是脚本。
 
-**解决**: 先 `conda activate mlc` 再直接 `python ...`; 或者直接调用环境里的 python, 并设置 `PYTHONIOENCODING=utf-8`。
+**解决**: 先 `conda activate llm-roots` 再直接 `python ...`; 或者直接调用环境里的 python, 并设置 `PYTHONIOENCODING=utf-8`。
 
 ### 9.4 画 UCB 图时负的估计值"消失"了
 

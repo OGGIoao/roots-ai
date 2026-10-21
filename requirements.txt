@@ -1,22 +1,24 @@
 # ============================================================================
-# mlc 环境依赖 (GPU: RTX 5060 Laptop 8GB, Blackwell sm_120)
+# llm-roots 依赖 (在测量平台 RTX 5060 Laptop 8GB, Blackwell sm_120 上验证)
 # ============================================================================
 #
-# 创建方式 (必须严格按顺序, 否则会重演旧的 ml 环境事故):
+# 创建方式 (必须严格按顺序):
 #
-#   conda create -n mlc python=3.10 pip -y
-#   conda activate mlc
+#   conda create -n llm-roots python=3.10 pip -y
+#   conda activate llm-roots
 #   pip install torch torchvision torchaudio \
 #       --index-url https://download.pytorch.org/whl/cu128
-#   pip install -r requirements-mlc.txt
+#   pip install -r requirements.txt
 #   pip install -e . --no-deps        # 仓库自带的共享包 common/ (见 pyproject.toml)
 #
 # ⚠️ 铁律: 同一个环境里**不要混用 conda 和 pip 装 torch 系包**。
-#    旧的 ml 环境就是因为 conda 装了 cu118 版、pip 又装了 cpu 版覆盖,
-#    最后 conda 把 CUDA 版清掉, 只剩 CPU 版 + 一个 ABI 坏掉的 torchaudio。
+#    典型事故: conda 装的 CUDA 版被 pip 装的 CPU 版覆盖, conda 再把 CUDA 版清掉,
+#    最后只剩 CPU 版 + 一个 ABI 不匹配的 torchaudio。
 #
 # ⚠️ torch / torchvision / torchaudio 三件套必须用**同一条命令**一起装,
-#    并且都来自 cu128 索引, 否则版本不配套会 import 失败。
+#    并且都来自同一个索引, 否则版本不配套会 import 失败。
+#    cu128 是 RTX 50 系 (sm_120) 的最低要求; 老显卡可换成其它 CUDA 索引,
+#    没有 GPU 时去掉 --index-url 装 CPU 版即可 (大部分项目在 CPU 上也能跑)。
 #
 # 验证: python verify_env.py --full     (应为全绿)
 # ============================================================================
@@ -57,5 +59,5 @@ numpy==2.2.6
 # ============================================================================
 # 说明: 上面是**直接依赖**+已验证版本, 便于人读和维护。
 # 若要完全可复现的完整快照 (含全部传递依赖), 在环境里执行:
-#     pip freeze > requirements-mlc.lock.txt
+#     pip freeze > requirements.lock.txt
 # ============================================================================

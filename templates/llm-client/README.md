@@ -13,7 +13,7 @@ templates/llm-client/
 └── llm_client.py       ← LLM 客户端核心代码（开箱即用，可单独复制）
 ```
 
-> 依赖（openai + python-dotenv）在本仓库内统一由根目录 `requirements-mlc.txt` 声明，
+> 依赖（openai + python-dotenv）在本仓库内统一由根目录 `requirements.txt` 声明，
 > 本目录不单独维护 requirements 文件，避免版本漂移。
 > 若把模板**复制到别的项目**（见下方快速开始），则按第 2 步自行安装这两个包。
 

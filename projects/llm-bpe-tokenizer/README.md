@@ -37,7 +37,7 @@ llm-bpe-tokenizer/
 ```
 
 核心 BPE 只用标准库。`modern_tokenizers.py` 和 `experiments/` 用到 `tokenizers` / `sentencepiece` / `regex` / `huggingface_hub`,
-都在仓库根目录的 `requirements-mlc.txt` 里 (conda 环境 `mlc`); 可选的 `tiktoken` 缺失时对应演示自动跳过。
+都在仓库根目录的 `requirements.txt` 里; 可选的 `tiktoken` 缺失时对应演示自动跳过。
 
 ## 快速开始
 

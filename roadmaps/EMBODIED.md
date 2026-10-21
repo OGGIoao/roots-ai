@@ -2,9 +2,9 @@
 
 > 和 [LLM 生长树](LLM_TREE.md) 并行的第二条线: 从"在一个最简单的环境里试错"出发, 一路长到"听一句话、看一眼画面, 机器人自己走过去"。全部在仿真里做, 不使用真机。
 >
-> - **主线载体 (2026-10-20 商定)**: R1–R5 始终是**同一台四足机器人 Pupper v3**, 与 Datawhale《动手学具身智能》的 [从零到一搭建四足机器人](https://datawhalechina.github.io/dive-into-embodied-ai/docs/practices/quadruped/cs123/intro) (Stanford CS123 的 MuJoCo 中文重实现, 下称 **DW-CS123**) 逐章对齐。
+> - **主线载体 (2026-10-20 起)**: R1–R5 始终是**同一台四足机器人 Pupper v3**, 与 Datawhale《动手学具身智能》的 [从零到一搭建四足机器人](https://datawhalechina.github.io/dive-into-embodied-ai/docs/practices/quadruped/cs123/intro) (Stanford CS123 的 MuJoCo 中文重实现, 下称 **DW-CS123**) 逐章对齐。
 > - 每个节点回答四个问题: **父节点在什么情况下失败 → 新方法怎么补上 → 代价 → 最小实现 + 与父节点在同一任务上的对照实测**。
-> - 写法是**案例驱动** (见 [ROADMAP](ROADMAP.md) 第 4 节): 具体问题 → 朴素办法 → 看它失败 → 引出概念 → 最小代码 → 对照实验 → "改一处会怎样"。
+> - 写法是**案例驱动** (见 [ROADMAP](ROADMAP.md) 第 3 节): 具体问题 → 朴素办法 → 看它失败 → 引出概念 → 最小代码 → 对照实验 → "改一处会怎样"。
 > - **Datawhale 是对照读物, 不照搬**: 它负责广度和"跑通项目", 我们负责手写最小实现、对照实测和三级练习。每篇讲义的延伸资源链接到它的对应章节。它的文字和代码不复制进本仓库 (许可证见文末)。
 > - 出处只列原始论文; 写到具体节点时再查论文与官方仓库, 讲义里注明来源与日期, 不凭记忆。
 > - 状态: ✅ 完成 · 🟡 进行中 · ⬜ 未开始。最后更新: 2026-10-20。
@@ -48,7 +48,7 @@ DW-CS123 第 7 章和 Datawhale 的 Pupper VLA 项目都采用分层结构, LLM 
 ### 和其它板块的接口
 
 - **汇合点 ⓐ**: R0 ④ 的 PPO 是后训练 P1 (把语言模型当策略做 RL) 的直接前置。
-- **汇合点 ⓑ**: R5.1 本质上就是 Agent 的工具调用 (LLM → 函数调用 → 执行 → 看结果 → 再决定), 所以 R5 同时汇合 **LLM 线**和 **Agent 板块**。Agent 课程的工具与循环部分 (M 系列) 以 R5.1 为第一个真实场景, 见 [ROADMAP](ROADMAP.md) 第 1 节。
+- **汇合点 ⓑ**: R5.1 本质上就是 Agent 的工具调用 (LLM → 函数调用 → 执行 → 看结果 → 再决定), 所以 R5 同时汇合 **LLM 线**和 **Agent 板块**。Agent 板块的工具与循环部分以 R5.1 为第一个真实场景, 见 [ROADMAP](ROADMAP.md) 第 1 节。
 - R5.3 的语言部分是一个小型 decoder-only Transformer, 结构在 LLM 线里都学过 ([llm-minigpt](../projects/llm-minigpt/)、[注意力线](../projects/llm-tree/attention/))。
 
 ---
@@ -155,10 +155,10 @@ Datawhale 对照: [强化学习与控制](https://datawhalechina.github.io/dive-
 
 | 节点 | 环境 | 说明 |
 |---|---|---|
-| R0 ① 老虎机 | `mlc` | 只用 numpy, 无新依赖 |
-| R0 ②–④、R1–R3 | `mlc` + `gymnasium`、`mujoco` | 都是纯 pip 轮子, 不依赖 torch; 安装前先 `pip install --dry-run` 确认不会改动 torch |
-| R2.2 对照用的 Stable-Baselines3 | `mlc` | 依赖 torch, 安装前同样 dry-run, 确认不会替换 cu128 版 torch |
-| R4–R5 中会锁定 torch 版本的工具链 | 单独的 conda 环境 `emb` | 不装进 `mlc` |
-| Windows 跑不通、显存或算力不够的部分 | 云服务器 | 不使用 WSL2 |
+| R0 ① 老虎机 | 主环境 (见根目录 README) | 只用 numpy, 无新依赖 |
+| R0 ②–④、R1–R3 | 主环境 + `gymnasium`、`mujoco` | 都是纯 pip 轮子, 不依赖 torch; 安装前先 `pip install --dry-run` 确认不会改动 torch |
+| R2.2 对照用的 Stable-Baselines3 | 主环境 | 依赖 torch, 安装前同样 dry-run, 确认不会替换已装好的 CUDA 版 torch |
+| R4–R5 中会锁定 torch 版本的工具链 | 单独的 conda 环境 | 不装进主环境 |
+| Windows 跑不通、显存或算力不够的部分 | 云服务器 | 先在笔记本上实测出瓶颈, 再上云做对照 (见 ROADMAP 第 5 节) |
 
 **Windows 待核实**: DW-CS123 写的环境是 Ubuntu 22.04 / macOS 14+ / WSL2, 并用 `uv` 管理依赖。`mujoco`、`gymnasium`、Stable-Baselines3 本身有 Windows 支持, 但 MuJoCo 的交互式 viewer、并行环境 (SubprocVecEnv 在 Windows 上用 spawn 启动) 等细节要在做 R1 前逐个实测, 结果记入本表。

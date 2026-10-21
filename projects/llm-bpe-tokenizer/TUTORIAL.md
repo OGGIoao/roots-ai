@@ -1,7 +1,7 @@
 # BPE 分词器讲义 — 从 256 个字节到一张词表
 
 > 本讲义配合 [tokenizer.py](tokenizer.py)、[train.py](train.py)、[data.py](data.py) 阅读。
-> 讲义里**所有数字、分词结果和日志都是在本机 (conda 环境 `mlc`) 实际跑出来的**, 不是从别处抄来的示意值:
+> 讲义里**所有数字、分词结果和日志都是在测量平台 (见根目录 README) 实际跑出来的**, 不是从别处抄来的示意值:
 > 示例出自 [experiments/examples.py](experiments/examples.py), 主流模型的数据出自 [experiments/tokenizer_anatomy.py](experiments/tokenizer_anatomy.py),
 > 结果文件都在 [experiments/results/](experiments/results/)。你照着跑, 应该看到完全相同的结果 (BPE 训练没有随机性)。
 

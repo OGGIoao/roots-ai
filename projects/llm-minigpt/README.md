@@ -36,8 +36,8 @@ llm-minigpt/
 ## 快速开始
 
 ```bash
-# 1. 安装依赖 (仓库根目录唯一依赖清单, conda 环境 mlc)
-pip install -r ../../requirements-mlc.txt
+# 1. 安装依赖 (仓库根目录唯一依赖清单)
+pip install -r ../../requirements.txt
 
 # 2. 运行模型测试
 python model.py

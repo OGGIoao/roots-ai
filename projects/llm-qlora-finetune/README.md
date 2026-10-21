@@ -14,7 +14,7 @@
 
 ```bash
 # 1. 安装依赖（仓库根目录，全仓库唯一依赖清单）
-pip install -r ../../requirements-mlc.txt
+pip install -r ../../requirements.txt
 
 # 2. 运行微调 (使用内置示例数据)
 python train.py
@@ -36,7 +36,7 @@ llm-qlora-finetune/
 └── README.md          # 本文件
 ```
 
-> 依赖统一由仓库根目录 `requirements-mlc.txt` 声明（conda 环境 `mlc`），
+> 依赖统一由仓库根目录 `requirements.txt` 声明，
 > 本目录不再单独维护 requirements 文件，避免版本漂移。
 
 ## QLoRA 原理

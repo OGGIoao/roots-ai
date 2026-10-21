@@ -1,5 +1,5 @@
 # 仅用于让 `common/` 可被所有项目 import (可编辑安装), 不承担依赖管理:
-# 依赖 (含需要专用索引的 torch 三件套) 见 requirements-mlc.txt。
+# 依赖 (含需要专用索引的 torch 三件套) 见 requirements.txt。
 #
 #   pip install -e . --no-deps
 #
@@ -12,7 +12,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "llm-roots"
 version = "0.1.0"
-description = "LLM learning repo: BPE tokenizer, transformer, miniGPT, QLoRA, agent course"
+description = "Toy-scale, hand-built chain from LLM to RL to a simulated quadruped and agents, runnable on one 8GB laptop"
 requires-python = ">=3.10"
 dependencies = []
 
