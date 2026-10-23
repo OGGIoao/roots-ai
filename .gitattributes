@@ -17,6 +17,10 @@
 # --- Shell 脚本: 保持 LF (LF 才能正常执行) ---
 *.sh      text eol=lf
 
+# --- 录波存档: 保持 LF, 与采集时算的校验和逐字一致 (mainline/B1-electronics/results/wokwi/) ---
+*.cvcd    text eol=lf
+*.vcd     text eol=lf
+
 # --- 依赖清单: 检出为 CRLF, 与其它文本一致 ---
 *.txt     text eol=crlf
 

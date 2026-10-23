@@ -53,9 +53,11 @@ def test_piecewise_linear():
 
 def test_recordings_match_capture_checksums():
     # 存档与采集时浏览器里算的校验和逐字一致 (见 results/wokwi/*_serial.txt 与讲义附录)
-    s3 = open(os.path.join(B1, "results", "wokwi", "case3_pwm.cvcd"), encoding="utf-8", newline="").read()
+    s3 = open(os.path.join(B1, "results", "wokwi", "case3_pwm.cvcd"), encoding="utf-8").read()
     assert checksum(s3) == (8609, 1548054901)
     assert checksum(expand_cvcd(s3)) == (19562, 449219333)
+    s2 = open(os.path.join(B1, "results", "wokwi", "case2_bounce.cvcd"), encoding="utf-8").read()
+    assert checksum(s2) == (8186, 3627116245)
 
 
 def test_pwm_analysis_reproduces_tutorial_numbers():
