@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 290" width="760" height="290" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="380" y="24" font-size="15" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">③ PWM: 频率不变, 改变每个周期里高电平占多少</text>
+<text x="30" y="75" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">占空比 25%</text>
+<text x="30" y="92" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">LED 较暗 / 电机较慢</text>
+<path d="M170,90 L170,90 L170,60 L205.0,60 L205.0,90 L310,90 L310,90 L310,60 L345.0,60 L345.0,90 L450,90 L450,90 L450,60 L485.0,60 L485.0,90 L590,90" fill="none" stroke="#2a78d6" stroke-width="2"/>
+<text x="610" y="75" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">平均电压 0.82 V</text>
+<text x="30" y="145" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">占空比 50%</text>
+<path d="M170,160 L170,160 L170,130 L240.0,130 L240.0,160 L310,160 L310,160 L310,130 L380.0,130 L380.0,160 L450,160 L450,160 L450,130 L520.0,130 L520.0,160 L590,160" fill="none" stroke="#2a78d6" stroke-width="2"/>
+<text x="610" y="145" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">平均电压 1.65 V</text>
+<text x="30" y="215" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">占空比 90%</text>
+<text x="30" y="232" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">LED 很亮 / 电机较快</text>
+<path d="M170,230 L170,230 L170,200 L296.0,200 L296.0,230 L310,230 L310,230 L310,200 L436.0,200 L436.0,230 L450,230 L450,230 L450,200 L576.0,200 L576.0,230 L590,230" fill="none" stroke="#2a78d6" stroke-width="2"/>
+<text x="610" y="215" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">平均电压 2.97 V</text>
+<line x1="170" y1="262" x2="310" y2="262" stroke="#52514e" stroke-width="1.4"/>
+<line x1="170" y1="256" x2="170" y2="268" stroke="#52514e" stroke-width="1.4"/>
+<line x1="310" y1="256" x2="310" y2="268" stroke="#52514e" stroke-width="1.4"/>
+<text x="240.0" y="278" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">一个周期 (1 kHz → 1000 µs)</text>
+</svg>

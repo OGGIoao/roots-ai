@@ -1,0 +1,8 @@
+# Wokwi 实测 (浏览器版, board-esp32-s3-devkitc-1, MicroPython v1.28.0), 2026-10-23
+# 程序: firmware/case5_blocking.py (bundle 校验和 len=10418 hash=1071015483); 电路: wokwi/diagram.json (len=1656 hash=3465180896)
+# 每种写法各跑 20 秒 (仿真时间); 按键由芯片的定时器产生: 每 937 ms 拉低 GPIO 8 共 120 ms (GPIO 8 接 GPIO 9)。
+@BLOCK,mode=blocking,pressed=21,found=5,lat_mean=49.6,lat_max=83;
+@LAT,blocking,64,9,72,20,83;
+@BLOCK,mode=non_blocking,pressed=21,found=21,lat_mean=0.3,lat_max=1;
+@LAT,non_blocking,1,1,0,1,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,0,1;
+@DONE;

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" width="760" height="380" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" font-weight="bold" fill="#0b0b0b" dominant-baseline="middle">④ 仿真里: 原始读数严格成正比, "校准后"的电压反而不对</text>
+<text x="20" y="40" font-size="12" fill="#52514e" dominant-baseline="middle">Wokwi 实测 (ATTN_11DB); 满量程时 read_uv() 报 5090 mV, 超过了 3.3 V 电源; 真板见讲义第 4 节</text>
+<line x1="80" y1="320.0" x2="590" y2="320.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="320.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0</text>
+<line x1="80" y1="270.0" x2="590" y2="270.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="270.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">1000</text>
+<line x1="80" y1="220.0" x2="590" y2="220.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="220.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">2000</text>
+<line x1="80" y1="170.0" x2="590" y2="170.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="170.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">3000</text>
+<line x1="80" y1="120.0" x2="590" y2="120.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="120.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">4000</text>
+<line x1="80" y1="70.0" x2="590" y2="70.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="70.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">5000</text>
+<line x1="80.0" y1="320" x2="80.0" y2="324" stroke="#c9c8c2"/>
+<text x="80.0" y="336.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<line x1="207.6" y1="320" x2="207.6" y2="324" stroke="#c9c8c2"/>
+<text x="207.6" y="336.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">256</text>
+<line x1="335.2" y1="320" x2="335.2" y2="324" stroke="#c9c8c2"/>
+<text x="335.2" y="336.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">512</text>
+<line x1="462.9" y1="320" x2="462.9" y2="324" stroke="#c9c8c2"/>
+<text x="462.9" y="336.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">768</text>
+<line x1="590.0" y1="320" x2="590.0" y2="324" stroke="#c9c8c2"/>
+<text x="590.0" y="336.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1023</text>
+<line x1="80" y1="320" x2="590" y2="320" stroke="#c9c8c2" stroke-width="1"/>
+<text x="335.0" y="358.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">旋钮位置 (Wokwi 0~1023)</text>
+<text x="30" y="190.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 30 190.0)">读数 (mV)</text>
+<path d="M80.0,320.0 L590.0,155.0" fill="none" stroke="#8a8984" stroke-width="1.4" stroke-linejoin="round" stroke-dasharray="6 4"/>
+<text x="600.0" y="145.0" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">理想: 位置 ÷ 1023 × 3.3 V</text>
+<path d="M80.0,320.0 L143.8,295.4 L207.6,271.9 L271.4,248.6 L335.2,225.1 L399.1,202.3 L462.9,181.6 L494.8,172.8 L526.7,165.6 L558.6,160.5 L590.0,65.5" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="80.0" cy="320.0" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="143.8" cy="295.4" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="207.6" cy="271.9" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="271.4" cy="248.6" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="335.2" cy="225.1" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="399.1" cy="202.3" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="462.9" cy="181.6" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="494.8" cy="172.8" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="526.7" cy="165.6" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="558.6" cy="160.5" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="590.0" cy="65.5" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<text x="600.0" y="73.5" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">read_uv() 校准后</text>
+<path d="M80.0,320.0 L143.8,299.4 L207.6,278.7 L271.4,258.1 L335.2,237.4 L399.1,216.8 L462.9,196.1 L494.8,185.8 L526.7,175.5 L558.6,165.2 L590.0,155.0" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round" stroke-dasharray="6 4"/>
+<rect x="75.5" y="315.5" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="139.3" y="294.9" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="203.1" y="274.2" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="266.9" y="253.6" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="330.7" y="232.9" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="394.6" y="212.3" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="458.4" y="191.6" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="490.3" y="181.3" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="522.2" y="171.0" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="554.1" y="160.7" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<rect x="585.5" y="150.5" width="9.0" height="9.0" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<text x="600.0" y="181.0" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">read_u16() 换算, 与理想重合</text>
+</svg>

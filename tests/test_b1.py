@@ -57,7 +57,7 @@ def test_recordings_match_capture_checksums():
     assert checksum(s3) == (8609, 1548054901)
     assert checksum(expand_cvcd(s3)) == (19562, 449219333)
     s2 = open(os.path.join(B1, "results", "wokwi", "case2_bounce.cvcd"), encoding="utf-8").read()
-    assert checksum(s2) == (8186, 3627116245)
+    assert checksum(s2) == (8696, 2279279237)
 
 
 def test_pwm_analysis_reproduces_tutorial_numbers():
@@ -68,6 +68,29 @@ def test_pwm_analysis_reproduces_tutorial_numbers():
         assert p["sd"] < 0.001 and abs(p["mean"] - 1000) < 0.001 and p["max"] - p["min"] <= 0.002
     assert r["software_quiet"]["freq_error_pct"] < -10            # 软件 PWM 慢了一成以上
     assert r["software_busy"]["period_us"]["max"] > 1.5 * r["software_quiet"]["period_us"]["max"]
+
+
+def test_bounce_analysis_reproduces_tutorial_numbers():
+    from bounce_analysis import analyze
+    r = analyze(os.path.join(B1, "results", "wokwi", "case2_bounce.cvcd"))
+    assert r["true_presses"] == 4 and r["naive_interrupt_falls"] == 644 and r["naive_poll_1ms"] == 7
+    counted = {d["stable_ms"]: d["counted"] for d in r["debounce_sweep"]}
+    assert all(counted[s] == 4 for s in (0, 1, 2, 5, 10, 20)) and counted[50] == 1
+
+
+def test_blocking_analysis_reproduces_tutorial_numbers():
+    from blocking_analysis import analyze
+    r = analyze(os.path.join(B1, "results", "wokwi", "case5_blocking_serial.txt"))
+    assert (r["blocking"]["pressed"], r["blocking"]["found"]) == (21, 5)
+    assert (r["non_blocking"]["found"], r["non_blocking"]["lat_max"]) == (21, 1)
+
+
+def test_adc_analysis_reproduces_tutorial_numbers():
+    from adc_analysis import analyze
+    pts = analyze(os.path.join(B1, "results", "wokwi", "case4_adc_serial.txt"))["points"]
+    assert len(pts) == 11
+    assert max(abs(p["raw_err_mv"]) for p in pts) < 0.5            # 仿真里原始读数是理想直线
+    assert pts[-1]["mv_mean"] == 5090.0                            # read_uv() 满量程报 5090 mV
 
 
 def test_bundle_inlines_core():

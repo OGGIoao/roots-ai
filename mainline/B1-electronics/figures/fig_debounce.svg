@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" width="760" height="340" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" font-weight="bold" fill="#0b0b0b" dominant-baseline="middle">② 消抖时长: 0~20 ms 都数对了, 50 ms 把真的按键也滤掉了</text>
+<text x="20" y="40" font-size="12" fill="#52514e" dominant-baseline="middle">Wokwi 录波回放; 4 次按下分别按住 94.9, 33.3, 33.3, 33.4 ms; stable_ms=0 也要求"连续两次读数相同"</text>
+<line x1="70" y1="280.0" x2="720" y2="280.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="280.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0</text>
+<line x1="70" y1="227.5" x2="720" y2="227.5" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="227.5" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">2</text>
+<line x1="70" y1="175.0" x2="720" y2="175.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="175.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">4</text>
+<line x1="70" y1="122.5" x2="720" y2="122.5" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="122.5" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">6</text>
+<line x1="70" y1="70.0" x2="720" y2="70.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="62.0" y="70.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">8</text>
+<line x1="70" y1="280" x2="720" y2="280" stroke="#c9c8c2" stroke-width="1"/>
+<text x="395.0" y="318.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">消抖时长 stable_ms (每 1 ms 读一次)</text>
+<text x="20" y="175.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 20 175.0)">数到的按下次数</text>
+<text x="116.4" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0 ms</text>
+<text x="209.3" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1 ms</text>
+<text x="302.1" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2 ms</text>
+<text x="395.0" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">5 ms</text>
+<text x="487.9" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">10 ms</text>
+<text x="580.7" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">20 ms</text>
+<text x="673.6" y="296.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">50 ms</text>
+<path d="M80.3,280.0 L80.3,179.0 Q80.3,175.0 84.3,175.0 L148.6,175.0 Q152.6,175.0 152.6,179.0 L152.6,280.0 Z" fill="#2a78d6"/>
+<text x="116.4" y="166.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4</text>
+<path d="M173.1,280.0 L173.1,179.0 Q173.1,175.0 177.1,175.0 L241.4,175.0 Q245.4,175.0 245.4,179.0 L245.4,280.0 Z" fill="#2a78d6"/>
+<text x="209.3" y="166.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4</text>
+<path d="M266.0,280.0 L266.0,179.0 Q266.0,175.0 270.0,175.0 L334.3,175.0 Q338.3,175.0 338.3,179.0 L338.3,280.0 Z" fill="#2a78d6"/>
+<text x="302.1" y="166.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4</text>
+<path d="M358.9,280.0 L358.9,179.0 Q358.9,175.0 362.9,175.0 L427.1,175.0 Q431.1,175.0 431.1,179.0 L431.1,280.0 Z" fill="#2a78d6"/>
+<text x="395.0" y="166.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4</text>
+<path d="M451.7,280.0 L451.7,179.0 Q451.7,175.0 455.7,175.0 L520.0,175.0 Q524.0,175.0 524.0,179.0 L524.0,280.0 Z" fill="#2a78d6"/>
+<text x="487.9" y="166.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4</text>
+<path d="M544.6,280.0 L544.6,179.0 Q544.6,175.0 548.6,175.0 L612.9,175.0 Q616.9,175.0 616.9,179.0 L616.9,280.0 Z" fill="#2a78d6"/>
+<text x="580.7" y="166.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4</text>
+<path d="M637.4,280.0 L637.4,257.8 Q637.4,253.8 641.4,253.8 L705.7,253.8 Q709.7,253.8 709.7,257.8 L709.7,280.0 Z" fill="#2a78d6"/>
+<text x="673.6" y="244.8" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1</text>
+<line x1="70" y1="175.0" x2="720" y2="175.0" stroke="#52514e" stroke-dasharray="5 4"/>
+<text x="716.0" y="165.0" font-size="12" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">真实 4 次</text>
+<text x="580.7" y="88.4" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">对照: 数所有下降沿 = 644 次; 每 1 ms 轮询数 1→0 = 7 次</text>
+</svg>

@@ -1,9 +1,8 @@
-# Wokwi 实测 (浏览器版, board-esp32-s3-devkitc-1, MicroPython v1.28.0), 2026-10-21
+# Wokwi 实测 (浏览器版, board-esp32-s3-devkitc-1, MicroPython v1.28.0), 2026-10-23
 # 程序: firmware/case2_bounce.py (bundle 校验和 len=9047 hash=3246892945); 电路: wokwi/diagram.json (len=1656 hash=3465180896)
-# 录波: case2_bounce.cvcd (button 通道 = GPIO 5)。
-# 按键由自动化脚本触发, 按住多久不受控制 (仿真速度在 3%~100% 之间变化), 所以这里的 debounced 计数只作参考;
-# 消抖效果以录波回放实验为准 (experiments/bounce_analysis.py)。
-# 第二条记录对应的时间窗里有两次按键 (两次间隔不足 1.5 秒仿真时间, 被程序算作一次"活动")。
+# 录波: case2_bounce.cvcd (button 通道 = GPIO 5), 校验和 len=8696 hash=2279279237。
+# 按键由自动化脚本按 80/150/300/600/1000 ms (现实时间) 按住; 仿真速度在 3%~100% 之间变化,
+# 换算到仿真时间的按住时长以录波为准 (见 experiments/bounce_analysis.py 的输出)。
+# 几次按键的间隔不足 1.5 秒仿真时间, 程序把它们算作同一次"活动", 只打印了一条记录:
 @READY;
-@PRESS,no=1,irq_falls=34,poll_falls=1,debounced=1;
-@PRESS,no=2,irq_falls=35,poll_falls=1,debounced=0;
+@PRESS,no=1,irq_falls=113,poll_falls=4,debounced=4;

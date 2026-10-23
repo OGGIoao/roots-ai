@@ -1,0 +1,27 @@
+# Wokwi 实测 (浏览器版, board-esp32-s3-devkitc-1, MicroPython v1.28.0), 2026-10-23
+# 程序: firmware/case4_adc.py (bundle 校验和 len=8567 hash=2458285664); 电路: wokwi/diagram.json (len=1656 hash=3465180896)
+# 仿真运行中由自动化脚本转动电位器 (调用 Wokwi 电位器元件的 updateValue, 等同于用鼠标拖动旋钮)。
+# @SET 行由自动化脚本写入, 不是芯片打印的: 每次转到新位置后丢掉第一条读数 (可能是转动途中测的), 只保留第二条。
+# 下面 @ADC 行原样来自串口, 只在每行末尾的注释里补上对应的旋钮位置, 供 experiments/adc_analysis.py 读取。
+@SET,pot=0,adc_lines_before=0;
+@ADC,n=2,raw_mean=0.0,raw_sd=0.0,mv_mean=0.0,mv_sd=0.00,pot=0;
+@SET,pot=128,adc_lines_before=2;
+@ADC,n=4,raw_mean=8194.0,raw_sd=0.0,mv_mean=491.0,mv_sd=0.00,pot=128;
+@SET,pot=256,adc_lines_before=4;
+@ADC,n=6,raw_mean=16404.0,raw_sd=0.0,mv_mean=962.0,mv_sd=0.00,pot=256;
+@SET,pot=384,adc_lines_before=6;
+@ADC,n=8,raw_mean=24598.0,raw_sd=0.0,mv_mean=1428.0,mv_sd=0.00,pot=384;
+@SET,pot=512,adc_lines_before=8;
+@ADC,n=10,raw_mean=32808.0,raw_sd=0.0,mv_mean=1898.0,mv_sd=0.00,pot=512;
+@SET,pot=640,adc_lines_before=10;
+@ADC,n=12,raw_mean=41002.0,raw_sd=0.0,mv_mean=2354.0,mv_sd=0.00,pot=640;
+@SET,pot=768,adc_lines_before=12;
+@ADC,n=14,raw_mean=49196.0,raw_sd=0.0,mv_mean=2769.0,mv_sd=0.00,pot=768;
+@SET,pot=832,adc_lines_before=14;
+@ADC,n=16,raw_mean=53293.0,raw_sd=0.0,mv_mean=2943.0,mv_sd=0.00,pot=832;
+@SET,pot=896,adc_lines_before=16;
+@ADC,n=18,raw_mean=57406.0,raw_sd=0.0,mv_mean=3088.0,mv_sd=0.00,pot=896;
+@SET,pot=960,adc_lines_before=18;
+@ADC,n=20,raw_mean=61503.0,raw_sd=0.0,mv_mean=3191.0,mv_sd=0.00,pot=960;
+@SET,pot=1023,adc_lines_before=20;
+@ADC,n=22,raw_mean=65535.0,raw_sd=0.0,mv_mean=5090.0,mv_sd=0.00,pot=1023;

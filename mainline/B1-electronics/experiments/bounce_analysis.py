@@ -25,7 +25,7 @@ from wokwi_data import load_waves  # noqa: E402
 
 from b1core import Debouncer  # noqa: E402
 
-GAP_MS = 50
+GAP_MS = 5          # 弹跳内部的跳变间隔不超过约 0.12 ms, 两次动作至少隔 30 ms, 5 ms 足以分开
 POLL_MS = 1
 STABLE_SWEEP = [0, 1, 2, 5, 10, 20, 50]
 
@@ -102,7 +102,7 @@ def analyze(path):
     w = load_waves(path)
     recs = w["button"]
     bs = bursts(recs)
-    # 开机瞬间的毛刺: 第一簇发生在程序打印 @READY 之前 (几微秒的低电平), 单独报告, 不算按键
+    # 开机阶段 (前 5 秒): 程序打开内部上拉之前引脚读 0, 打开后变 1; 单独报告, 不算按键
     boot = [b for b in bs if b["start_ns"] < 5e9]
     keys = [b for b in bs if b["start_ns"] >= 5e9]
     presses = [b for b in keys if b["kind"] == "press"]
@@ -120,7 +120,7 @@ def analyze(path):
         sweep.append({"stable_ms": s, "counted": n, "true": len(presses),
                       "latency_ms_max": max(lat) if lat else None})
     return {
-        "boot_glitch": [{"at_ms": b["start_ns"] / 1e6, "edges": b["edges"], "width_us": None if b["edges"] < 2 else b["duration_us"]} for b in boot],
+        "boot": {"initial_level": recs[0][1], "changes_ms": [round(t / 1e6, 3) for t, _ in recs[1:] if t < 5e9]},
         "bursts": [{"kind": b["kind"], "at_ms": round(b["start_ns"] / 1e6, 3), "edges": b["edges"],
                     "falls": b["falls"], "duration_us": round(b["duration_us"], 1)} for b in keys],
         "true_presses": len(presses),
@@ -134,7 +134,7 @@ def analyze(path):
 if __name__ == "__main__":
     path = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, "results", "wokwi", "case2_bounce.cvcd")
     r = analyze(path)
-    print("开机毛刺:", r["boot_glitch"])
+    print("开机阶段:", r["boot"])
     print(f"\n{'簇':<4}{'类型':<9}{'时刻ms':>11}{'跳变数':>7}{'下降沿':>7}{'持续µs':>9}")
     for i, b in enumerate(r["bursts"], 1):
         print(f"{i:<4}{b['kind']:<9}{b['at_ms']:>11.1f}{b['edges']:>7}{b['falls']:>7}{b['duration_us']:>9.1f}")

@@ -26,9 +26,11 @@ def feed(deb, levels_at, t_end_ms, step_ms=1):
 
 def test_real_wokwi_recording():
     recs = load_waves(WAVE)["button"]
-    # 真实按下次数 = "从持续的 1 变成持续的 0" 的次数: 用 200 ms 的窗口看电平是否稳定
-    t0 = int(recs[1][0] // 1_000_000) - 10
-    t1 = int(recs[-1][0] // 1_000_000) + 200
+    # 录波 (讲义第 2 节): 4 次真实按下 (按住 95/33/33/33 ms), 外加 1 次按住时间几乎为 0 的"点按";
+    # 每次动作约 2 ms 的弹跳, 一共 644 个下降沿。正确的消抖器应该数出 4。
+    keys = [(t, v) for t, v in recs if t > 5e9]          # 跳过开机阶段 (打开上拉之前读 0)
+    t0 = int(keys[0][0] // 1_000_000) - 10
+    t1 = int(keys[-1][0] // 1_000_000) + 200
     idx = [0]
 
     def level(t_ms):
@@ -39,12 +41,7 @@ def test_real_wokwi_recording():
 
     deb = Debouncer(stable_ms=20)
     feed(deb, level, t1 - t0)
-    # 录波里每一次"按下"都在 1 ms 内弹跳结束, 按住时间远长于 20 ms: 答案由参考实现在同一录波上给出
-    import b1core
-    ref = b1core.Debouncer(stable_ms=20)
-    idx[0] = 0
-    feed(ref, level, t1 - t0)
-    assert deb.presses == ref.presses
+    assert deb.presses == 4, f"数到 {deb.presses} 次, 真实是 4 次"
 
 
 def synthetic(press_at, hold_ms, bounce_ms=3, seed=0):

@@ -1,0 +1,46 @@
+{
+ "blocking": {
+  "pressed": 21,
+  "found": 5,
+  "found_pct": 23.809523809523807,
+  "lat_mean": 49.6,
+  "lat_max": 83,
+  "latencies_ms": [
+   64,
+   9,
+   72,
+   20,
+   83
+  ]
+ },
+ "non_blocking": {
+  "pressed": 21,
+  "found": 21,
+  "found_pct": 100.0,
+  "lat_mean": 0.3,
+  "lat_max": 1,
+  "latencies_ms": [
+   1,
+   1,
+   0,
+   1,
+   0,
+   0,
+   0,
+   0,
+   1,
+   0,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   1
+  ]
+ }
+}

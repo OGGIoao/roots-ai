@@ -1,103 +1,126 @@
 {
- "boot_glitch": [
-  {
-   "at_ms": 2376.576819,
-   "edges": 2,
-   "width_us": 12.644
-  }
- ],
+ "boot": {
+  "initial_level": 0,
+  "changes_ms": [
+   2376.576
+  ]
+ },
  "bursts": [
   {
    "kind": "press",
-   "at_ms": 48398.692,
-   "edges": 199,
-   "falls": 100,
-   "duration_us": 2225.5
+   "at_ms": 57136.778,
+   "edges": 131,
+   "falls": 66,
+   "duration_us": 2157.8
   },
   {
    "kind": "release",
-   "at_ms": 52854.229,
-   "edges": 179,
-   "falls": 89,
-   "duration_us": 2289.0
+   "at_ms": 57231.645,
+   "edges": 43,
+   "falls": 21,
+   "duration_us": 1832.9
   },
   {
    "kind": "tap",
-   "at_ms": 54154.218,
-   "edges": 260,
-   "falls": 130,
-   "duration_us": 2201.7
+   "at_ms": 58481.266,
+   "edges": 262,
+   "falls": 131,
+   "duration_us": 2124.0
   },
   {
-   "kind": "tap",
-   "at_ms": 77636.873,
-   "edges": 172,
-   "falls": 86,
-   "duration_us": 2365.3
+   "kind": "press",
+   "at_ms": 58547.919,
+   "edges": 161,
+   "falls": 81,
+   "duration_us": 2165.0
   },
   {
-   "kind": "tap",
-   "at_ms": 79592.416,
-   "edges": 268,
-   "falls": 134,
-   "duration_us": 2245.6
+   "kind": "release",
+   "at_ms": 58581.248,
+   "edges": 155,
+   "falls": 77,
+   "duration_us": 2097.7
   },
   {
-   "kind": "tap",
-   "at_ms": 80658.963,
-   "edges": 150,
-   "falls": 75,
-   "duration_us": 2194.3
+   "kind": "press",
+   "at_ms": 58647.918,
+   "edges": 169,
+   "falls": 85,
+   "duration_us": 2108.8
+  },
+  {
+   "kind": "release",
+   "at_ms": 58681.252,
+   "edges": 191,
+   "falls": 95,
+   "duration_us": 2326.3
+  },
+  {
+   "kind": "press",
+   "at_ms": 58747.941,
+   "edges": 141,
+   "falls": 71,
+   "duration_us": 2347.7
+  },
+  {
+   "kind": "release",
+   "at_ms": 58781.325,
+   "edges": 35,
+   "falls": 17,
+   "duration_us": 2171.4
   }
  ],
- "true_presses": 1,
+ "true_presses": 4,
  "hold_ms": [
-  4455.5
+  94.9,
+  33.3,
+  33.3,
+  33.4
  ],
- "naive_interrupt_falls": 614,
- "naive_poll_1ms": 5,
+ "naive_interrupt_falls": 644,
+ "naive_poll_1ms": 7,
  "debounce_sweep": [
   {
    "stable_ms": 0,
-   "counted": 2,
-   "true": 1,
-   "latency_ms_max": null
+   "counted": 4,
+   "true": 4,
+   "latency_ms_max": 3.836513
   },
   {
    "stable_ms": 1,
-   "counted": 2,
-   "true": 1,
-   "latency_ms_max": null
+   "counted": 4,
+   "true": 4,
+   "latency_ms_max": 3.836513
   },
   {
    "stable_ms": 2,
-   "counted": 1,
-   "true": 1,
+   "counted": 4,
+   "true": 4,
    "latency_ms_max": 5.0
   },
   {
    "stable_ms": 5,
-   "counted": 1,
-   "true": 1,
+   "counted": 4,
+   "true": 4,
    "latency_ms_max": 8.0
   },
   {
    "stable_ms": 10,
-   "counted": 1,
-   "true": 1,
+   "counted": 4,
+   "true": 4,
    "latency_ms_max": 13.0
   },
   {
    "stable_ms": 20,
-   "counted": 1,
-   "true": 1,
+   "counted": 4,
+   "true": 4,
    "latency_ms_max": 23.0
   },
   {
    "stable_ms": 50,
    "counted": 1,
-   "true": 1,
-   "latency_ms_max": 53.0
+   "true": 4,
+   "latency_ms_max": null
   }
  ]
 }

@@ -53,12 +53,14 @@ def run(name, loop):
     Timer(0).deinit()
     gen.value(1)
     n = min(n_press[0], 64)
-    # 把每次"发现"对应到最近一次在它之前发生的"按下", 算延迟
+    # 把每次"发现"对应到它之前最近的一次"按下", 算延迟。
+    # 允许 2 ms 的时间戳误差: 主循环先读了 now, 定时器回调才插进来记下"按下"的时刻,
+    # 所以"发现"的时刻可能比"按下"早 1 ms (本仓库第一次跑时就因此把它错配给了上一次按下, 算出 937 ms)。
     lat = []
     for f in found:
-        before = [press_t[i] for i in range(n) if time.ticks_diff(f, press_t[i]) >= 0]
+        before = [press_t[i] for i in range(n) if time.ticks_diff(f, press_t[i]) >= -2]
         if before:
-            lat.append(time.ticks_diff(f, max(before)))
+            lat.append(max(0, time.ticks_diff(f, max(before))))
     mean = sum(lat) / len(lat) if lat else -1
     print("@BLOCK,mode=%s,pressed=%d,found=%d,lat_mean=%.1f,lat_max=%d;"
           % (name, n, len(found), mean, max(lat) if lat else -1))
