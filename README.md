@@ -38,6 +38,7 @@
 | [A2 miniGPT](mainline/A2-minigpt) | ✅ | 单文件 GPT-2, 端到端训练与生成; 讲义含 KV cache、FlashAttention、精度、显存账本等延伸专题 |
 | [A3 注意力与推理延迟](mainline/A3-attention) | ✅ | MHA / MQA / GQA / MLA, 对照实验、推理实验、三级练习 |
 | [A4 现代小模型](mainline/A4-modern-small-model) | 🟡 | LLaMA 配方各组件: RoPE、RMSNorm、SwiGLU 等; 待精简 |
+| [B1 电子入门与仿真器](mainline/B1-electronics) | 🟡 | 不用买硬件: Wokwi 仿真 + 逻辑分析仪实测, 点灯、按钮消抖、硬件 PWM、ADC、非阻塞循环; 真板对照待补 |
 | [C2 微调工具调用模型](mainline/C2-tool-finetune) | 🟡 | 现为通用 QLoRA 演示, 待改造为小车工具调用微调 |
 | [E1 老虎机](mainline/E1-bandit) | ✅ | 探索与利用; 讲义、4 个实验、10 张图、三级练习 |
 | [选修](electives/README.md) | — | LLM 架构生长树、解剖台、四足机器人、后训练、规模化与上云 |
@@ -48,6 +49,7 @@
 roots-car/
 ├── mainline/                  # 主线: 按章节编号, 每章服务于小车的某个版本
 │   ├── A1-bpe/  A2-minigpt/  A3-attention/  A4-modern-small-model/
+│   ├── B1-electronics/
 │   ├── C2-tool-finetune/
 │   └── E1-bandit/
 ├── electives/                 # 选修: 更大的地图, 全部保留

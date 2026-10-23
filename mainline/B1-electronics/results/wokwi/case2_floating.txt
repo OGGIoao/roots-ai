@@ -1,0 +1,6 @@
+# Wokwi 实测 (浏览器版, board-esp32-s3-devkitc-1, MicroPython v1.28.0), 2026-10-21
+# 程序: firmware/case2_floating.py (经 bundle.py 打包, 校验和 len=8254 hash=3825592388)
+@FLOAT,pull=none,n=2000,ones=0,flips=0;
+@FLOAT,pull=up,n=2000,ones=2000,flips=0;
+@FLOAT,pull=down,n=2000,ones=0,flips=0;
+@DONE;

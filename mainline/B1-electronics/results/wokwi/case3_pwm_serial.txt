@@ -1,0 +1,10 @@
+# Wokwi 实测 (浏览器版, board-esp32-s3-devkitc-1, MicroPython v1.28.0), 2026-10-21
+# 程序: firmware/case3_pwm.py (bundle 校验和 len=9211 hash=301485753); 电路: wokwi/diagram.json (len=1656 hash=3465180896)
+# 录波: case3_pwm.cvcd。串口里的 @BUSY 行只保留计数: software_busy 阶段 12 行 (i=0,25,...,275), hardware_busy 阶段 274 行 (i=0..273)
+@PHASE,software_quiet;
+@PHASE,software_busy;
+@PHASE,hardware_quiet;
+@PHASE,hardware_busy;
+@PHASE,end;
+@PWM_FREQ,1000;
+@DONE;

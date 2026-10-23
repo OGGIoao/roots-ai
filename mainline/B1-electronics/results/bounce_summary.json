@@ -1,0 +1,126 @@
+{
+ "boot": {
+  "initial_level": 0,
+  "changes_ms": [
+   2376.576
+  ]
+ },
+ "bursts": [
+  {
+   "kind": "press",
+   "at_ms": 57136.778,
+   "edges": 131,
+   "falls": 66,
+   "duration_us": 2157.8
+  },
+  {
+   "kind": "release",
+   "at_ms": 57231.645,
+   "edges": 43,
+   "falls": 21,
+   "duration_us": 1832.9
+  },
+  {
+   "kind": "tap",
+   "at_ms": 58481.266,
+   "edges": 262,
+   "falls": 131,
+   "duration_us": 2124.0
+  },
+  {
+   "kind": "press",
+   "at_ms": 58547.919,
+   "edges": 161,
+   "falls": 81,
+   "duration_us": 2165.0
+  },
+  {
+   "kind": "release",
+   "at_ms": 58581.248,
+   "edges": 155,
+   "falls": 77,
+   "duration_us": 2097.7
+  },
+  {
+   "kind": "press",
+   "at_ms": 58647.918,
+   "edges": 169,
+   "falls": 85,
+   "duration_us": 2108.8
+  },
+  {
+   "kind": "release",
+   "at_ms": 58681.252,
+   "edges": 191,
+   "falls": 95,
+   "duration_us": 2326.3
+  },
+  {
+   "kind": "press",
+   "at_ms": 58747.941,
+   "edges": 141,
+   "falls": 71,
+   "duration_us": 2347.7
+  },
+  {
+   "kind": "release",
+   "at_ms": 58781.325,
+   "edges": 35,
+   "falls": 17,
+   "duration_us": 2171.4
+  }
+ ],
+ "true_presses": 4,
+ "hold_ms": [
+  94.9,
+  33.3,
+  33.3,
+  33.4
+ ],
+ "naive_interrupt_falls": 644,
+ "naive_poll_1ms": 7,
+ "debounce_sweep": [
+  {
+   "stable_ms": 0,
+   "counted": 4,
+   "true": 4,
+   "latency_ms_max": 3.836513
+  },
+  {
+   "stable_ms": 1,
+   "counted": 4,
+   "true": 4,
+   "latency_ms_max": 3.836513
+  },
+  {
+   "stable_ms": 2,
+   "counted": 4,
+   "true": 4,
+   "latency_ms_max": 5.0
+  },
+  {
+   "stable_ms": 5,
+   "counted": 4,
+   "true": 4,
+   "latency_ms_max": 8.0
+  },
+  {
+   "stable_ms": 10,
+   "counted": 4,
+   "true": 4,
+   "latency_ms_max": 13.0
+  },
+  {
+   "stable_ms": 20,
+   "counted": 4,
+   "true": 4,
+   "latency_ms_max": 23.0
+  },
+  {
+   "stable_ms": 50,
+   "counted": 1,
+   "true": 4,
+   "latency_ms_max": null
+  }
+ ]
+}

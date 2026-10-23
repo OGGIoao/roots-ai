@@ -1,0 +1,10 @@
+# Wokwi 实测 (浏览器版, board-esp32-s3-devkitc-1, MicroPython v1.28.0), 2026-10-23 —— 第一次运行, 统计代码有 bug, 仅作为讲义里"踩过的坑"的证据保留
+# 程序: firmware/case5_blocking.py 修复前的版本 (bundle 校验和 len=10291 hash=2469380993)
+# bug: 非阻塞写法里有 4 次延迟是 936/937 ms。主循环先读了 now, 定时器回调才插进来记下"按下"时刻,
+#      "发现"比"按下"早了 1 ms, 被错配给上一次按下 (正好差一个按键周期 937 ms)。
+#      修复: 匹配时允许 2 ms 的时间戳误差 (见 case5_blocking_serial.txt)。计数 (found) 不受影响。
+@BLOCK,mode=blocking,pressed=21,found=5,lat_mean=48.0,lat_max=80;
+@LAT,blocking,64,8,72,16,80;
+@BLOCK,mode=non_blocking,pressed=21,found=21,lat_mean=178.5,lat_max=937;
+@LAT,non_blocking,0,0,937,0,0,0,0,0,937,1,0,0,937,936,0,0,0,0,0,0,0;
+@DONE;
