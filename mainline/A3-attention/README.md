@@ -1,5 +1,7 @@
 # A3 注意力与推理延迟 — MHA / MQA / GQA / MLA
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OGGIoao/roots-car/blob/master/mainline/A3-attention/colab.ipynb) 不想在自己电脑上装环境? 点这个按钮, 在浏览器里直接运行本章 ([colab.ipynb](colab.ipynb))。
+
 > 主线第 A3 章, 服务于 v0.5 (小车用自己的模型): 小车从听到指令到开始动, 一大块时间花在模型生成上, 而生成速度很大程度由注意力的 KV Cache 决定。
 > 整棵架构树 (位置编码、MoE、归一化、替代架构等) 在选修 [electives/llm-tree](../../electives/llm-tree/README.md); 真实模型的数据见 [解剖台](../../electives/llm-anatomy/ANATOMY.md)。
 

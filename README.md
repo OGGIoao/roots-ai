@@ -49,6 +49,8 @@ flowchart LR
 - **大模型**: [A1 BPE 分词器](mainline/A1-bpe/TUTORIAL.md) → [A2 miniGPT](mainline/A2-minigpt/TUTORIAL.md) → [A3 注意力与推理延迟](mainline/A3-attention/TUTORIAL.md);
 - **强化学习**: [E1 老虎机](mainline/E1-bandit/TUTORIAL.md)。
 
+没有显卡、不想在自己电脑上装环境: A1、A2、A3 都有 Colab 笔记本, 点各章 README 顶部的 "Open in Colab" 按钮, 在浏览器里直接运行。
+
 每章都是同样的结构: 讲义 `TUTORIAL.md`、参考实现、实验脚本、三级练习 (填空 → 只给接口 → 白纸, 由测试判对错)。
 
 ### 不想动手的时候: 选修
@@ -163,7 +165,7 @@ roots-car/
 
 **要买硬件吗?** 现在不用。B1 全部在浏览器里完成。造小车 (B2 起) 需要一套硬件, 预算目标是小车加工具 600 元以内, 清单见 [PRODUCT.md](PRODUCT.md#6-预算-粗估); 具体型号会在 B2 开始前定下。
 
-**要 GPU 吗?** 不是必须的。回归测试、A1、B1、E1 只用 CPU; A2 的 nano 配置在 CPU 上实测 105 秒训完 (GPU 约 40 秒), A3 的对照实验在 CPU 上也能跑, 只是慢。微调 (C2) 需要一张 6~8 GB 显存的 NVIDIA 显卡。
+**要 GPU 吗?** 不是必须的。回归测试、A1、B1、E1 只用 CPU; A2 的 nano 配置在 CPU 上实测 105 秒训完 (GPU 约 40 秒), A3 的对照实验在 CPU 上也能跑, 只是慢。微调 (C2) 需要一张 6~8 GB 显存的 NVIDIA 显卡。没有显卡的话, A1~A3 可以用 Colab 的免费 GPU 运行 (各章 README 顶部有按钮)。
 
 **支持什么系统?** 讲义是在 Windows 上实测的; 回归测试在 Linux (GitHub Actions) 上每次提交都跑。macOS 没有测过。
 
