@@ -44,7 +44,7 @@ flowchart LR
 
 **跟着主线走, 第一站是 [B1 电子入门](mainline/B1-electronics/TUTORIAL.md)**: 只需要浏览器, 不用买任何东西。你会在仿真器里点亮 LED、处理按钮弹跳、用 PWM 调亮度, 并用逻辑分析仪亲眼看到信号。这些都是 v0.1 驱动电机要用的。
 
-主线按站推进, 但 v0.5 和 v0.7 要用的几章已经提前写好, 不想等的话可以先学:
+项目当前**软件先行**: 先在仿真里把大模型、Agent、强化学习打通, 再造真车 (顺序见 [ROADMAP.md](ROADMAP.md))。下一章是 C1: 让大模型用工具调用驱动仿真小车。已经写好、可以先学的:
 
 - **大模型**: [A1 BPE 分词器](mainline/A1-bpe/TUTORIAL.md) → [A2 miniGPT](mainline/A2-minigpt/TUTORIAL.md) → [A3 注意力与推理延迟](mainline/A3-attention/TUTORIAL.md);
 - **强化学习**: [E1 老虎机](mainline/E1-bandit/TUTORIAL.md)。
@@ -148,6 +148,7 @@ roots-car/
 ├── electives/                 # 选修: 更大的地图, 当作详细的阅读文档
 ├── common/                    # 多章共享: 语料定位、字符级分词、对照实验框架、SVG 作图
 ├── templates/llm-client/      # LLM API 统一客户端
+├── hardware/                  # 开发板选型、引脚分配、物料清单 (硬件章节开始前补全)
 ├── tests/                     # 回归测试 (CI 每次提交都跑)
 ├── PRODUCT.md                 # 产品规格书: 每一站的验收标准、工具接口、安全规则、预算
 ├── ROADMAP.md                 # 主线章节与选修总图
