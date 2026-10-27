@@ -149,3 +149,9 @@ def test_failure_classifier_does_not_call_honest_reports_false():
     assert classify(ep("找到了红杯子, 现在开到它旁边停下"), "loop") == "stopped_short"      # 说要做, 没说做完了
     assert classify(ep("成功到达红杯子, 停止"), "loop") == "false_report"
     assert classify(ep("已到达, 没有碰撞"), "loop") == "false_report"                      # "没有碰撞" 不是否定
+
+
+def test_minimal_demo_runs_without_model():
+    from demo_minimal import run_demo
+    results = [run_demo(seed=s, quiet=True)[0] for s in range(5)]
+    assert sum(results) >= 3                         # 假模型 (几条规则) 在前 5 个场景里至少成功 3 个
