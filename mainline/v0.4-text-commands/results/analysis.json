@@ -1,0 +1,373 @@
+[
+ {
+  "name": "baseline_rules_n30",
+  "backend": "rules",
+  "mode": "rules",
+  "safety": true,
+  "summary": {
+   "n": 30,
+   "max_calls": 30,
+   "success": 21,
+   "success_rate": 0.7,
+   "collision_episodes": 0,
+   "mean_tool_calls": 22.8
+  },
+  "outcomes": {
+   "success": 21,
+   "no_action": 0,
+   "wrong_target": 0,
+   "collision": 0,
+   "false_report": 0,
+   "out_of_turns": 0,
+   "stopped_short": 9
+  },
+  "walk_before_look": 0.0,
+  "max_calls_in_turn": 1,
+  "examples": {}
+ },
+ {
+  "name": "local-Qwen-Qwen2.5-0.5B-Instruct_loop_safe_n30",
+  "backend": "local:Qwen/Qwen2.5-0.5B-Instruct",
+  "mode": "loop",
+  "safety": true,
+  "summary": {
+   "n": 30,
+   "success": 0,
+   "success_rate": 0.0,
+   "collision_episodes": 3,
+   "mean_tool_calls": 1.0,
+   "invalid_call_rate": 0.9,
+   "bare_call_rate": 0.0,
+   "mean_latency_s": 1.9278000000000002,
+   "mean_prompt_tokens": 1578.9666666666667,
+   "mean_completion_tokens": 56.2,
+   "ended_by": {
+    "answered": 30,
+    "plan_done": 0,
+    "max_turns": 0
+   }
+  },
+  "outcomes": {
+   "success": 0,
+   "no_action": 0,
+   "wrong_target": 0,
+   "collision": 3,
+   "false_report": 0,
+   "out_of_turns": 0,
+   "stopped_short": 27
+  },
+  "walk_before_look": 0.1,
+  "max_calls_in_turn": 1,
+  "examples": {
+   "stopped_short": 0,
+   "collision": 6
+  }
+ },
+ {
+  "name": "local-Qwen-Qwen2.5-0.5B-Instruct_plan_safe_n30",
+  "backend": "local:Qwen/Qwen2.5-0.5B-Instruct",
+  "mode": "plan",
+  "safety": true,
+  "summary": {
+   "n": 30,
+   "success": 0,
+   "success_rate": 0.0,
+   "collision_episodes": 0,
+   "mean_tool_calls": 1.0,
+   "invalid_call_rate": 0.8666666666666667,
+   "bare_call_rate": 0.0,
+   "mean_latency_s": 0.9989333333333335,
+   "mean_prompt_tokens": 822.0666666666667,
+   "mean_completion_tokens": 30.0,
+   "ended_by": {
+    "answered": 0,
+    "plan_done": 30,
+    "max_turns": 0
+   }
+  },
+  "outcomes": {
+   "success": 0,
+   "no_action": 0,
+   "wrong_target": 0,
+   "collision": 0,
+   "false_report": 0,
+   "out_of_turns": 0,
+   "stopped_short": 30
+  },
+  "walk_before_look": 0.0,
+  "max_calls_in_turn": 1,
+  "examples": {
+   "stopped_short": 0
+  }
+ },
+ {
+  "name": "local-Qwen-Qwen2.5-0.5B-Instruct_step_safe_n30",
+  "backend": "local:Qwen/Qwen2.5-0.5B-Instruct",
+  "mode": "step",
+  "safety": true,
+  "summary": {
+   "n": 30,
+   "success": 0,
+   "success_rate": 0.0,
+   "collision_episodes": 3,
+   "mean_tool_calls": 1.0,
+   "invalid_call_rate": 0.9,
+   "bare_call_rate": 0.0,
+   "mean_latency_s": 2.2907333333333333,
+   "mean_prompt_tokens": 1578.9666666666667,
+   "mean_completion_tokens": 56.2,
+   "ended_by": {
+    "answered": 30,
+    "plan_done": 0,
+    "max_turns": 0
+   }
+  },
+  "outcomes": {
+   "success": 0,
+   "no_action": 0,
+   "wrong_target": 0,
+   "collision": 3,
+   "false_report": 0,
+   "out_of_turns": 0,
+   "stopped_short": 27
+  },
+  "walk_before_look": 0.1,
+  "max_calls_in_turn": 1,
+  "examples": {
+   "stopped_short": 0,
+   "collision": 6
+  }
+ },
+ {
+  "name": "local-Qwen-Qwen2.5-1.5B-Instruct_chat_safe_n30",
+  "backend": "local:Qwen/Qwen2.5-1.5B-Instruct",
+  "mode": "chat",
+  "safety": true,
+  "summary": {
+   "n": 30,
+   "success": 0,
+   "success_rate": 0.0,
+   "collision_episodes": 0,
+   "mean_tool_calls": 0.0,
+   "invalid_call_rate": 0.0,
+   "bare_call_rate": 0.0,
+   "mean_latency_s": 0.9428333333333334,
+   "mean_prompt_tokens": 222.33333333333334,
+   "mean_completion_tokens": 28.0,
+   "ended_by": {
+    "answered": 30,
+    "plan_done": 0,
+    "max_turns": 0
+   }
+  },
+  "outcomes": {
+   "success": 0,
+   "no_action": 30,
+   "wrong_target": 0,
+   "collision": 0,
+   "false_report": 0,
+   "out_of_turns": 0,
+   "stopped_short": 0
+  },
+  "walk_before_look": 0.0,
+  "max_calls_in_turn": 0,
+  "examples": {
+   "no_action": 0
+  }
+ },
+ {
+  "name": "local-Qwen-Qwen2.5-1.5B-Instruct_loop_safe_n30",
+  "backend": "local:Qwen/Qwen2.5-1.5B-Instruct",
+  "mode": "loop",
+  "safety": true,
+  "summary": {
+   "n": 30,
+   "success": 0,
+   "success_rate": 0.0,
+   "collision_episodes": 15,
+   "mean_tool_calls": 6.166666666666667,
+   "invalid_call_rate": 0.043243243243243246,
+   "bare_call_rate": 0.12972972972972974,
+   "mean_latency_s": 6.249933333333332,
+   "mean_prompt_tokens": 1990.5666666666666,
+   "mean_completion_tokens": 164.5,
+   "ended_by": {
+    "answered": 30,
+    "plan_done": 0,
+    "max_turns": 0
+   }
+  },
+  "outcomes": {
+   "success": 0,
+   "no_action": 10,
+   "wrong_target": 1,
+   "collision": 15,
+   "false_report": 4,
+   "out_of_turns": 0,
+   "stopped_short": 0
+  },
+  "walk_before_look": 0.13333333333333333,
+  "max_calls_in_turn": 15,
+  "examples": {
+   "false_report": 0,
+   "collision": 1,
+   "no_action": 2,
+   "wrong_target": 13
+  }
+ },
+ {
+  "name": "local-Qwen-Qwen2.5-1.5B-Instruct_plan_safe_n30",
+  "backend": "local:Qwen/Qwen2.5-1.5B-Instruct",
+  "mode": "plan",
+  "safety": true,
+  "summary": {
+   "n": 30,
+   "success": 0,
+   "success_rate": 0.0,
+   "collision_episodes": 27,
+   "mean_tool_calls": 9.166666666666666,
+   "invalid_call_rate": 0.0036363636363636364,
+   "bare_call_rate": 0.01090909090909091,
+   "mean_latency_s": 6.604866666666665,
+   "mean_prompt_tokens": 822.0666666666667,
+   "mean_completion_tokens": 195.2,
+   "ended_by": {
+    "answered": 0,
+    "plan_done": 30,
+    "max_turns": 0
+   }
+  },
+  "outcomes": {
+   "success": 0,
+   "no_action": 0,
+   "wrong_target": 1,
+   "collision": 26,
+   "false_report": 0,
+   "out_of_turns": 0,
+   "stopped_short": 3
+  },
+  "walk_before_look": 0.0,
+  "max_calls_in_turn": 12,
+  "examples": {
+   "collision": 0,
+   "stopped_short": 4,
+   "wrong_target": 23
+  }
+ },
+ {
+  "name": "local-Qwen-Qwen2.5-1.5B-Instruct_skill-forced_safe_n30",
+  "backend": "local:Qwen/Qwen2.5-1.5B-Instruct",
+  "mode": "skill-forced",
+  "safety": true,
+  "summary": {
+   "n": 30,
+   "success": 21,
+   "success_rate": 0.7,
+   "collision_episodes": 0,
+   "mean_tool_calls": 1.0,
+   "invalid_call_rate": 0.0,
+   "bare_call_rate": 0.0,
+   "mean_latency_s": 11.008033333333334,
+   "mean_prompt_tokens": 871.1333333333333,
+   "mean_completion_tokens": 38.06666666666667,
+   "ended_by": {
+    "answered": 30,
+    "plan_done": 0,
+    "max_turns": 0
+   }
+  },
+  "outcomes": {
+   "success": 21,
+   "no_action": 0,
+   "wrong_target": 0,
+   "collision": 0,
+   "false_report": 0,
+   "out_of_turns": 0,
+   "stopped_short": 9
+  },
+  "walk_before_look": 0.0,
+  "max_calls_in_turn": 1,
+  "examples": {
+   "stopped_short": 0,
+   "success": 2
+  }
+ },
+ {
+  "name": "local-Qwen-Qwen2.5-1.5B-Instruct_skill_safe_n30",
+  "backend": "local:Qwen/Qwen2.5-1.5B-Instruct",
+  "mode": "skill",
+  "safety": true,
+  "summary": {
+   "n": 30,
+   "success": 14,
+   "success_rate": 0.4666666666666667,
+   "collision_episodes": 0,
+   "mean_tool_calls": 0.6,
+   "invalid_call_rate": 0.0,
+   "bare_call_rate": 0.16666666666666666,
+   "mean_latency_s": 1.8348666666666664,
+   "mean_prompt_tokens": 678.9666666666667,
+   "mean_completion_tokens": 26.166666666666668,
+   "ended_by": {
+    "answered": 30,
+    "plan_done": 0,
+    "max_turns": 0
+   }
+  },
+  "outcomes": {
+   "success": 14,
+   "no_action": 12,
+   "wrong_target": 0,
+   "collision": 0,
+   "false_report": 0,
+   "out_of_turns": 0,
+   "stopped_short": 4
+  },
+  "walk_before_look": 0.0,
+  "max_calls_in_turn": 1,
+  "examples": {
+   "no_action": 0,
+   "success": 3,
+   "stopped_short": 8
+  }
+ },
+ {
+  "name": "local-Qwen-Qwen2.5-1.5B-Instruct_step_safe_n30",
+  "backend": "local:Qwen/Qwen2.5-1.5B-Instruct",
+  "mode": "step",
+  "safety": true,
+  "summary": {
+   "n": 30,
+   "success": 0,
+   "success_rate": 0.0,
+   "collision_episodes": 1,
+   "mean_tool_calls": 0.6666666666666666,
+   "invalid_call_rate": 0.0,
+   "bare_call_rate": 0.0,
+   "mean_latency_s": 5.388266666666665,
+   "mean_prompt_tokens": 1657.7,
+   "mean_completion_tokens": 146.5,
+   "ended_by": {
+    "answered": 30,
+    "plan_done": 0,
+    "max_turns": 0
+   }
+  },
+  "outcomes": {
+   "success": 0,
+   "no_action": 10,
+   "wrong_target": 0,
+   "collision": 1,
+   "false_report": 0,
+   "out_of_turns": 0,
+   "stopped_short": 19
+  },
+  "walk_before_look": 0.13333333333333333,
+  "max_calls_in_turn": 15,
+  "examples": {
+   "stopped_short": 0,
+   "no_action": 2,
+   "collision": 27
+  }
+ }
+]

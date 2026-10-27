@@ -15,7 +15,7 @@ import urllib.request
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SHAKESPEARE_PATH = os.path.join(
-    REPO_ROOT, "mainline", "A1-bpe", "data", "tinyshakespeare.txt"
+    REPO_ROOT, "library", "llm", "bpe", "data", "tinyshakespeare.txt"
 )
 SHAKESPEARE_URL = (
     "https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt"

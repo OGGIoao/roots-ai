@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 380" width="860" height="380" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">五种模式 = 同一个循环, 各自去掉或改动一段</text>
+<text x="20" y="42" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">讲义的案例顺序; 每种模式在 agent.py 里都只有十来行</text>
+<rect x="30" y="64" width="150" height="46" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="105" y="87" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">只聊天 chat</text>
+<text x="200" y="78" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">不给工具</text>
+<text x="200" y="98" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">模型只能回一段话, 车不会动</text>
+<text x="830" y="87" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">第 2 节</text>
+<rect x="30" y="124" width="150" height="46" rx="4" fill="#fde3d7" stroke="#eb6834" stroke-width="1.5"/>
+<text x="105" y="147" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">开环 plan</text>
+<text x="200" y="138" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">先 look 一次, 要求一次给出全部动作</text>
+<text x="200" y="158" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">按顺序执行, 中途不再问模型; 走偏了也不知道</text>
+<text x="830" y="147" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">第 2 节</text>
+<rect x="30" y="184" width="150" height="46" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="105" y="207" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">闭环 loop</text>
+<text x="200" y="198" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">标准循环</text>
+<text x="200" y="218" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">每轮的结果都喂回去; 但一轮里发多个调用会全部照做</text>
+<text x="830" y="207" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">第 3 节</text>
+<rect x="30" y="244" width="150" height="46" rx="4" fill="#dcf3e9" stroke="#1baf7a" stroke-width="1.5"/>
+<text x="105" y="267" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">一步一停 step</text>
+<text x="200" y="258" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">每轮只执行第一个调用</text>
+<text x="200" y="278" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">其余的退回, 逼模型先看结果再决定</text>
+<text x="830" y="267" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">第 3 节</text>
+<rect x="30" y="304" width="150" height="46" rx="4" fill="#fbe4ee" stroke="#e87ba4" stroke-width="1.5"/>
+<text x="105" y="327" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">技能 go_to</text>
+<text x="200" y="318" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">只给 go_to(target) 和 look</text>
+<text x="200" y="338" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">大模型只管听懂去哪; 怎么开过去交给控制代码</text>
+<text x="830" y="327" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">第 6 节</text>
+</svg>

@@ -4,7 +4,7 @@
 
 ## 1. 讲义规范
 
-样章: [A2-minigpt/TUTORIAL.md](mainline/A2-minigpt/TUTORIAL.md)。
+样章: [A2-minigpt/TUTORIAL.md](library/llm/minigpt/TUTORIAL.md)。
 
 - **所有数字、形状、输出都实测**, 不用示意值, 并写明测量平台。
 - 每节: 一句话 → 直觉 → 公式逐项 → 逐行拆解 → 带数字的例子 → 动手验证。
@@ -52,9 +52,14 @@
 
 ## 3. 仓库组织
 
-- 主线放 `mainline/`, 按章节编号命名 (如 `A1-bpe`、`E1-bandit`); 选修放 `electives/`; 多章共用的代码放 `common/`。
-- 新内容先回答"小车的哪个版本需要它": 答得上来进主线, 答不上来进选修 (见 ROADMAP 第 1 节)。
-- 每篇主线讲义结尾加"这一节在整个领域里的位置"小框: 学了什么、跳过了什么、跳过的内容在哪个选修里。
+- 三块 (见 ROADMAP 第 1 节):
+  - **主线** `mainline/v0.x-<名字>/`: 一站一个版本, 只讲 "这一步在车上做什么、怎么跑、实测结果如何"; 用到的原理**链接到知识库, 不重讲**;
+  - **知识库** `library/<领域>/<单元>/`: 一个知识点一份讲义, 颗粒度参照 [bpe](library/llm/bpe/TUTORIAL.md); 领域为 hardware / llm / agent / rl / post-training / embodied;
+  - **选修** `electives/`: 不在造车路上的深入内容。
+- 新内容先回答 "造车的哪一站需要它": 需要的进知识库 (并在 [library/README.md](library/README.md) 的总目录里登记、写明用到它的站), 不需要的进选修。
+- 每份讲义开头写明: **前置** (要先读哪些单元, 附链接)、**用到它的主线站**、怎么运行 (含没有显卡时怎么办)。面向零基础读者: 第一次出现的术语先给一句人话。
+- 实测数字要写清楚测量环境; 没测过的写 "没有数据", 不用估算冒充实测。
+- 多个单元共用的代码放 `common/`; 所有站共用的仿真小车放 `sim/`。
 - 依赖只有一份: 根目录 [requirements.txt](requirements.txt), 子项目不单独维护 requirements。
 - 往主环境装新包前先 `pip install --dry-run`, 确认不会替换已装好的 torch。
 - 实验结果入库 (`results/`), 让图和讲义里的数字可以追溯; 模型权重、checkpoint 不入库。

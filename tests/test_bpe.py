@@ -6,7 +6,7 @@ import sys
 import pytest
 
 _PROJ = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                     "mainline", "A1-bpe")
+                     "library", "llm", "bpe")
 sys.path.insert(0, _PROJ)
 
 import data  # noqa: E402

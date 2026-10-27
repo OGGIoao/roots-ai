@@ -1,0 +1,58 @@
+[
+ {
+  "n": 300,
+  "max_calls": 10,
+  "success": 22,
+  "success_rate": 0.07333333333333333,
+  "collision_episodes": 0,
+  "mean_tool_calls": 9.92
+ },
+ {
+  "n": 300,
+  "max_calls": 15,
+  "success": 53,
+  "success_rate": 0.17666666666666667,
+  "collision_episodes": 2,
+  "mean_tool_calls": 14.623333333333333
+ },
+ {
+  "n": 300,
+  "max_calls": 20,
+  "success": 107,
+  "success_rate": 0.3566666666666667,
+  "collision_episodes": 3,
+  "mean_tool_calls": 18.81
+ },
+ {
+  "n": 300,
+  "max_calls": 30,
+  "success": 167,
+  "success_rate": 0.5566666666666666,
+  "collision_episodes": 7,
+  "mean_tool_calls": 24.74
+ },
+ {
+  "n": 300,
+  "max_calls": 40,
+  "success": 183,
+  "success_rate": 0.61,
+  "collision_episodes": 9,
+  "mean_tool_calls": 29.166666666666668
+ },
+ {
+  "n": 300,
+  "max_calls": 60,
+  "success": 212,
+  "success_rate": 0.7066666666666667,
+  "collision_episodes": 11,
+  "mean_tool_calls": 36.00666666666667
+ },
+ {
+  "n": 300,
+  "max_calls": 100,
+  "success": 239,
+  "success_rate": 0.7966666666666666,
+  "collision_episodes": 17,
+  "mean_tool_calls": 45.76
+ }
+]

@@ -53,7 +53,7 @@ DW-CS123 第 7 章和 Datawhale 的 Pupper VLA 项目都采用分层结构, LLM 
 
 - **汇合点 ⓐ**: R0 ④ 的 PPO 是后训练 P1 (把语言模型当策略做 RL) 的直接前置。
 - **汇合点 ⓑ**: R5.1 本质上就是 Agent 的工具调用 (LLM → 函数调用 → 执行 → 看结果 → 再决定), 所以 R5 同时汇合 **LLM 线**和 **Agent 板块**。Agent 板块的工具与循环部分以 R5.1 为第一个真实场景, 见 [ROADMAP](../../ROADMAP.md) 第 1 节。
-- R5.3 的语言部分是一个小型 decoder-only Transformer, 结构在 LLM 线里都学过 ([A2-minigpt](../../mainline/A2-minigpt/)、[注意力线](../../mainline/A3-attention/))。
+- R5.3 的语言部分是一个小型 decoder-only Transformer, 结构在 LLM 线里都学过 ([A2-minigpt](../../library/llm/minigpt/)、[注意力线](../../library/llm/attention/))。
 
 ---
 
@@ -64,7 +64,7 @@ DW-CS123 第 7 章和 Datawhale 的 Pupper VLA 项目都采用分层结构, LLM 
 
 | 节点 | 父节点 | 父节点怎么失败 / 新方法补上什么 | 覆盖的算法 | 出处 | 环境 | 状态 |
 |---|---|---|---|---|---|---|
-| ① 老虎机 | — | 只挑当前最好的臂 (贪心) 会锁死在次优臂上; 要留预算去探索 | ε-greedy、乐观初值、UCB、固定步长 | Auer et al. 2002 (UCB1) | 纯 numpy | ✅ [bandit](../../mainline/E1-bandit/TUTORIAL.md) |
+| ① 老虎机 | — | 只挑当前最好的臂 (贪心) 会锁死在次优臂上; 要留预算去探索 | ε-greedy、乐观初值、UCB、固定步长 | Auer et al. 2002 (UCB1) | 纯 numpy | ✅ [bandit](../../library/rl/bandit/TUTORIAL.md) |
 | ② FrozenLake | ① | 老虎机没有"状态"; 这一步的选择会影响以后的处境 | MDP、价值迭代 (环境模型已知时)、蒙特卡洛、TD、Q-learning | Bellman 1957; Watkins & Dayan 1992 | gymnasium | ⬜ |
 | ③ CartPole | ② | 状态连续, Q 表放不下 | DQN (函数近似); REINFORCE → baseline → Actor-Critic | Mnih et al. 2015; Williams 1992 | gymnasium | ⬜ |
 | ④ PPO | ③ | Actor-Critic 一步更新太大就崩; 限制新旧策略的差距 | PPO-Clip、GAE | Schulman et al. 2016 (GAE), 2017 (PPO) | gymnasium | ⬜ |
