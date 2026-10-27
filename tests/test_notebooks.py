@@ -11,7 +11,7 @@ import make_notebooks as mk  # noqa: E402
 
 
 def test_notebooks_match_generator():
-    for make in (mk.a1, mk.a2, mk.a3):
+    for make in mk.ALL:
         path, cells = make()
         cells[0]["source"] += f"\n\n[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)]({mk.colab_url(path)})"
         expected = mk.notebook(cells)
@@ -22,7 +22,7 @@ def test_notebooks_match_generator():
 
 def test_notebook_commands_point_to_existing_files():
     # 笔记本里 "python mainline/..." 运行的脚本都必须存在
-    for make in (mk.a1, mk.a2, mk.a3):
+    for make in mk.ALL:
         _, cells = make()
         for c in cells:
             if c["cell_type"] != "code":

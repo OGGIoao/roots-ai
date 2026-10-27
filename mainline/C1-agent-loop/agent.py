@@ -12,6 +12,8 @@ agent.py — 手写的 Agent 循环 (不用 LangChain 等框架, 每一步都看
     loop  标准的 Agent 循环 (闭环): 每执行完一轮工具调用, 都把结果交回模型再决定下一步;
           但模型可以在一轮里发出多个调用, 它们会全部执行, 中间不看结果 (本仓库实测: 小模型一轮能发 13 个);
     step  一步一停: 和 loop 一样, 但每轮只执行第一个调用, 其余的退回, 逼模型看完结果再决定。
+    skill 换一种分工 (讲义第 6 节): 不给五个底层动作, 只给 go_to(target) 和 look;
+          怎么开过去交给 skills.py 里不用大模型的控制代码, 大模型只负责听懂要去哪。
 """
 
 import json
@@ -35,12 +37,18 @@ SYSTEM_PROMPT = """你在控制一台两轮小车, 它在一个 2 米 × 2 米�
 任务完成的标准: 车停在目标跟前, 车身离目标不超过 0.25 米, 全程没有碰撞。完成后调用 stop, 然后用一句话报告结果。"""
 
 
-def run_episode(llm, car, task, mode="loop", max_turns=15, safety=True):
+def run_episode(llm, car, task, mode="loop", max_turns=30, safety=True, force_first_tool=False):
     """
     跑一次任务。task: {"instruction": 中文指令, "target": 目标物名}。
     返回一条记录: 每一轮的模型输出与工具调用、token 与耗时统计、是否成功由调用方用 sim.car2d.reached 判断。
+    force_first_tool: 第一轮强制模型调用工具 (讲义第 6 节; 本地模型靠预填 <tool_call>, API 靠 tool_choice)。
     """
-    messages = [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": task["instruction"]}]
+    tools, run_tool = TOOL_SCHEMAS, lambda name, args: execute(car, name, args, safety=safety)
+    system = SYSTEM_PROMPT
+    if mode == "skill":
+        from skills import SKILL_SCHEMAS, SKILL_SYSTEM_PROMPT, execute_skill
+        tools, run_tool, system = SKILL_SCHEMAS, (lambda name, args: execute_skill(car, name, args)), SKILL_SYSTEM_PROMPT
+    messages = [{"role": "system", "content": system}, {"role": "user", "content": task["instruction"]}]
     rec = {"mode": mode, "turns": [], "tool_calls": 0, "invalid_calls": 0, "bare_calls": 0, "skipped_calls": 0, "prompt_tokens": 0,
            "completion_tokens": 0, "latency_s": 0.0, "ended_by": None}
 
@@ -73,9 +81,12 @@ def run_episode(llm, car, task, mode="loop", max_turns=15, safety=True):
         rec["ended_by"] = "plan_done"
         return rec
 
-    # mode == "loop" 或 "step"
-    for _ in range(max_turns):
-        reply = llm.chat(messages, tools=TOOL_SCHEMAS)
+    # mode == "loop" / "step" / "skill"
+    for k_turn in range(max_turns):
+        if force_first_tool and k_turn == 0:
+            reply = llm.chat(messages, tools=tools, require_tool=True)
+        else:
+            reply = llm.chat(messages, tools=tools)
         account(reply)
         turn = {"content": reply.content, "calls": []}
         if not reply.tool_calls:                   # 模型不再调用工具: 它认为做完了 (或放弃了)
@@ -93,7 +104,7 @@ def run_episode(llm, car, task, mode="loop", max_turns=15, safety=True):
             elif c["name"] == "__invalid__":       # 本地模型把工具调用的 JSON 写坏了
                 obs = {"ok": False, "error": "工具调用不是合法的 JSON, 请按格式重写"}
             else:
-                obs = execute(car, c["name"], c["arguments"], safety=safety)
+                obs = run_tool(c["name"], c["arguments"])
             if not (mode == "step" and k > 0):
                 rec["tool_calls"] += 1
                 rec["invalid_calls"] += "error" in obs

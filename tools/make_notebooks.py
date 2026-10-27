@@ -133,8 +133,37 @@ def a3():
     return path, cells
 
 
+def c1():
+    path = "mainline/C1-agent-loop/colab.ipynb"
+    cells = [
+        md("# C1 Agent 循环 · 在 Colab 上运行",
+           "",
+           "让大模型通过工具调用开一台仿真小车。讲解见 [讲义](https://github.com/OGGIoao/roots-car/blob/master/mainline/C1-agent-loop/TUTORIAL.md)。",
+           "",
+           "前两步只用 CPU; 第 3 步用本地小模型 (Qwen2.5-1.5B-Instruct, 约 3 GB) 跑评测, 需要 GPU",
+           "(菜单 \"代码执行程序 → 更改运行时类型\" 选 GPU)。Colab 能直接访问 Hugging Face, 不需要镜像。"),
+        code(*SETUP),
+        md("## 1. 规则控制器 (不用大模型)", "",
+           "同样的工具和任务, 大脑换成几十行 if-else。看它在不同调用预算下的成功率 (讲义第 5 节)。"),
+        code("!python mainline/C1-agent-loop/baseline.py"),
+        md("## 2. 小模型评测 (6 个任务, 快速确认能跑通)", "",
+           "讲义里的数字来自每组 30 个任务 (`--n 30`); 这里先各跑 6 个。`loop` 是让模型自己一步步开车, `skill` 是只让它选目标 (讲义第 6 节)。",
+           "每局会打印: 成功与否、离目标多远、撞了几次、调用了几次工具。"),
+        code("!cd mainline/C1-agent-loop && python evaluate.py --backend local:Qwen/Qwen2.5-1.5B-Instruct --mode loop --n 6",
+             "!cd mainline/C1-agent-loop && python evaluate.py --backend local:Qwen/Qwen2.5-1.5B-Instruct --mode skill --n 6"),
+        md("## 3. 看每一局是怎么失败的", "", "把每一局归到一类结局 (讲义第 5 节的表)。"),
+        code("!cd mainline/C1-agent-loop && python analyze.py"),
+        EXERCISE_NOTE,
+        code("!cd mainline/C1-agent-loop/exercises && python -m pytest test_ex1.py -q"),
+    ]
+    return path, cells
+
+
+ALL = (a1, a2, a3, c1)
+
+
 if __name__ == "__main__":
-    for make in (a1, a2, a3):
+    for make in ALL:
         path, cells = make()
         cells[0]["source"] += f"\n\n[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)]({colab_url(path)})"
         with open(os.path.join(ROOT, path), "w", encoding="utf-8", newline="\n") as f:

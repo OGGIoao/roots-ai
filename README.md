@@ -32,7 +32,7 @@ flowchart LR
 | **v0.1 能遥控** | 手机网页遥控前后左右 | 点灯、读按钮、消抖、硬件 PWM、ADC、非阻塞循环 (先在浏览器仿真) → 驱动电机、WiFi 网页遥控 | [B1 电子入门](mainline/B1-electronics/TUTORIAL.md) ✅ · B2 电机与遥控 ⬜ |
 | **v0.2 走得准** | 执行"走 1 米""转 90 度", 误差 < 5 cm | 编码器测速、PID 速度闭环 | B3 ⬜ |
 | **v0.3 不撞墙** | 自己避障; 断网 0.5 秒内自动停车 | 测距、状态机、看门狗与急停 | B4 ⬜ |
-| **v0.4 听懂文字** | 打字指挥, 大模型把一句话拆成 `walk` / `turn` / `stop` | Agent 循环与工具调用, 先驱动仿真小车再上真车 | C1 ⬜ |
+| **v0.4 听懂文字** | 打字指挥, 大模型把一句话拆成 `walk` / `turn` / `stop` | Agent 循环与工具调用, 先驱动仿真小车再上真车 | C1 🟡 |
 | **v0.5 自己的大脑** | 换成**自己微调的小模型**, 在笔记本上本地运行 | 从零写分词器、GPT、注意力 → 微调 0.5B 模型只输出工具调用 → 本地推理服务 → 成功率评测 | [A1](mainline/A1-bpe/TUTORIAL.md) ✅ [A2](mainline/A2-minigpt/TUTORIAL.md) ✅ [A3](mainline/A3-attention/TUTORIAL.md) ✅ [A4](mainline/A4-modern-small-model) 🟡 [C2](mainline/C2-tool-finetune) 🟡 · C3 C4 ⬜ |
 | **v0.6 看得见** | 用摄像头找到红杯子 | 摄像头、小模型检测、int8 量化 (芯片上跑 vs 笔记本上跑) | D1 D2 ⬜ |
 | **v0.7 自己学** | 仿真里用强化学习训练的策略上真车 | 老虎机 → Q-learning → 策略梯度 → PPO → 仿真到真车 (sim2real) | [E1](mainline/E1-bandit/TUTORIAL.md) ✅ · E2–E5 ⬜ |
@@ -44,7 +44,7 @@ flowchart LR
 
 **跟着主线走, 第一站是 [B1 电子入门](mainline/B1-electronics/TUTORIAL.md)**: 只需要浏览器, 不用买任何东西。你会在仿真器里点亮 LED、处理按钮弹跳、用 PWM 调亮度, 并用逻辑分析仪亲眼看到信号。这些都是 v0.1 驱动电机要用的。
 
-项目当前**软件先行**: 先在仿真里把大模型、Agent、强化学习打通, 再造真车 (顺序见 [ROADMAP.md](ROADMAP.md))。下一章是 C1: 让大模型用工具调用驱动仿真小车。已经写好、可以先学的:
+项目当前**软件先行**: 先在仿真里把大模型、Agent、强化学习打通, 再造真车 (顺序见 [ROADMAP.md](ROADMAP.md))。正在做的是 [C1 Agent 循环](mainline/C1-agent-loop/TUTORIAL.md) (讲义初稿): 让大模型用工具调用驱动仿真小车, 实测小模型自己开车几乎全失败, 只让它选目标则能完成大部分任务。已经写好、可以先学的:
 
 - **大模型**: [A1 BPE 分词器](mainline/A1-bpe/TUTORIAL.md) → [A2 miniGPT](mainline/A2-minigpt/TUTORIAL.md) → [A3 注意力与推理延迟](mainline/A3-attention/TUTORIAL.md);
 - **强化学习**: [E1 老虎机](mainline/E1-bandit/TUTORIAL.md)。

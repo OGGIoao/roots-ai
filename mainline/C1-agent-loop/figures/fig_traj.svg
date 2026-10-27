@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 318" width="1000" height="318" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">同一个任务 "去红杯子那里, 停在它跟前" (场景 seed 0), 不同模式下车实际走过的路</text>
+<text x="20" y="42" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">Qwen2.5-1.5B; 空心圆 = 起点 (箭头是车头), 灰色实心圆 = 终点; 场地 2 m × 2 m</text>
+<text x="20" y="59" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">黑边圆 = 这次的目标, 虚线圈 = 成功范围 (车身离目标 ≤ 0.25 m); 大灰圆 = 障碍物</text>
+<rect x="20" y="76" width="170" height="170" rx="0" fill="#ffffff" stroke="#c9c8c2" stroke-width="1"/>
+<circle cx="148.9" cy="174.5" r="14.2" fill="#d9d8d2" stroke="#9a9993" stroke-width="1"/>
+<circle cx="106.9" cy="177.2" r="10.3" fill="#d9d8d2" stroke="#9a9993" stroke-width="1"/>
+<circle cx="71.6" cy="165.0" r="13.8" fill="#d9d8d2" stroke="#9a9993" stroke-width="1"/>
+<circle cx="119.2" cy="91.6" r="3.4" fill="#d64545" stroke="#0b0b0b" stroke-width="2.5"/>
+<circle cx="119.2" cy="91.6" r="31.4" fill="none" stroke="#8a8984" stroke-dasharray="3 3"/>
+<circle cx="148.5" cy="140.9" r="4.2" fill="#2a78d6" stroke="#2a78d6" stroke-width="1"/>
+<circle cx="62.6" cy="91.3" r="5.1" fill="#1baf7a" stroke="#1baf7a" stroke-width="1"/>
+<path d="M127.9,228.8 L132.1,229.0 L136.4,229.3 L140.7,229.4 L144.9,229.7 L149.2,229.9 L153.5,230.2 L157.8,230.4 L162.0,230.7 L166.3,231.0 L170.6,231.4 L174.9,231.7 L179.1,232.1 L182.5,233.2 L182.4,237.5 L182.3,239.2" fill="none" stroke="#0b0b0b" stroke-width="1.8" stroke-linejoin="round"/>
+<line x1="127.9" y1="228.8" x2="138.1" y2="229.3" stroke="#0b0b0b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="127.9" cy="228.8" r="6.8" fill="none" stroke="#0b0b0b" stroke-width="1.5"/>
+<circle cx="182.3" cy="239.2" r="6.8" fill="#0b0b0b" fill-opacity="0.35" stroke="#0b0b0b"/>
+<text x="105.0" y="262" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">开环 plan</text>
+<text x="105.0" y="279" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">撞了, 工具 11 次</text>
+<rect x="216" y="76" width="170" height="170" rx="0" fill="#ffffff" stroke="#c9c8c2" stroke-width="1"/>
+<circle cx="344.9" cy="174.5" r="14.2" fill="#d9d8d2" stroke="#9a9993" stroke-width="1"/>
+<circle cx="302.9" cy="177.2" r="10.3" fill="#d9d8d2" stroke="#9a9993" stroke-width="1"/>
+<circle cx="267.6" cy="165.0" r="13.8" fill="#d9d8d2" stroke="#9a9993" stroke-width="1"/>
+<circle cx="315.2" cy="91.6" r="3.4" fill="#d64545" stroke="#0b0b0b" stroke-width="2.5"/>
+<circle cx="315.2" cy="91.6" r="31.4" fill="none" stroke="#8a8984" stroke-dasharray="3 3"/>
+<circle cx="344.5" cy="140.9" r="4.2" fill="#2a78d6" stroke="#2a78d6" stroke-width="1"/>
+<circle cx="258.6" cy="91.3" r="5.1" fill="#1baf7a" stroke="#1baf7a" stroke-width="1"/>
+<path d="M323.9,228.8 L328.1,229.0 L332.4,229.3 L336.7,229.4 L340.9,229.7 L345.2,229.9 L349.5,230.2 L353.8,230.4 L358.0,230.7 L362.3,231.0 L366.6,231.4 L368.3,231.5" fill="none" stroke="#0b0b0b" stroke-width="1.8" stroke-linejoin="round"/>
+<line x1="323.9" y1="228.8" x2="334.1" y2="229.3" stroke="#0b0b0b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="323.9" cy="228.8" r="6.8" fill="none" stroke="#0b0b0b" stroke-width="1.5"/>
+<circle cx="368.3" cy="231.5" r="6.8" fill="#0b0b0b" fill-opacity="0.35" stroke="#0b0b0b"/>
+<text x="301.0" y="262" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">闭环 loop</text>
+<text x="301.0" y="279" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">没到却说到了, 工具 3 次</text>
+<rect x="412" y="76" width="170" height="170" rx="0" fill="#ffffff" stroke="#c9c8c2" stroke-width="1"/>
+<circle cx="540.9" cy="174.5" r="14.2" fill="#d9d8d2" stroke="#9a9993" stroke-width="1"/>
+<circle cx="498.9" cy="177.2" r="10.3" fill="#d9d8d2" stroke="#9a9993" stroke-width="1"/>
+<circle cx="463.6" cy="165.0" r="13.8" fill="#d9d8d2" stroke="#9a9993" stroke-width="1"/>
+<circle cx="511.2" cy="91.6" r="3.4" fill="#d64545" stroke="#0b0b0b" stroke-width="2.5"/>
+<circle cx="511.2" cy="91.6" r="31.4" fill="none" stroke="#8a8984" stroke-dasharray="3 3"/>
+<circle cx="540.5" cy="140.9" r="4.2" fill="#2a78d6" stroke="#2a78d6" stroke-width="1"/>
+<circle cx="454.6" cy="91.3" r="5.1" fill="#1baf7a" stroke="#1baf7a" stroke-width="1"/>
+<path d="M519.9,228.8 L524.1,229.0 L528.5,229.3 L532.7,229.4 L537.0,229.7 L541.2,229.9 L545.5,230.2 L549.8,230.4 L554.0,230.7 L558.3,231.0 L562.6,231.4 L564.3,231.5" fill="none" stroke="#0b0b0b" stroke-width="1.8" stroke-linejoin="round"/>
+<line x1="519.9" y1="228.8" x2="530.1" y2="229.3" stroke="#0b0b0b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="519.9" cy="228.8" r="6.8" fill="none" stroke="#0b0b0b" stroke-width="1.5"/>
+<circle cx="564.3" cy="231.5" r="6.8" fill="#0b0b0b" fill-opacity="0.35" stroke="#0b0b0b"/>
+<text x="497.0" y="262" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">一步一停 step</text>
+<text x="497.0" y="279" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">没到, 停了, 工具 1 次</text>
+<rect x="608" y="76" width="170" height="170" rx="0" fill="#ffffff" stroke="#c9c8c2" stroke-width="1"/>
+<circle cx="736.9" cy="174.5" r="14.2" fill="#d9d8d2" stroke="#9a9993" stroke-width="1"/>
+<circle cx="694.9" cy="177.2" r="10.3" fill="#d9d8d2" stroke="#9a9993" stroke-width="1"/>
+<circle cx="659.6" cy="165.0" r="13.8" fill="#d9d8d2" stroke="#9a9993" stroke-width="1"/>
+<circle cx="707.2" cy="91.6" r="3.4" fill="#d64545" stroke="#0b0b0b" stroke-width="2.5"/>
+<circle cx="707.2" cy="91.6" r="31.4" fill="none" stroke="#8a8984" stroke-dasharray="3 3"/>
+<circle cx="736.5" cy="140.9" r="4.2" fill="#2a78d6" stroke="#2a78d6" stroke-width="1"/>
+<circle cx="650.6" cy="91.3" r="5.1" fill="#1baf7a" stroke="#1baf7a" stroke-width="1"/>
+<path d="M715.9,228.8 L715.9,228.8" fill="none" stroke="#0b0b0b" stroke-width="1.8" stroke-linejoin="round"/>
+<line x1="715.9" y1="228.8" x2="726.1" y2="229.3" stroke="#0b0b0b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="715.9" cy="228.8" r="6.8" fill="none" stroke="#0b0b0b" stroke-width="1.5"/>
+<circle cx="715.9" cy="228.8" r="6.8" fill="#0b0b0b" fill-opacity="0.35" stroke="#0b0b0b"/>
+<text x="693.0" y="262" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">技能 go_to</text>
+<text x="693.0" y="279" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">没动, 工具 0 次</text>
+<rect x="804" y="76" width="170" height="170" rx="0" fill="#ffffff" stroke="#c9c8c2" stroke-width="1"/>
+<circle cx="932.9" cy="174.5" r="14.2" fill="#d9d8d2" stroke="#9a9993" stroke-width="1"/>
+<circle cx="890.9" cy="177.2" r="10.3" fill="#d9d8d2" stroke="#9a9993" stroke-width="1"/>
+<circle cx="855.6" cy="165.0" r="13.8" fill="#d9d8d2" stroke="#9a9993" stroke-width="1"/>
+<circle cx="903.2" cy="91.6" r="3.4" fill="#d64545" stroke="#0b0b0b" stroke-width="2.5"/>
+<circle cx="903.2" cy="91.6" r="31.4" fill="none" stroke="#8a8984" stroke-dasharray="3 3"/>
+<circle cx="932.5" cy="140.9" r="4.2" fill="#2a78d6" stroke="#2a78d6" stroke-width="1"/>
+<circle cx="846.6" cy="91.3" r="5.1" fill="#1baf7a" stroke="#1baf7a" stroke-width="1"/>
+<path d="M911.9,228.8 L908.7,225.9 L905.6,223.0 L902.4,220.1 L899.3,217.2 L896.1,214.2 L893.6,211.9" fill="none" stroke="#0b0b0b" stroke-width="1.8" stroke-linejoin="round"/>
+<line x1="911.9" y1="228.8" x2="922.1" y2="229.3" stroke="#0b0b0b" stroke-width="1.5" marker-end="url(#arrow)"/>
+<circle cx="911.9" cy="228.8" r="6.8" fill="none" stroke="#0b0b0b" stroke-width="1.5"/>
+<circle cx="893.6" cy="211.9" r="6.8" fill="#0b0b0b" fill-opacity="0.35" stroke="#0b0b0b"/>
+<text x="889.0" y="262" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">规则 (无大模型)</text>
+<text x="889.0" y="279" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">失败, 工具 30 次</text>
+</svg>

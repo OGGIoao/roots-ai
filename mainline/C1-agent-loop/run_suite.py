@@ -15,12 +15,12 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 
 LOCAL = [
-    ("Qwen/Qwen2.5-1.5B-Instruct", ["chat", "plan", "loop", "step"]),
-    ("Qwen/Qwen2.5-0.5B-Instruct", ["plan", "loop", "step"]),
-    ("Qwen/Qwen2.5-3B-Instruct", ["plan", "loop", "step"]),
+    ("Qwen/Qwen2.5-1.5B-Instruct", ["chat", "plan", "loop", "step", "skill", "skill-forced"]),
+    ("Qwen/Qwen2.5-0.5B-Instruct", ["plan", "loop", "step", "skill", "skill-forced"]),
+    ("Qwen/Qwen2.5-3B-Instruct", ["plan", "loop", "step", "skill", "skill-forced"]),
 ]
 NOSAFETY = [("Qwen/Qwen2.5-1.5B-Instruct", "step")]       # 讲义第 4 节: 关掉安全层的对照
-API = [("deepseek", ["plan", "loop", "step"])]
+API = [("deepseek", ["plan", "loop", "step", "skill"])]       # API 的 skill 一般不需要强制, 需要时加 "skill-forced"
 N = 30
 
 
@@ -33,7 +33,10 @@ def run(backend, mode, safety=True):
     if os.path.exists(os.path.join(HERE, "results", f"{name}.json")):
         print("跳过 (已有结果):", name)
         return
-    cmd = [sys.executable, os.path.join(HERE, "evaluate.py"), "--backend", backend, "--mode", mode, "--n", str(N), "--name", name]
+    base_mode, forced = mode.removesuffix("-forced"), mode.endswith("-forced")
+    cmd = [sys.executable, os.path.join(HERE, "evaluate.py"), "--backend", backend, "--mode", base_mode, "--n", str(N), "--name", name]
+    if forced:
+        cmd.append("--force-first-tool")       # skill-forced: 第一轮强制调用工具 (讲义第 6 节)
     if not safety:
         cmd.append("--no-safety")
     print("运行:", " ".join(cmd[2:]), flush=True)

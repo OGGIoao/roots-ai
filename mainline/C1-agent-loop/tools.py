@@ -13,6 +13,7 @@ tools.py — 小车的工具定义 (给大模型看的说明书) 与安全层 (�
 """
 
 import json
+import math
 
 MAX_WALK_M = 1.0        # 一次 walk 的最大距离 (米)
 MAX_TURN_DEG = 180.0    # 一次 turn 的最大角度 (度)
@@ -53,10 +54,15 @@ def _number(v):
     if isinstance(v, bool):
         raise ValueError("不能是布尔值")
     if isinstance(v, (int, float)):
-        return float(v)
-    if isinstance(v, str):
-        return float(v.strip())          # "0.5m" 会在这里抛 ValueError
-    raise ValueError(f"应为数字, 收到 {type(v).__name__}")
+        x = float(v)
+    elif isinstance(v, str):
+        x = float(v.strip())             # "0.5m" 会在这里抛 ValueError
+    else:
+        raise ValueError(f"应为数字, 收到 {type(v).__name__}")
+    # float("nan") 不报错, 而且 abs(nan) > 1 是 False, 会溜过后面的范围检查 (本仓库写练习测试时发现的)
+    if not math.isfinite(x):
+        raise ValueError(f"应为有限的数字, 收到 {v!r}")
+    return x
 
 
 def validate_call(name, args):

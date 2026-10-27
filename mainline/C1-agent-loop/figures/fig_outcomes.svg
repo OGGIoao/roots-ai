@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 372" width="750" height="372" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">失败的样子各不相同: 30 局里每一局的结局</text>
+<text x="20" y="42" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">按顺序判断: 成功 → 没动 → 去错目标 → 撞了 → 没到却说到了 → 轮数用完 → 没到, 停了 (analyze.py)</text>
+<rect x="20" y="56" width="12" height="12" rx="2" fill="#1baf7a" stroke="#1baf7a" stroke-width="0"/>
+<text x="38" y="62" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">成功</text>
+<rect x="170" y="56" width="12" height="12" rx="2" fill="#c9c8c2" stroke="#c9c8c2" stroke-width="0"/>
+<text x="188" y="62" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">没动</text>
+<rect x="320" y="56" width="12" height="12" rx="2" fill="#e87ba4" stroke="#e87ba4" stroke-width="0"/>
+<text x="338" y="62" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">去错目标</text>
+<rect x="470" y="56" width="12" height="12" rx="2" fill="#eb6834" stroke="#eb6834" stroke-width="0"/>
+<text x="488" y="62" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">撞了</text>
+<rect x="20" y="74" width="12" height="12" rx="2" fill="#b3261e" stroke="#b3261e" stroke-width="0"/>
+<text x="38" y="80" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">没到却说到了</text>
+<rect x="170" y="74" width="12" height="12" rx="2" fill="#eda100" stroke="#eda100" stroke-width="0"/>
+<text x="188" y="80" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">轮数用完</text>
+<rect x="320" y="74" width="12" height="12" rx="2" fill="#8fb8e8" stroke="#8fb8e8" stroke-width="0"/>
+<text x="338" y="80" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">没到, 停了</text>
+<text x="180" y="104.0" font-size="12" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">0.5B 开环 plan</text>
+<rect x="190.0" y="95" width="518.5" height="18" fill="#8fb8e8"/>
+<text x="450.0" y="104.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">30</text>
+<text x="180" y="128.0" font-size="12" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">0.5B 闭环 loop</text>
+<rect x="190.0" y="119" width="50.5" height="18" fill="#eb6834"/>
+<text x="216.0" y="128.0" font-size="10" fill="#fcfcfb" text-anchor="middle" font-weight="normal" dominant-baseline="middle">3</text>
+<rect x="242.0" y="119" width="466.5" height="18" fill="#8fb8e8"/>
+<text x="476.0" y="128.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">27</text>
+<text x="180" y="152.0" font-size="12" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">0.5B 一步一停 step</text>
+<rect x="190.0" y="143" width="50.5" height="18" fill="#eb6834"/>
+<text x="216.0" y="152.0" font-size="10" fill="#fcfcfb" text-anchor="middle" font-weight="normal" dominant-baseline="middle">3</text>
+<rect x="242.0" y="143" width="466.5" height="18" fill="#8fb8e8"/>
+<text x="476.0" y="152.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">27</text>
+<text x="180" y="176.0" font-size="12" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">1.5B 只聊天</text>
+<rect x="190.0" y="167" width="518.5" height="18" fill="#c9c8c2"/>
+<text x="450.0" y="176.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">30</text>
+<text x="180" y="200.0" font-size="12" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">1.5B 开环 plan</text>
+<rect x="190.0" y="191" width="15.8" height="18" fill="#e87ba4"/>
+<text x="198.66666666666666" y="200.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1</text>
+<rect x="207.3" y="191" width="449.2" height="18" fill="#eb6834"/>
+<text x="432.6666666666667" y="200.0" font-size="10" fill="#fcfcfb" text-anchor="middle" font-weight="normal" dominant-baseline="middle">26</text>
+<rect x="658.0" y="191" width="50.5" height="18" fill="#8fb8e8"/>
+<text x="684.0" y="200.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">3</text>
+<text x="180" y="224.0" font-size="12" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">1.5B 闭环 loop</text>
+<rect x="190.0" y="215" width="171.8" height="18" fill="#c9c8c2"/>
+<text x="276.6666666666667" y="224.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">10</text>
+<rect x="363.3" y="215" width="15.8" height="18" fill="#e87ba4"/>
+<text x="372.00000000000006" y="224.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1</text>
+<rect x="380.7" y="215" width="258.5" height="18" fill="#eb6834"/>
+<text x="510.6666666666667" y="224.0" font-size="10" fill="#fcfcfb" text-anchor="middle" font-weight="normal" dominant-baseline="middle">15</text>
+<rect x="640.7" y="215" width="67.8" height="18" fill="#b3261e"/>
+<text x="675.3333333333334" y="224.0" font-size="10" fill="#fcfcfb" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4</text>
+<text x="180" y="248.0" font-size="12" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">1.5B 一步一停 step</text>
+<rect x="190.0" y="239" width="171.8" height="18" fill="#c9c8c2"/>
+<text x="276.6666666666667" y="248.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">10</text>
+<rect x="363.3" y="239" width="15.8" height="18" fill="#eb6834"/>
+<text x="372.00000000000006" y="248.0" font-size="10" fill="#fcfcfb" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1</text>
+<rect x="380.7" y="239" width="327.8" height="18" fill="#8fb8e8"/>
+<text x="545.3333333333334" y="248.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">19</text>
+<text x="180" y="272.0" font-size="12" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">1.5B 技能 go_to</text>
+<rect x="190.0" y="263" width="241.2" height="18" fill="#1baf7a"/>
+<text x="311.3333333333333" y="272.0" font-size="10" fill="#fcfcfb" text-anchor="middle" font-weight="normal" dominant-baseline="middle">14</text>
+<rect x="432.7" y="263" width="206.5" height="18" fill="#c9c8c2"/>
+<text x="536.6666666666666" y="272.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">12</text>
+<rect x="640.7" y="263" width="67.8" height="18" fill="#8fb8e8"/>
+<text x="675.3333333333333" y="272.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4</text>
+<text x="180" y="296.0" font-size="12" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">1.5B go_to + 强制调用</text>
+<rect x="190.0" y="287" width="362.5" height="18" fill="#1baf7a"/>
+<text x="372.0" y="296.0" font-size="10" fill="#fcfcfb" text-anchor="middle" font-weight="normal" dominant-baseline="middle">21</text>
+<rect x="554.0" y="287" width="154.5" height="18" fill="#8fb8e8"/>
+<text x="632.0" y="296.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">9</text>
+<text x="180" y="320.0" font-size="12" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">规则控制器</text>
+<rect x="190.0" y="311" width="362.5" height="18" fill="#1baf7a"/>
+<text x="372.0" y="320.0" font-size="10" fill="#fcfcfb" text-anchor="middle" font-weight="normal" dominant-baseline="middle">21</text>
+<rect x="554.0" y="311" width="154.5" height="18" fill="#8fb8e8"/>
+<text x="632.0" y="320.0" font-size="10" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">9</text>
+</svg>

@@ -2,6 +2,7 @@
 llm.py — 三种大模型后端, 对 Agent 循环暴露同一个接口:
 
     reply = llm.chat(messages, tools)      # tools 为 None 时不提供工具 (讲义案例 ①)
+    reply = llm.chat(messages, tools, require_tool=True)   # 强制这一轮必须调用工具 (讲义第 6 节)
     reply.content      模型说的话 (str)
     reply.tool_calls   [{"id", "name", "arguments"}]; arguments 是模型给出的原始 JSON 字符串, 由安全层去解析
     reply.usage        {"prompt_tokens", "completion_tokens"}
@@ -45,9 +46,11 @@ class ScriptedLLM:
     def __init__(self, script):
         self.script = list(script)
         self.calls = []                      # 每次被调用时收到的 messages (测试可检查)
+        self.required = []                   # 每次调用时是否要求强制调用工具
 
-    def chat(self, messages, tools=None):
+    def chat(self, messages, tools=None, require_tool=False):
         self.calls.append([dict(m) for m in messages])
+        self.required.append(require_tool)
         if not self.script:
             return Reply(content="(剧本用完了)")
         step = self.script.pop(0)
@@ -112,6 +115,8 @@ class LocalLLM:
         self.torch = torch
         self.model_id = model_id
         self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
+        if dtype == "auto" and self.device == "cuda" and not torch.cuda.is_bf16_supported():
+            dtype = torch.float16            # 老显卡 (例如 Colab 免费的 T4) 不支持 bfloat16
         self.tok = AutoTokenizer.from_pretrained(model_id)
         self.model = AutoModelForCausalLM.from_pretrained(model_id, dtype=dtype).to(self.device).eval()
         self.max_new_tokens = max_new_tokens
@@ -135,9 +140,13 @@ class LocalLLM:
             out.append(m)
         return out
 
-    def chat(self, messages, tools=None):
+    def chat(self, messages, tools=None, require_tool=False):
         prompt = self.tok.apply_chat_template(self._to_template(messages), tools=tools,
                                               add_generation_prompt=True, tokenize=False)
+        # 强制调用工具: 替模型把回复的开头写好 "<tool_call>" + 换行, 它只能接着写工具调用的 JSON。
+        # 云端 API 里对应的是 tool_choice="required"。
+        prefix = "<tool_call>\n" if (require_tool and tools) else ""
+        prompt += prefix
         ids = self.tok(prompt, return_tensors="pt").to(self.device)
         t0 = time.perf_counter()
         with self.torch.no_grad():
@@ -147,7 +156,7 @@ class LocalLLM:
             self.torch.cuda.synchronize()
         latency = time.perf_counter() - t0
         new = out[0, ids["input_ids"].shape[1]:]
-        text = self.tok.decode(new, skip_special_tokens=True)
+        text = prefix + self.tok.decode(new, skip_special_tokens=True)
         content, calls = parse_qwen_output(text)
         usage = {"prompt_tokens": int(ids["input_ids"].shape[1]), "completion_tokens": int(new.shape[0])}
         return Reply(content=content, tool_calls=calls, usage=usage, latency_s=latency, raw=text)
@@ -173,10 +182,12 @@ class APILLM:
         self.client = LLMClient(cfg)
         self.model_id = f"{cfg.provider}:{cfg.model}"
 
-    def chat(self, messages, tools=None):
+    def chat(self, messages, tools=None, require_tool=False):
         kwargs = {"model": self.client.config.model, "messages": messages, "temperature": 0}
         if tools:
             kwargs["tools"] = tools
+            if require_tool:
+                kwargs["tool_choice"] = "required"
         t0 = time.perf_counter()
         resp = self.client._client.chat.completions.create(**kwargs)
         latency = time.perf_counter() - t0
