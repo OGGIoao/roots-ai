@@ -6,7 +6,7 @@ import sys
 
 import pytest
 
-B1 = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "mainline", "B1-electronics")
+B1 = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "library", "hardware", "electronics")
 sys.path.insert(0, B1)
 sys.path.insert(0, os.path.join(B1, "experiments"))
 

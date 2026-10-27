@@ -8,7 +8,7 @@ import numpy as np
 import pytest
 
 BANDIT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                      "mainline", "E1-bandit")
+                      "library", "rl", "bandit")
 sys.path.insert(0, BANDIT)
 
 from agents import UCB, EpsilonGreedy, argmax_random_tie  # noqa: E402

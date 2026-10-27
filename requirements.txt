@@ -28,7 +28,7 @@
 # torchvision==0.26.0+cu128
 # torchaudio==2.11.0+cu128
 
-# --- QLoRA 链路 (mainline/C2-tool-finetune) ---
+# --- QLoRA 链路 (library/post-training/tool-finetune) ---
 transformers==5.17.0
 peft==0.20.0
 trl==1.13.0
@@ -39,7 +39,7 @@ sentencepiece==0.2.2
 protobuf==7.36.1
 scipy==1.15.3
 
-# --- Tokenizer 链路 (mainline/A1-bpe 的可选进阶部分) ---
+# --- Tokenizer 链路 (library/llm/bpe 的可选进阶部分) ---
 tokenizers==0.23.2
 regex==2026.9.10
 
@@ -48,7 +48,7 @@ openai==3.14.0
 python-dotenv==1.2.3
 
 # --- 可选 (不装也能跑, 对应演示会 SKIP) ---
-# tiktoken                    # mainline/A1-bpe/modern_tokenizers.py 的 tiktoken 演示
+# tiktoken                    # library/llm/bpe/modern_tokenizers.py 的 tiktoken 演示
 
 # --- 测试 (tests/) ---
 pytest>=8                     # python -m pytest tests -q

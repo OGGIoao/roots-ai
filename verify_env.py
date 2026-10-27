@@ -251,10 +251,10 @@ def check_corpus():
     root = _repo_root()
     cands = {
         "BPE 语料": os.path.join(
-            root, "mainline", "A1-bpe", "data", "tinyshakespeare.txt"
+            root, "library", "llm", "bpe", "data", "tinyshakespeare.txt"
         ),
         "BPE tokenizer": os.path.join(
-            root, "mainline", "A1-bpe", "tokenizer.json"
+            root, "library", "llm", "bpe", "tokenizer.json"
         ),
     }
     for label, path in cands.items():

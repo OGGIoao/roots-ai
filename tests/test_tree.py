@@ -7,7 +7,7 @@ import sys
 import pytest
 import torch
 
-_TREE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "mainline", "A3-attention")
+_TREE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "library", "llm", "attention")
 sys.path.insert(0, _TREE)   # base.py 与 variants.py 都在 A3-attention/
 
 from base import Decoder, apply_rope, rope_table  # noqa: E402

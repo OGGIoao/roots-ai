@@ -5,7 +5,7 @@ svgfig.py — 讲义配图用的极简 SVG 工具 (只依赖标准库)
   Svg    结构图: 方框、箭头、文字 (数据流、张量形状、谁和谁对应)
   Chart  数据图: 单坐标轴折线图 (实测曲线、对比)
 
-用法见 mainline/A3-attention/figures/ 与 mainline/A2-minigpt/figures/ 下的生成脚本。
+用法见 library/llm/attention/figures/ 与 library/llm/minigpt/figures/ 下的生成脚本。
 
 约定 (dataviz 规范):
   - 背景用不透明浅色 BG, GitHub 深色模式下也能看清;

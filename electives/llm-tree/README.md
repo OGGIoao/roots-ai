@@ -20,7 +20,7 @@ Transformer (Vaswani et al., 2017, encoder-decoder)
 ├── Encoder-decoder: T5 系                                  (旁支, 不展开)
 └── Decoder-only ─────────────────────────────────────────── 主干
     └── GPT-2 (2019): Pre-LN, 可学习位置编码, 输出头权重绑定       ✅ A2-minigpt
-        └── LLaMA 配方 (2023): Pre-RMSNorm + RoPE + SwiGLU + 无 bias   🟡 A4-modern-small-model, mainline/A3-attention/base.py
+        └── LLaMA 配方 (2023): Pre-RMSNorm + RoPE + SwiGLU + 无 bias   🟡 A4-modern-small-model, library/llm/attention/base.py
             │
             ├── A. 注意力线 ············ 推理时 KV Cache 太大、长序列计算太贵
             ├── B. 位置编码线 ··········· 训练长度之外怎么办
@@ -33,9 +33,9 @@ Transformer (Vaswani et al., 2017, encoder-decoder)
 ```
 
 **输入层与其它板块的接口**:
-- 分词 (BPE) 是整棵树的输入端: ✅ [A1-bpe](../../mainline/A1-bpe/)
-- 微调 (QLoRA) 是"拿到一个训好的叶子之后怎么改造它": 🟡 [C2-tool-finetune](../../mainline/C2-tool-finetune/)
-- 后训练与推理模型 (RL、GRPO) 见选修 [后训练](../post-training/README.md); 多模态与 VLA 见选修 [四足机器人](../quadruped/README.md) 的 R5 语言与视觉。主线与选修的关系见 [ROADMAP](../../ROADMAP.md)。
+- 分词 (BPE) 是整棵树的输入端: ✅ [A1-bpe](../../library/llm/bpe/)
+- 微调 (QLoRA) 是"拿到一个训好的叶子之后怎么改造它": 🟡 [tool-finetune](../../library/post-training/tool-finetune/)
+- 后训练与推理模型 (RL、GRPO) 见知识库 [后训练](../../library/post-training/README.md); 多模态与 VLA 见选修 [四足机器人](../quadruped/README.md) 的 R5 语言与视觉。主线与选修的关系见 [ROADMAP](../../ROADMAP.md)。
 
 ---
 
@@ -53,7 +53,7 @@ Transformer (Vaswani et al., 2017, encoder-decoder)
 | A6 稀疏注意力 | A4 | 每个查询只挑 top-k 个位置算注意力 | 需要额外的索引器 | DeepSeek-V3.2-Exp 2025 | DeepSeek-V3.2-Exp | ⬜ |
 | A7 Attention sink | A5 | 给注意力一个可以"什么都不看"的出口 | 多一组参数 | Xiao et al. 2023 (StreamingLLM) | gpt-oss | ⬜ |
 
-学习位置: [mainline/A3-attention/](../../mainline/A3-attention/) — [讲义](../../mainline/A3-attention/TUTORIAL.md)、对照实验、推理实验、三级练习
+学习位置: [library/llm/attention/](../../library/llm/attention/) — [讲义](../../library/llm/attention/TUTORIAL.md)、对照实验、推理实验、三级练习
 
 ## B. 位置编码线
 
