@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 494" width="900" height="494" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">对话模板: 把一条条消息拼成一整段文字, 模型只会接着这段文字往下写</text>
+<text x="20" y="42" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">chat_template.render; 橙色: 词表里专门新增的标记, 各占 1 个 token; 蓝底: assistant 自己要写的部分 (微调时只在这里算 loss)</text>
+<text x="130" y="74" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">messages (5 条)</text>
+<rect x="20" y="90" width="220" height="32" rx="3" fill="#efeeea" stroke="#8a8984" stroke-width="0.8"/>
+<text x="30" y="106" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">system: 你是小车。</text>
+<rect x="20" y="134" width="220" height="32" rx="3" fill="#ffffff" stroke="#8a8984" stroke-width="0.8"/>
+<text x="30" y="150" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">user: 往前走 0.5 米</text>
+<rect x="20" y="178" width="220" height="32" rx="3" fill="#dbe9f9" stroke="#8a8984" stroke-width="0.8"/>
+<text x="30" y="194" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">assistant: tool_calls walk(0.5)</text>
+<rect x="20" y="222" width="220" height="32" rx="3" fill="#dcf3e9" stroke="#8a8984" stroke-width="0.8"/>
+<text x="30" y="238" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">tool: {"ok": true}</text>
+<rect x="20" y="266" width="220" height="32" rx="3" fill="#dbe9f9" stroke="#8a8984" stroke-width="0.8"/>
+<text x="30" y="282" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">assistant: 走好了。</text>
+<line x1="250" y1="190" x2="300" y2="190" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="275" y="178" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">render</text>
+<text x="312" y="74" font-size="13" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">模型看到的文字 (一整段, 这里按换行折开)</text>
+<text x="312" y="103" font-size="12.5" font-family="Consolas,'Courier New',monospace" dominant-baseline="middle"><tspan fill="#eb6834" font-weight="bold">&lt;|im_start|&gt;</tspan><tspan fill="#0b0b0b">system</tspan></text>
+<text x="312" y="129" font-size="12.5" font-family="Consolas,'Courier New',monospace" dominant-baseline="middle"><tspan fill="#0b0b0b">你是小车。</tspan><tspan fill="#eb6834" font-weight="bold">&lt;|im_end|&gt;</tspan></text>
+<text x="312" y="155" font-size="12.5" font-family="Consolas,'Courier New',monospace" dominant-baseline="middle"><tspan fill="#eb6834" font-weight="bold">&lt;|im_start|&gt;</tspan><tspan fill="#0b0b0b">user</tspan></text>
+<text x="312" y="181" font-size="12.5" font-family="Consolas,'Courier New',monospace" dominant-baseline="middle"><tspan fill="#0b0b0b">往前走 0.5 米</tspan><tspan fill="#eb6834" font-weight="bold">&lt;|im_end|&gt;</tspan></text>
+<text x="312" y="207" font-size="12.5" font-family="Consolas,'Courier New',monospace" dominant-baseline="middle"><tspan fill="#eb6834" font-weight="bold">&lt;|im_start|&gt;</tspan><tspan fill="#0b0b0b">assistant</tspan></text>
+<rect x="308" y="220" width="560" height="24" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="0.6"/>
+<text x="312" y="233" font-size="12.5" font-family="Consolas,'Courier New',monospace" dominant-baseline="middle"><tspan fill="#eb6834" font-weight="bold">&lt;tool_call&gt;</tspan></text>
+<rect x="308" y="246" width="560" height="24" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="0.6"/>
+<text x="312" y="259" font-size="12.5" font-family="Consolas,'Courier New',monospace" dominant-baseline="middle"><tspan fill="#0b0b0b">{"name": "walk", "arguments": {"distance_m": 0.5}}</tspan></text>
+<rect x="308" y="272" width="560" height="24" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="0.6"/>
+<text x="312" y="285" font-size="12.5" font-family="Consolas,'Courier New',monospace" dominant-baseline="middle"><tspan fill="#eb6834" font-weight="bold">&lt;/tool_call&gt;</tspan><tspan fill="#eb6834" font-weight="bold">&lt;|im_end|&gt;</tspan></text>
+<text x="312" y="311" font-size="12.5" font-family="Consolas,'Courier New',monospace" dominant-baseline="middle"><tspan fill="#eb6834" font-weight="bold">&lt;|im_start|&gt;</tspan><tspan fill="#0b0b0b">user</tspan></text>
+<text x="312" y="337" font-size="12.5" font-family="Consolas,'Courier New',monospace" dominant-baseline="middle"><tspan fill="#0b0b0b">&lt;tool_response&gt;</tspan></text>
+<text x="312" y="363" font-size="12.5" font-family="Consolas,'Courier New',monospace" dominant-baseline="middle"><tspan fill="#0b0b0b">{"ok": true}</tspan></text>
+<text x="312" y="389" font-size="12.5" font-family="Consolas,'Courier New',monospace" dominant-baseline="middle"><tspan fill="#0b0b0b">&lt;/tool_response&gt;</tspan><tspan fill="#eb6834" font-weight="bold">&lt;|im_end|&gt;</tspan></text>
+<text x="312" y="415" font-size="12.5" font-family="Consolas,'Courier New',monospace" dominant-baseline="middle"><tspan fill="#eb6834" font-weight="bold">&lt;|im_start|&gt;</tspan><tspan fill="#0b0b0b">assistant</tspan></text>
+<rect x="308" y="428" width="560" height="24" rx="2" fill="#dbe9f9" stroke="#2a78d6" stroke-width="0.6"/>
+<text x="312" y="441" font-size="12.5" font-family="Consolas,'Courier New',monospace" dominant-baseline="middle"><tspan fill="#0b0b0b">走好了。</tspan><tspan fill="#eb6834" font-weight="bold">&lt;|im_end|&gt;</tspan></text>
+<text x="20" y="478" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">&lt;tool_response&gt; 不是新增标记, 会被切成 &lt; tool _response &gt; 四个普通 token; 没给 system 时模板自动补一句 "You are Qwen..." (讲义第 3 节)</text>
+</svg>

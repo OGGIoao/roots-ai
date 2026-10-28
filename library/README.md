@@ -44,8 +44,8 @@
 | [minigpt](llm/minigpt/TUTORIAL.md) | 从零写一个 GPT-2 结构的小模型并训练 | ✅ | v0.5 | A2 |
 | [attention](llm/attention/TUTORIAL.md) | 注意力变体 (MHA / MQA / GQA / MLA) 与推理延迟 | ✅ | v0.5 | A3 |
 | [modern-small-model](llm/modern-small-model/TUTORIAL.md) | 现代小模型长什么样 (RoPE、RMSNorm、SwiGLU ……) | 🟡 待精简 | v0.5 | A4 |
-| chat-template | 对话模板: 模型怎么分清 system / user / assistant / tool | ⬜ | v0.4, v0.5 | — |
-| decoding | 解码与采样: 贪心、温度、top-p, 为什么评测用贪心 | ⬜ | v0.4 | — |
+| [chat-template](llm/chat-template/TUTORIAL.md) | 对话模板: 模型怎么分清 system / user / assistant / tool | ✅ | v0.4, v0.5 | — |
+| [decoding](llm/decoding/README.md) | 解码与采样: 贪心、温度、top-p, 为什么评测用贪心 | 🟡 | v0.4 | — |
 | local-inference | 本地推理服务与延迟 | ⬜ | v0.5 | C3 |
 | quantization | 量化: 把模型变小变快, 代价是什么 | ⬜ | v0.6, v1.0 | D2 / F1 |
 

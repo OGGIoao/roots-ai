@@ -10,8 +10,8 @@
 | 2 | [minigpt](minigpt/TUTORIAL.md) 从零写并训练一个 GPT | ✅ |
 | 3 | [attention](attention/TUTORIAL.md) 注意力变体与推理延迟 | ✅ |
 | 4 | [modern-small-model](modern-small-model/TUTORIAL.md) 现代小模型长什么样 | 🟡 |
-| 5 | chat-template 对话模板 | ⬜ |
-| 6 | decoding 解码与采样 | ⬜ |
+| 5 | [chat-template](chat-template/TUTORIAL.md) 对话模板 | ✅ |
+| 6 | [decoding](decoding/README.md) 解码与采样 | 🟡 |
 | 7 | local-inference 本地推理服务与延迟 | ⬜ |
 | 8 | quantization 量化 | ⬜ |
 

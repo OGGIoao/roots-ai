@@ -22,8 +22,8 @@ flowchart LR
 | **v0.1 能遥控** | 手机网页遥控前后左右 | [electronics](../library/hardware/electronics/TUTORIAL.md) 🟡 · motor-driver ⬜ · wifi-remote ⬜ | ⬜ |
 | **v0.2 走得准** | 执行 "走 1 米" "转 90 度" | encoder ⬜ · pid ⬜ | ⬜ |
 | **v0.3 不撞墙** | 自己避障; 断网自动停车 | sensors ⬜ · safety-firmware ⬜ | ⬜ |
-| **v0.4 听懂文字** | 打一句话, 大模型调用工具把车开过去 | [agent-loop](../library/agent/agent-loop/TUTORIAL.md) 🟡 | [仿真版](v0.4-text-commands/TUTORIAL.md) 🟡 (真车版 ⬜) |
-| **v0.5 自己的大脑** | 换成自己微调的小模型, 在笔记本上本地运行 | [bpe](../library/llm/bpe/TUTORIAL.md) ✅ · [minigpt](../library/llm/minigpt/TUTORIAL.md) ✅ · [attention](../library/llm/attention/TUTORIAL.md) ✅ · [modern-small-model](../library/llm/modern-small-model/TUTORIAL.md) 🟡 · [tool-finetune](../library/post-training/tool-finetune/README.md) 🟡 · local-inference ⬜ · agent-eval ⬜ | ⬜ |
+| **v0.4 听懂文字** | 打一句话, 大模型调用工具把车开过去 | [agent-loop](../library/agent/agent-loop/TUTORIAL.md) 🟡 · [chat-template](../library/llm/chat-template/TUTORIAL.md) ✅ · [decoding](../library/llm/decoding/README.md) 🟡 | [仿真版](v0.4-text-commands/TUTORIAL.md) 🟡 (真车版 ⬜) |
+| **v0.5 自己的大脑** | 换成自己微调的小模型, 在笔记本上本地运行 | [bpe](../library/llm/bpe/TUTORIAL.md) ✅ · [minigpt](../library/llm/minigpt/TUTORIAL.md) ✅ · [attention](../library/llm/attention/TUTORIAL.md) ✅ · [modern-small-model](../library/llm/modern-small-model/TUTORIAL.md) 🟡 · [chat-template](../library/llm/chat-template/TUTORIAL.md) ✅ · [tool-finetune](../library/post-training/tool-finetune/README.md) 🟡 · local-inference ⬜ · agent-eval ⬜ | ⬜ |
 | **v0.6 看得见** | 用摄像头找到红杯子 | camera ⬜ · quantization ⬜ | ⬜ |
 | **v0.7 自己学** | 仿真里用强化学习训练的控制策略上真车 | [bandit](../library/rl/bandit/TUTORIAL.md) ✅ · q-learning ⬜ · policy-gradient ⬜ · ppo ⬜ · sim2real ⬜ | ⬜ |
 | **v1.0 听得懂话** | 一句语音指挥小车完成任务 | quantization ⬜ · (唤醒词等, 待规划) | ⬜ |

@@ -1,0 +1,865 @@
+{
+ "model": "mistralai/Mistral-7B-Instruct-v0.3",
+ "cases": [
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "你好"
+    },
+    {
+     "role": "assistant",
+     "content": "Hello!"
+    },
+    {
+     "role": "user",
+     "content": "多行\n文字"
+    },
+    {
+     "role": "assistant",
+     "content": "  前后有空格  "
+    }
+   ],
+   "expected": "<s>[INST] 你好[/INST] Hello!</s>[INST] 多行\n文字[/INST] 前后有空格</s>"
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "Hello!"
+    },
+    {
+     "role": "user",
+     "content": "往前走 0.5 米"
+    },
+    {
+     "role": "assistant",
+     "content": "  前后有空格  "
+    }
+   ],
+   "error": "After the optional system message, conversation roles must alternate user/assistant/user/assistant/..."
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "你好"
+    },
+    {
+     "role": "user",
+     "content": "  前后有空格  "
+    },
+    {
+     "role": "user",
+     "content": "Hello!"
+    },
+    {
+     "role": "user",
+     "content": "Hello!"
+    }
+   ],
+   "error": "After the optional system message, conversation roles must alternate user/assistant/user/assistant/..."
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "你好"
+    },
+    {
+     "role": "assistant",
+     "content": "\n换行开头"
+    },
+    {
+     "role": "user",
+     "content": "  前后有空格  "
+    },
+    {
+     "role": "assistant",
+     "content": "你好"
+    }
+   ],
+   "expected": "<s>[INST] 你好[/INST] 换行开头</s>[INST]   前后有空格  [/INST] 你好</s>"
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "  前后有空格  "
+    },
+    {
+     "role": "user",
+     "content": "\n换行开头"
+    },
+    {
+     "role": "user",
+     "content": "Hello!"
+    },
+    {
+     "role": "assistant",
+     "content": "Hello!"
+    },
+    {
+     "role": "user",
+     "content": "  前后有空格  "
+    }
+   ],
+   "error": "After the optional system message, conversation roles must alternate user/assistant/user/assistant/..."
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "Hello!"
+    },
+    {
+     "role": "user",
+     "content": "你好"
+    },
+    {
+     "role": "assistant",
+     "content": "多行\n文字"
+    }
+   ],
+   "expected": "<s>[INST] 你好[/INST] 多行\n文字</s>"
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "\n换行开头"
+    },
+    {
+     "role": "assistant",
+     "content": "多行\n文字"
+    },
+    {
+     "role": "user",
+     "content": "  前后有空格  "
+    },
+    {
+     "role": "assistant",
+     "content": "  前后有空格  "
+    },
+    {
+     "role": "user",
+     "content": "\n换行开头"
+    }
+   ],
+   "expected": "<s>[INST] \n换行开头[/INST] 多行\n文字</s>[INST]   前后有空格  [/INST] 前后有空格</s>[INST] \n换行开头[/INST]"
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "Hello!"
+    },
+    {
+     "role": "assistant",
+     "content": "往前走 0.5 米"
+    }
+   ],
+   "expected": "<s>[INST] Hello![/INST] 往前走 0.5 米</s>"
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "你好"
+    },
+    {
+     "role": "assistant",
+     "content": "  前后有空格  "
+    },
+    {
+     "role": "user",
+     "content": "Hello!"
+    }
+   ],
+   "expected": "<s>[INST] 你好[/INST] 前后有空格</s>[INST] Hello![/INST]"
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "  前后有空格  "
+    },
+    {
+     "role": "user",
+     "content": "  前后有空格  "
+    },
+    {
+     "role": "assistant",
+     "content": "Hello!"
+    },
+    {
+     "role": "user",
+     "content": "  前后有空格  "
+    },
+    {
+     "role": "user",
+     "content": "Hello!"
+    }
+   ],
+   "error": "After the optional system message, conversation roles must alternate user/assistant/user/assistant/..."
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "Hello!"
+    },
+    {
+     "role": "user",
+     "content": "Hello!"
+    },
+    {
+     "role": "assistant",
+     "content": "你好"
+    },
+    {
+     "role": "user",
+     "content": "Hello!"
+    },
+    {
+     "role": "assistant",
+     "content": "  前后有空格  "
+    },
+    {
+     "role": "user",
+     "content": "Hello!"
+    }
+   ],
+   "expected": "<s>[INST] Hello![/INST] 你好</s>[INST] Hello![/INST] 前后有空格</s>[INST] Hello!\n\nHello![/INST]"
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "往前走 0.5 米"
+    },
+    {
+     "role": "user",
+     "content": "往前走 0.5 米"
+    },
+    {
+     "role": "assistant",
+     "content": "\n换行开头"
+    }
+   ],
+   "expected": "<s>[INST] 往前走 0.5 米[/INST] 换行开头</s>"
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "你好"
+    },
+    {
+     "role": "user",
+     "content": "\n换行开头"
+    },
+    {
+     "role": "assistant",
+     "content": "往前走 0.5 米"
+    }
+   ],
+   "expected": "<s>[INST] \n换行开头[/INST] 往前走 0.5 米</s>"
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "\n换行开头"
+    }
+   ],
+   "expected": "<s>[INST] \n换行开头[/INST]"
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "\n换行开头"
+    },
+    {
+     "role": "assistant",
+     "content": "Hello!"
+    },
+    {
+     "role": "user",
+     "content": "往前走 0.5 米"
+    }
+   ],
+   "expected": "<s>[INST] \n换行开头[/INST] Hello!</s>[INST] 往前走 0.5 米[/INST]"
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "多行\n文字"
+    },
+    {
+     "role": "assistant",
+     "content": "多行\n文字"
+    },
+    {
+     "role": "user",
+     "content": "多行\n文字"
+    },
+    {
+     "role": "assistant",
+     "content": "\n换行开头"
+    },
+    {
+     "role": "user",
+     "content": "  前后有空格  "
+    }
+   ],
+   "expected": "<s>[INST] 多行\n文字[/INST] 多行\n文字</s>[INST] 多行\n文字[/INST] 换行开头</s>[INST]   前后有空格  [/INST]"
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "Hello!"
+    },
+    {
+     "role": "user",
+     "content": "多行\n文字"
+    },
+    {
+     "role": "assistant",
+     "content": "  前后有空格  "
+    }
+   ],
+   "expected": "<s>[INST] 多行\n文字[/INST] 前后有空格</s>"
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "你好"
+    },
+    {
+     "role": "assistant",
+     "content": "你好"
+    }
+   ],
+   "expected": "<s>[INST] 你好[/INST] 你好</s>"
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "往前走 0.5 米"
+    },
+    {
+     "role": "assistant",
+     "content": "你好"
+    },
+    {
+     "role": "user",
+     "content": "你好"
+    },
+    {
+     "role": "assistant",
+     "content": "\n换行开头"
+    }
+   ],
+   "expected": "<s>[INST] 往前走 0.5 米[/INST] 你好</s>[INST] 你好[/INST] 换行开头</s>"
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "Hello!"
+    },
+    {
+     "role": "user",
+     "content": "Hello!"
+    },
+    {
+     "role": "assistant",
+     "content": "你好"
+    },
+    {
+     "role": "user",
+     "content": "你好"
+    },
+    {
+     "role": "assistant",
+     "content": "往前走 0.5 米"
+    },
+    {
+     "role": "user",
+     "content": "Hello!"
+    }
+   ],
+   "expected": "<s>[INST] Hello![/INST] 你好</s>[INST] 你好[/INST] 往前走 0.5 米</s>[INST] Hello!\n\nHello![/INST]"
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "多行\n文字"
+    },
+    {
+     "role": "assistant",
+     "content": "你好"
+    }
+   ],
+   "expected": "<s>[INST] 多行\n文字[/INST] 你好</s>"
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "你好"
+    },
+    {
+     "role": "user",
+     "content": "往前走 0.5 米"
+    },
+    {
+     "role": "assistant",
+     "content": "多行\n文字"
+    }
+   ],
+   "expected": "<s>[INST] 往前走 0.5 米[/INST] 多行\n文字</s>"
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "你好"
+    },
+    {
+     "role": "user",
+     "content": "你好"
+    },
+    {
+     "role": "assistant",
+     "content": "Hello!"
+    },
+    {
+     "role": "user",
+     "content": "你好"
+    },
+    {
+     "role": "user",
+     "content": "你好"
+    }
+   ],
+   "error": "After the optional system message, conversation roles must alternate user/assistant/user/assistant/..."
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "\n换行开头"
+    },
+    {
+     "role": "user",
+     "content": "  前后有空格  "
+    },
+    {
+     "role": "assistant",
+     "content": "你好"
+    },
+    {
+     "role": "user",
+     "content": "Hello!"
+    },
+    {
+     "role": "assistant",
+     "content": "Hello!"
+    }
+   ],
+   "expected": "<s>[INST]   前后有空格  [/INST] 你好</s>[INST] Hello![/INST] Hello!</s>"
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "多行\n文字"
+    },
+    {
+     "role": "user",
+     "content": "  前后有空格  "
+    },
+    {
+     "role": "assistant",
+     "content": "\n换行开头"
+    }
+   ],
+   "expected": "<s>[INST]   前后有空格  [/INST] 换行开头</s>"
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "Hello!"
+    },
+    {
+     "role": "user",
+     "content": "\n换行开头"
+    },
+    {
+     "role": "assistant",
+     "content": "你好"
+    }
+   ],
+   "expected": "<s>[INST] \n换行开头[/INST] 你好</s>"
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "往前走 0.5 米"
+    },
+    {
+     "role": "assistant",
+     "content": "  前后有空格  "
+    }
+   ],
+   "expected": "<s>[INST] 往前走 0.5 米[/INST] 前后有空格</s>"
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "多行\n文字"
+    },
+    {
+     "role": "user",
+     "content": "往前走 0.5 米"
+    },
+    {
+     "role": "assistant",
+     "content": "\n换行开头"
+    },
+    {
+     "role": "user",
+     "content": "多行\n文字"
+    },
+    {
+     "role": "user",
+     "content": "Hello!"
+    }
+   ],
+   "error": "After the optional system message, conversation roles must alternate user/assistant/user/assistant/..."
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "  前后有空格  "
+    },
+    {
+     "role": "assistant",
+     "content": "\n换行开头"
+    },
+    {
+     "role": "user",
+     "content": "  前后有空格  "
+    },
+    {
+     "role": "assistant",
+     "content": "\n换行开头"
+    },
+    {
+     "role": "user",
+     "content": "你好"
+    }
+   ],
+   "expected": "<s>[INST]   前后有空格  [/INST] 换行开头</s>[INST]   前后有空格  [/INST] 换行开头</s>[INST] 你好[/INST]"
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "你好"
+    },
+    {
+     "role": "user",
+     "content": "\n换行开头"
+    },
+    {
+     "role": "assistant",
+     "content": "  前后有空格  "
+    },
+    {
+     "role": "user",
+     "content": "往前走 0.5 米"
+    },
+    {
+     "role": "assistant",
+     "content": "多行\n文字"
+    }
+   ],
+   "expected": "<s>[INST] \n换行开头[/INST] 前后有空格</s>[INST] 往前走 0.5 米[/INST] 多行\n文字</s>"
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "  前后有空格  "
+    },
+    {
+     "role": "user",
+     "content": "  前后有空格  "
+    },
+    {
+     "role": "assistant",
+     "content": "\n换行开头"
+    },
+    {
+     "role": "user",
+     "content": "Hello!"
+    },
+    {
+     "role": "assistant",
+     "content": "  前后有空格  "
+    },
+    {
+     "role": "user",
+     "content": "多行\n文字"
+    }
+   ],
+   "expected": "<s>[INST]   前后有空格  [/INST] 换行开头</s>[INST] Hello![/INST] 前后有空格</s>[INST]   前后有空格  \n\n多行\n文字[/INST]"
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "你好"
+    },
+    {
+     "role": "assistant",
+     "content": "往前走 0.5 米"
+    },
+    {
+     "role": "user",
+     "content": "\n换行开头"
+    },
+    {
+     "role": "assistant",
+     "content": "往前走 0.5 米"
+    },
+    {
+     "role": "user",
+     "content": "往前走 0.5 米"
+    }
+   ],
+   "expected": "<s>[INST] 你好[/INST] 往前走 0.5 米</s>[INST] \n换行开头[/INST] 往前走 0.5 米</s>[INST] 往前走 0.5 米[/INST]"
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "\n换行开头"
+    },
+    {
+     "role": "user",
+     "content": "Hello!"
+    }
+   ],
+   "error": "After the optional system message, conversation roles must alternate user/assistant/user/assistant/..."
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "\n换行开头"
+    },
+    {
+     "role": "user",
+     "content": "多行\n文字"
+    },
+    {
+     "role": "assistant",
+     "content": "\n换行开头"
+    },
+    {
+     "role": "user",
+     "content": "你好"
+    },
+    {
+     "role": "assistant",
+     "content": "你好"
+    },
+    {
+     "role": "user",
+     "content": "  前后有空格  "
+    }
+   ],
+   "expected": "<s>[INST] 多行\n文字[/INST] 换行开头</s>[INST] 你好[/INST] 你好</s>[INST] \n换行开头\n\n  前后有空格  [/INST]"
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "Hello!"
+    },
+    {
+     "role": "user",
+     "content": "Hello!"
+    },
+    {
+     "role": "assistant",
+     "content": "你好"
+    }
+   ],
+   "error": "After the optional system message, conversation roles must alternate user/assistant/user/assistant/..."
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "  前后有空格  "
+    },
+    {
+     "role": "assistant",
+     "content": "多行\n文字"
+    },
+    {
+     "role": "user",
+     "content": "你好"
+    }
+   ],
+   "expected": "<s>[INST]   前后有空格  [/INST] 多行\n文字</s>[INST] 你好[/INST]"
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "往前走 0.5 米"
+    },
+    {
+     "role": "assistant",
+     "content": "\n换行开头"
+    },
+    {
+     "role": "user",
+     "content": "你好"
+    }
+   ],
+   "expected": "<s>[INST] 往前走 0.5 米[/INST] 换行开头</s>[INST] 你好[/INST]"
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "你好"
+    },
+    {
+     "role": "user",
+     "content": "\n换行开头"
+    },
+    {
+     "role": "assistant",
+     "content": "你好"
+    },
+    {
+     "role": "user",
+     "content": "往前走 0.5 米"
+    },
+    {
+     "role": "assistant",
+     "content": "你好"
+    }
+   ],
+   "expected": "<s>[INST] \n换行开头[/INST] 你好</s>[INST] 往前走 0.5 米[/INST] 你好</s>"
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "Hello!"
+    },
+    {
+     "role": "assistant",
+     "content": "往前走 0.5 米"
+    },
+    {
+     "role": "user",
+     "content": "你好"
+    },
+    {
+     "role": "assistant",
+     "content": "往前走 0.5 米"
+    },
+    {
+     "role": "user",
+     "content": "  前后有空格  "
+    }
+   ],
+   "expected": "<s>[INST] Hello![/INST] 往前走 0.5 米</s>[INST] 你好[/INST] 往前走 0.5 米</s>[INST]   前后有空格  [/INST]"
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "往前走 0.5 米"
+    },
+    {
+     "role": "user",
+     "content": "多行\n文字"
+    }
+   ],
+   "expected": "<s>[INST] 往前走 0.5 米\n\n多行\n文字[/INST]"
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "a"
+    },
+    {
+     "role": "user",
+     "content": "b"
+    }
+   ],
+   "error": "After the optional system message, conversation roles must alternate user/assistant/user/assistant/..."
+  },
+  {
+   "messages": [
+    {
+     "role": "assistant",
+     "content": "a"
+    }
+   ],
+   "error": "After the optional system message, conversation roles must alternate user/assistant/user/assistant/..."
+  },
+  {
+   "messages": [
+    {
+     "role": "system",
+     "content": "s"
+    },
+    {
+     "role": "assistant",
+     "content": "a"
+    }
+   ],
+   "error": "After the optional system message, conversation roles must alternate user/assistant/user/assistant/..."
+  },
+  {
+   "messages": [
+    {
+     "role": "user",
+     "content": "a"
+    },
+    {
+     "role": "assistant",
+     "content": "b"
+    },
+    {
+     "role": "assistant",
+     "content": "c"
+    }
+   ],
+   "error": "After the optional system message, conversation roles must alternate user/assistant/user/assistant/..."
+  }
+ ]
+}

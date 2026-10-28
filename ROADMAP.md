@@ -24,8 +24,8 @@
 | v0.1 能遥控 | 手机网页遥控 | 硬件: electronics 🟡 · motor-driver ⬜ · wifi-remote ⬜ | ⬜ |
 | v0.2 走得准 | 走 1 米、转 90 度 | 硬件: encoder ⬜ · pid ⬜ | ⬜ |
 | v0.3 不撞墙 | 避障、断网停车 | 硬件: sensors ⬜ · safety-firmware ⬜ | ⬜ |
-| v0.4 听懂文字 | 打字指挥, 大模型调用工具 | Agent: agent-loop 🟡 | 仿真版 🟡 (讲义初稿; 3B、关安全层、搜索提示、API 对照待补) · 真车版 ⬜ |
-| v0.5 自己的大脑 | 自己微调的小模型, 本地运行 | LLM: bpe ✅ · minigpt ✅ · attention ✅ · modern-small-model 🟡 · local-inference ⬜; 后训练: tool-finetune 🟡; Agent: agent-eval ⬜ | ⬜ |
+| v0.4 听懂文字 | 打字指挥, 大模型调用工具 | Agent: agent-loop 🟡; LLM: chat-template ✅ · decoding 🟡 | 仿真版 🟡 (讲义初稿; 3B、关安全层、搜索提示、API 对照待补) · 真车版 ⬜ |
+| v0.5 自己的大脑 | 自己微调的小模型, 本地运行 | LLM: bpe ✅ · minigpt ✅ · attention ✅ · modern-small-model 🟡 · chat-template ✅ · local-inference ⬜; 后训练: tool-finetune 🟡; Agent: agent-eval ⬜ | ⬜ |
 | v0.6 看得见 | 摄像头找红杯子 | 硬件: camera ⬜; LLM: quantization ⬜ | ⬜ |
 | v0.7 自己学 | RL 策略上真车 | RL: bandit ✅ · q-learning ⬜ · policy-gradient ⬜ · ppo ⬜; 具身: sim2real ⬜ | ⬜ |
 | v1.0 听得懂话 | 语音指挥 | 待规划 (唤醒词、量化、全链路评测) | ⬜ |
