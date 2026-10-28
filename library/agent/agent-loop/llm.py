@@ -104,12 +104,15 @@ BARE_CALL_RE = re.compile(r'\{\s*"name"\s*:\s*"[^"]*"\s*,\s*"arguments"\s*:\s*\{
 
 class LocalLLM:
     """
-    本地 transformers 推理。贪心解码 (temperature=0), 同样的输入永远得到同样的输出, 评测可复现。
+    本地 transformers 推理。默认贪心解码 (do_sample=False), 同样的输入得到同样的输出, 评测可复现。
+    注意模型目录里 generation_config.json 的设置会悄悄生效: Qwen2.5 自带 repetition_penalty=1.1, 贪心时也照样执行
+    (知识库 llm/decoding 讲义第 6.3 节)。gen_kwargs 可以覆盖, 例如 {"repetition_penalty": 1.0} 或 {"do_sample": True};
+    采样时用 seed 固定随机数, 结果可复现。
     model_id 例: "Qwen/Qwen2.5-1.5B-Instruct"; 权重从 Hugging Face 缓存加载
     (国内网络可设置 HF_ENDPOINT=https://hf-mirror.com 先下载)。
     """
 
-    def __init__(self, model_id, device=None, dtype="auto", max_new_tokens=256):
+    def __init__(self, model_id, device=None, dtype="auto", max_new_tokens=256, gen_kwargs=None, seed=None):
         import torch
         from transformers import AutoModelForCausalLM, AutoTokenizer
         self.torch = torch
@@ -120,6 +123,9 @@ class LocalLLM:
         self.tok = AutoTokenizer.from_pretrained(model_id)
         self.model = AutoModelForCausalLM.from_pretrained(model_id, dtype=dtype).to(self.device).eval()
         self.max_new_tokens = max_new_tokens
+        self.gen_kwargs = {"do_sample": False, **(gen_kwargs or {})}
+        if seed is not None:
+            torch.manual_seed(seed)
 
     @staticmethod
     def _to_template(messages):
@@ -150,8 +156,8 @@ class LocalLLM:
         ids = self.tok(prompt, return_tensors="pt").to(self.device)
         t0 = time.perf_counter()
         with self.torch.no_grad():
-            out = self.model.generate(**ids, max_new_tokens=self.max_new_tokens, do_sample=False,
-                                      pad_token_id=self.tok.eos_token_id)
+            out = self.model.generate(**ids, max_new_tokens=self.max_new_tokens,
+                                      pad_token_id=self.tok.eos_token_id, **self.gen_kwargs)
         if self.device == "cuda":
             self.torch.cuda.synchronize()
         latency = time.perf_counter() - t0

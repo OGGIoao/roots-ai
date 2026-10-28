@@ -1,0 +1,1139 @@
+{
+ "model": "Qwen/Qwen2.5-0.5B-Instruct",
+ "sampling": {
+  "rep": 1.1,
+  "temp": 0.7,
+  "k": 20,
+  "p": 0.8
+ },
+ "rows": [
+  {
+   "instruction": "去红杯子那里, 停在它跟前",
+   "target": "red_cup",
+   "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"red_cup\"}}\n</tool_call><|im_end|>",
+   "n_tokens": 22,
+   "p_whole_reply_same_under_sampling": 1.0,
+   "n_flips_by_penalty": 0,
+   "weakest": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.8859,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\n",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 0.9996,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    }
+   ],
+   "first_step_top3": {
+    "raw": [
+     [
+      "<tool_call>",
+      0.8859
+     ],
+     [
+      "True",
+      0.0034
+     ],
+     [
+      "<|im_end|>",
+      0.0031
+     ]
+    ],
+    "with_penalty_1.1": [
+     [
+      "<tool_call>",
+      0.5786
+     ],
+     [
+      "True",
+      0.013
+     ],
+     [
+      "yes",
+      0.0109
+     ]
+    ]
+   },
+   "steps": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.8859,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\n",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 0.9996,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "name",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "go",
+     "p_greedy": 0.9979,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "_to",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\",",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "arguments",
+     "p_greedy": 0.9996,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " {\"",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "target",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "red",
+     "p_greedy": 0.9821,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "_c",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "up",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\"}}\n",
+     "p_greedy": 0.9993,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "</tool_call>",
+     "p_greedy": 0.9983,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "<|im_end|>",
+     "p_greedy": 0.9994,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    }
+   ]
+  },
+  {
+   "instruction": "去蓝色的球那里, 停在它跟前",
+   "target": "blue_ball",
+   "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"blue_ball\"}}\n</tool_call><|im_end|>",
+   "n_tokens": 21,
+   "p_whole_reply_same_under_sampling": 1.0,
+   "n_flips_by_penalty": 0,
+   "weakest": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.9467,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\n",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 0.9997,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    }
+   ],
+   "first_step_top3": {
+    "raw": [
+     [
+      "<tool_call>",
+      0.9467
+     ],
+     [
+      "<|im_end|>",
+      0.0024
+     ],
+     [
+      "Go",
+      0.0014
+     ]
+    ],
+    "with_penalty_1.1": [
+     [
+      "<tool_call>",
+      0.7492
+     ],
+     [
+      "Go",
+      0.007
+     ],
+     [
+      "ürü",
+      0.0052
+     ]
+    ]
+   },
+   "steps": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.9467,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\n",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 0.9997,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "name",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "go",
+     "p_greedy": 0.9962,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "_to",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\",",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "arguments",
+     "p_greedy": 0.9996,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " {\"",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "target",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "blue",
+     "p_greedy": 0.998,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "_ball",
+     "p_greedy": 0.9994,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\"}}\n",
+     "p_greedy": 0.9985,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "</tool_call>",
+     "p_greedy": 0.9984,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "<|im_end|>",
+     "p_greedy": 0.9993,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    }
+   ]
+  },
+  {
+   "instruction": "去绿盒子那里, 停在它跟前",
+   "target": "green_box",
+   "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"green_box\"}}\n</tool_call><|im_end|>",
+   "n_tokens": 21,
+   "p_whole_reply_same_under_sampling": 1.0,
+   "n_flips_by_penalty": 0,
+   "weakest": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.936,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\n",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 0.9997,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    }
+   ],
+   "first_step_top3": {
+    "raw": [
+     [
+      "<tool_call>",
+      0.936
+     ],
+     [
+      "<|im_end|>",
+      0.0028
+     ],
+     [
+      "Go",
+      0.0017
+     ]
+    ],
+    "with_penalty_1.1": [
+     [
+      "<tool_call>",
+      0.7102
+     ],
+     [
+      "Go",
+      0.0082
+     ],
+     [
+      "ürü",
+      0.0066
+     ]
+    ]
+   },
+   "steps": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.936,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\n",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 0.9997,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "name",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "go",
+     "p_greedy": 0.9937,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "_to",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\",",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "arguments",
+     "p_greedy": 0.9995,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " {\"",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "target",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "green",
+     "p_greedy": 0.9987,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "_box",
+     "p_greedy": 0.9994,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\"}}\n",
+     "p_greedy": 0.9991,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "</tool_call>",
+     "p_greedy": 0.9984,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "<|im_end|>",
+     "p_greedy": 0.9991,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    }
+   ]
+  },
+  {
+   "instruction": "找到红杯子, 开到它旁边停下",
+   "target": "red_cup",
+   "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"red_cup\"}}\n</tool_call><|im_end|>",
+   "n_tokens": 22,
+   "p_whole_reply_same_under_sampling": 1.0,
+   "n_flips_by_penalty": 0,
+   "weakest": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.959,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\n",
+     "p_greedy": 0.9998,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 0.9997,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    }
+   ],
+   "first_step_top3": {
+    "raw": [
+     [
+      "<tool_call>",
+      0.959
+     ],
+     [
+      "<|im_end|>",
+      0.0023
+     ],
+     [
+      "ürü",
+      0.0008
+     ]
+    ],
+    "with_penalty_1.1": [
+     [
+      "<tool_call>",
+      0.7995
+     ],
+     [
+      "ürü",
+      0.0043
+     ],
+     [
+      "ngo",
+      0.0035
+     ]
+    ]
+   },
+   "steps": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.959,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\n",
+     "p_greedy": 0.9998,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 0.9997,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "name",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "go",
+     "p_greedy": 0.9763,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "_to",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\",",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "arguments",
+     "p_greedy": 0.9996,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " {\"",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "target",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "red",
+     "p_greedy": 0.9916,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "_c",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "up",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\"}}\n",
+     "p_greedy": 0.9988,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "</tool_call>",
+     "p_greedy": 0.9983,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "<|im_end|>",
+     "p_greedy": 0.9993,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    }
+   ]
+  },
+  {
+   "instruction": "找到蓝色的球, 开到它旁边停下",
+   "target": "blue_ball",
+   "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"blue_ball\"}}\n</tool_call><|im_end|>",
+   "n_tokens": 21,
+   "p_whole_reply_same_under_sampling": 1.0,
+   "n_flips_by_penalty": 0,
+   "weakest": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.978,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\n",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 0.9997,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    }
+   ],
+   "first_step_top3": {
+    "raw": [
+     [
+      "<tool_call>",
+      0.978
+     ],
+     [
+      "<|im_end|>",
+      0.0016
+     ],
+     [
+      "ngo",
+      0.0006
+     ]
+    ],
+    "with_penalty_1.1": [
+     [
+      "<tool_call>",
+      0.8787
+     ],
+     [
+      "ngo",
+      0.0036
+     ],
+     [
+      "ürü",
+      0.0028
+     ]
+    ]
+   },
+   "steps": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.978,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\n",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 0.9997,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "name",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "go",
+     "p_greedy": 0.7725,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "_to",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\",",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "arguments",
+     "p_greedy": 0.9996,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " {\"",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "target",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "blue",
+     "p_greedy": 0.9991,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "_ball",
+     "p_greedy": 0.9994,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\"}}\n",
+     "p_greedy": 0.9978,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "</tool_call>",
+     "p_greedy": 0.9983,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "<|im_end|>",
+     "p_greedy": 0.9989,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    }
+   ]
+  },
+  {
+   "instruction": "找到绿盒子, 开到它旁边停下",
+   "target": "green_box",
+   "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"green_box\"}}\n</tool_call><|im_end|>",
+   "n_tokens": 21,
+   "p_whole_reply_same_under_sampling": 0.7656,
+   "n_flips_by_penalty": 0,
+   "weakest": [
+    {
+     "token": "go",
+     "p_greedy": 0.7128,
+     "p_keep_sample": 0.7656,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.9837,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\n",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    }
+   ],
+   "first_step_top3": {
+    "raw": [
+     [
+      "<tool_call>",
+      0.9837
+     ],
+     [
+      "<|im_end|>",
+      0.0013
+     ],
+     [
+      "ürü",
+      0.0003
+     ]
+    ],
+    "with_penalty_1.1": [
+     [
+      "<tool_call>",
+      0.9053
+     ],
+     [
+      "<|im_end|>",
+      0.0022
+     ],
+     [
+      "ürü",
+      0.002
+     ]
+    ]
+   },
+   "steps": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.9837,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\n",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 0.9997,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "name",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "go",
+     "p_greedy": 0.7128,
+     "p_keep_sample": 0.7656,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "_to",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\",",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "arguments",
+     "p_greedy": 0.9996,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " {\"",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "target",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "green",
+     "p_greedy": 0.9996,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "_box",
+     "p_greedy": 0.9996,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "\"}}\n",
+     "p_greedy": 0.9987,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "</tool_call>",
+     "p_greedy": 0.9983,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    },
+    {
+     "token": "<|im_end|>",
+     "p_greedy": 0.999,
+     "p_keep_sample": 1.0,
+     "flip_by_penalty": false
+    }
+   ]
+  }
+ ]
+}

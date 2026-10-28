@@ -93,3 +93,17 @@ def test_exercise_tests_pass_on_reference():
     r = subprocess.run([sys.executable, "-m", "pytest", "-q", "-p", "no:cacheprovider", "."],
                        cwd=os.path.join(UNIT, "exercises"), env=env, capture_output=True, text=True)
     assert r.returncode == 0, r.stdout[-2000:]
+
+
+def test_real_model_numbers_used_in_tutorial():
+    station = os.path.join(ROOT, "projects", "car", "v0.4-text-commands", "results")
+    with open(os.path.join(station, "decoding_compare.json"), encoding="utf-8") as f:
+        c = json.load(f)
+    s = c["settings"]
+    assert s["已公开: 贪心 + 自带重复惩罚 1.1"]["success"] == 14
+    assert s["贪心, 关掉重复惩罚 (1.0)"]["success"] == 18
+    assert c["rerun_check"]["success_same"] == c["rerun_check"]["first_reply_same"] == 30
+    with open(os.path.join(UNIT, "experiments", "results", "token_confidence_Qwen2.5-1.5B-Instruct.json"),
+              encoding="utf-8") as f:
+        t = json.load(f)
+    assert sum(r["n_flips_by_penalty"] > 0 for r in t["rows"]) == 3

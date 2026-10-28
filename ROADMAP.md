@@ -9,7 +9,7 @@
 |---|---|
 | 知识库 | 192 个单元中 5 个完成、7 个进行中 (逐个单元的状态见 [library/README.md](library/README.md)) |
 | 基座线 roots-lm | ⬜ 未开始 |
-| 项目 ① 小车 | v0.4 仿真版 🟡 (讲义初稿; 3B、关安全层、搜索提示、API 对照、关掉重复惩罚待补); 其余各站 ⬜ |
+| 项目 ① 小车 | v0.4 仿真版 🟡 (讲义初稿; 解码设置对照已测 (2026-10-29); 3B、关安全层、搜索提示、API 对照待补); 其余各站 ⬜ |
 | 项目 ② 学习助教 | ⬜ |
 | 项目 ③ 推理服务 | ⬜ |
 
@@ -20,7 +20,7 @@
 | 步 | 内容 | 状态 |
 |---|---|---|
 | 0 | 收尾 (对话模板、解码核心) + 改结构 (三层目录) + 仓库改名为 roots-ai | ✅ 2026-10-28 |
-| 1 | 小车 v0.4 → v0.5 要用的单元: decoding 收尾、structured-output、local-inference、quantization、agent-eval; 基础领域核心: dev-environment、linear-algebra、calculus、probability、autograd、pytorch-basics | ⬜ |
+| 1 | 小车 v0.4 → v0.5 要用的单元: decoding 收尾 (✅ 2026-10-29)、structured-output、local-inference、quantization、agent-eval; 基础领域核心: dev-environment、linear-algebra、calculus、probability、autograd、pytorch-basics | ⬜ |
 | 2 | 基座线阶段 1 (笔记本全流程) + 小车 v0.7 前半: 预训练段、后训练 P1/P3、强化学习 R0–R3 | ⬜ |
 | 3 | 学习助教 (Agent A3、A7、A8)、推理服务 (自写推理引擎系列)、小车世界模型 (具身 E4) | ⬜ |
 | 4 | 基座线阶段 2–4 (上云、前沿部件、多模态); 各 🔥 单元; 硬件随小车各站推进 | ⬜ |
