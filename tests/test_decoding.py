@@ -62,3 +62,34 @@ def test_recorded_hf_check():
 def math_log(p):
     import math
     return math.log(p)
+
+
+def test_toy_experiment_numbers_used_in_tutorial():
+    with open(os.path.join(UNIT, "experiments", "results", "toy_experiments.json"), encoding="utf-8") as f:
+        r = json.load(f)
+    assert all(d["cycle"] for d in r["greedy_loops"])                       # 第 2 节: 5 个开头全部转圈
+    rows = {x["setting"]: x for x in r["tradeoff"]}
+    assert rows["贪心 + 重复惩罚 2.0"]["loop_rate"] == 1.0                     # 第 5.1 节
+    assert rows["温度 1.0"]["loop_rate"] == 0.0
+    shift = {x["shift"]: x["p_e_after"] for x in r["penalty_shift"]["rows"]}  # 第 5.2 节
+    assert shift[0.0] > 0.3 and shift[-20.0] < 0.01 and shift[20.0] < 0.05
+
+
+def test_beam_width_one_is_greedy_on_toylm():
+    from beam import beam_search
+    from generate import generate
+    from toy_lm import ToyLM
+    lm = ToyLM.from_corpus()
+
+    def step(ids):
+        return lm.logits(lm.decode(ids[-2:]))
+    p = lm.encode("ROMEO:\n")
+    assert beam_search(step, p, 1, 30)[0] == generate(step, p, 30, do_sample=False)[0]
+
+
+def test_exercise_tests_pass_on_reference():
+    import subprocess
+    env = dict(os.environ, DEC_SOLUTION="reference", PYTHONIOENCODING="utf-8")
+    r = subprocess.run([sys.executable, "-m", "pytest", "-q", "-p", "no:cacheprovider", "."],
+                       cwd=os.path.join(UNIT, "exercises"), env=env, capture_output=True, text=True)
+    assert r.returncode == 0, r.stdout[-2000:]

@@ -1,29 +1,66 @@
-# 解码与采样 (知识库 · 大语言模型 · 第 6 单元) 🟡 进行中
+# 解码与采样 (知识库 · 大语言模型 · 第 6 单元)
 
-> 模型每一步给词表里每个 token 打一个分。怎么从这些分数里挑出下一个 token, 就是解码: 贪心 (每次选最高分), 还是按概率抽签; 抽签前要不要先砍掉不靠谱的候选 (top-k、top-p、min-p), 要不要惩罚重复。
-> 用到它的小车站: [v0.4 听懂文字](../../../projects/car/v0.4-text-commands/TUTORIAL.md) (评测为什么用贪心, 工具调用的 JSON 经不经得起抽签)。
-> 温度和 top-k 的基础 (含字符级小模型上的实测) 已在 [minigpt 讲义第 11 节](../minigpt/TUTORIAL.md#11-生成-一次一个字符); 本单元从那里接着讲。
+> 模型每一步给词表里每个 token 打一个分。怎么从这些分数里挑出下一个 token, 就是解码: 贪心、按概率抽签、抽签前划掉不靠谱的候选 (top-k、top-p、min-p)、惩罚重复、束搜索, 以及什么时候停。
+> 讲义: [TUTORIAL.md](TUTORIAL.md)。用到它的小车站: [v0.4 听懂文字](../../../projects/car/v0.4-text-commands/TUTORIAL.md) (评测为什么用贪心, 工具调用的 JSON 经不经得起抽签)。
+> 温度和 top-k 的基础在 [minigpt 讲义第 11 节](../minigpt/TUTORIAL.md#11-生成-一次一个字符); 本单元从那里接着讲。
 
-**只需要 Python**: `sampling.py` 只用标准库。
+**只需要 Python**: 实验对象是一个从莎士比亚语料数出来的字符级三元模型 (`toy_lm.py`), 一秒内建好, 不用下载模型, 不用显卡。
 
-## 已完成
+## 实测要点
 
-| 内容 | 文件 | 实测 |
+| 结论 | 数字 | 讲义 |
 |---|---|---|
-| 手写解码的每一步: 重复惩罚 → 温度 → top-k → top-p → min-p → 贪心 / 采样, 顺序和 transformers 的 `generate` 一致 | `sampling.py` | — |
-| 和 transformers 的处理器逐一核对 | `experiments/check_against_hf.py` | 2000 组随机打分: 每一步都相同; top-p 有 348 组只差在"几个同分 token 留哪个" (排序时并列的先后), 没有真正的不同 |
-| 贪心时模型自带的重复惩罚还在不在 | `experiments/greedy_still_penalizes.py` | **在**。Qwen2.5 自带 `repetition_penalty=1.1`; `generate(do_sample=False)` 只跳过温度、top-k、top-p, 重复惩罚照样执行。v0.4 的评测数字因此是 "贪心 + 重复惩罚 1.1" 下测的 |
+| 贪心会转圈 | 5 个开头全部在第 2~4 个字符掉进 "the " 的循环 | 2 |
+| 温度 1.0 写出的文字最接近语料本身 | 平均对数概率 -1.94, 语料本身 -1.89 | 3 |
+| top-p、min-p 随把握大小伸缩, top-k 是死数 | 没把握时 top-p 留 14 个、top-k 只留 5 个 | 4 |
+| 重复惩罚救不了贪心的转圈 | 惩罚加到 2.0 仍然 100% 转圈 | 5.1 |
+| 重复惩罚的力度取决于 logits 的整体平移 | 同一分布同样 1.3 的惩罚, "e" 的概率可以变成 0.40, 也可以变成 0.002 | 5.2 |
+| 贪心时模型自带的重复惩罚照样生效 | Qwen2.5 自带 1.1; v0.4 的数字是 "贪心 + 重复惩罚 1.1" | 6.3 |
+| 手写的每一步和 transformers 一致 | 2000 组随机打分, 只有并列 token 的取舍不同 | 6.2 |
+| 束搜索总分更高, 照样转圈 | 束宽 1→8, 总分 -41.67→-39.79, 全是 "the the" | 7 |
+
+**还没有数据** (要加载真实模型): v0.4 提示下工具调用每个 token 的把握; 用采样设置跑 v0.4 的成功率; 关掉重复惩罚后的成功率。见讲义第 8.3 节。
+
+## 文件
+
+```
+decoding/
+├── TUTORIAL.md      讲义
+├── sampling.py      解码的每一步 (只用标准库)
+├── generate.py      生成循环与停止条件
+├── beam.py          束搜索
+├── toy_lm.py        字符级三元模型 (实验对象)
+├── experiments/     toy_experiments.py (标准库)、check_against_hf.py、greedy_still_penalizes.py; results/
+├── figures/         make_charts.py 生成的图
+└── exercises/       三道练习 + 验收测试
+```
+
+## 运行
 
 ```bash
 cd library/llm/decoding
-python sampling.py                              # 6 个 token 的小例子, 看每一步把概率改成什么样
-python experiments/check_against_hf.py          # 需要 transformers, 不需要模型, CPU 几秒
-python experiments/greedy_still_penalizes.py    # 需要 transformers 和 Qwen2.5 的生成配置文件 (几百字节)
+python sampling.py                        # 6 个 token 的小例子
+python experiments/toy_experiments.py     # 第 2~5 节的全部数字, 约 10 秒
+cd exercises && python -m pytest test_ex1.py -q
 ```
 
-## 待做
+## 练习
 
-- 讲义 `TUTORIAL.md` 与三级练习;
-- 在真实模型上测: 小车提示下, 工具调用的每个 token 模型有多大把握; 用模型自带的采样设置时, 工具调用 JSON 写坏的比例; 关掉重复惩罚后 v0.4 的成功率。这几项要加载模型 (其中评测要用显卡), 暂时**没有数据**。
+| 级别 | 练习 | 验收 |
+|---|---|---|
+| ① 填空 | `ex1_filters_fill.py`: 补全 top-p、min-p、重复惩罚 | 600 组随机打分上和参考实现逐位相同 |
+| ② 接口 | `ex2_generate.py`: 带三种停止条件的生成循环 | 和参考实现在 ToyLM 上逐字一致 |
+| ③ 白纸 | `ex3_beam_blank.py`: 束搜索 | 束够宽时等于穷举, 束宽 1 等于贪心 |
 
-LLM 领域的全部单元见 [library/llm](../README.md)。
+### 掌握程度自测
+
+| 测试方式 | 达标标准 |
+|---|---|
+| 看代码讲逻辑 | 能说清 `sampling.py` 每一步, 包括 top-k 怎么处理并列、重复惩罚为什么按正负号分开 |
+| 不看参考写 | 练习 ① 一次写对 |
+| 白纸写 | 20 分钟内写出束搜索, 并说出它为什么照样会转圈 |
+| 能讲权衡 | 说清评测为什么用贪心、贪心不保证什么、重复惩罚为什么脆 |
+
+---
+
+*上一单元: [chat-template](../chat-template/TUTORIAL.md); 下一单元: structured-output 约束解码 (规划中)。*
