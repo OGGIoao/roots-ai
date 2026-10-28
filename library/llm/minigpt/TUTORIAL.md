@@ -90,7 +90,7 @@
 ### 1.2 先跑起来
 
 ```bash
-conda activate roots-car
+conda activate roots-ai
 cd library/llm/minigpt
 python train.py --config nano          # 默认 5000 步, 本机约 30 秒
 ```

@@ -585,11 +585,11 @@ RuntimeWarning: invalid value encountered in divide
 
 ### 9.3 `conda run` 打印中文时崩溃
 
-**现象**: 用 `conda run -n roots-car python env.py` 运行, conda 自己报 `UnicodeEncodeError: 'gbk' codec can't encode character`, 脚本的输出一行都没打印出来。
+**现象**: 用 `conda run -n roots-ai python env.py` 运行, conda 自己报 `UnicodeEncodeError: 'gbk' codec can't encode character`, 脚本的输出一行都没打印出来。
 
 **原因**: `conda run` 会捕获子进程的输出, 再用控制台的编码 (中文 Windows 是 GBK) 重新打印; 子进程按 UTF-8 输出的中文和特殊符号经过这一转手就出错了。出错的是 conda, 不是脚本。
 
-**解决**: 先 `conda activate roots-car` 再直接 `python ...`; 或者直接调用环境里的 python, 并设置 `PYTHONIOENCODING=utf-8`。
+**解决**: 先 `conda activate roots-ai` 再直接 `python ...`; 或者直接调用环境里的 python, 并设置 `PYTHONIOENCODING=utf-8`。
 
 ### 9.4 画 UCB 图时负的估计值"消失"了
 

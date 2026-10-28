@@ -3,7 +3,7 @@
 > 对仿真小车打一句 "去红杯子那里, 停在它跟前", 大模型通过工具调用把车开过去; 在 30 个任务上实测各种写法、各种模型的成败。
 > 讲义: [TUTORIAL.md](TUTORIAL.md)。**先读** 知识库 [Agent 循环](../../../library/agent/agent-loop/TUTORIAL.md)。
 >
-> [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OGGIoao/roots-car/blob/master/projects/car/v0.4-text-commands/colab.ipynb)
+> [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OGGIoao/roots-ai/blob/master/projects/car/v0.4-text-commands/colab.ipynb)
 
 ## 几个实测结论 (Qwen2.5-1.5B, 每组 30 个任务)
 

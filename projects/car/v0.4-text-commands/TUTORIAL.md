@@ -70,15 +70,15 @@
 推荐用 conda 建一个干净的环境 (没有的话先装 [Miniconda](https://docs.conda.io/en/latest/miniconda.html)):
 
 ```bash
-conda create -n roots-car python=3.10 pip -y
-conda activate roots-car
+conda create -n roots-ai python=3.10 pip -y
+conda activate roots-ai
 ```
 
 ### 1.3 第 2 步: 下载本仓库
 
 ```bash
-git clone https://github.com/OGGIoao/roots-car.git
-cd roots-car
+git clone https://github.com/OGGIoao/roots-ai.git
+cd roots-ai
 ```
 
 ### 1.4 第 3 步: 安装依赖 (按你的路线)

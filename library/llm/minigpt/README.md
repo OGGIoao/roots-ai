@@ -1,6 +1,6 @@
 # A2-minigpt — 从零训练 GPT-2
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OGGIoao/roots-car/blob/master/library/llm/minigpt/colab.ipynb) 不想在自己电脑上装环境? 点这个按钮, 在浏览器里直接运行本章 ([colab.ipynb](colab.ipynb))。
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OGGIoao/roots-ai/blob/master/library/llm/minigpt/colab.ipynb) 不想在自己电脑上装环境? 点这个按钮, 在浏览器里直接运行本章 ([colab.ipynb](colab.ipynb))。
 
 > 复现 Karpathy nanoGPT 流程, 用 Tiny Shakespeare 数据集从零训练一个 GPT-2 级别的语言模型。
 

@@ -1,6 +1,6 @@
 # A1-bpe — 从零实现字节级 BPE 分词器
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OGGIoao/roots-car/blob/master/library/llm/bpe/colab.ipynb) 不想在自己电脑上装环境? 点这个按钮, 在浏览器里直接运行本章 ([colab.ipynb](colab.ipynb))。
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OGGIoao/roots-ai/blob/master/library/llm/bpe/colab.ipynb) 不想在自己电脑上装环境? 点这个按钮, 在浏览器里直接运行本章 ([colab.ipynb](colab.ipynb))。
 
 > LLM 的第一道工序: 把文字变成整数。本项目用不到 400 行纯 Python (无第三方依赖) 实现 GPT-2 式的字节级 BPE,
 > 在 TinyShakespeare 上训练、编码、解码, 并与 GPT-2、Qwen2.5、DeepSeek-V3 等 12 个真实分词器对照。
