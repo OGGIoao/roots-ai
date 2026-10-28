@@ -7,7 +7,7 @@
 | 内容 | 位置 | 来源 | 许可 / 说明 |
 |---|---|---|---|
 | Tiny Shakespeare 语料 (约 1.1 MB) | [library/llm/bpe/data/tinyshakespeare.txt](library/llm/bpe/data/tinyshakespeare.txt) | [karpathy/char-rnn](https://github.com/karpathy/char-rnn) 仓库中的 `data/tinyshakespeare/input.txt` | 文本是莎士比亚的作品, 属于公有领域; 整理版本出自上述仓库 |
-| 开源模型的配置与张量名快照 | [electives/llm-anatomy/snapshots/](electives/llm-anatomy/snapshots/) | 各模型在 Hugging Face 上公开的 `config.json` 与权重索引 (只有超参数和张量名, **不含任何权重**) | 归各模型的发布者所有, 适用各自的模型许可; 受限仓库 (如 Llama) 未抓取内容 |
+| 开源模型的配置与张量名快照 | [library/frontier/anatomy/snapshots/](library/frontier/anatomy/snapshots/) | 各模型在 Hugging Face 上公开的 `config.json` 与权重索引 (只有超参数和张量名, **不含任何权重**) | 归各模型的发布者所有, 适用各自的模型许可; 受限仓库 (如 Llama) 未抓取内容 |
 
 ## 参考过的实现
 

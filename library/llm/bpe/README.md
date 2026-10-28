@@ -81,4 +81,4 @@ python -m pytest test_ex1.py -q
 
 ---
 
-*下一步: [A2-minigpt](../minigpt/) 把一个 GPT 从零训练起来; LLM 线的全貌见 [LLM 架构生长树 (选修)](../../../electives/llm-tree/README.md)。*
+*下一步: [A2-minigpt](../minigpt/) 把一个 GPT 从零训练起来; LLM 线的全貌见 [LLM 架构生长树 (选修)](../llm-tree/README.md)。*

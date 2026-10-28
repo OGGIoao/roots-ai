@@ -2,8 +2,8 @@
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/OGGIoao/roots-car/blob/master/library/llm/attention/colab.ipynb) 不想在自己电脑上装环境? 点这个按钮, 在浏览器里直接运行本章 ([colab.ipynb](colab.ipynb))。
 
-> 主线第 A3 章, 服务于 v0.5 (小车用自己的模型): 小车从听到指令到开始动, 一大块时间花在模型生成上, 而生成速度很大程度由注意力的 KV Cache 决定。
-> 整棵架构树 (位置编码、MoE、归一化、替代架构等) 在选修 [electives/llm-tree](../../../electives/llm-tree/README.md); 真实模型的数据见 [解剖台](../../../electives/llm-anatomy/ANATOMY.md)。
+> 知识库 · 大语言模型单元, 服务于小车 v0.5 (小车用自己的模型): 小车从听到指令到开始动, 一大块时间花在模型生成上, 而生成速度很大程度由注意力的 KV Cache 决定。
+> 整棵架构树 (位置编码、MoE、归一化、替代架构等) 在 [LLM 架构生长树](../llm-tree/README.md); 真实模型的数据见 [解剖台](../../frontier/anatomy/ANATOMY.md)。
 
 讲义: [TUTORIAL.md](TUTORIAL.md)。每个注意力变体回答四个问题:
 

@@ -1,7 +1,7 @@
 """
 tools.py — 小车的工具定义 (给大模型看的说明书) 与安全层 (大模型说什么都要先过这一关)
 
-工具接口和 PRODUCT.md 第 4 节一致: walk / turn / stop / look / get_pose。
+工具接口和 projects/car/PRODUCT.md 第 4 节一致: walk / turn / stop / look / get_pose。
 
 两部分:
   1. TOOL_SCHEMAS: OpenAI 风格的 JSON Schema。大模型靠它知道有哪些工具、参数叫什么、单位是什么。

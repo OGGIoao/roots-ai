@@ -1,6 +1,6 @@
 # 贡献与写作规范
 
-本仓库每一章都由 **讲义 + 参考实现 + 三级练习** 组成。新增或修改章节时请遵守下面的规范; 整体方向见 [ROADMAP](ROADMAP.md), 产品目标见 [PRODUCT.md](PRODUCT.md)。
+本仓库每一章都由 **讲义 + 参考实现 + 三级练习** 组成。新增或修改章节时请遵守下面的规范; 整体方向见 [ROADMAP](ROADMAP.md), 产品目标见 [PRODUCT.md](projects/car/PRODUCT.md)。
 
 ## 1. 讲义规范
 
@@ -52,14 +52,16 @@
 
 ## 3. 仓库组织
 
-- 三块 (见 ROADMAP 第 1 节):
-  - **主线** `mainline/v0.x-<名字>/`: 一站一个版本, 只讲 "这一步在车上做什么、怎么跑、实测结果如何"; 用到的原理**链接到知识库, 不重讲**;
-  - **知识库** `library/<领域>/<单元>/`: 一个知识点一份讲义, 颗粒度参照 [bpe](library/llm/bpe/TUTORIAL.md); 领域为 hardware / llm / agent / rl / post-training / embodied;
-  - **选修** `electives/`: 不在造车路上的深入内容。
-- 新内容先回答 "造车的哪一站需要它": 需要的进知识库 (并在 [library/README.md](library/README.md) 的总目录里登记、写明用到它的站), 不需要的进选修。
-- 每份讲义开头写明: **前置** (要先读哪些单元, 附链接)、**用到它的主线站**、怎么运行 (含没有显卡时怎么办)。面向零基础读者: 第一次出现的术语先给一句人话。
+- 三层 (见 [FRAMEWORK.md](FRAMEWORK.md)):
+  - **知识库** `library/<领域>/<单元>/`: 一个知识点一份讲义, 颗粒度参照 [bpe](library/llm/bpe/TUTORIAL.md); 8 个领域为 foundations / hardware / llm / agent / rl / post-training / embodied / multimodal;
+  - **基座线** `base/`: 自己从零训的小模型 roots-lm;
+  - **项目** `projects/<项目>/`: 每个项目一站一个版本 (例如 `projects/car/v0.x-<名字>/`), 只讲 "这一步做了什么、怎么跑、实测结果如何"; 用到的原理**链接到知识库, 不重讲**;
+  - **选修** `electives/`: 暂时不属于任何一层的内容。
+- 新知识点进知识库, 并在 [tools/make_catalog.py](tools/make_catalog.py) 里登记 (写明用到它的项目站号或基座阶段), 然后运行 `python tools/make_catalog.py` 重新生成总目录; 不要手改 `<!-- catalog:start -->` 与 `<!-- catalog:end -->` 之间的内容。
+- 前沿内容先登记进 [前沿雷达](library/frontier/radar.md), 用技术报告、模型配置或源码核实后再写进单元的 "前沿对照" 一节。
+- 每份讲义开头写明: **前置** (要先读哪些单元, 附链接)、**用到它的项目与基座阶段**、怎么运行 (含没有显卡时怎么办)。面向零基础读者: 第一次出现的术语先给一句人话。
 - 实测数字要写清楚测量环境; 没测过的写 "没有数据", 不用估算冒充实测。
-- 多个单元共用的代码放 `common/`; 所有站共用的仿真小车放 `sim/`。
+- 多个单元共用的代码放 `common/`; 仿真小车放 `sim/`。
 - 依赖只有一份: 根目录 [requirements.txt](requirements.txt), 子项目不单独维护 requirements。
 - 往主环境装新包前先 `pip install --dry-run`, 确认不会替换已装好的 torch。
 - 实验结果入库 (`results/`), 让图和讲义里的数字可以追溯; 模型权重、checkpoint 不入库。

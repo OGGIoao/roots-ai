@@ -74,7 +74,7 @@ class MultiHeadLatentAttention(nn.Module):
       - rope 段 (d_rope 维): 旋转, K 直接由 x 投影得到, 并且**所有头共用一份** (所以缓存很小)。
     推理时每个 token 每层缓存 kv_rank + d_rope 个数。
 
-    字段名对应真实模型 (见 electives/llm-anatomy 的张量名):
+    字段名对应真实模型 (见 library/frontier/anatomy 的张量名):
       w_dkv  ↔ self_attn.kv_a_proj_with_mqa   x → [潜向量 c, 共享 RoPE 键]
       kv_norm↔ self_attn.kv_a_layernorm       对潜向量做 RMSNorm
       w_ukv  ↔ self_attn.kv_b_proj            c → 每个头的 [K_nope, V]

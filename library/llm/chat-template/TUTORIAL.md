@@ -26,7 +26,7 @@
 | | |
 |---|---|
 | 领域 | 知识库 · 大语言模型 ([目录](../README.md)) |
-| 用到它的主线站 | [v0.4 听懂文字](../../../mainline/v0.4-text-commands/TUTORIAL.md): 小车的每一轮对话都要先拼成模板, 再交给模型; [v0.5 自己的大脑](../../../mainline/README.md): 微调时要知道哪些 token 算 loss (第 6 节) |
+| 用到它的小车站 | [v0.4 听懂文字](../../../projects/car/v0.4-text-commands/TUTORIAL.md): 小车的每一轮对话都要先拼成模板, 再交给模型; [v0.5 自己的大脑](../../../projects/car/README.md): 微调时要知道哪些 token 算 loss (第 6 节) |
 | 和它相邻的单元 | 上游 [bpe 分词](../bpe/TUTORIAL.md); 下游 [agent-loop](../../agent/agent-loop/TUTORIAL.md) (消息与工具调用)、[tool-finetune](../../post-training/tool-finetune/README.md) (用模板拼训练数据) |
 
 ### 0.2 需要先知道什么
@@ -71,7 +71,7 @@ python experiments/measure_tokens.py       # 约 7 秒
 python experiments/template_zoo.py         # 第一次要下载 8 个模型的模板文件
 ```
 
-作者的环境: Windows 11, Python 3.10, transformers 5.17.0 (完整环境见 [v0.4 讲义的配置一节](../../../mainline/v0.4-text-commands/TUTORIAL.md))。
+作者的环境: Windows 11, Python 3.10, transformers 5.17.0 (完整环境见 [v0.4 讲义的配置一节](../../../projects/car/v0.4-text-commands/TUTORIAL.md))。
 
 ### 0.4 怎么读
 
@@ -314,7 +314,7 @@ OpenAI 的接口格式里, 工具调用的 `arguments` 是 **JSON 字符串** `'
 
 1. **工具说明占了七成**, 比系统提示还长一倍多。最长的 `walk` 一个就 152 个 token, 因为它的参数说明写得详细 (范围、单位、正负号的意思)。
 2. **模板本身几乎不花钱**, 13 个 token。
-3. v0.4 的 **skill 模式**只给模型两个高层工具 (`go_to`、`look`, 见 [v0.4 讲义](../../../mainline/v0.4-text-commands/TUTORIAL.md)), 一次提示是 399 个 token, 大约一半。(skill 模式成功率更高, 但这里只测了长度, 不能说成功率是因为提示短。)
+3. v0.4 的 **skill 模式**只给模型两个高层工具 (`go_to`、`look`, 见 [v0.4 讲义](../../../projects/car/v0.4-text-commands/TUTORIAL.md)), 一次提示是 399 个 token, 大约一半。(skill 模式成功率更高, 但这里只测了长度, 不能说成功率是因为提示短。)
 
 在 Agent 循环里, 每一轮都要把这些连同越来越长的对话历史**重新**送进模型。提示长度对小车每轮延迟的影响, 本单元**没有数据**; 推理速度的测量放在后面的 local-inference 单元。
 

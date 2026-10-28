@@ -1,8 +1,8 @@
 # 注意力线讲义 — MHA → MQA → GQA → MLA
 
-> 生长树总图: [electives/llm-tree/README.md](../../../electives/llm-tree/README.md) 的 **A. 注意力线**。
+> 生长树总图: [library/llm/llm-tree](../llm-tree/README.md) 的 **A. 注意力线**。
 > 配套代码: [variants.py](variants.py) (四种注意力)、[compare.py](compare.py) (训练对照实验)、[decode.py](decode.py) (推理实验)。
-> 讲义里所有数字都来自本机实测或 [解剖台](../../../electives/llm-anatomy/ANATOMY.md) 读出的真实模型配置。
+> 讲义里所有数字都来自本机实测或 [解剖台](../../frontier/anatomy/ANATOMY.md) 读出的真实模型配置。
 
 ---
 
@@ -42,7 +42,7 @@ A2-minigpt 专题 A 讲过: 生成时每来一个新 token, 每一层都要把�
 
 ### 1.3 真实模型有多大 (解剖台实测)
 
-[解剖台](../../../electives/llm-anatomy/ANATOMY.md) 从真实模型的配置里算出的每 token 缓存 (bf16, 只算全注意力层):
+[解剖台](../../frontier/anatomy/ANATOMY.md) 从真实模型的配置里算出的每 token 缓存 (bf16, 只算全注意力层):
 
 | 模型 | 注意力 | 每个 token | 4096 个 token | 32768 个 token |
 |---|---|---|---|---|
@@ -583,5 +583,5 @@ python -m pytest test_ex1.py -q     # 一道一道来
 
 ### 本仓库
 - [A2-minigpt 讲义专题 A](../minigpt/TUTORIAL.md): KV Cache 本身, 以及它在不同规模下的加速比
-- [electives/llm-anatomy](../../../electives/llm-anatomy/ANATOMY.md): 21 个真实模型的注意力配置与缓存大小
-- [LLM 架构生长树 (选修)](../../../electives/llm-tree/README.md): 注意力线的下一步 (滑动窗口、稀疏注意力、attention sink)
+- [解剖台 library/frontier/anatomy](../../frontier/anatomy/ANATOMY.md): 21 个真实模型的注意力配置与缓存大小
+- [LLM 架构生长树 (选修)](../llm-tree/README.md): 注意力线的下一步 (滑动窗口、稀疏注意力、attention sink)

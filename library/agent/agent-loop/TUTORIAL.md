@@ -1,7 +1,7 @@
 # Agent 循环讲义 — 大模型怎么 "动手"
 
 > 知识库 · Agent 领域的第一个单元 (总目录: [library/README.md](../../README.md))。
-> 用到它的主线站: [v0.4 听懂文字](../../../mainline/v0.4-text-commands/TUTORIAL.md) (在仿真小车上实测本单元的每一种写法)。
+> 用到它的小车站: [v0.4 听懂文字](../../../projects/car/v0.4-text-commands/TUTORIAL.md) (在仿真小车上实测本单元的每一种写法)。
 > 配套代码: [demo_minimal.py](demo_minimal.py) (不用模型的最小演示)、[agent.py](agent.py) (循环本体)、[tools.py](tools.py) (工具说明书与安全层)、[llm.py](llm.py) (本地 / 云端 / 剧本三种模型后端)。
 
 ---
@@ -52,7 +52,7 @@ python demo_minimal.py --seed 1         # 第 4 节的最小例子, 不到一秒
 cd exercises && python -m pytest test_ex1.py -q     # 第 11 节的练习
 ```
 
-想换成**真的大模型** (本地 Qwen 或云端 API) 跑, 环境配置、模型下载、30 个任务的评测都在主线 [v0.4 这一站](../../../mainline/v0.4-text-commands/TUTORIAL.md)。
+想换成**真的大模型** (本地 Qwen 或云端 API) 跑, 环境配置、模型下载、30 个任务的评测都在小车项目 [v0.4 这一站](../../../projects/car/v0.4-text-commands/TUTORIAL.md)。
 
 ---
 
@@ -271,7 +271,7 @@ toolset = {"schemas": [go_to 的说明书, look 的说明书],
 run_episode(llm, car, task, mode="skill", toolset=toolset)
 ```
 
-小车上的 `go_to` 实现在主线 [v0.4 的 skills.py](../../../mainline/v0.4-text-commands/skills.py)。这个思路在真实系统里很常见: 大模型负责 "选做什么", 专门的控制器 (规则、传统算法, 或者强化学习训练出的策略) 负责 "怎么做"。
+小车上的 `go_to` 实现在小车项目 [v0.4 的 skills.py](../../../projects/car/v0.4-text-commands/skills.py)。这个思路在真实系统里很常见: 大模型负责 "选做什么", 专门的控制器 (规则、传统算法, 或者强化学习训练出的策略) 负责 "怎么做"。
 
 ### 7.2 强制调用工具
 
@@ -323,7 +323,7 @@ run_episode(llm, car, task, mode="skill", toolset=toolset)
 
 ## 9. 在小车上实测的结果 (摘要)
 
-完整数据、图和复现方法在主线 [v0.4 这一站](../../../mainline/v0.4-text-commands/TUTORIAL.md)。这里只摘和本单元概念直接相关的几条 (Qwen2.5-1.5B-Instruct, 每组 30 个任务, 作者的 RTX 5060 8GB 实测):
+完整数据、图和复现方法在小车项目 [v0.4 这一站](../../../projects/car/v0.4-text-commands/TUTORIAL.md)。这里只摘和本单元概念直接相关的几条 (Qwen2.5-1.5B-Instruct, 每组 30 个任务, 作者的 RTX 5060 8GB 实测):
 
 | 写法 | 成功 | 说明了什么 |
 |---|---|---|
@@ -355,7 +355,7 @@ run_episode(llm, car, task, mode="skill", toolset=toolset)
 | ① 填空 | [ex1_validate_fill.py](exercises/ex1_validate_fill.py) | 补全安全层 `validate_call` 的四处 TODO | 27 条调用上和参考实现判断一致 (`test_ex1.py`) |
 | ② 接口 | [ex2_step_interface.py](exercises/ex2_step_interface.py) | 从签名写出 "一步一停" 的 Agent 循环 | 剧本模型驱动下, 对话与小车动作和参考实现一致 (`test_ex2.py`) |
 
-第三级练习 (自己写 `go_to` 控制代码) 在主线 [v0.4 这一站](../../../mainline/v0.4-text-commands/TUTORIAL.md), 因为它要在小车的 300 个场景上验收。
+第三级练习 (自己写 `go_to` 控制代码) 在小车项目 [v0.4 这一站](../../../projects/car/v0.4-text-commands/TUTORIAL.md), 因为它要在小车的 300 个场景上验收。
 
 ```bash
 cd library/agent/agent-loop/exercises
@@ -368,6 +368,6 @@ python -m pytest test_ex1.py -q
 
 ## 12. 延伸
 
-- **工业界的 Agent 框架**: 选修 [agent-frameworks](../../../electives/agent-frameworks/README.md) 把 LangChain / LangGraph、OpenAI Agents SDK、smolagents、Google ADK、CrewAI 和 MCP 协议, 和本单元的每个部件 (工具说明书、循环、安全层、记忆、记录) 一一对照。
+- **工业界的 Agent 框架**: 选修 [agent-frameworks](../agent-frameworks/README.md) 把 LangChain / LangGraph、OpenAI Agents SDK、smolagents、Google ADK、CrewAI 和 MCP 协议, 和本单元的每个部件 (工具说明书、循环、安全层、记忆、记录) 一一对照。
 - **用强化学习替换 go_to 里的规则**: 知识库 RL 领域 ([library/rl](../../rl/README.md)), 从 [老虎机](../../rl/bandit/TUTORIAL.md) 开始。
 - **让小模型更会调用工具**: 知识库后训练领域 ([library/post-training](../../post-training/README.md))。

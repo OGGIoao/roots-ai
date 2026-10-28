@@ -99,8 +99,8 @@ def main():
     }
     print("C. 账本:", res["budget"])
 
-    # D. 对照: v0.4 的 skill 模式 (高层工具 go_to + look, 见 mainline/v0.4-text-commands/skills.py)
-    sys.path.insert(0, os.path.join(ROOT, "mainline", "v0.4-text-commands"))
+    # D. 对照: v0.4 的 skill 模式 (高层工具 go_to + look, 见 projects/car/v0.4-text-commands/skills.py)
+    sys.path.insert(0, os.path.join(ROOT, "projects", "car", "v0.4-text-commands"))
     from skills import SKILL_SCHEMAS, SKILL_SYSTEM_PROMPT
     sk = [{"role": "system", "content": SKILL_SYSTEM_PROMPT}, {"role": "user", "content": user}]
     sk_plain = len(tok.encode(render(sk, add_generation_prompt=True)))

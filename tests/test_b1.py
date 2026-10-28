@@ -1,4 +1,4 @@
-"""主线 B1 电子入门: 纯逻辑部分与分析脚本的回归测试 (CPU, 约 2 秒)。运行: python -m pytest tests -q"""
+"""知识库 hardware/electronics (电路入门): 纯逻辑部分与分析脚本的回归测试 (CPU, 约 2 秒)。运行: python -m pytest tests -q"""
 
 import os
 import subprocess

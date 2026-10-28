@@ -1,7 +1,7 @@
 # 对话模板 (知识库 · 大语言模型 · 第 5 单元)
 
 > 模型只会接着一串文字往下写。对话模板把"system / user / assistant / 工具结果"一条条消息拼成那一串文字, 模型才知道谁在说话、什么时候轮到自己、什么时候该停。
-> 讲义: [TUTORIAL.md](TUTORIAL.md)。用到它的主线站: [v0.4 听懂文字](../../../mainline/v0.4-text-commands/TUTORIAL.md) (每轮对话先拼模板), v0.5 自己的大脑 (微调时只在模型的话上算 loss)。
+> 讲义: [TUTORIAL.md](TUTORIAL.md)。用到它的小车站: [v0.4 听懂文字](../../../projects/car/v0.4-text-commands/TUTORIAL.md) (每轮对话先拼模板), v0.5 自己的大脑 (微调时只在模型的话上算 loss)。
 
 **只需要 Python**: 手写模板和三道练习只用标准库; 标准答案 (官方模板的渲染结果) 已经存在 `experiments/results/`。
 想自己重跑实验, 才需要 `transformers` 和分词器文件 (约 12 MB, 不下载模型, 不用显卡)。
