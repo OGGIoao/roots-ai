@@ -293,6 +293,163 @@
   }
  },
  {
+  "name": "local-Qwen-Qwen2.5-1.5B-Instruct_skill-rep1_safe_n30",
+  "backend": "local:Qwen/Qwen2.5-1.5B-Instruct",
+  "mode": "skill",
+  "safety": true,
+  "summary": {
+   "n": 30,
+   "success": 18,
+   "success_rate": 0.6,
+   "collision_episodes": 0,
+   "mean_tool_calls": 0.8666666666666667,
+   "invalid_call_rate": 0.0,
+   "bare_call_rate": 0.4230769230769231,
+   "mean_latency_s": 1.166866666666667,
+   "mean_prompt_tokens": 805.6333333333333,
+   "mean_completion_tokens": 32.733333333333334,
+   "ended_by": {
+    "answered": 30,
+    "plan_done": 0,
+    "max_turns": 0
+   }
+  },
+  "outcomes": {
+   "success": 18,
+   "no_action": 4,
+   "wrong_target": 0,
+   "collision": 0,
+   "false_report": 0,
+   "out_of_turns": 0,
+   "stopped_short": 8
+  },
+  "walk_before_look": 0.0,
+  "max_calls_in_turn": 1,
+  "examples": {
+   "stopped_short": 0,
+   "no_action": 2,
+   "success": 3
+  }
+ },
+ {
+  "name": "local-Qwen-Qwen2.5-1.5B-Instruct_skill-sample-s0_safe_n30",
+  "backend": "local:Qwen/Qwen2.5-1.5B-Instruct",
+  "mode": "skill",
+  "safety": true,
+  "summary": {
+   "n": 30,
+   "success": 14,
+   "success_rate": 0.4666666666666667,
+   "collision_episodes": 0,
+   "mean_tool_calls": 0.7,
+   "invalid_call_rate": 0.047619047619047616,
+   "bare_call_rate": 0.2857142857142857,
+   "mean_latency_s": 1.0696,
+   "mean_prompt_tokens": 700.7333333333333,
+   "mean_completion_tokens": 29.833333333333332,
+   "ended_by": {
+    "answered": 30,
+    "plan_done": 0,
+    "max_turns": 0
+   }
+  },
+  "outcomes": {
+   "success": 14,
+   "no_action": 11,
+   "wrong_target": 0,
+   "collision": 0,
+   "false_report": 1,
+   "out_of_turns": 0,
+   "stopped_short": 4
+  },
+  "walk_before_look": 0.0,
+  "max_calls_in_turn": 2,
+  "examples": {
+   "no_action": 0,
+   "success": 3,
+   "stopped_short": 8,
+   "false_report": 14
+  }
+ },
+ {
+  "name": "local-Qwen-Qwen2.5-1.5B-Instruct_skill-sample-s1_safe_n30",
+  "backend": "local:Qwen/Qwen2.5-1.5B-Instruct",
+  "mode": "skill",
+  "safety": true,
+  "summary": {
+   "n": 30,
+   "success": 15,
+   "success_rate": 0.5,
+   "collision_episodes": 0,
+   "mean_tool_calls": 0.7666666666666667,
+   "invalid_call_rate": 0.0,
+   "bare_call_rate": 0.2608695652173913,
+   "mean_latency_s": 1.0953000000000004,
+   "mean_prompt_tokens": 701.2,
+   "mean_completion_tokens": 29.3,
+   "ended_by": {
+    "answered": 30,
+    "plan_done": 0,
+    "max_turns": 0
+   }
+  },
+  "outcomes": {
+   "success": 15,
+   "no_action": 11,
+   "wrong_target": 0,
+   "collision": 0,
+   "false_report": 0,
+   "out_of_turns": 0,
+   "stopped_short": 4
+  },
+  "walk_before_look": 0.0,
+  "max_calls_in_turn": 3,
+  "examples": {
+   "no_action": 0,
+   "success": 3,
+   "stopped_short": 8
+  }
+ },
+ {
+  "name": "local-Qwen-Qwen2.5-1.5B-Instruct_skill-sample-s2_safe_n30",
+  "backend": "local:Qwen/Qwen2.5-1.5B-Instruct",
+  "mode": "skill",
+  "safety": true,
+  "summary": {
+   "n": 30,
+   "success": 13,
+   "success_rate": 0.43333333333333335,
+   "collision_episodes": 0,
+   "mean_tool_calls": 0.6333333333333333,
+   "invalid_call_rate": 0.0,
+   "bare_call_rate": 0.15789473684210525,
+   "mean_latency_s": 0.9846666666666668,
+   "mean_prompt_tokens": 678.8666666666667,
+   "mean_completion_tokens": 26.4,
+   "ended_by": {
+    "answered": 30,
+    "plan_done": 0,
+    "max_turns": 0
+   }
+  },
+  "outcomes": {
+   "success": 13,
+   "no_action": 12,
+   "wrong_target": 0,
+   "collision": 0,
+   "false_report": 0,
+   "out_of_turns": 0,
+   "stopped_short": 5
+  },
+  "walk_before_look": 0.0,
+  "max_calls_in_turn": 2,
+  "examples": {
+   "no_action": 0,
+   "success": 3,
+   "stopped_short": 4
+  }
+ },
+ {
   "name": "local-Qwen-Qwen2.5-1.5B-Instruct_skill_safe_n30",
   "backend": "local:Qwen/Qwen2.5-1.5B-Instruct",
   "mode": "skill",
@@ -306,6 +463,45 @@
    "invalid_call_rate": 0.0,
    "bare_call_rate": 0.16666666666666666,
    "mean_latency_s": 1.8348666666666664,
+   "mean_prompt_tokens": 678.9666666666667,
+   "mean_completion_tokens": 26.166666666666668,
+   "ended_by": {
+    "answered": 30,
+    "plan_done": 0,
+    "max_turns": 0
+   }
+  },
+  "outcomes": {
+   "success": 14,
+   "no_action": 12,
+   "wrong_target": 0,
+   "collision": 0,
+   "false_report": 0,
+   "out_of_turns": 0,
+   "stopped_short": 4
+  },
+  "walk_before_look": 0.0,
+  "max_calls_in_turn": 1,
+  "examples": {
+   "no_action": 0,
+   "success": 3,
+   "stopped_short": 8
+  }
+ },
+ {
+  "name": "local-Qwen-Qwen2.5-1.5B-Instruct_skill_safe_n30_rerun",
+  "backend": "local:Qwen/Qwen2.5-1.5B-Instruct",
+  "mode": "skill",
+  "safety": true,
+  "summary": {
+   "n": 30,
+   "success": 14,
+   "success_rate": 0.4666666666666667,
+   "collision_episodes": 0,
+   "mean_tool_calls": 0.6,
+   "invalid_call_rate": 0.0,
+   "bare_call_rate": 0.16666666666666666,
+   "mean_latency_s": 1.0039000000000002,
    "mean_prompt_tokens": 678.9666666666667,
    "mean_completion_tokens": 26.166666666666668,
    "ended_by": {

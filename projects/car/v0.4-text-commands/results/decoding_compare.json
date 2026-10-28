@@ -1,0 +1,111 @@
+{
+ "settings": {
+  "已公开: 贪心 + 自带重复惩罚 1.1": {
+   "file": "local-Qwen-Qwen2.5-1.5B-Instruct_skill_safe_n30.json",
+   "success": 14,
+   "n": 30,
+   "outcomes": {
+    "success": 14,
+    "no_action": 12,
+    "stopped_short": 4
+   },
+   "collision_episodes": 0,
+   "wall_time_s": 55.2
+  },
+  "重跑: 同样设置": {
+   "file": "local-Qwen-Qwen2.5-1.5B-Instruct_skill_safe_n30_rerun.json",
+   "success": 14,
+   "n": 30,
+   "outcomes": {
+    "success": 14,
+    "no_action": 12,
+    "stopped_short": 4
+   },
+   "collision_episodes": 0,
+   "wall_time_s": 30.2
+  },
+  "贪心, 关掉重复惩罚 (1.0)": {
+   "file": "local-Qwen-Qwen2.5-1.5B-Instruct_skill-rep1_safe_n30.json",
+   "success": 18,
+   "n": 30,
+   "outcomes": {
+    "success": 18,
+    "no_action": 4,
+    "stopped_short": 8
+   },
+   "collision_episodes": 0,
+   "wall_time_s": 35.1
+  },
+  "采样 (Qwen 自带设置), 种子 0": {
+   "file": "local-Qwen-Qwen2.5-1.5B-Instruct_skill-sample-s0_safe_n30.json",
+   "success": 14,
+   "n": 30,
+   "outcomes": {
+    "success": 14,
+    "no_action": 11,
+    "false_report": 1,
+    "stopped_short": 4
+   },
+   "collision_episodes": 0,
+   "wall_time_s": 32.2
+  },
+  "采样 (Qwen 自带设置), 种子 1": {
+   "file": "local-Qwen-Qwen2.5-1.5B-Instruct_skill-sample-s1_safe_n30.json",
+   "success": 15,
+   "n": 30,
+   "outcomes": {
+    "success": 15,
+    "no_action": 11,
+    "stopped_short": 4
+   },
+   "collision_episodes": 0,
+   "wall_time_s": 33.0
+  },
+  "采样 (Qwen 自带设置), 种子 2": {
+   "file": "local-Qwen-Qwen2.5-1.5B-Instruct_skill-sample-s2_safe_n30.json",
+   "success": 13,
+   "n": 30,
+   "outcomes": {
+    "success": 13,
+    "no_action": 12,
+    "stopped_short": 5
+   },
+   "collision_episodes": 0,
+   "wall_time_s": 29.6
+  }
+ },
+ "rerun_check": {
+  "success_same": 30,
+  "tool_calls_same": 30,
+  "distance_same": 30,
+  "first_reply_same": 30,
+  "n": 30,
+  "differing_seeds": []
+ },
+ "penalty_off_changed": [
+  {
+   "seed": 9,
+   "target": "red_cup",
+   "with_penalty": "no_action",
+   "without_penalty": "success"
+  },
+  {
+   "seed": 10,
+   "target": "blue_ball",
+   "with_penalty": "no_action",
+   "without_penalty": "success"
+  },
+  {
+   "seed": 19,
+   "target": "blue_ball",
+   "with_penalty": "no_action",
+   "without_penalty": "success"
+  },
+  {
+   "seed": 28,
+   "target": "blue_ball",
+   "with_penalty": "no_action",
+   "without_penalty": "success"
+  }
+ ]
+}

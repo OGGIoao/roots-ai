@@ -28,11 +28,11 @@ from agent import make_tasks, run_episode  # noqa: E402
 from car2d import Car2D, make_world, reached  # noqa: E402
 
 
-def make_llm(backend):
+def make_llm(backend, gen_kwargs=None, seed=None):
     kind, _, name = backend.partition(":")
     if kind == "local":
         from llm import LocalLLM
-        return LocalLLM(name)
+        return LocalLLM(name, gen_kwargs=gen_kwargs, seed=seed)
     if kind == "api":
         from llm import APILLM
         return APILLM(provider=name or None)
@@ -67,16 +67,28 @@ def main():
     ap.add_argument("--max-turns", type=int, default=30, help="loop/step 模式最多问模型几轮 (step 模式下也就是最多几次工具调用)")
     ap.add_argument("--no-safety", action="store_true", help="关掉安全层 (只用于对照实验)")
     ap.add_argument("--force-first-tool", action="store_true", help="第一轮强制调用工具 (讲义第 6 节)")
+    ap.add_argument("--rep-penalty", type=float, help="覆盖模型自带的 repetition_penalty (Qwen2.5 自带 1.1; 1.0 = 关掉)")
+    ap.add_argument("--sample", action="store_true", help="改用采样 (温度、top-k、top-p 用模型自带的设置), 配合 --seed")
+    ap.add_argument("--seed", type=int, default=0, help="--sample 时的随机种子")
     ap.add_argument("--name", help="结果文件名 (默认由参数拼成)")
     args = ap.parse_args()
 
-    llm = make_llm(args.backend)
+    gen_kwargs = {}
+    if args.rep_penalty is not None:
+        gen_kwargs["repetition_penalty"] = args.rep_penalty
+    if args.sample:
+        gen_kwargs["do_sample"] = True
+    llm = make_llm(args.backend, gen_kwargs, args.seed if args.sample else None)
     toolset = None
     if args.mode == "skill":
         from skills import SKILL_TOOLSET
         toolset = SKILL_TOOLSET
     safety = not args.no_safety
     mode_tag = args.mode + ("-forced" if args.force_first_tool else "")
+    if args.rep_penalty is not None:
+        mode_tag += f"-rep{args.rep_penalty:g}"
+    if args.sample:
+        mode_tag += f"-sample-s{args.seed}"
     name = args.name or "_".join([args.backend.replace(":", "-").replace("/", "-"), mode_tag,
                                   "safe" if safety else "nosafe", f"n{args.n}"])
     rows = []
@@ -98,7 +110,8 @@ def main():
               f"(被拦 {row['invalid_calls']}, 无标签 {row['bare_calls']})  {row['latency_s']:.1f} s  [{row['ended_by']}]", flush=True)
     summary = summarize(rows)
     out = {"backend": args.backend, "model": getattr(llm, "model_id", args.backend), "mode": args.mode,
-           "force_first_tool": args.force_first_tool,
+           "force_first_tool": args.force_first_tool, "gen_kwargs": gen_kwargs,
+           "sample_seed": args.seed if args.sample else None,
            "safety": safety, "max_turns": args.max_turns, "seed0": args.seed0,
            "wall_time_s": round(time.time() - t_start, 1), "summary": summary, "episodes": rows}
     os.makedirs(os.path.join(HERE, "results"), exist_ok=True)

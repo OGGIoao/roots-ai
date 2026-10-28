@@ -112,7 +112,7 @@ def analyze_file(path):
 
 def main():
     rows = [analyze_file(p) for p in sorted(glob.glob(os.path.join(HERE, "results", "*.json")))
-            if not p.endswith(("analysis.json", "baseline_budget.json"))]
+            if not p.endswith(("analysis.json", "baseline_budget.json", "decoding_compare.json"))]
     with open(os.path.join(HERE, "results", "analysis.json"), "w", encoding="utf-8") as f:
         json.dump(rows, f, ensure_ascii=False, indent=1)
     head = f"{'组合':<52}" + "".join(f"{OUTCOME_ZH[o]:>8}" for o in OUTCOMES) + "   先走后看  一轮最多"

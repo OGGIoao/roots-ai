@@ -53,7 +53,10 @@ def legend_boxes(c, items, x, y, step=110):
 
 
 def find(rows, model, mode, safety=True):
+    """只取默认解码设置的结果 (贪心 + 模型自带的重复惩罚); 解码对照 (-rep、-sample、_rerun) 只在讲义第 6.1 节的表里出现。"""
     for r in rows:
+        if any(tag in r["name"] for tag in ("-rep", "-sample", "_rerun")):
+            continue
         if r["backend"] == f"local:{model}" and r["mode"] == mode and r["safety"] == safety:
             return r
     return None
