@@ -1,0 +1,25 @@
+{
+ "n": 2000,
+ "kinds": {
+  "peaked": 672,
+  "ties": 654,
+  "flat": 674
+ },
+ "same": {
+  "repetition_penalty": 2000,
+  "temperature": 2000,
+  "top_k": 2000,
+  "top_p": 1652,
+  "min_p": 2000,
+  "chain": 1768
+ },
+ "ties_only": {
+  "repetition_penalty": 0,
+  "temperature": 0,
+  "top_k": 0,
+  "top_p": 348,
+  "min_p": 0,
+  "chain": 232
+ },
+ "first_mismatch": {}
+}

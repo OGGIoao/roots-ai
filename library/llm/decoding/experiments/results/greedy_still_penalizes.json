@@ -1,0 +1,21 @@
+{
+ "shipped_generation_config": {
+  "do_sample": true,
+  "temperature": 0.7,
+  "top_p": 0.8,
+  "top_k": 20,
+  "repetition_penalty": 1.1
+ },
+ "runs": {
+  "generate(do_sample=False)  (v0.4 的写法)": [
+   "RepetitionPenaltyLogitsProcessor"
+  ],
+  "generate(do_sample=False, repetition_penalty=1.0)": [],
+  "generate()  (全用模型自带配置)": [
+   "RepetitionPenaltyLogitsProcessor",
+   "TemperatureLogitsWarper",
+   "TopKLogitsWarper",
+   "TopPLogitsWarper"
+  ]
+ }
+}
