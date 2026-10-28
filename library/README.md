@@ -137,7 +137,7 @@
 |  | test-time-scaling | 推理时多花算力: 多次采样投票、best-of-N、搜索 🔥 | ⬜ |  |
 |  | reasoning-models | 思考模式与思考预算 🔥 | ⬜ |  |
 | 推理与部署 | [chat-template](llm/chat-template/TUTORIAL.md) | 对话模板: 模型怎么分清 system / user / assistant / tool | ✅ | v0.4, v0.5 |
-|  | [decoding](llm/decoding/README.md) | 解码与采样: 贪心、温度、top-p, 为什么评测用贪心 | 🟡 | v0.4 |
+|  | [decoding](llm/decoding/TUTORIAL.md) | 解码与采样: 贪心、温度、top-p, 为什么评测用贪心 | 🟡 | v0.4 |
 |  | structured-output | 约束解码: 让模型只能输出合法的 JSON 和工具调用 | ⬜ | v0.4 |
 |  | quantization | 量化: INT4、FP8、MXFP4/NVFP4, 变小变快的代价 🔥 | ⬜ | v0.6, 推理服务 |
 |  | local-inference | 本地推理: llama.cpp、vLLM、SGLang 的用法与延迟 | ⬜ | v0.5, 推理服务 |

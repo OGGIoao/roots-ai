@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" width="860" height="420" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" font-weight="bold" fill="#0b0b0b" dominant-baseline="middle">截断留下几个候选: top-p 和 min-p 随把握大小伸缩, top-k 是死数</text>
+<text x="20" y="40" font-size="12" fill="#52514e" dominant-baseline="middle">在语料里随机取 2000 个位置, 看 ToyLM 对下一个字符的分布 (experiments/toy_experiments.py)</text>
+<line x1="80" y1="350.0" x2="710" y2="350.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="350.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0</text>
+<line x1="80" y1="293.2" x2="710" y2="293.2" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="293.2" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">10</text>
+<line x1="80" y1="236.4" x2="710" y2="236.4" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="236.4" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">20</text>
+<line x1="80" y1="179.6" x2="710" y2="179.6" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="179.6" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">30</text>
+<line x1="80" y1="122.8" x2="710" y2="122.8" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="122.8" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">40</text>
+<line x1="80" y1="66.0" x2="710" y2="66.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="66.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">50</text>
+<line x1="143.0" y1="350" x2="143.0" y2="354" stroke="#c9c8c2"/>
+<text x="143.0" y="366.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0–1 (139 处)</text>
+<line x1="269.0" y1="350" x2="269.0" y2="354" stroke="#c9c8c2"/>
+<text x="269.0" y="366.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1–2 (262 处)</text>
+<line x1="395.0" y1="350" x2="395.0" y2="354" stroke="#c9c8c2"/>
+<text x="395.0" y="366.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2–3 (723 处)</text>
+<line x1="521.0" y1="350" x2="521.0" y2="354" stroke="#c9c8c2"/>
+<text x="521.0" y="366.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">3–4 (539 处)</text>
+<line x1="710.0" y1="350" x2="710.0" y2="354" stroke="#c9c8c2"/>
+<text x="710.0" y="366.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4–6 (337 处)</text>
+<line x1="80" y1="350" x2="710" y2="350" stroke="#c9c8c2" stroke-width="1"/>
+<text x="395.0" y="388.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">下一个字符分布的熵 (比特, 越右越没把握; 括号里是落在这一段的位置数)</text>
+<text x="30" y="208.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 30 208.0)">平均留下几个候选</text>
+<path d="M143.0,87.9 L269.0,250.0 L395.0,321.0 L521.0,320.7 L710.0,321.6" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round"/>
+<polygon points="143.0,82.4 137.5,92.4 148.5,92.4" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<polygon points="269.0,244.5 263.5,254.5 274.5,254.5" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<polygon points="395.0,315.5 389.5,325.5 400.5,325.5" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<polygon points="521.0,315.2 515.5,325.2 526.5,325.2" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<polygon points="710.0,316.1 704.5,326.1 715.5,326.1" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<text x="720.0" y="331.6" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">top-k = 5</text>
+<path d="M143.0,341.1 L269.0,329.4 L395.0,313.3 L521.0,284.8 L710.0,247.4" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="143.0" cy="341.1" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="269.0" cy="329.4" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="395.0" cy="313.3" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="521.0" cy="284.8" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="710.0" cy="247.4" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<text x="720.0" y="241.4" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">top-p = 0.9</text>
+<path d="M143.0,341.8 L269.0,336.8 L395.0,322.4 L521.0,300.0 L710.0,248.3" fill="none" stroke="#1baf7a" stroke-width="2" stroke-linejoin="round"/>
+<rect x="138.5" y="337.3" width="9.0" height="9.0" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<rect x="264.5" y="332.3" width="9.0" height="9.0" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<rect x="390.5" y="317.9" width="9.0" height="9.0" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<rect x="516.5" y="295.5" width="9.0" height="9.0" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<rect x="705.5" y="243.8" width="9.0" height="9.0" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<text x="720.0" y="256.3" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">min-p = 0.1</text>
+<text x="155.6" y="83.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">top-k 在这里留下几十个: 三元模型给没见过的字符打同样的小分,</text>
+<text x="155.6" y="105.8" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">它们和第 5 名并列, 而并列的一律保留 (讲义第 4.4 节)</text>
+</svg>

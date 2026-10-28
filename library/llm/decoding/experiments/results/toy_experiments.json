@@ -1,0 +1,12219 @@
+{
+ "V": 65,
+ "greedy_loops": [
+  {
+   "prompt": "ROMEO:\n",
+   "text_head": "I withe the the the the the the the the the the the the the the the the the the ",
+   "cycle": "the ",
+   "period": 4,
+   "loop_starts_at": 4
+  },
+  {
+   "prompt": "KING HENRY:\n",
+   "text_head": "I withe the the the the the the the the the the the the the the the the the the ",
+   "cycle": "the ",
+   "period": 4,
+   "loop_starts_at": 4
+  },
+  {
+   "prompt": "First Citizen:\n",
+   "text_head": "I withe the the the the the the the the the the the the the the the the the the ",
+   "cycle": "the ",
+   "period": 4,
+   "loop_starts_at": 4
+  },
+  {
+   "prompt": "JULIET:\nO ",
+   "text_head": "my the the the the the the the the the the the the the the the the the the the t",
+   "cycle": " the",
+   "period": 4,
+   "loop_starts_at": 2
+  },
+  {
+   "prompt": "MENENIUS:\nI ",
+   "text_head": "withe the the the the the the the the the the the the the the the the the the th",
+   "cycle": "the ",
+   "period": 4,
+   "loop_starts_at": 2
+  }
+ ],
+ "tradeoff": [
+  {
+   "setting": "贪心",
+   "cfg": {
+    "do_sample": false
+   },
+   "runs": 5,
+   "distinct4": 0.0242,
+   "avg_logprob": -1.0189,
+   "loop_rate": 1.0
+  },
+  {
+   "setting": "贪心 + 重复惩罚 1.1",
+   "cfg": {
+    "do_sample": false,
+    "rep": 1.1
+   },
+   "runs": 5,
+   "distinct4": 0.0222,
+   "avg_logprob": -1.0182,
+   "loop_rate": 1.0
+  },
+  {
+   "setting": "贪心 + 重复惩罚 1.3",
+   "cfg": {
+    "do_sample": false,
+    "rep": 1.3
+   },
+   "runs": 5,
+   "distinct4": 0.0586,
+   "avg_logprob": -1.0271,
+   "loop_rate": 1.0
+  },
+  {
+   "setting": "贪心 + 重复惩罚 2.0",
+   "cfg": {
+    "do_sample": false,
+    "rep": 2.0
+   },
+   "runs": 5,
+   "distinct4": 0.1475,
+   "avg_logprob": -1.0754,
+   "loop_rate": 1.0
+  },
+  {
+   "setting": "温度 0.5",
+   "cfg": {
+    "do_sample": true,
+    "temp": 0.5
+   },
+   "runs": 100,
+   "distinct4": 0.7024,
+   "avg_logprob": -1.4487,
+   "loop_rate": 0.0
+  },
+  {
+   "setting": "温度 0.7",
+   "cfg": {
+    "do_sample": true,
+    "temp": 0.7
+   },
+   "runs": 100,
+   "distinct4": 0.8744,
+   "avg_logprob": -1.6508,
+   "loop_rate": 0.0
+  },
+  {
+   "setting": "温度 1.0",
+   "cfg": {
+    "do_sample": true,
+    "temp": 1.0
+   },
+   "runs": 100,
+   "distinct4": 0.9609,
+   "avg_logprob": -1.9382,
+   "loop_rate": 0.0
+  },
+  {
+   "setting": "温度 1.5",
+   "cfg": {
+    "do_sample": true,
+    "temp": 1.5
+   },
+   "runs": 100,
+   "distinct4": 0.991,
+   "avg_logprob": -2.527,
+   "loop_rate": 0.0
+  },
+  {
+   "setting": "温度 1.0 + top-k 5",
+   "cfg": {
+    "do_sample": true,
+    "temp": 1.0,
+    "k": 5
+   },
+   "runs": 100,
+   "distinct4": 0.8087,
+   "avg_logprob": -1.646,
+   "loop_rate": 0.0
+  },
+  {
+   "setting": "温度 1.0 + top-p 0.9",
+   "cfg": {
+    "do_sample": true,
+    "temp": 1.0,
+    "p": 0.9
+   },
+   "runs": 100,
+   "distinct4": 0.9369,
+   "avg_logprob": -1.7694,
+   "loop_rate": 0.0
+  },
+  {
+   "setting": "温度 1.0 + min-p 0.1",
+   "cfg": {
+    "do_sample": true,
+    "temp": 1.0,
+    "minp": 0.1
+   },
+   "runs": 100,
+   "distinct4": 0.9121,
+   "avg_logprob": -1.6824,
+   "loop_rate": 0.0
+  },
+  {
+   "setting": "温度 1.5 + min-p 0.1",
+   "cfg": {
+    "do_sample": true,
+    "temp": 1.5,
+    "minp": 0.1
+   },
+   "runs": 100,
+   "distinct4": 0.9765,
+   "avg_logprob": -2.0125,
+   "loop_rate": 0.0
+  },
+  {
+   "setting": "Qwen2.5 自带设置 (温度 0.7, top-k 20, top-p 0.8, 重复惩罚 1.1)",
+   "cfg": {
+    "do_sample": true,
+    "temp": 0.7,
+    "k": 20,
+    "p": 0.8,
+    "rep": 1.1
+   },
+   "runs": 100,
+   "distinct4": 0.6504,
+   "avg_logprob": -1.41,
+   "loop_rate": 0.0
+  }
+ ],
+ "corpus_reference": {
+  "distinct4": 0.9038,
+  "avg_logprob": -1.8876
+ },
+ "penalty_shift": {
+  "context": "th",
+  "token": "e",
+  "penalty": 1.3,
+  "rows": [
+   {
+    "shift": -20.0,
+    "p_e_before": 0.4615,
+    "p_e_after": 0.0017
+   },
+   {
+    "shift": 0.0,
+    "p_e_before": 0.4615,
+    "p_e_after": 0.4046
+   },
+   {
+    "shift": 20.0,
+    "p_e_before": 0.4615,
+    "p_e_after": 0.01
+   }
+  ]
+ },
+ "truncation": [
+  {
+   "entropy_bits": 3.109,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 1.063,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.082,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.973,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 2.78,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.052,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.585,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 0.864,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.417,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.261,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.397,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.654,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 0.616,
+   "top_k5": 5,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 0.658,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 1.852,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.419,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.289,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.835,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 3.098,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.465,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.388,
+   "top_k5": 5,
+   "top_p0.9": 20,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.654,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 0.008,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.934,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.18,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.391,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.753,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.41,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.261,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 1.633,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.504,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 0.703,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.652,
+   "top_k5": 6,
+   "top_p0.9": 11,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 3.368,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.626,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 3.334,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.556,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 0.867,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.617,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.488,
+   "top_k5": 5,
+   "top_p0.9": 25,
+   "min_p0.1": 15
+  },
+  {
+   "entropy_bits": 1.935,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.289,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 1.623,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 1.768,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.134,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.397,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 0.569,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 0.28,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.97,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.025,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.945,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.941,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.617,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.29,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.419,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.468,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 1.553,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.351,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.854,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.187,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 2.279,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.478,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.456,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.552,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 2.821,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.093,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 1.298,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.463,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.753,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.468,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.801,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.405,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.449,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.945,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.313,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.868,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.538,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.223,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.505,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 21
+  },
+  {
+   "entropy_bits": 2.008,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 0.535,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.261,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 3.334,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 3.334,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.291,
+   "top_k5": 65,
+   "top_p0.9": 49,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 1.546,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.474,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.945,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.223,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.126,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.948,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.18,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.187,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 2.547,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.904,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 3.246,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.195,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.48,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.617,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.279,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.882,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.29,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 3.28,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.371,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.757,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.312,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 1.968,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.41,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.261,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 1.144,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 1.941,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 1.818,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.48,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.456,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.2,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.097,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.537,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.097,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 1.38,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.109,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.262,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.298,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.446,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.115,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.067,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.363,
+   "top_k5": 5,
+   "top_p0.9": 23,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 2.548,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 0.705,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.174,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.098,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 1.096,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.32,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 2.538,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 4.405,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.118,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.756,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.754,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.012,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.728,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 21
+  },
+  {
+   "entropy_bits": 4.097,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.422,
+   "top_k5": 6,
+   "top_p0.9": 12,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 0.148,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.405,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 1.818,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.052,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.623,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 0.983,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.545,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.361,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.419,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.212,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 4.525,
+   "top_k5": 5,
+   "top_p0.9": 25,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 4.359,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.356,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 0.535,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.359,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.714,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 2.41,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 0.773,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.577,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.391,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.194,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.617,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.187,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 3.249,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.397,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 21
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 3.504,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 1.818,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 0.97,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.381,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.195,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 0.535,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.123,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.488,
+   "top_k5": 5,
+   "top_p0.9": 25,
+   "min_p0.1": 15
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 1.814,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.023,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 1.209,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.544,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.067,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 4.187,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 0.991,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.714,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.967,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.768,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.115,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.72,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 4.077,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 3.42,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.134,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.334,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.814,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 4.187,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 2.963,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.223,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.097,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.87,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.859,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.238,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.361,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.334,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.463,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 0.162,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.391,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.052,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.982,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.334,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.801,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.619,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 0.955,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.543,
+   "top_k5": 5,
+   "top_p0.9": 26,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 0.157,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 1.789,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 0.96,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.315,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.455,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 3.215,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 0.985,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.223,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 4.261,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.397,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.585,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 1.099,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.818,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.18,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 0.607,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.38,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.619,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 2.982,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.118,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.115,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.465,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 0.448,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.266,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.852,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.371,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.852,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.363,
+   "top_k5": 5,
+   "top_p0.9": 23,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.715,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.334,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.455,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 0.403,
+   "top_k5": 7,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 1.967,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.973,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.465,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.017,
+   "top_k5": 65,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.127,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.948,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.359,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.41,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.547,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 21
+  },
+  {
+   "entropy_bits": 3.367,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.359,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.48,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.082,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.123,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.415,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.577,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.28,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 1.633,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.371,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 0.02,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.025,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.635,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 3.134,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.01,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 0.991,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.662,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.413,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 3.246,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.544,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.934,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.368,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.385,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.01,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.217,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.982,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.417,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.669,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 3.368,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 0.148,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.415,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.504,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.765,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.714,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 2.757,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.578,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.28,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.878,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 0.976,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.449,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 1.818,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 0.985,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 0.148,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.024,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.397,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.28,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 3.134,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.405,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 0.938,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.242,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.641,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 0.515,
+   "top_k5": 6,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 0.186,
+   "top_k5": 5,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.172,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 16
+  },
+  {
+   "entropy_bits": 0.773,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.585,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 4.097,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 21
+  },
+  {
+   "entropy_bits": 2.558,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.123,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.669,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 0.526,
+   "top_k5": 6,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 1.984,
+   "top_k5": 65,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.28,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 1.939,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.432,
+   "top_k5": 6,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 0.984,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.756,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.5,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.623,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 0.981,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.368,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.666,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.801,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 4.097,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 1.935,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 0.811,
+   "top_k5": 6,
+   "top_p0.9": 2,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.315,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.674,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.801,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.279,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.097,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.266,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.816,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.175,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.413,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 4.261,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 3.923,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.782,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.757,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 0.745,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 0.616,
+   "top_k5": 5,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.878,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.036,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.305,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.751,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.312,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.468,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 1.063,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.363,
+   "top_k5": 5,
+   "top_p0.9": 23,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.359,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.505,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 2.281,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.941,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.371,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.941,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.334,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 21
+  },
+  {
+   "entropy_bits": 3.571,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 3.026,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 1.468,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.657,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 2.963,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 0.132,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.109,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 0.019,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.497,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.592,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.266,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 0.403,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.281,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.449,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.811,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.547,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.405,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 1.941,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.973,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 0.658,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.553,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 0.008,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 1.298,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.854,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 1.182,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.556,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.41,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 0.93,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.803,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 3.585,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.757,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.465,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.89,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 21
+  },
+  {
+   "entropy_bits": 3.036,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 0.991,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.446,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.675,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 1.354,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 1.763,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.036,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.623,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 0.535,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.28,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.868,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.363,
+   "top_k5": 5,
+   "top_p0.9": 23,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 3.711,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.617,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.32,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 2.319,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.579,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 0.403,
+   "top_k5": 7,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.705,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.194,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.201,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 3.492,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 3.463,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 4.505,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 2.579,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.111,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 1.068,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.381,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 2.41,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.626,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.675,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.097,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.397,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.923,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.399,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.449,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.552,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.281,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.814,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 4.097,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.654,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 0.949,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.513,
+   "top_k5": 5,
+   "top_p0.9": 25,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 0.148,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.381,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.474,
+   "top_k5": 5,
+   "top_p0.9": 24,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 4.543,
+   "top_k5": 5,
+   "top_p0.9": 26,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.391,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.082,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.036,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.118,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.675,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.279,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.293,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.634,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.388,
+   "top_k5": 5,
+   "top_p0.9": 20,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 0.991,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.455,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 1.941,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.381,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.544,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.89,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 0.703,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.552,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 2.497,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.482,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 3.619,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 2.963,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 0.133,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.021,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.669,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 1.859,
+   "top_k5": 65,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.16,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 3.635,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 2.123,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.449,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.001,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.426,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.801,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.753,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 0.243,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 1.852,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 0.658,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.675,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.356,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.654,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 4.261,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 3.656,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 3.266,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.852,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.126,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.118,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.491,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.417,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.585,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 1.192,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.623,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.762,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.585,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 0.535,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.644,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.01,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.047,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 0.995,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.945,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.397,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.5,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 0.11,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.948,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.393,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 1.789,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.413,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.945,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 0.991,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 0.645,
+   "top_k5": 5,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 1.633,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.025,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 15
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 2.617,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.468,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 0.834,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.617,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.982,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.266,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.765,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.794,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.904,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 1.407,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.537,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.41,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.973,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 2.585,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 1.852,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.191,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.368,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.997,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.091,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.861,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 4.359,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.585,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 1.041,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.633,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.948,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.246,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 0.77,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.662,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.01,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.363,
+   "top_k5": 5,
+   "top_p0.9": 23,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.1,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.279,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.415,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 3.762,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 1.818,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 0.985,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.425,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.765,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 21
+  },
+  {
+   "entropy_bits": 2.41,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.553,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.052,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.187,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 2.705,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.134,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.659,
+   "top_k5": 6,
+   "top_p0.9": 18,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.504,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 2.585,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 1.818,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 15
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 3.111,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 1.818,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.334,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 0.186,
+   "top_k5": 5,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.923,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 0.811,
+   "top_k5": 6,
+   "top_p0.9": 2,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 1.941,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.868,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.279,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.359,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 1.298,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.78,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.28,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.415,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 0.887,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.657,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 0.711,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 0.703,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.28,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.334,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 1.299,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.052,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.425,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.556,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.239,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.331,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.024,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.657,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.675,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.246,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.261,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 1.005,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 1.468,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.654,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.212,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 1.096,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.635,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 1.789,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.497,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.449,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.405,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 1.545,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.403,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.72,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.497,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.684,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.753,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.28,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.997,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.148,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.067,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.403,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.48,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.619,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 3.762,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.048,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.801,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 3.581,
+   "top_k5": 6,
+   "top_p0.9": 14,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 0.668,
+   "top_k5": 6,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.505,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.023,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 0.038,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.455,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.585,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 1.348,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.768,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.315,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.001,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.279,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.118,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 0.086,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.772,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.756,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.801,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.78,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.668,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.123,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 1.859,
+   "top_k5": 65,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.298,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 21
+  },
+  {
+   "entropy_bits": 4.077,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 2.853,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.878,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.754,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 4.359,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 1.623,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.547,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.801,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 4.405,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.246,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 0.148,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.356,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.763,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.657,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 3.28,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.118,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.623,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.11,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 1.492,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.644,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.405,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.098,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.334,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.852,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.674,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.381,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 3.178,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 4.405,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.123,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 0.526,
+   "top_k5": 6,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.446,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.792,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.948,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.239,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.261,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 1.818,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.261,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.236,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.5,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.675,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.01,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.231,
+   "top_k5": 6,
+   "top_p0.9": 9,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 4.505,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 0.951,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.52,
+   "top_k5": 5,
+   "top_p0.9": 25,
+   "min_p0.1": 15
+  },
+  {
+   "entropy_bits": 2.123,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.158,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.28,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.28,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 4.75,
+   "top_k5": 5,
+   "top_p0.9": 26,
+   "min_p0.1": 25
+  },
+  {
+   "entropy_bits": 3.973,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 2.115,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.215,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.465,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.279,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.571,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.811,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.28,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.088,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 1.266,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.948,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.021,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.242,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.039,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 3.334,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.967,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.109,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.175,
+   "top_k5": 8,
+   "top_p0.9": 9,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 3.315,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.067,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.413,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.397,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.571,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.337,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.187,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 3.334,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 0.984,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.765,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.063,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.135,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.123,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.449,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 0.773,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.134,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.765,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.945,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.289,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.813,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.547,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.513,
+   "top_k5": 5,
+   "top_p0.9": 25,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.666,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.305,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.397,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.397,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.449,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.366,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 15
+  },
+  {
+   "entropy_bits": 2.585,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 0.938,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.941,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.356,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.031,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 0.535,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.868,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.082,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.585,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 0.475,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.41,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.786,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.334,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.261,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 2.585,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 0.403,
+   "top_k5": 7,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.757,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.242,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 0.75,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.505,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 1.144,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.505,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 2.123,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.039,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 3.356,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.025,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 3.656,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 1.144,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.463,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.101,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 0.645,
+   "top_k5": 5,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.236,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.505,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 1.091,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.001,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.762,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 0.515,
+   "top_k5": 6,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.223,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.415,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.853,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.01,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.332,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 15
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.082,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 15
+  },
+  {
+   "entropy_bits": 2.617,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.135,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.868,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 3.334,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.363,
+   "top_k5": 5,
+   "top_p0.9": 23,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 0.778,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.261,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 0.026,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.552,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 3.669,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.617,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 2.399,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.504,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 1.715,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.315,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.023,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.01,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.468,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.01,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.698,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.172,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 16
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 0.951,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.449,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 1.806,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 0.543,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 0.98,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.772,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.172,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 16
+  },
+  {
+   "entropy_bits": 2.008,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 0.981,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.397,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.623,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 3.163,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.363,
+   "top_k5": 5,
+   "top_p0.9": 23,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 1.256,
+   "top_k5": 6,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.547,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.852,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 1.574,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 1.768,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 0.951,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.581,
+   "top_k5": 6,
+   "top_p0.9": 14,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.359,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 1.385,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 21
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.198,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.674,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.544,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.348,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.403,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.099,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.973,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 2.654,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.024,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.222,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.351,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.096,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.123,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.242,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.835,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 3.029,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.581,
+   "top_k5": 6,
+   "top_p0.9": 14,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 0.658,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.361,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 4.505,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 2.753,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.144,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.937,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 0.947,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 0.02,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.666,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.771,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.982,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.757,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.124,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.359,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.547,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 1.937,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.28,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 1.818,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.123,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.587,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.505,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.015,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 2.118,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.371,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 0.539,
+   "top_k5": 5,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.617,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.397,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.581,
+   "top_k5": 6,
+   "top_p0.9": 14,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.261,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 3.289,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 1.195,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 0.991,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.118,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.405,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.266,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.644,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.174,
+   "top_k5": 6,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.455,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 4.363,
+   "top_k5": 5,
+   "top_p0.9": 23,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 0.526,
+   "top_k5": 6,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.982,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.948,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.669,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 4.187,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.504,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 3.052,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.332,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.656,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.505,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 3.556,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.657,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 4.097,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.279,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.231,
+   "top_k5": 6,
+   "top_p0.9": 9,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.578,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.835,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.337,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.405,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.585,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.397,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.052,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.115,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.644,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.41,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 0.616,
+   "top_k5": 5,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.772,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.948,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 0.05,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.334,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.449,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.757,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 21
+  },
+  {
+   "entropy_bits": 2.765,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 4.097,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.771,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.254,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.805,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.236,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.242,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 1.196,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.093,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.334,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.172,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 16
+  },
+  {
+   "entropy_bits": 3.1,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.835,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 2.01,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.835,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 1.235,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.585,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.87,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.87,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.894,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.765,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 1.235,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 0.645,
+   "top_k5": 5,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 0.739,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.266,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.818,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.626,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.281,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.397,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.463,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 3.052,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.151,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 16
+  },
+  {
+   "entropy_bits": 3.656,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.334,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.553,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.213,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.063,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 21
+  },
+  {
+   "entropy_bits": 4.025,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 3.239,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 0.938,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.811,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.134,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.063,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 0.811,
+   "top_k5": 6,
+   "top_p0.9": 2,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.543,
+   "top_k5": 5,
+   "top_p0.9": 26,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.123,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.058,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 1.87,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.126,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 0.921,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.239,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.626,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 1.62,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 1.385,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.674,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.405,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.266,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.106,
+   "top_k5": 6,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.261,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.446,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.675,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.656,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 3.504,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 3.25,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.449,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.493,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.515,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.033,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.504,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.135,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.126,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.73,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.787,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.011,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.174,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 0.01,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.675,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.757,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.553,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.757,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.623,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 3.449,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.266,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.626,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 3.754,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 2.945,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.172,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 16
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 0.955,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 4.097,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 1.756,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 0.995,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 21
+  },
+  {
+   "entropy_bits": 2.41,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.948,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.391,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.246,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.635,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 3.904,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 3.42,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.644,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.28,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 1.941,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.266,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.682,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.789,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.174,
+   "top_k5": 6,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.504,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.669,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.319,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.801,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.515,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.011,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 4.405,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.063,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.405,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 15
+  },
+  {
+   "entropy_bits": 1.298,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.669,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.669,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 1.468,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 0.656,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.765,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.134,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.587,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.516,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.455,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 2.371,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.674,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.371,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.818,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.172,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 16
+  },
+  {
+   "entropy_bits": 1.238,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.223,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.852,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.446,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.405,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.239,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.144,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.261,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 3.109,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.106,
+   "top_k5": 6,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.668,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.553,
+   "top_k5": 6,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.063,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.42,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.852,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.854,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 1.941,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.762,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.675,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 15
+  },
+  {
+   "entropy_bits": 1.818,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.556,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.669,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.505,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 1.651,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 0.955,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.134,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.279,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 0.608,
+   "top_k5": 8,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.617,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.42,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.935,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.753,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.751,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.768,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.437,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.07,
+   "top_k5": 10,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.115,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.617,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.126,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 21
+  },
+  {
+   "entropy_bits": 4.381,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.505,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 2.78,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 0.984,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.813,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.948,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.941,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 3.835,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 4.363,
+   "top_k5": 5,
+   "top_p0.9": 23,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 3.619,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.934,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.762,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 3.134,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.315,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.449,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.617,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.025,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 3.266,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.519,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.428,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 4.505,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.449,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.415,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.41,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.801,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 3.134,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.726,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.397,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.553,
+   "top_k5": 5,
+   "top_p0.9": 27,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 3.432,
+   "top_k5": 6,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.669,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 4.187,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 1.553,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.348,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.397,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.266,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.154,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.432,
+   "top_k5": 6,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.052,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.577,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.368,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.818,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.001,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.008,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.305,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.41,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.242,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.134,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.904,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 2.787,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 0.951,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.41,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.547,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.577,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 0.991,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.772,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.787,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.657,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 2.446,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.025,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.585,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.753,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.654,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.126,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 0.027,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.463,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.662,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.571,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.505,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 0.235,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.567,
+   "top_k5": 5,
+   "top_p0.9": 23,
+   "min_p0.1": 22
+  },
+  {
+   "entropy_bits": 3.134,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.543,
+   "top_k5": 5,
+   "top_p0.9": 26,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 1.943,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.111,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.587,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.64,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 1.633,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.397,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.32,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 2.726,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.419,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 3.059,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.223,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 1.141,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 0.157,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 0.535,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.334,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.255,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 0.057,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.321,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 1.144,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.281,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.126,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.01,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.835,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.281,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.298,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.404,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 3.246,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 1.468,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.239,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.28,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 0.659,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.118,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.657,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 2.794,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.941,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 1.289,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.14,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.726,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.417,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 0.539,
+   "top_k5": 5,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.174,
+   "top_k5": 6,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.118,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.674,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.623,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 3.556,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 1.968,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.505,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 1.553,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.41,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.137,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.371,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.669,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.217,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.18,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 0.861,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.271,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.16,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.173,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.115,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.315,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.052,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.432,
+   "top_k5": 6,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.097,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.403,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.659,
+   "top_k5": 6,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.801,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 3.063,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.592,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.359,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.739,
+   "top_k5": 6,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.109,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.413,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.111,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 21
+  },
+  {
+   "entropy_bits": 2.78,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.118,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.656,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.052,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.904,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 1.715,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.305,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 0.683,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.87,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.266,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 15
+  },
+  {
+   "entropy_bits": 0.713,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.782,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.578,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.547,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.465,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.109,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.363,
+   "top_k5": 5,
+   "top_p0.9": 23,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 1.789,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.818,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.11,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.963,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.455,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 1.852,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.579,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.414,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.662,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.144,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.001,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.198,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.025,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 3.134,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.705,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.246,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.403,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.941,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.488,
+   "top_k5": 5,
+   "top_p0.9": 25,
+   "min_p0.1": 15
+  },
+  {
+   "entropy_bits": 2.369,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.363,
+   "top_k5": 5,
+   "top_p0.9": 23,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 4.32,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 3.623,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 3.315,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.363,
+   "top_k5": 5,
+   "top_p0.9": 23,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 3.904,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 4.405,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.41,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.446,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.5,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.312,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 1.732,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.07,
+   "top_k5": 10,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.215,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 1.216,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 4.187,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 3.1,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.405,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.504,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.97,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.097,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.676,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 0.656,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.422,
+   "top_k5": 6,
+   "top_p0.9": 12,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.01,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.052,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.762,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.662,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.262,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.739,
+   "top_k5": 6,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 0.611,
+   "top_k5": 5,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.359,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 1.619,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.782,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.553,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.215,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.926,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.052,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.48,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 0.148,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 0.703,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.089,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.094,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.187,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.974,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.41,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.279,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.242,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.772,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.361,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.714,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.052,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.788,
+   "top_k5": 5,
+   "top_p0.9": 26,
+   "min_p0.1": 26
+  },
+  {
+   "entropy_bits": 2.414,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.246,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 1.684,
+   "top_k5": 65,
+   "top_p0.9": 3,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.493,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.765,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.118,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.945,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 4.405,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.698,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 1.968,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.236,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 1.684,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 3.163,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.242,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.356,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.279,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.097,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.553,
+   "top_k5": 5,
+   "top_p0.9": 27,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 3.023,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.948,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.405,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.675,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.941,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.585,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 3.449,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.175,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.024,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 2.674,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.739,
+   "top_k5": 6,
+   "top_p0.9": 8,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.178,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.945,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.772,
+   "top_k5": 6,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 0.645,
+   "top_k5": 5,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 0.148,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 0.984,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.414,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.025,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 3.762,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.352,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.397,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.656,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 4.151,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 16
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.726,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.063,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.413,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.148,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 0.035,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.669,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 3.449,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.151,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 16
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.504,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 11
+  },
+  {
+   "entropy_bits": 4.359,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.794,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.463,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.242,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.109,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 0.157,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 3.239,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.187,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 3.012,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.175,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 0.02,
+   "top_k5": 65,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.973,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 14
+  },
+  {
+   "entropy_bits": 2.41,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.187,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 3.801,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 3.762,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.544,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.025,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 3.657,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 2.873,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.109,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 2.675,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.882,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.399,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 18
+  },
+  {
+   "entropy_bits": 4.077,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 3.134,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.677,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.382,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.449,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.266,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.635,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.134,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 0.951,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.123,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.456,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 1.358,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.505,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 3.422,
+   "top_k5": 6,
+   "top_p0.9": 12,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 1.256,
+   "top_k5": 6,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.235,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.793,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.968,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.794,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.749,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.001,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.063,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.558,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.852,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.148,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.465,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.654,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.753,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.654,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 4.359,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.163,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 3.052,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.853,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 1.869,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.175,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.878,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 3.642,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 3.134,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 1.298,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 1.137,
+   "top_k5": 5,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.554,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 1.832,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.001,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.231,
+   "top_k5": 6,
+   "top_p0.9": 9,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 3.266,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.762,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.034,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.859,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.155,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 1.525,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.669,
+   "top_k5": 5,
+   "top_p0.9": 13,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 2.118,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 4.097,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 1.805,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 4.151,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 16
+  },
+  {
+   "entropy_bits": 2.391,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 3.261,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 3.261,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.242,
+   "top_k5": 5,
+   "top_p0.9": 7,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 2.569,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.765,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 4.077,
+   "top_k5": 5,
+   "top_p0.9": 15,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 3.413,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 3.72,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 1.157,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.623,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 1.832,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 1.934,
+   "top_k5": 5,
+   "top_p0.9": 4,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.782,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.266,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 3.25,
+   "top_k5": 5,
+   "top_p0.9": 11,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 0.938,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 4.49,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 2.41,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 2.34,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 2.572,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 4.025,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 17
+  },
+  {
+   "entropy_bits": 2.123,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 2.279,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 0.817,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.635,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 3.135,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.762,
+   "top_k5": 5,
+   "top_p0.9": 14,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 3.635,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 13
+  },
+  {
+   "entropy_bits": 2.709,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 5
+  },
+  {
+   "entropy_bits": 0.539,
+   "top_k5": 5,
+   "top_p0.9": 1,
+   "min_p0.1": 1
+  },
+  {
+   "entropy_bits": 3.801,
+   "top_k5": 5,
+   "top_p0.9": 16,
+   "min_p0.1": 9
+  },
+  {
+   "entropy_bits": 3.191,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 7
+  },
+  {
+   "entropy_bits": 2.698,
+   "top_k5": 5,
+   "top_p0.9": 6,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 0.864,
+   "top_k5": 65,
+   "top_p0.9": 2,
+   "min_p0.1": 2
+  },
+  {
+   "entropy_bits": 3.134,
+   "top_k5": 5,
+   "top_p0.9": 9,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 2.397,
+   "top_k5": 5,
+   "top_p0.9": 5,
+   "min_p0.1": 6
+  },
+  {
+   "entropy_bits": 3.449,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 8
+  },
+  {
+   "entropy_bits": 4.187,
+   "top_k5": 5,
+   "top_p0.9": 17,
+   "min_p0.1": 12
+  },
+  {
+   "entropy_bits": 1.728,
+   "top_k5": 5,
+   "top_p0.9": 3,
+   "min_p0.1": 4
+  },
+  {
+   "entropy_bits": 3.463,
+   "top_k5": 5,
+   "top_p0.9": 12,
+   "min_p0.1": 10
+  },
+  {
+   "entropy_bits": 4.414,
+   "top_k5": 5,
+   "top_p0.9": 18,
+   "min_p0.1": 19
+  },
+  {
+   "entropy_bits": 4.505,
+   "top_k5": 5,
+   "top_p0.9": 19,
+   "min_p0.1": 20
+  },
+  {
+   "entropy_bits": 2.757,
+   "top_k5": 5,
+   "top_p0.9": 10,
+   "min_p0.1": 3
+  },
+  {
+   "entropy_bits": 2.992,
+   "top_k5": 5,
+   "top_p0.9": 8,
+   "min_p0.1": 8
+  }
+ ]
+}
