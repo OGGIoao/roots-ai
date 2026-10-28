@@ -3,25 +3,62 @@
 [![CI](https://github.com/OGGIoao/roots-ai/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/OGGIoao/roots-ai/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-> **一套从根上自己搭起来的 AI 全栈知识库, 一个自己从零训出来的小模型, 再用几个真实的作品把知识串成能跑通的链路。第一个作品: 一台听得懂话的小车。**
+> **从根上自己搭一套 AI 知识库: 每个知识点都自己写讲义、自己实现、自己实测; 再用真实的作品把它们串成跑得通的链路。第一个作品是一台听得懂话的小车。**
 >
-> *A self-built, from-scratch AI curriculum (foundations, hardware, LLMs, agents, RL, post-training, embodied AI, multimodal), a small language model trained from zero, and real projects that tie it together — starting with a small car that understands spoken commands. Everything measured on a single 8 GB laptop. (Docs are in Chinese.)*
+> *A from-scratch AI curriculum: every concept gets its own tutorial, a minimal implementation and measured numbers, and real projects tie them together — starting with a small car that understands commands. Everything measured on one 8 GB laptop. (Docs are in Chinese.)*
 
-**小车的终点 demo** (建设中): 你对小车说"去找那个红色杯子"。芯片上自己训练的唤醒词模型听到指令 → 笔记本上**自己微调的小模型**把这句话拆成工具调用 → 小车转身、前进、用摄像头确认、避开障碍 → 停在杯子前, 用语音回答"找到了"。
+**现在的状态 (早期)**: 整体规划已定 (见 [FRAMEWORK.md](FRAMEWORK.md)), 内容按顺序在写。
+
+<!-- status:start -->
+| 知识库单元 | 个数 | 哪些 |
+|---|---|---|
+| ✅ 写完了 | 7 | [bpe](library/llm/bpe/TUTORIAL.md) · [minigpt](library/llm/minigpt/TUTORIAL.md) · [attention](library/llm/attention/TUTORIAL.md) · [chat-template](library/llm/chat-template/TUTORIAL.md) · [decoding](library/llm/decoding/TUTORIAL.md) · [structured-output](library/llm/structured-output/TUTORIAL.md) · [bandit](library/rl/bandit/TUTORIAL.md) |
+| 🟡 有内容, 待补 | 6 | [electronics](library/hardware/electronics/TUTORIAL.md) · [llm-tree](library/llm/llm-tree/README.md) · [modern-small-model](library/llm/modern-small-model/TUTORIAL.md) · [agent-loop](library/agent/agent-loop/TUTORIAL.md) · [agent-frameworks](library/agent/agent-frameworks/README.md) · [tool-finetune](library/post-training/tool-finetune/README.md) |
+| ⬜ 规划中 | 179 | 见 [知识库总目录](library/README.md) |
+<!-- status:end -->
 
 ---
 
-## 三层: 知识库打底, 基座模型扎根, 项目开花
+## 这个仓库是什么
 
-| 层 | 是什么 | 怎么用 |
+三层, 由下往上:
+
+| 层 | 是什么 | 现在 |
 |---|---|---|
-| **[知识库](library/README.md)** | 8 个领域、约 190 个单元, 一个知识点一份讲义: 基础、硬件、大语言模型、Agent、强化学习、后训练、具身智能、多模态; 外加 [前沿档案卡与雷达](library/frontier/README.md) 和 [安全线](library/safety.md) | 按领域系统地学; 也可以从项目里顺着链接下来补 |
-| **[基座线 roots-lm](base/README.md)** | 自己从零训一个小模型: 笔记本跑通全流程 → 上云放大 → 装前沿部件 → 长眼睛和耳朵 | 把知识库的单元装成一个真的模型, 每装一个部件就实测前后变化 |
-| **[项目](projects/README.md)** | ① 小车 ② 学习助教 ③ 推理服务 (④ 领域后训练, 第二批) | 跟着一个项目走, 亲手把整条链跑通 |
+| **[知识库](library/README.md)** | 一个知识点一份讲义, 分 8 个领域: 基础、硬件、大语言模型、Agent、强化学习、后训练、具身智能、多模态。每份讲义带参考实现、实测数据、三级练习 (填空 → 只给接口 → 白纸, 测试判对错) | 见上面的状态; 完整目录 (含规划中的) 在 [library/README.md](library/README.md) |
+| **[基座线 roots-lm](base/README.md)** | 自己从零训一个小模型: 笔记本跑通全流程 → 上云放大 → 装前沿部件 → 长眼睛和耳朵 | 未开始 |
+| **[项目](projects/README.md)** | 把知识做成作品: ① 小车 ② 学习助教 ③ 推理服务 | 小车 v0.4 (仿真版) 可以跑 |
 
-项目不重讲原理, 只讲 "这一步做了什么、实测结果如何"; 原理都在知识库里, 每个单元讲透一个知识点 (颗粒度参照 [分词 BPE](library/llm/bpe/TUTORIAL.md)), 带参考实现、实测数据和三级练习。**零基础的同学顺着项目的链接下去补, 补完回来接着做。** 完整设计见 [FRAMEWORK.md](FRAMEWORK.md)。
+项目不重讲原理, 只讲 "这一步做了什么、实测结果如何", 原理链接到知识库; 知识库可以单独按领域学。
 
-## 项目 ① 小车: 一站一站长出本事
+## 学习顺序 (只列已经写好的)
+
+**主线: 从 "模型怎么工作" 到 "让模型开车"**
+
+| 步 | 读 | 学完能做到 | 需要 |
+|---|---|---|---|
+| 1 | [分词 BPE](library/llm/bpe/TUTORIAL.md) | 说清文字怎么变成整数、中文为什么费 token; 自己写出 BPE | 只要 Python |
+| 2 | [miniGPT](library/llm/minigpt/TUTORIAL.md) | 从零写一个 GPT 并训练、生成; PyTorch 在这里边用边讲 | CPU 可以, 有显卡更快 |
+| 3 | [注意力与推理延迟](library/llm/attention/TUTORIAL.md) | 说清 MHA / GQA / MLA 的区别, 为什么提示越长越慢 | CPU 可以 |
+| 4 | [对话模板](library/llm/chat-template/TUTORIAL.md) | 看懂一段对话和工具调用最后变成了什么文字 | 只要 Python |
+| 5 | [解码与采样](library/llm/decoding/TUTORIAL.md) | 说清贪心、温度、top-p、重复惩罚各自的脾气, 以及它们怎么影响小车 | 只要 Python |
+| 6 | [结构化输出](library/llm/structured-output/TUTORIAL.md) | 让模型只能写出合法的工具调用 | 只要 Python |
+| 7 | [Agent 循环](library/agent/agent-loop/TUTORIAL.md) | 写出 "模型 → 工具 → 结果 → 模型" 的循环, 加安全层, 会评测 | 只要 Python |
+| 8 | [小车 v0.4 听懂文字](projects/car/v0.4-text-commands/TUTORIAL.md) | 用真实的小模型开仿真小车, 自己跑出 30 个任务的成功率 | 显卡 (8 GB 够) 或 Colab 或云端 API |
+
+**两条副线** (和主线无关, 累了可以换着学): 强化学习从 [老虎机](library/rl/bandit/TUTORIAL.md) 开始 (只要 Python); 硬件从 [电路与 ESP32 入门](library/hardware/electronics/TUTORIAL.md) 开始 (只要浏览器, 不用买板子)。
+
+**先跳过的**: [现代小模型](library/llm/modern-small-model/TUTORIAL.md) 还没精简完, 第 3 步之后读主干即可; [工具调用微调](library/post-training/tool-finetune/README.md) 还是通用演示, 等改造完再读。
+
+**基础不够怎么办**: 基础领域 (数学、PyTorch、自动求导等) 正在写。在那之前, 第 2 步的 miniGPT 讲义会边用边讲需要的 PyTorch 和数学。
+
+每个单元的学法一样: 读讲义同时跑代码 → 做三级练习 (测试通过才算做对) → 对照单元 README 末尾的 "掌握程度自测"。没有显卡: bpe、minigpt、attention 和小车 v0.4 都有 Colab 笔记本 (各自 README 顶部的按钮)。
+
+**最快看一眼**: 只要有 Python, 运行 `python library/agent/agent-loop/demo_minimal.py --seed 1`, 一秒内看到一个假模型怎么一步步把仿真小车开到红杯子跟前。
+
+## 项目 ① 小车
+
+**终点 demo** (建设中): 你对小车说 "去找那个红色杯子"。芯片上自己训练的唤醒词模型听到指令 → 笔记本上**自己微调的小模型**把这句话拆成工具调用 → 小车转身、前进、用摄像头确认、避开障碍 → 停在杯子前, 用语音回答 "找到了"。
 
 ```mermaid
 flowchart LR
@@ -33,19 +70,9 @@ flowchart LR
     class V01,V02,V03,V05,V06,V07,V10 todo
 ```
 
-<sub>橙色: 这一站已经可以跑 (仿真版); 灰色: 还没开始。项目处于**早期阶段**, 真车还没有造出来。</sub>
+<sub>橙色: 这一站已经可以跑 (仿真版); 灰色: 还没开始。真车还没有造出来, 当前**软件先行**: 先在仿真里把大模型、Agent、强化学习打通, 再造真车。</sub>
 
 每一站多什么本事、要先学哪些单元, 见 [小车项目首页](projects/car/README.md); 验收标准、工具接口、安全规则和预算见 [PRODUCT.md](projects/car/PRODUCT.md)。
-
-### 从这里开始
-
-项目当前**软件先行**: 先在仿真里把大模型、Agent、强化学习打通, 再造真车。
-
-1. **零安装, 一分钟看懂 Agent**: 只要有 Python, 运行 `python library/agent/agent-loop/demo_minimal.py --seed 1`, 看一个假模型怎么一步步把仿真小车开到红杯子跟前。原理在 [Agent 循环](library/agent/agent-loop/TUTORIAL.md) 讲义里。
-2. **小车第一个可以跑的站: [v0.4 听懂文字 (仿真版)](projects/car/v0.4-text-commands/TUTORIAL.md)**。讲义第 1 节手把手配环境、下载模型 (有国内镜像的办法)、按有没有显卡选路线。你会亲手测出: 1.5B 小模型自己开车 30 次全失败, 换一种分工只让它选目标, 同一个模型成功 21 次。
-3. **想先打基础**: 按领域读 [知识库](library/README.md)。大模型从 [分词 BPE](library/llm/bpe/TUTORIAL.md) 开始; 强化学习从 [老虎机](library/rl/bandit/TUTORIAL.md) 开始; 硬件从 [电路与 ESP32 入门](library/hardware/electronics/TUTORIAL.md) 开始 (只需要浏览器, 不用买任何东西)。
-
-没有显卡: 知识库的 bpe、minigpt、attention 和小车 v0.4 都有 Colab 笔记本 (各自 README 顶部的 "Open in Colab" 按钮)。
 
 ---
 
@@ -53,12 +80,12 @@ flowchart LR
 
 | 你是 | 你能从这里得到 |
 |---|---|
-| 会写 Python 的学生 (计算机、自动化、电子……) | 一套自己能读懂、能复现的 AI 全栈知识, 加上从软件到硬件都自己做出来的作品, 课程设计、竞赛、求职都拿得出手 |
+| 会写 Python 的学生 (计算机、自动化、电子……) | 一套自己能读懂、能复现的 AI 知识, 加上从软件到硬件都自己做出来的作品, 课程设计、竞赛、求职都拿得出手 |
 | 想练微调、推理优化、Agent 落地、物理 AI 的工程师 | 每项技能都有对应的单元和作品 (见 [FRAMEWORK.md](FRAMEWORK.md) 第 6 节技能地图) |
 | 想转向具身智能 / AI 硬件的软件工程师 | 不用先补一整套电子学: 硬件从浏览器仿真开始, 每一步都和你熟悉的代码、测试连在一起 |
 | 想带课、带社团的老师和组织者 | 现成的单元与分站课程: 讲义、实测数据、三级练习和自动判分的测试 |
 
-**前置要求**: 会写 Python 的函数, 会用命令行。不需要电子基础, 不需要深度学习基础, 起步也不需要 GPU。缺什么基础, 知识库的 [基础](library/foundations/README.md) 领域从零讲起。
+**前置要求**: 会写 Python 的函数, 会用命令行。不需要电子基础, 不需要深度学习基础, 起步也不需要 GPU。
 
 ---
 
