@@ -1,7 +1,7 @@
 """
 tokenizer_anatomy.py — 读取真实模型的 tokenizer.json, 核对它们用了什么分词方案, 并在同一段文本上实测
 
-与 electives/llm-anatomy (解剖台) 同一个思路: 不凭印象写"某模型用某算法", 而是读官方仓库里的分词器文件。
+与 library/frontier/anatomy (解剖台) 同一个思路: 不凭印象写"某模型用某算法", 而是读官方仓库里的分词器文件。
 读出: 算法 (BPE / WordPiece / Unigram)、词表大小、预分词方式 (含正则)、是否有字节回退 (byte_fallback)。
 实测: 同一段英文 (莎士比亚验证集) 和同一段中文 (本文件里自写的一段) 各需要多少 token。
 

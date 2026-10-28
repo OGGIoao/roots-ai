@@ -1,6 +1,6 @@
 # B1 电子入门与仿真器
 
-> 主线第 B1 章, 服务于 **v0.1 (手机遥控小车)**。不需要买硬件: 全部在浏览器里的 [Wokwi](https://wokwi.com) 仿真器上完成, 芯片程序用 MicroPython。
+> 知识库 · 硬件单元, 服务于小车 **v0.1 (手机遥控小车)**。不需要买硬件: 全部在浏览器里的 [Wokwi](https://wokwi.com) 仿真器上完成, 芯片程序用 MicroPython。
 > 讲义: [TUTORIAL.md](TUTORIAL.md)。
 
 五个案例, 每个都是"先用朴素办法, 看它怎么失败":

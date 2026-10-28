@@ -1,7 +1,7 @@
 # Agent 循环 (知识库 · Agent)
 
 > 大模型怎么 "动手": 消息与角色、工具调用、四种循环写法、安全层、怎么评测。用仿真小车做例子, 但讲的东西对任何 Agent 都适用。
-> 讲义: [TUTORIAL.md](TUTORIAL.md)。用到它的主线站: [v0.4 听懂文字](../../../mainline/v0.4-text-commands/TUTORIAL.md) (在小车上实测本单元的每一种写法)。
+> 讲义: [TUTORIAL.md](TUTORIAL.md)。用到它的小车站: [v0.4 听懂文字](../../../projects/car/v0.4-text-commands/TUTORIAL.md) (在小车上实测本单元的每一种写法)。
 
 **只需要 Python**: 演示和练习都用假模型, 不下载模型, 不需要显卡。
 
@@ -26,4 +26,4 @@ python demo_minimal.py --seed 1
 cd exercises && python -m pytest test_ex1.py -q
 ```
 
-换成真模型跑、在 30 个任务上评测, 去主线 [v0.4 这一站](../../../mainline/v0.4-text-commands/TUTORIAL.md)。
+换成真模型跑、在 30 个任务上评测, 去小车项目 [v0.4 这一站](../../../projects/car/v0.4-text-commands/TUTORIAL.md)。

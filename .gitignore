@@ -22,16 +22,16 @@ checkpoints/
 *.log
 runs/
 
-# 语料只有一份 (mainline/A1-bpe/data/), 其余项目经 common/corpus.py 直接读取,
+# 语料只有一份 (library/llm/bpe/data/), 其余项目经 common/corpus.py 直接读取,
 # 不再生成各自的副本。
 
 # 注意: 语料与 tokenizer 产物要入库!
 # 旧规则曾写 `data/` 和 `tokenizer.json`, 会把 BPE 训练语料和 tokenizer 一起排除,
 # 导致 clone 出来的仓库无法运行 —— 已改为精确规则, 不要改回去。
-!mainline/A1-bpe/data/tinyshakespeare.txt
-!mainline/A1-bpe/tokenizer.json
+!library/llm/bpe/data/tinyshakespeare.txt
+!library/llm/bpe/tokenizer.json
 # 非默认配置训练出的 tokenizer 不入库 (见 train.py 的 --output)
-mainline/A1-bpe/tokenizer_*.json
+library/llm/bpe/tokenizer_*.json
 
 # Environment (密钥: 只提交 .env.example, .env 与 .env.local 等变体都不入库)
 .env

@@ -1,10 +1,10 @@
 # 四足机器人 Pupper (选修)
 
 > **这是选修。** 主线的具身载体是小车 (真车 + 仿真车); 本文是原先规划的四足路线, 全部保留。
-> 两者共用同一套工具接口 (`walk` / `turn` / `stop` / `look` / `get_pose`, 见 [PRODUCT.md](../../PRODUCT.md)),
+> 两者共用同一套工具接口 (`walk` / `turn` / `stop` / `look` / `get_pose`, 见 [PRODUCT.md](../../projects/car/PRODUCT.md)),
 > 所以主线写好的 Agent 可以直接拿来驱动仿真四足。RL 主干在主线 E 部分 (E1–E4), 下文的 R0 即指它。
 
-> 和 [LLM 生长树](../llm-tree/README.md) 并行的第二条线: 从"在一个最简单的环境里试错"出发, 一路长到"听一句话、看一眼画面, 机器人自己走过去"。全部在仿真里做, 不使用真机。
+> 和 [LLM 生长树](../../library/llm/llm-tree/README.md) 并行的第二条线: 从"在一个最简单的环境里试错"出发, 一路长到"听一句话、看一眼画面, 机器人自己走过去"。全部在仿真里做, 不使用真机。
 >
 > - **主线载体 (2026-10-20 起)**: R1–R5 始终是**同一台四足机器人 Pupper v3**, 与 Datawhale《动手学具身智能》的 [从零到一搭建四足机器人](https://datawhalechina.github.io/dive-into-embodied-ai/docs/practices/quadruped/cs123/intro) (Stanford CS123 的 MuJoCo 中文重实现, 下称 **DW-CS123**) 逐章对齐。
 > - 每个节点回答四个问题: **父节点在什么情况下失败 → 新方法怎么补上 → 代价 → 最小实现 + 与父节点在同一任务上的对照实测**。

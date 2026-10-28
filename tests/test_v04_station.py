@@ -1,4 +1,4 @@
-"""主线 v0.4 (仿真小车听懂文字) 的回归测试: go_to 技能、规则对照组、失败分类、练习 3。不需要真模型。"""
+"""小车 v0.4 (仿真小车听懂文字) 的回归测试: go_to 技能、规则对照组、失败分类、练习 3。不需要真模型。"""
 
 import json
 import os
@@ -6,7 +6,7 @@ import subprocess
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STATION = os.path.join(ROOT, "mainline", "v0.4-text-commands")
+STATION = os.path.join(ROOT, "projects", "car", "v0.4-text-commands")
 sys.path.insert(0, STATION)
 sys.path.insert(0, os.path.join(ROOT, "library", "agent", "agent-loop"))
 sys.path.insert(0, os.path.join(ROOT, "sim"))

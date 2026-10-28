@@ -21,7 +21,7 @@ def test_notebooks_match_generator():
 
 
 def test_notebook_commands_point_to_existing_files():
-    # 笔记本里 "python mainline/..." 运行的脚本都必须存在
+    # 笔记本里 "python projects/..." 和 "python library/..." 运行的脚本都必须存在
     for make in mk.ALL:
         _, cells = make()
         for c in cells:
@@ -29,5 +29,5 @@ def test_notebook_commands_point_to_existing_files():
                 continue
             for line in c["source"].splitlines():
                 for tok in line.replace("&&", " ").split():
-                    if tok.startswith("mainline/") and tok.endswith(".py"):
+                    if tok.startswith(("projects/", "library/")) and tok.endswith(".py"):
                         assert os.path.exists(os.path.join(ROOT, tok)), tok

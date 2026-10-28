@@ -233,11 +233,11 @@ def check_packages():
 
 
 def _repo_root() -> str:
-    """从本脚本位置向上找到仓库根 (含 mainline/ 的那一层)。"""
+    """从本脚本位置向上找到仓库根 (含 library/ 的那一层)。"""
     here = os.path.dirname(os.path.abspath(__file__))
     cur = here
     for _ in range(6):
-        if os.path.isdir(os.path.join(cur, "mainline")):
+        if os.path.isdir(os.path.join(cur, "library")):
             return cur
         parent = os.path.dirname(cur)
         if parent == cur:

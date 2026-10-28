@@ -40,7 +40,7 @@ def code(*lines):
 EXERCISE_NOTE = md(
     "## 练习",
     "",
-    "练习文件在左侧\"文件\"面板里 (`roots-car/mainline/<本章>/exercises/`), 双击打开就能编辑, 改完按 Ctrl+S 保存, 再运行下面的测试。",
+    "练习文件在左侧\"文件\"面板里 (`roots-car/<本章所在目录>/exercises/`), 双击打开就能编辑, 改完按 Ctrl+S 保存, 再运行下面的测试。",
     "刚克隆下来时测试会失败, 这是正常的: 报 `NotImplementedError` (还没写), 或者 `RuntimeError: Error(s) in loading state_dict` (还没写完, 参数对不上)。等你把 TODO 补完再跑。",
     "",
     "> **注意**: Colab 会话断开后, 你改过的文件会丢失。想保留, 就把练习文件下载下来 (右键 → 下载), 或者 fork 本仓库后把上面的克隆地址换成你自己的。",
@@ -66,7 +66,7 @@ def a1():
     cells = [
         md("# A1 BPE 分词器 · 在 Colab 上运行",
            "",
-           "主线 v0.5 \"自己的大脑\" 的第一章: 把文字变成整数。讲解见 [讲义](https://github.com/OGGIoao/roots-car/blob/master/library/llm/bpe/TUTORIAL.md), 这个笔记本只负责把代码跑起来。",
+           "小车 v0.5 \"自己的大脑\" 用到的第一个单元: 把文字变成整数。讲解见 [讲义](https://github.com/OGGIoao/roots-car/blob/master/library/llm/bpe/TUTORIAL.md), 这个笔记本只负责把代码跑起来。",
            "",
            "本章只用 Python 标准库, **不需要 GPU** (菜单 \"代码执行程序 → 更改运行时类型\" 选 CPU 即可)。"),
         code(*SETUP),
@@ -134,11 +134,11 @@ def a3():
 
 
 def v04():
-    path = "mainline/v0.4-text-commands/colab.ipynb"
+    path = "projects/car/v0.4-text-commands/colab.ipynb"
     cells = [
-        md("# 主线 v0.4 听懂文字 (仿真版) · 在 Colab 上运行",
+        md("# 小车 v0.4 听懂文字 (仿真版) · 在 Colab 上运行",
            "",
-           "让大模型通过工具调用开一台仿真小车, 并在 30 个任务上实测。讲解见 [本站讲义](https://github.com/OGGIoao/roots-car/blob/master/mainline/v0.4-text-commands/TUTORIAL.md);"
+           "让大模型通过工具调用开一台仿真小车, 并在 30 个任务上实测。讲解见 [本站讲义](https://github.com/OGGIoao/roots-car/blob/master/projects/car/v0.4-text-commands/TUTORIAL.md);"
            " Agent 循环本身的原理见知识库 [agent-loop](https://github.com/OGGIoao/roots-car/blob/master/library/agent/agent-loop/TUTORIAL.md)。",
            "",
            "前两步只用 CPU; 第 3 步用本地小模型 (Qwen2.5-1.5B-Instruct, 约 3 GB) 跑评测, 需要 GPU",
@@ -147,17 +147,17 @@ def v04():
         md("## 1. 先看循环长什么样, 再看规则控制器 (都不用大模型)", "",
            "第一格用一个假模型把整段对话打印出来; 第二格是同样的工具和任务、大脑换成几十行 if-else 的对照组。"),
         code("!python library/agent/agent-loop/demo_minimal.py --seed 1",
-             "!python mainline/v0.4-text-commands/baseline.py"),
+             "!python projects/car/v0.4-text-commands/baseline.py"),
         md("## 2. 小模型评测 (6 个任务, 快速确认能跑通)", "",
            "讲义里的数字来自每组 30 个任务 (`--n 30`); 这里先各跑 6 个。`loop` 是让模型自己一步步开车, `skill` 是只让它选目标 (讲义第 6 节)。",
            "每局会打印: 成功与否、离目标多远、撞了几次、调用了几次工具。"),
-        code("!cd mainline/v0.4-text-commands && python evaluate.py --backend local:Qwen/Qwen2.5-1.5B-Instruct --mode loop --n 6",
-             "!cd mainline/v0.4-text-commands && python evaluate.py --backend local:Qwen/Qwen2.5-1.5B-Instruct --mode skill --n 6"),
+        code("!cd projects/car/v0.4-text-commands && python evaluate.py --backend local:Qwen/Qwen2.5-1.5B-Instruct --mode loop --n 6",
+             "!cd projects/car/v0.4-text-commands && python evaluate.py --backend local:Qwen/Qwen2.5-1.5B-Instruct --mode skill --n 6"),
         md("## 3. 看每一局是怎么失败的", "", "把每一局归到一类结局 (讲义第 5 节的表)。"),
-        code("!cd mainline/v0.4-text-commands && python analyze.py"),
+        code("!cd projects/car/v0.4-text-commands && python analyze.py"),
         EXERCISE_NOTE,
         code("!cd library/agent/agent-loop/exercises && python -m pytest test_ex1.py -q",
-             "!cd mainline/v0.4-text-commands/exercises && python -m pytest test_ex3.py -q"),
+             "!cd projects/car/v0.4-text-commands/exercises && python -m pytest test_ex3.py -q"),
     ]
     return path, cells
 

@@ -13,7 +13,7 @@ agent.py — 手写的 Agent 循环 (不用 LangChain 等框架, 每一步都看
           但模型可以在一轮里发出多个调用, 它们会全部执行, 中间不看结果 (本仓库实测: 小模型一轮能发 13 个);
     step  一步一停: 和 loop 一样, 但每轮只执行第一个调用, 其余的退回, 逼模型看完结果再决定。
     skill 换一种分工: 不给五个底层动作, 只给更高层的工具 (例如 go_to(target)); 循环和 loop 一样,
-          只是工具集换了。工具集由调用方通过 toolset 传入 (小车上的 go_to 在主线 v0.4 的 skills.py)。
+          只是工具集换了。工具集由调用方通过 toolset 传入 (小车上的 go_to 在小车项目 v0.4 的 skills.py)。
 """
 
 import json
@@ -48,7 +48,7 @@ def run_episode(llm, car, task, mode="loop", max_turns=30, safety=True, force_fi
     tools, run_tool = TOOL_SCHEMAS, lambda name, args: execute(car, name, args, safety=safety)
     system = SYSTEM_PROMPT
     if mode == "skill" and toolset is None:
-        raise ValueError("skill 模式需要传入 toolset (小车的 go_to 见 mainline/v0.4-text-commands/skills.py 的 SKILL_TOOLSET)")
+        raise ValueError("skill 模式需要传入 toolset (小车的 go_to 见 projects/car/v0.4-text-commands/skills.py 的 SKILL_TOOLSET)")
     if toolset is not None:
         tools, system = toolset["schemas"], toolset["system"]
         run_tool = lambda name, args: toolset["execute"](car, name, args)   # noqa: E731
