@@ -1,0 +1,429 @@
+{
+ "toy": {
+  "missing_chars": [
+   "\"",
+   "/",
+   "<",
+   ">",
+   "_",
+   "{",
+   "}"
+  ],
+  "calls": [
+   "toolcall\nname: goto, arguments: target: blueball\ntoolcall",
+   "toolcall\nname: goto, arguments: target: greenbox\ntoolcall",
+   "toolcall\nname: goto, arguments: target: redcup\ntoolcall",
+   "toolcall\nname: look, arguments: \ntoolcall"
+  ],
+  "constrained_greedy": "toolcall\nname: look, arguments: \ntoolcall",
+  "unconstrained_greedy_head": "I withe the the the the the the the the the the the the the ",
+  "logprob_of_each_call": {
+   "toolcall\nname: goto, arguments: target: blueball\ntoolcall": -188.17,
+   "toolcall\nname: goto, arguments: target: greenbox\ntoolcall": -198.02,
+   "toolcall\nname: goto, arguments: target: redcup\ntoolcall": -201.65,
+   "toolcall\nname: look, arguments: \ntoolcall": -145.07
+  }
+ },
+ "qwen": [
+  {
+   "model": "Qwen/Qwen2.5-0.5B-Instruct",
+   "vocab_size": 151665,
+   "rows": [
+    {
+     "setting": "不加约束, 重复惩罚 1.1",
+     "constrained": false,
+     "repetition_penalty": 1.1,
+     "valid_calls": 6,
+     "correct_target": 6,
+     "n": 6,
+     "results": [
+      {
+       "instruction": "去红杯子那里, 停在它跟前",
+       "want": "red_cup",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"red_cup\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "red_cup",
+       "target_correct": true
+      },
+      {
+       "instruction": "去蓝色的球那里, 停在它跟前",
+       "want": "blue_ball",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"blue_ball\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "blue_ball",
+       "target_correct": true
+      },
+      {
+       "instruction": "去绿盒子那里, 停在它跟前",
+       "want": "green_box",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"green_box\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "green_box",
+       "target_correct": true
+      },
+      {
+       "instruction": "找到红杯子, 开到它旁边停下",
+       "want": "red_cup",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"red_cup\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "red_cup",
+       "target_correct": true
+      },
+      {
+       "instruction": "找到蓝色的球, 开到它旁边停下",
+       "want": "blue_ball",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"blue_ball\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "blue_ball",
+       "target_correct": true
+      },
+      {
+       "instruction": "找到绿盒子, 开到它旁边停下",
+       "want": "green_box",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"green_box\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "green_box",
+       "target_correct": true
+      }
+     ]
+    },
+    {
+     "setting": "加约束, 重复惩罚 1.1",
+     "constrained": true,
+     "repetition_penalty": 1.1,
+     "valid_calls": 6,
+     "correct_target": 6,
+     "n": 6,
+     "results": [
+      {
+       "instruction": "去红杯子那里, 停在它跟前",
+       "want": "red_cup",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"red_cup\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "red_cup",
+       "target_correct": true
+      },
+      {
+       "instruction": "去蓝色的球那里, 停在它跟前",
+       "want": "blue_ball",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"blue_ball\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "blue_ball",
+       "target_correct": true
+      },
+      {
+       "instruction": "去绿盒子那里, 停在它跟前",
+       "want": "green_box",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"green_box\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "green_box",
+       "target_correct": true
+      },
+      {
+       "instruction": "找到红杯子, 开到它旁边停下",
+       "want": "red_cup",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"red_cup\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "red_cup",
+       "target_correct": true
+      },
+      {
+       "instruction": "找到蓝色的球, 开到它旁边停下",
+       "want": "blue_ball",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"blue_ball\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "blue_ball",
+       "target_correct": true
+      },
+      {
+       "instruction": "找到绿盒子, 开到它旁边停下",
+       "want": "green_box",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"green_box\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "green_box",
+       "target_correct": true
+      }
+     ],
+     "mask_ms_per_step": 41.2
+    },
+    {
+     "setting": "加约束, 重复惩罚 1.0",
+     "constrained": true,
+     "repetition_penalty": 1.0,
+     "valid_calls": 6,
+     "correct_target": 6,
+     "n": 6,
+     "results": [
+      {
+       "instruction": "去红杯子那里, 停在它跟前",
+       "want": "red_cup",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"red_cup\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "red_cup",
+       "target_correct": true
+      },
+      {
+       "instruction": "去蓝色的球那里, 停在它跟前",
+       "want": "blue_ball",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"blue_ball\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "blue_ball",
+       "target_correct": true
+      },
+      {
+       "instruction": "去绿盒子那里, 停在它跟前",
+       "want": "green_box",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"green_box\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "green_box",
+       "target_correct": true
+      },
+      {
+       "instruction": "找到红杯子, 开到它旁边停下",
+       "want": "red_cup",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"red_cup\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "red_cup",
+       "target_correct": true
+      },
+      {
+       "instruction": "找到蓝色的球, 开到它旁边停下",
+       "want": "blue_ball",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"blue_ball\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "blue_ball",
+       "target_correct": true
+      },
+      {
+       "instruction": "找到绿盒子, 开到它旁边停下",
+       "want": "green_box",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"green_box\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "green_box",
+       "target_correct": true
+      }
+     ],
+     "mask_ms_per_step": 44.5
+    }
+   ]
+  },
+  {
+   "model": "Qwen/Qwen2.5-1.5B-Instruct",
+   "vocab_size": 151665,
+   "rows": [
+    {
+     "setting": "不加约束, 重复惩罚 1.1",
+     "constrained": false,
+     "repetition_penalty": 1.1,
+     "valid_calls": 3,
+     "correct_target": 3,
+     "n": 6,
+     "results": [
+      {
+       "instruction": "去红杯子那里, 停在它跟前",
+       "want": "red_cup",
+       "output": "\"go_to target:red_cup\"",
+       "valid_call": false,
+       "tool": null,
+       "target": null,
+       "target_correct": false
+      },
+      {
+       "instruction": "去蓝色的球那里, 停在它跟前",
+       "want": "blue_ball",
+       "output": "\"go_to blue_ball\"",
+       "valid_call": false,
+       "tool": null,
+       "target": null,
+       "target_correct": false
+      },
+      {
+       "instruction": "去绿盒子那里, 停在它跟前",
+       "want": "green_box",
+       "output": "\"go_to green_box\"",
+       "valid_call": false,
+       "tool": null,
+       "target": null,
+       "target_correct": false
+      },
+      {
+       "instruction": "找到红杯子, 开到它旁边停下",
+       "want": "red_cup",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"red_cup\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "red_cup",
+       "target_correct": true
+      },
+      {
+       "instruction": "找到蓝色的球, 开到它旁边停下",
+       "want": "blue_ball",
+       "output": "{\"name\": \"go_to\", \"arguments\": {\"target\": \"blue_ball\"}}",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "blue_ball",
+       "target_correct": true
+      },
+      {
+       "instruction": "找到绿盒子, 开到它旁边停下",
+       "want": "green_box",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"green_box\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "green_box",
+       "target_correct": true
+      }
+     ]
+    },
+    {
+     "setting": "加约束, 重复惩罚 1.1",
+     "constrained": true,
+     "repetition_penalty": 1.1,
+     "valid_calls": 6,
+     "correct_target": 6,
+     "n": 6,
+     "results": [
+      {
+       "instruction": "去红杯子那里, 停在它跟前",
+       "want": "red_cup",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"red_cup\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "red_cup",
+       "target_correct": true
+      },
+      {
+       "instruction": "去蓝色的球那里, 停在它跟前",
+       "want": "blue_ball",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"blue_ball\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "blue_ball",
+       "target_correct": true
+      },
+      {
+       "instruction": "去绿盒子那里, 停在它跟前",
+       "want": "green_box",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"green_box\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "green_box",
+       "target_correct": true
+      },
+      {
+       "instruction": "找到红杯子, 开到它旁边停下",
+       "want": "red_cup",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"red_cup\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "red_cup",
+       "target_correct": true
+      },
+      {
+       "instruction": "找到蓝色的球, 开到它旁边停下",
+       "want": "blue_ball",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"blue_ball\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "blue_ball",
+       "target_correct": true
+      },
+      {
+       "instruction": "找到绿盒子, 开到它旁边停下",
+       "want": "green_box",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"green_box\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "green_box",
+       "target_correct": true
+      }
+     ],
+     "mask_ms_per_step": 48.5
+    },
+    {
+     "setting": "加约束, 重复惩罚 1.0",
+     "constrained": true,
+     "repetition_penalty": 1.0,
+     "valid_calls": 6,
+     "correct_target": 6,
+     "n": 6,
+     "results": [
+      {
+       "instruction": "去红杯子那里, 停在它跟前",
+       "want": "red_cup",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"red_cup\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "red_cup",
+       "target_correct": true
+      },
+      {
+       "instruction": "去蓝色的球那里, 停在它跟前",
+       "want": "blue_ball",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"blue_ball\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "blue_ball",
+       "target_correct": true
+      },
+      {
+       "instruction": "去绿盒子那里, 停在它跟前",
+       "want": "green_box",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"green_box\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "green_box",
+       "target_correct": true
+      },
+      {
+       "instruction": "找到红杯子, 开到它旁边停下",
+       "want": "red_cup",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"red_cup\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "red_cup",
+       "target_correct": true
+      },
+      {
+       "instruction": "找到蓝色的球, 开到它旁边停下",
+       "want": "blue_ball",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"blue_ball\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "blue_ball",
+       "target_correct": true
+      },
+      {
+       "instruction": "找到绿盒子, 开到它旁边停下",
+       "want": "green_box",
+       "output": "<tool_call>\n{\"name\": \"go_to\", \"arguments\": {\"target\": \"green_box\"}}\n</tool_call>",
+       "valid_call": true,
+       "tool": "go_to",
+       "target": "green_box",
+       "target_correct": true
+      }
+     ],
+     "mask_ms_per_step": 46.0
+    }
+   ]
+  }
+ ]
+}

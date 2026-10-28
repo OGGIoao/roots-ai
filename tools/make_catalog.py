@@ -1,7 +1,7 @@
 """
 make_catalog.py — 知识库单元目录的唯一数据源
 
-总目录 library/README.md 和各领域 README 里的单元表都由这里生成, 不要手改两处标记之间的内容:
+总目录 library/README.md、各领域 README 里的单元表、根目录 README 顶部的状态摘要都由这里生成, 不要手改标记之间的内容:
     <!-- catalog:start -->  ...  <!-- catalog:end -->
 
 改了单元的状态、新增单元、单元有了讲义, 只改下面的 DOMAINS, 然后运行:
@@ -113,7 +113,7 @@ DOMAINS = [
         ("推理与部署", [
             ("chat-template", "对话模板: 模型怎么分清 system / user / assistant / tool", "✅", "v0.4, v0.5"),
             ("decoding", "解码与采样: 贪心、温度、top-p、重复惩罚、束搜索, 为什么评测用贪心", "✅", "v0.4"),
-            ("structured-output", "约束解码: 让模型只能输出合法的 JSON 和工具调用", "⬜", "v0.4"),
+            ("structured-output", "约束解码: 让模型只能输出合法的 JSON 和工具调用", "✅", "v0.4"),
             ("quantization", "量化: INT4、FP8、MXFP4/NVFP4, 变小变快的代价 🔥", "⬜", "v0.6, 推理服务"),
             ("local-inference", "本地推理: llama.cpp、vLLM、SGLang 的用法与延迟", "⬜", "v0.5, 推理服务"),
             ("paged-kv-cache", "自写推理引擎 ①: 分页 KV 缓存", "⬜", "推理服务"),
@@ -315,19 +315,43 @@ def render_library():
     return "\n".join(summary) + "\n\n" + "\n\n".join(parts)
 
 
-def replace_block(path, body):
+def replace_block(path, body, tag="catalog"):
     with open(path, encoding="utf-8") as f:
         text = f.read()
-    if "<!-- catalog:start -->" not in text or "<!-- catalog:end -->" not in text:
-        raise SystemExit(f"{path} 里没有 catalog 标记")
-    new = re.sub(r"<!-- catalog:start -->.*?<!-- catalog:end -->",
-                 lambda m: "<!-- catalog:start -->\n" + body + "\n<!-- catalog:end -->", text, flags=re.S)
+    start, end = f"<!-- {tag}:start -->", f"<!-- {tag}:end -->"
+    if start not in text or end not in text:
+        raise SystemExit(f"{path} 里没有 {tag} 标记")
+    new = re.sub(re.escape(start) + ".*?" + re.escape(end),
+                 lambda m: start + "\n" + body + "\n" + end, text, flags=re.S)
     return text, new
+
+
+def render_status():
+    """根目录 README 顶部的状态: 已完成和进行中的单元 (带链接), 规划中的只给个数。"""
+    done, doing, total = [], [], 0
+    for key, zh, intro, segs in DOMAINS:
+        for _, units in segs:
+            for name, what, status, used in units:
+                total += 1
+                link = unit_link(key, name)
+                cell = f"[{name}](library/{key}/{link})" if link else name
+                if status == "✅":
+                    done.append(cell)
+                elif status == "🟡":
+                    doing.append(cell)
+    return "\n".join([
+        "| 知识库单元 | 个数 | 哪些 |", "|---|---|---|",
+        f"| ✅ 写完了 | {len(done)} | {' · '.join(done)} |",
+        f"| 🟡 有内容, 待补 | {len(doing)} | {' · '.join(doing)} |",
+        f"| ⬜ 规划中 | {total - len(done) - len(doing)} | 见 [知识库总目录](library/README.md) |",
+    ])
 
 
 def outputs():
     """[(路径, 生成后的全文)], 供测试比对。"""
     res = []
+    p = os.path.join(ROOT, "README.md")
+    res.append((p, replace_block(p, render_status(), "status")[1]))
     p = os.path.join(LIB, "README.md")
     res.append((p, replace_block(p, render_library())[1]))
     for key, zh, intro, segs in DOMAINS:

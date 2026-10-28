@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="900" height="430" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">约束解码: 合法输出装进前缀树, 每一步只放行 "接上去还在树上" 的 token</text>
+<text x="20" y="42" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">小车 v0.4 go_to 模式第一轮的 4 个合法回复 (constrained.py 的 car_tool_calls)</text>
+<rect x="20" y="66" width="300" height="34" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="30" y="83" font-size="12" font-family="Consolas,'Courier New',monospace" fill="#0b0b0b" text-anchor="start" dominant-baseline="middle">&lt;tool_call&gt;\n{"name": "</text>
+<rect x="380" y="66" width="330" height="34" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="390" y="83" font-size="12" font-family="Consolas,'Courier New',monospace" fill="#0b0b0b" text-anchor="start" dominant-baseline="middle">go_to", "arguments": {"target": "</text>
+<rect x="380" y="214" width="330" height="34" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="390" y="231" font-size="12" font-family="Consolas,'Courier New',monospace" fill="#0b0b0b" text-anchor="start" dominant-baseline="middle">look", "arguments": {}}\n&lt;/tool_call&gt;</text>
+<path d="M320,83 L378,83" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M320,90 C350,90 350,231 378,231" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="349" y="70" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">g</text>
+<text x="349" y="170" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">l</text>
+<rect x="740" y="112" width="140" height="24" rx="3" fill="#dcf3e9" stroke="#1baf7a" stroke-width="1.5"/>
+<text x="748" y="124" font-size="11" font-family="Consolas,'Courier New',monospace" fill="#0b0b0b" text-anchor="start" dominant-baseline="middle">red_cup"}}…</text>
+<path d="M710,90 C726,90 726,124 738,124" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="740" y="140" width="140" height="24" rx="3" fill="#dcf3e9" stroke="#1baf7a" stroke-width="1.5"/>
+<text x="748" y="152" font-size="11" font-family="Consolas,'Courier New',monospace" fill="#0b0b0b" text-anchor="start" dominant-baseline="middle">blue_ball"}}…</text>
+<path d="M710,90 C726,90 726,152 738,152" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="740" y="168" width="140" height="24" rx="3" fill="#dcf3e9" stroke="#1baf7a" stroke-width="1.5"/>
+<text x="748" y="180" font-size="11" font-family="Consolas,'Courier New',monospace" fill="#0b0b0b" text-anchor="start" dominant-baseline="middle">green_box"}}…</text>
+<path d="M710,90 C726,90 726,180 738,180" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="810" y="214" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">每条路走到底 = 一个完整的合法回复</text>
+<rect x="20" y="290" width="860" height="120" rx="4" fill="#ffffff" stroke="#8a8984" stroke-width="0.8"/>
+<text x="36" y="308" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">token 级的一步: 已经写了 …"target": " , Qwen 词表里 15 万个 token 逐个试接</text>
+<text x="36" y="334" font-size="11" fill="#1baf7a" text-anchor="start" font-weight="bold" dominant-baseline="middle">放行:</text>
+<rect x="76" y="324" width="38" height="22" rx="3" fill="#dcf3e9" stroke="#1baf7a" stroke-width="1.5"/>
+<text x="83" y="335" font-size="11" font-family="Consolas,'Courier New',monospace" fill="#0b0b0b" text-anchor="start" dominant-baseline="middle">red</text>
+<rect x="122" y="324" width="46" height="22" rx="3" fill="#dcf3e9" stroke="#1baf7a" stroke-width="1.5"/>
+<text x="129" y="335" font-size="11" font-family="Consolas,'Courier New',monospace" fill="#0b0b0b" text-anchor="start" dominant-baseline="middle">blue</text>
+<rect x="176" y="324" width="54" height="22" rx="3" fill="#dcf3e9" stroke="#1baf7a" stroke-width="1.5"/>
+<text x="183" y="335" font-size="11" font-family="Consolas,'Courier New',monospace" fill="#0b0b0b" text-anchor="start" dominant-baseline="middle">green</text>
+<rect x="238" y="324" width="22" height="22" rx="3" fill="#dcf3e9" stroke="#1baf7a" stroke-width="1.5"/>
+<text x="245" y="335" font-size="11" font-family="Consolas,'Courier New',monospace" fill="#0b0b0b" text-anchor="start" dominant-baseline="middle">g</text>
+<text x="36" y="370" font-size="11" fill="#eb6834" text-anchor="start" font-weight="bold" dominant-baseline="middle">拦下:</text>
+<rect x="76" y="360" width="62" height="22" rx="3" fill="#fde3d7" stroke="#eb6834" stroke-width="1.5"/>
+<text x="83" y="371" font-size="11" font-family="Consolas,'Courier New',monospace" fill="#0b0b0b" text-anchor="start" dominant-baseline="middle">yellow</text>
+<rect x="146" y="360" width="54" height="22" rx="3" fill="#fde3d7" stroke="#eb6834" stroke-width="1.5"/>
+<text x="153" y="371" font-size="11" font-family="Consolas,'Courier New',monospace" fill="#0b0b0b" text-anchor="start" dominant-baseline="middle">"}}\n</text>
+<rect x="208" y="360" width="94" height="22" rx="3" fill="#fde3d7" stroke="#eb6834" stroke-width="1.5"/>
+<text x="215" y="371" font-size="11" font-family="Consolas,'Courier New',monospace" fill="#0b0b0b" text-anchor="start" dominant-baseline="middle">&lt;|im_end|&gt;</text>
+<rect x="310" y="360" width="22" height="22" rx="3" fill="#fde3d7" stroke="#eb6834" stroke-width="1.5"/>
+<text x="317" y="371" font-size="11" font-family="Consolas,'Courier New',monospace" fill="#0b0b0b" text-anchor="start" dominant-baseline="middle">x</text>
+<text x="36" y="398" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">被拦的 token 分数设成 -inf, 剩下的照常按分数挑: 格式由约束保证, 选哪个目标仍由模型决定</text>
+</svg>
