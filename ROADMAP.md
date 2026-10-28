@@ -19,7 +19,7 @@
 
 | 步 | 内容 | 状态 |
 |---|---|---|
-| 0 | 收尾 (对话模板、解码核心) + 改结构 (三层目录) + 仓库改名为 roots-ai | 🟡 改结构进行中 |
+| 0 | 收尾 (对话模板、解码核心) + 改结构 (三层目录) + 仓库改名为 roots-ai | ✅ 2026-10-28 |
 | 1 | 小车 v0.4 → v0.5 要用的单元: decoding 收尾、structured-output、local-inference、quantization、agent-eval; 基础领域核心: dev-environment、linear-algebra、calculus、probability、autograd、pytorch-basics | ⬜ |
 | 2 | 基座线阶段 1 (笔记本全流程) + 小车 v0.7 前半: 预训练段、后训练 P1/P3、强化学习 R0–R3 | ⬜ |
 | 3 | 学习助教 (Agent A3、A7、A8)、推理服务 (自写推理引擎系列)、小车世界模型 (具身 E4) | ⬜ |

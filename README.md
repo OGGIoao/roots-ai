@@ -1,6 +1,6 @@
-# roots-car · 根系 (即将改名为 roots-ai · 扎根 AI)
+# roots-ai · 扎根 AI
 
-[![CI](https://github.com/OGGIoao/roots-car/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/OGGIoao/roots-car/actions/workflows/ci.yml)
+[![CI](https://github.com/OGGIoao/roots-ai/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/OGGIoao/roots-ai/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 > **一套从根上自己搭起来的 AI 全栈知识库, 一个自己从零训出来的小模型, 再用几个真实的作品把知识串成能跑通的链路。第一个作品: 一台听得懂话的小车。**
@@ -83,8 +83,8 @@ flowchart LR
 需要 Python 3.10+。只想看最小演示、做不需要模型的练习, 有 Python 和 `pip install pytest` 就够了。完整环境推荐用 conda 建一个独立环境:
 
 ```bash
-conda create -n roots-car python=3.10 pip -y
-conda activate roots-car
+conda create -n roots-ai python=3.10 pip -y
+conda activate roots-ai
 
 # torch 三件套必须用同一条命令一起装。cu128 适用于 RTX 50 系;
 # 老显卡换成对应的 CUDA 索引, 没有 GPU 就去掉 --index-url 装 CPU 版
@@ -131,7 +131,7 @@ python library/llm/minigpt/train.py --config nano               # 训练 miniGPT
 ## 项目结构
 
 ```
-roots-car/
+roots-ai/
 ├── library/                   # 知识库: 8 个领域, 一个知识点一份讲义 (总目录 library/README.md)
 │   ├── foundations/           #   基础: 工具、数学、机器学习、计算机系统、研究方法
 │   ├── hardware/              #   硬件: electronics ……

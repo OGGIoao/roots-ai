@@ -15,12 +15,12 @@ import json
 import os
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-REPO = "OGGIoao/roots-car"
+REPO = "OGGIoao/roots-ai"
 
 SETUP = [
     "# 克隆仓库并安装共享包 (Colab 每次新开会话都要重新跑这一格)",
     f"!git clone --depth 1 https://github.com/{REPO}.git",
-    "%cd roots-car",
+    "%cd roots-ai",
     "!pip install -q -e . --no-deps",
 ]
 
@@ -40,7 +40,7 @@ def code(*lines):
 EXERCISE_NOTE = md(
     "## 练习",
     "",
-    "练习文件在左侧\"文件\"面板里 (`roots-car/<本章所在目录>/exercises/`), 双击打开就能编辑, 改完按 Ctrl+S 保存, 再运行下面的测试。",
+    "练习文件在左侧\"文件\"面板里 (`roots-ai/<本章所在目录>/exercises/`), 双击打开就能编辑, 改完按 Ctrl+S 保存, 再运行下面的测试。",
     "刚克隆下来时测试会失败, 这是正常的: 报 `NotImplementedError` (还没写), 或者 `RuntimeError: Error(s) in loading state_dict` (还没写完, 参数对不上)。等你把 TODO 补完再跑。",
     "",
     "> **注意**: Colab 会话断开后, 你改过的文件会丢失。想保留, 就把练习文件下载下来 (右键 → 下载), 或者 fork 本仓库后把上面的克隆地址换成你自己的。",
@@ -66,7 +66,7 @@ def a1():
     cells = [
         md("# A1 BPE 分词器 · 在 Colab 上运行",
            "",
-           "小车 v0.5 \"自己的大脑\" 用到的第一个单元: 把文字变成整数。讲解见 [讲义](https://github.com/OGGIoao/roots-car/blob/master/library/llm/bpe/TUTORIAL.md), 这个笔记本只负责把代码跑起来。",
+           "小车 v0.5 \"自己的大脑\" 用到的第一个单元: 把文字变成整数。讲解见 [讲义](https://github.com/OGGIoao/roots-ai/blob/master/library/llm/bpe/TUTORIAL.md), 这个笔记本只负责把代码跑起来。",
            "",
            "本章只用 Python 标准库, **不需要 GPU** (菜单 \"代码执行程序 → 更改运行时类型\" 选 CPU 即可)。"),
         code(*SETUP),
@@ -95,7 +95,7 @@ def a2():
     cells = [
         md("# A2 miniGPT · 在 Colab 上运行",
            "",
-           "从零训练一个 GPT-2 结构的小模型, 让它学会写莎士比亚风格的文字。讲解见 [讲义](https://github.com/OGGIoao/roots-car/blob/master/library/llm/minigpt/TUTORIAL.md)。",
+           "从零训练一个 GPT-2 结构的小模型, 让它学会写莎士比亚风格的文字。讲解见 [讲义](https://github.com/OGGIoao/roots-ai/blob/master/library/llm/minigpt/TUTORIAL.md)。",
            "",
            "建议用 GPU: 菜单 \"代码执行程序 → 更改运行时类型\" 选 GPU (免费的 T4 就够)。CPU 也能跑, 只是慢一些 (测量平台的 CPU 上 nano 配置约 2 分钟)。"),
         code(*SETUP),
@@ -108,7 +108,7 @@ def a2():
            "测量平台 (RTX 5060 Laptop) 上最佳 val_loss 约 1.91; 换一张显卡, 速度不同, loss 应当接近。"),
         code("!python library/llm/minigpt/train.py --config nano"),
         md("## 接下来", "", "- 讲义第二部分的延伸专题 (KV cache、FlashAttention、混合精度、显存账本) 都有对应的实验脚本, 在 `library/llm/minigpt/experiments/` 下;",
-           "- 下一章 [A3 注意力与推理延迟](https://github.com/OGGIoao/roots-car/blob/master/library/llm/attention/TUTORIAL.md) 也有 Colab 笔记本。"),
+           "- 下一章 [A3 注意力与推理延迟](https://github.com/OGGIoao/roots-ai/blob/master/library/llm/attention/TUTORIAL.md) 也有 Colab 笔记本。"),
     ]
     return path, cells
 
@@ -118,7 +118,7 @@ def a3():
     cells = [
         md("# A3 注意力与推理延迟 · 在 Colab 上运行",
            "",
-           "MHA / MQA / GQA / MLA 四种注意力的对照实验。讲解见 [讲义](https://github.com/OGGIoao/roots-car/blob/master/library/llm/attention/TUTORIAL.md)。",
+           "MHA / MQA / GQA / MLA 四种注意力的对照实验。讲解见 [讲义](https://github.com/OGGIoao/roots-ai/blob/master/library/llm/attention/TUTORIAL.md)。",
            "",
            "建议用 GPU (菜单 \"代码执行程序 → 更改运行时类型\" 选 GPU)。"),
         code(*SETUP),
@@ -138,8 +138,8 @@ def v04():
     cells = [
         md("# 小车 v0.4 听懂文字 (仿真版) · 在 Colab 上运行",
            "",
-           "让大模型通过工具调用开一台仿真小车, 并在 30 个任务上实测。讲解见 [本站讲义](https://github.com/OGGIoao/roots-car/blob/master/projects/car/v0.4-text-commands/TUTORIAL.md);"
-           " Agent 循环本身的原理见知识库 [agent-loop](https://github.com/OGGIoao/roots-car/blob/master/library/agent/agent-loop/TUTORIAL.md)。",
+           "让大模型通过工具调用开一台仿真小车, 并在 30 个任务上实测。讲解见 [本站讲义](https://github.com/OGGIoao/roots-ai/blob/master/projects/car/v0.4-text-commands/TUTORIAL.md);"
+           " Agent 循环本身的原理见知识库 [agent-loop](https://github.com/OGGIoao/roots-ai/blob/master/library/agent/agent-loop/TUTORIAL.md)。",
            "",
            "前两步只用 CPU; 第 3 步用本地小模型 (Qwen2.5-1.5B-Instruct, 约 3 GB) 跑评测, 需要 GPU",
            "(菜单 \"代码执行程序 → 更改运行时类型\" 选 GPU)。Colab 能直接访问 Hugging Face, 不需要镜像。"),

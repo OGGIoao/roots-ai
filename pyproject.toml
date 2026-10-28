@@ -10,7 +10,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "roots-car"
+name = "roots-ai"
 version = "0.1.0"
 description = "Toy-scale, hand-built chain from LLM to RL to a simulated quadruped and agents, runnable on one 8GB laptop"
 requires-python = ">=3.10"

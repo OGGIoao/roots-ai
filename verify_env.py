@@ -4,7 +4,7 @@ verify_env.py — 环境健康检查
 一次跑完, 明确告诉你: 哪些能用、哪些不能、下一步该敲什么命令。
 
 用法:
-    python verify_env.py            # 先 conda activate roots-car 再跑
+    python verify_env.py            # 先 conda activate roots-ai 再跑
     python verify_env.py --full     # 额外做一次真实 forward 前向计算
 
 设计原则: 不抛异常中断, 逐项检查并给出可操作的修复建议。
@@ -387,7 +387,7 @@ def main():
     args = ap.parse_args()
 
     print("=" * 68)
-    print("  环境健康检查 — roots-car")
+    print("  环境健康检查 — roots-ai")
     print("=" * 68)
 
     check_python()
@@ -416,8 +416,8 @@ def main():
         print(f"结论: {len(fails)} 项失败, {len(warns)} 项警告 —— 见上面 → 的建议")
         print()
         print("重建环境的完整命令 (注意三件套要一起装):")
-        print("  conda create -n roots-car python=3.10 pip -y")
-        print("  conda activate roots-car")
+        print("  conda create -n roots-ai python=3.10 pip -y")
+        print("  conda activate roots-ai")
         print("  pip install torch torchvision torchaudio \\")
         print("      --index-url https://download.pytorch.org/whl/cu128")
         print("  pip install bitsandbytes")
