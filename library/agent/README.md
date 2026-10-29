@@ -22,7 +22,7 @@
 |  | rag-basics | 切块、检索、重排、关键词 + 向量混合检索 | ⬜ | 助教 |
 |  | rag-advanced | Agent 式检索、GraphRAG、长上下文与 RAG 的取舍 🔥 | ⬜ | 助教 |
 |  | rag-eval | 检索召回率、回答是否忠于资料 | ⬜ | 助教 |
-| A4 协议与生态 | mcp | MCP: 把小车的工具做成任何应用都能调用的服务 | ⬜ | v0.4 |
+| A4 协议与生态 | mcp | MCP: 把工具做成任何应用都能调用的服务 | ⬜ | v0.4 |
 |  | agent-interop | A2A、Agent Skills、AGENTS.md 等互通标准 🔥 | ⬜ |  |
 |  | [agent-frameworks](agent-frameworks/README.md) | LangGraph、OpenAI Agents SDK 等框架, 逐个部件对照手写循环 | 🟡 |  |
 | A5 典型 Agent | coding-agent | 编程 Agent: 读代码库、跑测试、在沙箱里改代码 | ⬜ |  |

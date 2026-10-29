@@ -25,7 +25,7 @@ flowchart LR
 | **v0.4 听懂文字** | 打一句话, 大模型调用工具把车开过去 | [agent-loop](../../library/agent/agent-loop/TUTORIAL.md) 🟡 · [chat-template](../../library/llm/chat-template/TUTORIAL.md) ✅ · [decoding](../../library/llm/decoding/TUTORIAL.md) ✅ · [structured-output](../../library/llm/structured-output/TUTORIAL.md) ✅ | [仿真版](v0.4-text-commands/TUTORIAL.md) 🟡 (真车版 ⬜) |
 | **v0.5 自己的大脑** | 换成自己微调的小模型, 在笔记本上本地运行 | [bpe](../../library/llm/bpe/TUTORIAL.md) ✅ · [minigpt](../../library/llm/minigpt/TUTORIAL.md) ✅ · [attention](../../library/llm/attention/TUTORIAL.md) ✅ · [modern-small-model](../../library/llm/modern-small-model/TUTORIAL.md) 🟡 · [tool-finetune](../../library/post-training/tool-finetune/README.md) 🟡 · local-inference ⬜ · agent-eval ⬜; 可选用基座线 [roots-lm](../../base/README.md) | ⬜ |
 | **v0.6 看得见** | 用摄像头找到红杯子 | camera ⬜ · detection ⬜ · perception-3d ⬜ · quantization ⬜ | ⬜ |
-| **v0.7 自己学** | 仿真里用强化学习训练的控制策略上真车 | [bandit](../../library/rl/bandit/TUTORIAL.md) ✅ · mdp ⬜ · q-learning ⬜ · policy-gradient ⬜ · ppo ⬜ · continuous-control ⬜ · car-world-model ⬜ · sim2real ⬜ | ⬜ |
+| **v0.7 自己学** | 仿真里用强化学习训练的控制策略上真车 | [bandit](../../library/rl/bandit/TUTORIAL.md) ✅ · mdp ⬜ · q-learning ⬜ · policy-gradient ⬜ · ppo ⬜ · continuous-control ⬜ · learned-dynamics ⬜ · sim2real ⬜ | ⬜ |
 | **v1.0 听得懂话** | 一句语音指挥小车完成任务 | audio ⬜ · keyword-spotting ⬜ · asr ⬜ · tts ⬜ · tinyml ⬜ | ⬜ |
 
 每一站的验收标准、小车的工具接口、安全规则和预算见 [PRODUCT.md](PRODUCT.md); 开发板选型、引脚分配和物料清单见 [hardware/](hardware/README.md); 推进顺序见 [ROADMAP.md](../../ROADMAP.md)。

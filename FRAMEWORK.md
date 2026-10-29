@@ -40,6 +40,8 @@
 
 **选内容的规则**: 新知识点进知识库; 哪个项目、哪个基座阶段用到它, 就在单元里注明。知识库可以比任何一个项目都大, 但项目的进度不能被知识库拖住 (第 8 节的写作顺序保证这一点)。
 
+**知识库不依赖任何项目** (2026-10-29 定): 每个单元用通用、经典的例子把知识点讲透, 颗粒度和深度对齐 [bpe 讲义](library/llm/bpe/TUTORIAL.md); 项目内容只放在单元后面单独的 "实践" 一节, 单元名也不带项目名。每个项目有自己的教程主线, 原理链接回知识库。练习和思考题都附折叠的参考答案, 读者可以沉浸式地一口气学下去。
+
 ---
 
 ## 2. 知识库: 8 个领域
@@ -116,14 +118,14 @@
 | P1 监督微调 | sft · instruction-data · lora-qlora · tool-finetune 🟡★ |
 | P2 偏好对齐 | reward-models · rlhf-ppo · dpo |
 | P3 可验证奖励 RL | grpo · grpo-variants 🔥 · process-rewards · rl-dynamics 🔥 |
-| P4 Agent RL 🔥 | agentic-rl · car-grpo ★ |
+| P4 Agent RL 🔥 | agentic-rl · tool-use-rl ★ |
 | P5 蒸馏 | reasoning-distill · on-policy-distill 🔥 |
 | P6 RL 基础设施 🔥 | rl-infra · mini-rl-loop · framework-reading (slime / OpenRLHF / verl) |
 | P7 | safety-alignment |
 
 ### 2.6 强化学习 rl (约 20 个)
 
-**小车仿真器 (`sim/car2d.py`) 是全领域的练习环境**: 从格子版小车练到连续控制, 学完 PPO 就是小车 v0.7。每个单元另配一个标准 Gymnasium 环境做对照。
+**主干用经典环境** (格子世界、CartPole 等), 不依赖任何项目; 每个单元的实践一节再用到项目上, 例如学完 PPO 在小车仿真器上训控制器 (小车 v0.7)。
 
 | 段 | 单元 |
 |---|---|
@@ -143,7 +145,7 @@
 | E1 本体与感知 | kinematics ★ · state-estimation ★ · perception-3d ★ · slam |
 | E2 规划与经典控制 | motion-planning ★ · mpc |
 | E3 从示范和试错中学 | imitation-learning · action-chunking · diffusion-policy · sim2real ★ · real-robot-rl |
-| **E4 世界模型 🔥 (重点)** | world-model-basics · **car-world-model ★ (给小车训世界模型, 笔记本可做)** · video-world-models · latent-world-models · world-action-models · world-model-data |
+| **E4 世界模型 🔥 (重点)** | world-model-basics · **learned-dynamics ★ (用神经网络从数据学世界模型并在里面规划, 笔记本可做; 实践一节用在小车上)** · video-world-models · latent-world-models · world-action-models · world-model-data |
 | E5 具身基础模型 🔥 | vla · vla-finetune · robot-data |
 | E6 系统与部署 | edge-deployment ★ · robot-software · embodied-eval · embodied-safety |
 
@@ -224,7 +226,7 @@
 | v0.4 | 听懂文字 | agent-loop、chat-template、decoding、structured-output |
 | v0.5 | 自己的大脑 | tool-finetune、local-inference、agent-eval; 可选用 roots-lm |
 | v0.6 | 看得见 | camera、detection、perception-3d、quantization |
-| v0.7 | 自己学 | RL R1–R3、car-world-model、sim2real |
+| v0.7 | 自己学 | RL R1–R3、learned-dynamics、sim2real |
 | v1.0 | 听得懂话 | audio、keyword-spotting、asr、tts |
 
 ---

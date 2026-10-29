@@ -32,7 +32,7 @@
 | H5 连接 | wifi-remote | WiFi 与网页遥控 | ⬜ | v0.1 |
 |  | robot-networking | 延迟、断线、MQTT / WebSocket: 电脑上的大模型和地上的车之间怎么连才稳 | ⬜ | v0.3 |
 | H6 安全 | safety-firmware | 状态机、看门狗与急停 | ⬜ | v0.3 |
-| H7 端侧 AI | tinyml | 在单片机上跑量化小模型 (唤醒词), 用小车的感知板 🔥 | ⬜ | v1.0 |
+| H7 端侧 AI | tinyml | 在单片机上跑量化小模型 (例如唤醒词) 🔥 | ⬜ | v1.0 |
 |  | edge-npu | 单板电脑的 NPU: 模型转换、算子支持 (需要可选的单板电脑) 🔥 | ⬜ |  |
 |  | edge-gpu | Jetson 一类带 GPU 的板子与 TensorRT (需要可选的单板电脑) 🔥 | ⬜ |  |
 |  | on-device-llm | 在板子上跑大模型: INT4、llama.cpp (需要可选的单板电脑) 🔥 | ⬜ |  |
