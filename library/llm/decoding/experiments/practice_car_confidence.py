@@ -1,5 +1,7 @@
 """
-token_confidence.py — 小车 v0.4 的提示下, 模型写工具调用时每个 token 有多大把握 (讲义第 8.3 节)
+practice_car_confidence.py — 实践: 小车 v0.4 的提示下, 模型写工具调用时每个 token 有多大把握 (讲义第 16.2 节)
+
+通用版本 (不依赖任何项目) 是 real_model.py; 这个脚本只为讲义的实践一节服务。
 
 默认用 Qwen2.5-0.5B-Instruct 在 CPU 上 (约 2 GB 内存, 不用显卡; --model 换成 1.5B 时用 bf16, 约 3 GB 内存), 对 v0.4 skill 模式的 6 条指令:
   1. 贪心 (不加重复惩罚) 写出第一轮回复, 一般是一个工具调用;
@@ -12,9 +14,9 @@ token_confidence.py — 小车 v0.4 的提示下, 模型写工具调用时每个
   4. 整条回复都和贪心一样的概率 = 各位置 p_keep_sample 的乘积。
 
 处理 logits 用本单元的 sampling.py (已和 transformers 逐步核对过)。
-    python experiments/token_confidence.py
-    python experiments/token_confidence.py --model Qwen/Qwen2.5-1.5B-Instruct
-结果写进 results/token_confidence_<模型>.json; 另外记下第一个位置排前三的候选, 加重复惩罚前后各一份。
+    python experiments/practice_car_confidence.py
+    python experiments/practice_car_confidence.py --model Qwen/Qwen2.5-1.5B-Instruct
+结果写进 results/practice_car_confidence_<模型>.json; 另外记下第一个位置排前三的候选, 加重复惩罚前后各一份。
 """
 
 import json
@@ -40,7 +42,7 @@ def main():
     ap.add_argument("--model", default="Qwen/Qwen2.5-0.5B-Instruct")
     args = ap.parse_args()
     MODEL = args.model
-    OUT = os.path.join(HERE, "results", "token_confidence_" + MODEL.split("/")[-1] + ".json")
+    OUT = os.path.join(HERE, "results", "practice_car_confidence_" + MODEL.split("/")[-1] + ".json")
     import torch
     from transformers import AutoModelForCausalLM, AutoTokenizer
     from agent import make_tasks

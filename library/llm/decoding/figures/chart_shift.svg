@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 400" width="860" height="400" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" font-weight="bold" fill="#0b0b0b" dominant-baseline="middle">同一个分布, 同样的惩罚: 乘除法的效果随分数整体平移大起大落, 减法纹丝不动</text>
+<text x="20" y="40" font-size="12" fill="#52514e" dominant-baseline="middle">ToyLM, "th" 之后的 "e" 被当作说过 (experiments/toy_more.py F)</text>
+<line x1="80" y1="336.0" x2="650" y2="336.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="336.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0</text>
+<line x1="80" y1="282.0" x2="650" y2="282.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="282.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0.1</text>
+<line x1="80" y1="228.0" x2="650" y2="228.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="228.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0.2</text>
+<line x1="80" y1="174.0" x2="650" y2="174.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="174.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0.3</text>
+<line x1="80" y1="120.0" x2="650" y2="120.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="120.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0.4</text>
+<line x1="80" y1="66.0" x2="650" y2="66.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="66.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0.5</text>
+<line x1="80.0" y1="336" x2="80.0" y2="340" stroke="#c9c8c2"/>
+<text x="80.0" y="352.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">-20</text>
+<line x1="222.5" y1="336" x2="222.5" y2="340" stroke="#c9c8c2"/>
+<text x="222.5" y="352.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">-10</text>
+<line x1="365.0" y1="336" x2="365.0" y2="340" stroke="#c9c8c2"/>
+<text x="365.0" y="352.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<line x1="507.5" y1="336" x2="507.5" y2="340" stroke="#c9c8c2"/>
+<text x="507.5" y="352.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">+10</text>
+<line x1="650.0" y1="336" x2="650.0" y2="340" stroke="#c9c8c2"/>
+<text x="650.0" y="352.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">+20</text>
+<line x1="80" y1="336" x2="650" y2="336" stroke="#c9c8c2" stroke-width="1"/>
+<text x="365.0" y="374.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">所有分数同时加上的常数 (softmax 之后概率完全不变)</text>
+<text x="30" y="201.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 30 201.0)">惩罚之后 "e" 的概率</text>
+<line x1="80" y1="86.8" x2="650" y2="86.8" stroke="#8a8984" stroke-dasharray="4 3"/>
+<text x="660.0" y="78.8" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">惩罚之前 0.46</text>
+<path d="M80.0,151.3 L115.6,151.3 L151.2,151.3 L186.9,151.3 L222.5,151.3 L258.1,151.3 L293.8,151.3 L329.4,151.3 L365.0,151.3 L400.6,151.3 L436.2,151.3 L471.9,151.3 L507.5,151.3 L543.1,151.3 L578.8,151.3 L614.4,151.3 L650.0,151.3" fill="none" stroke="#1baf7a" stroke-width="2" stroke-linejoin="round"/>
+<rect x="75.5" y="146.8" width="9.0" height="9.0" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<rect x="146.8" y="146.8" width="9.0" height="9.0" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<rect x="218.0" y="146.8" width="9.0" height="9.0" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<rect x="289.2" y="146.8" width="9.0" height="9.0" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<rect x="360.5" y="146.8" width="9.0" height="9.0" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<rect x="431.8" y="146.8" width="9.0" height="9.0" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<rect x="503.0" y="146.8" width="9.0" height="9.0" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<rect x="574.2" y="146.8" width="9.0" height="9.0" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<rect x="645.5" y="146.8" width="9.0" height="9.0" fill="#1baf7a" stroke="#1baf7a" stroke-width="2"/>
+<path d="M80.0,335.1 L115.6,334.1 L151.2,331.9 L186.9,327.5 L222.5,318.3 L258.1,299.9 L293.8,264.9 L329.4,204.8 L365.0,117.5 L400.6,138.8 L436.2,204.1 L471.9,253.1 L507.5,286.1 L543.1,306.8 L578.8,319.2 L614.4,326.4 L650.0,330.6" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="80.0" cy="335.1" r="4.5" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<circle cx="151.2" cy="331.9" r="4.5" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<circle cx="222.5" cy="318.3" r="4.5" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<circle cx="293.8" cy="264.9" r="4.5" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<circle cx="365.0" cy="117.5" r="4.5" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<circle cx="436.2" cy="204.1" r="4.5" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<circle cx="507.5" cy="286.1" r="4.5" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<circle cx="578.8" cy="319.2" r="4.5" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<circle cx="650.0" cy="330.6" r="4.5" fill="#eb6834" stroke="#eb6834" stroke-width="2"/>
+<text x="660.0" y="157.3" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">出现惩罚 0.5 (减法): 一条平线</text>
+<text x="660.0" y="330.6" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">重复惩罚 1.3 (乘除法)</text>
+</svg>

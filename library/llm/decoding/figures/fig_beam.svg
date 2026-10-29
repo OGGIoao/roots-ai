@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" width="960" height="360" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">束搜索 (束宽 2): 每一步把留下的路各展开一格, 按总分排序, 只留前两条</text>
+<text x="20" y="42" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">开头 "ROMEO:↵"; 总分 = 每一步 log 概率之和; 绿色是留下的, 灰色是被挤掉的 (每步只画前 4 名, beam.py 的规则)</text>
+<rect x="30" y="150" width="110" height="40" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="85" y="170.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">ROMEO:↵</text>
+<rect x="200" y="70" width="180" height="40" rx="4" fill="#dcf3e9" stroke="#1baf7a" stroke-width="1.5"/>
+<text x="210" y="90.0" font-size="14" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">I</text>
+<text x="370" y="90.0" font-size="12" fill="#52514e" text-anchor="end" font-weight="normal" dominant-baseline="middle">-2.10</text>
+<line x1="140" y1="170.0" x2="197" y2="90.0" stroke="#1baf7a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="200" y="132" width="180" height="40" rx="4" fill="#dcf3e9" stroke="#1baf7a" stroke-width="1.5"/>
+<text x="210" y="152.0" font-size="14" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">T</text>
+<text x="370" y="152.0" font-size="12" fill="#52514e" text-anchor="end" font-weight="normal" dominant-baseline="middle">-2.12</text>
+<line x1="140" y1="170.0" x2="197" y2="152.0" stroke="#1baf7a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="200" y="194" width="180" height="40" rx="4" fill="#efeeea" stroke="#8a8984" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="210" y="214.0" font-size="14" fill="#8a8984" text-anchor="start" font-weight="bold" dominant-baseline="middle">W</text>
+<text x="370" y="214.0" font-size="12" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">-2.19</text>
+<line x1="140" y1="170.0" x2="197" y2="214.0" stroke="#8a8984" stroke-width="1" marker-end="url(#arrow)"/>
+<rect x="200" y="256" width="180" height="40" rx="4" fill="#efeeea" stroke="#8a8984" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="210" y="276.0" font-size="14" fill="#8a8984" text-anchor="start" font-weight="bold" dominant-baseline="middle">A</text>
+<text x="370" y="276.0" font-size="12" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">-2.28</text>
+<line x1="140" y1="170.0" x2="197" y2="276.0" stroke="#8a8984" stroke-width="1" marker-end="url(#arrow)"/>
+<rect x="450" y="70" width="180" height="40" rx="4" fill="#dcf3e9" stroke="#1baf7a" stroke-width="1.5"/>
+<text x="460" y="90.0" font-size="14" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">Th</text>
+<text x="620" y="90.0" font-size="12" fill="#52514e" text-anchor="end" font-weight="normal" dominant-baseline="middle">-2.50</text>
+<line x1="380" y1="152.0" x2="447" y2="90.0" stroke="#1baf7a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="450" y="132" width="180" height="40" rx="4" fill="#dcf3e9" stroke="#1baf7a" stroke-width="1.5"/>
+<text x="460" y="152.0" font-size="14" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">I␣</text>
+<text x="620" y="152.0" font-size="12" fill="#52514e" text-anchor="end" font-weight="normal" dominant-baseline="middle">-2.84</text>
+<line x1="380" y1="90.0" x2="447" y2="152.0" stroke="#1baf7a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="450" y="194" width="180" height="40" rx="4" fill="#efeeea" stroke="#8a8984" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="460" y="214.0" font-size="14" fill="#8a8984" text-anchor="start" font-weight="bold" dominant-baseline="middle">To</text>
+<text x="620" y="214.0" font-size="12" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">-3.70</text>
+<line x1="380" y1="152.0" x2="447" y2="214.0" stroke="#8a8984" stroke-width="1" marker-end="url(#arrow)"/>
+<rect x="450" y="256" width="180" height="40" rx="4" fill="#efeeea" stroke="#8a8984" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="460" y="276.0" font-size="14" fill="#8a8984" text-anchor="start" font-weight="bold" dominant-baseline="middle">In</text>
+<text x="620" y="276.0" font-size="12" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">-4.21</text>
+<line x1="380" y1="90.0" x2="447" y2="276.0" stroke="#8a8984" stroke-width="1" marker-end="url(#arrow)"/>
+<rect x="700" y="70" width="180" height="40" rx="4" fill="#dcf3e9" stroke="#1baf7a" stroke-width="1.5"/>
+<text x="710" y="90.0" font-size="14" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">The</text>
+<text x="870" y="90.0" font-size="12" fill="#52514e" text-anchor="end" font-weight="normal" dominant-baseline="middle">-3.31</text>
+<line x1="630" y1="90.0" x2="697" y2="90.0" stroke="#1baf7a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="700" y="132" width="180" height="40" rx="4" fill="#dcf3e9" stroke="#1baf7a" stroke-width="1.5"/>
+<text x="710" y="152.0" font-size="14" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">Tha</text>
+<text x="870" y="152.0" font-size="12" fill="#52514e" text-anchor="end" font-weight="normal" dominant-baseline="middle">-3.80</text>
+<line x1="630" y1="90.0" x2="697" y2="152.0" stroke="#1baf7a" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="700" y="194" width="180" height="40" rx="4" fill="#efeeea" stroke="#8a8984" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="710" y="214.0" font-size="14" fill="#8a8984" text-anchor="start" font-weight="bold" dominant-baseline="middle">Thi</text>
+<text x="870" y="214.0" font-size="12" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">-4.67</text>
+<line x1="630" y1="90.0" x2="697" y2="214.0" stroke="#8a8984" stroke-width="1" marker-end="url(#arrow)"/>
+<rect x="700" y="256" width="180" height="40" rx="4" fill="#efeeea" stroke="#8a8984" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="710" y="276.0" font-size="14" fill="#8a8984" text-anchor="start" font-weight="bold" dominant-baseline="middle">I␣w</text>
+<text x="870" y="276.0" font-size="12" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">-4.77</text>
+<line x1="630" y1="152.0" x2="697" y2="276.0" stroke="#8a8984" stroke-width="1" marker-end="url(#arrow)"/>
+<text x="480" y="340" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">贪心 (束宽 1) 只看眼前一步; 束宽 2 会保留一条 "现在稍差、后面可能更好" 的路</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="900" height="400" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">贪心为什么出不来: ToyLM 只看最后两个字符, 四个状态首尾相接</text>
+<text x="20" y="42" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">每个方框是 "最后两个字符", 箭头是贪心选的下一个字符和它的概率; 走到 "th" 就再也离不开 (toy_lm.py 现场算)</text>
+<rect x="380" y="90" width="130" height="56" rx="10" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="445.0" y="110" font-size="16" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">"th"</text>
+<text x="445.0" y="131" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">e 0.46  ␣ 0.14  a 0.11</text>
+<rect x="640" y="190" width="130" height="56" rx="10" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="705.0" y="210" font-size="16" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">"he"</text>
+<text x="705.0" y="231" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">␣ 0.43  r 0.23  n 0.07</text>
+<rect x="380" y="290" width="130" height="56" rx="10" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="445.0" y="310" font-size="16" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">"e␣"</text>
+<text x="445.0" y="331" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">t 0.13  s 0.08  a 0.07</text>
+<rect x="120" y="190" width="130" height="56" rx="10" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="185.0" y="210" font-size="16" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">"␣t"</text>
+<text x="185.0" y="231" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">h 0.67  o 0.21  r 0.03</text>
+<line x1="514.0" y1="144.53846153846155" x2="632.0" y2="189.92307692307693" stroke="#eb6834" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="640.3341924342142" y="155.79471130349845" font-size="12" fill="#eb6834" text-anchor="middle" font-weight="bold" dominant-baseline="middle">贪心选 "e" (0.46)</text>
+<line x1="636.0" y1="244.53846153846155" x2="518.0" y2="289.9230769230769" stroke="#eb6834" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="640.3341924342142" y="280.20528869650155" font-size="12" fill="#eb6834" text-anchor="middle" font-weight="bold" dominant-baseline="middle">贪心选 "␣" (0.43)</text>
+<line x1="376.0" y1="291.46153846153845" x2="258.0" y2="246.07692307692307" stroke="#eb6834" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="249.66580756578583" y="280.20528869650155" font-size="12" fill="#eb6834" text-anchor="middle" font-weight="bold" dominant-baseline="middle">贪心选 "t" (0.13)</text>
+<line x1="254.0" y1="191.46153846153845" x2="372.0" y2="146.07692307692307" stroke="#eb6834" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="249.66580756578583" y="155.79471130349845" font-size="12" fill="#eb6834" text-anchor="middle" font-weight="bold" dominant-baseline="middle">贪心选 "h" (0.67)</text>
+<text x="450" y="375" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">写出来的就是 the the the …; 每一步都选了最可能的字符, 合起来却是最没用的文字</text>
+</svg>

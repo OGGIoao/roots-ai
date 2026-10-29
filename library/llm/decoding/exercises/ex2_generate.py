@@ -4,7 +4,7 @@
     generate(step, prompt_ids, max_new_tokens, stop_ids=(), stop_strings=(), decode=None, rng=None, **cfg)
         -> (新生成的 ids, 停止原因)
 
-要求 (和 ../generate.py 一致, 讲义第 6 节):
+要求 (和 ../generate.py 一致, 讲义第 8.4 节):
   - 每一步: logits = step(目前所有 ids) → 用 sampling.next_token 挑一个 token (cfg 原样传过去);
     重复惩罚要看 "目前所有 token", 包括提示词里的;
   - rng 没给时用 random.Random(0), 这样同样的设置结果可复现;

@@ -1,7 +1,7 @@
 """
 练习 3 (③ 白纸): 束搜索
 
-只看下面的规则, 从零写出束搜索 (讲义第 7 节):
+只看下面的规则, 从零写出束搜索 (讲义第 9 节):
 
     beam_search(step, prompt_ids, beam_width, max_new_tokens, stop_ids=()) -> (新生成的 ids 列表, 总分)
 

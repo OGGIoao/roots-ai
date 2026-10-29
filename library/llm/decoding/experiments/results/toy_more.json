@@ -1,0 +1,328 @@
+{
+ "penalties": [
+  {
+   "setting": "不加惩罚",
+   "loop_rate": 1.0,
+   "distinct4": 0.0242,
+   "avg_logprob": -1.0189,
+   "sample": "I withe the the the the the the the the the the the the the the the the the the the the th"
+  },
+  {
+   "setting": "重复惩罚 1.3 (看全部历史, transformers)",
+   "loop_rate": 1.0,
+   "distinct4": 0.0586,
+   "avg_logprob": -1.0271,
+   "sample": "I withe son the and the the the the the the the the the the the the the the the the the th"
+  },
+  {
+   "setting": "重复惩罚 1.3 (只看最近 64 个, llama.cpp)",
+   "loop_rate": 1.0,
+   "distinct4": 0.097,
+   "avg_logprob": -1.0944,
+   "sample": "I withe son the and the the the the the the the the the the the the the the so my like and"
+  },
+  {
+   "setting": "重复惩罚 1.3 (只看最近 8 个)",
+   "loop_rate": 1.0,
+   "distinct4": 0.0579,
+   "avg_logprob": -1.2194,
+   "sample": "I withe son the and the son the and the son the and the son the and the son the and the so"
+  },
+  {
+   "setting": "出现惩罚 0.5 (加法)",
+   "loop_rate": 1.0,
+   "distinct4": 0.0242,
+   "avg_logprob": -1.0189,
+   "sample": "I withe the the the the the the the the the the the the the the the the the the the the th"
+  },
+  {
+   "setting": "频率惩罚 0.3 (加法, 按次数)",
+   "loop_rate": 0.0,
+   "distinct4": 0.8088,
+   "avg_logprob": -1.5049,
+   "sample": "I withe the son there and my lover,\nAnd thers,\nThat but will,\nAnd my fords,\nThaver's ands."
+  },
+  {
+   "setting": "禁止重复 4 元组",
+   "loop_rate": 0.0,
+   "distinct4": 1.0,
+   "avg_logprob": -1.6954,
+   "sample": "I withe ther th that this thou and thy th, an throme to thus tor tood ton to-mor he so tol"
+  },
+  {
+   "setting": "禁止重复 6 元组",
+   "loop_rate": 0.0,
+   "distinct4": 0.5596,
+   "avg_logprob": -1.4215,
+   "sample": "I withe the to the so ther the and the he th the with th to to true there then the my the "
+  }
+ ],
+ "shift": {
+  "context": "th",
+  "token": "e",
+  "p_before": 0.4615,
+  "rows": [
+   {
+    "shift": -20.0,
+    "repetition_1.3": 0.0017,
+    "presence_0.5": 0.342
+   },
+   {
+    "shift": -17.5,
+    "repetition_1.3": 0.0036,
+    "presence_0.5": 0.342
+   },
+   {
+    "shift": -15.0,
+    "repetition_1.3": 0.0075,
+    "presence_0.5": 0.342
+   },
+   {
+    "shift": -12.5,
+    "repetition_1.3": 0.0157,
+    "presence_0.5": 0.342
+   },
+   {
+    "shift": -10.0,
+    "repetition_1.3": 0.0327,
+    "presence_0.5": 0.342
+   },
+   {
+    "shift": -7.5,
+    "repetition_1.3": 0.0668,
+    "presence_0.5": 0.342
+   },
+   {
+    "shift": -5.0,
+    "repetition_1.3": 0.1317,
+    "presence_0.5": 0.342
+   },
+   {
+    "shift": -2.5,
+    "repetition_1.3": 0.243,
+    "presence_0.5": 0.342
+   },
+   {
+    "shift": 0.0,
+    "repetition_1.3": 0.4046,
+    "presence_0.5": 0.342
+   },
+   {
+    "shift": 2.5,
+    "repetition_1.3": 0.3652,
+    "presence_0.5": 0.342
+   },
+   {
+    "shift": 5.0,
+    "repetition_1.3": 0.2442,
+    "presence_0.5": 0.342
+   },
+   {
+    "shift": 7.5,
+    "repetition_1.3": 0.1536,
+    "presence_0.5": 0.342
+   },
+   {
+    "shift": 10.0,
+    "repetition_1.3": 0.0925,
+    "presence_0.5": 0.342
+   },
+   {
+    "shift": 12.5,
+    "repetition_1.3": 0.0541,
+    "presence_0.5": 0.342
+   },
+   {
+    "shift": 15.0,
+    "repetition_1.3": 0.0312,
+    "presence_0.5": 0.342
+   },
+   {
+    "shift": 17.5,
+    "repetition_1.3": 0.0177,
+    "presence_0.5": 0.342
+   },
+   {
+    "shift": 20.0,
+    "repetition_1.3": 0.01,
+    "presence_0.5": 0.342
+   }
+  ]
+ },
+ "orders": [
+  {
+   "setting": "温度 0.7, top-k 20, top-p 0.8 (Qwen2.5 的设置, 不含惩罚)",
+   "cfg": {
+    "temp": 0.7,
+    "k": 20,
+    "p": 0.8
+   },
+   "n_contexts": 2000,
+   "kept_mean": {
+    "transformers": 4.0,
+    "vllm": 4.0,
+    "llama.cpp": 5.73
+   },
+   "kept_set_differs_from_transformers": {
+    "vllm": 0,
+    "llama.cpp": 1640
+   },
+   "mean_tvd_vs_transformers": {
+    "vllm": 0.0,
+    "llama.cpp": 0.0728
+   },
+   "max_tvd_vs_transformers": {
+    "vllm": 0.0,
+    "llama.cpp": 0.1897
+   }
+  },
+  {
+   "setting": "温度 0.7, top-p 0.9, min-p 0.05",
+   "cfg": {
+    "temp": 0.7,
+    "p": 0.9,
+    "minp": 0.05
+   },
+   "n_contexts": 2000,
+   "kept_mean": {
+    "transformers": 5.53,
+    "vllm": 4.72,
+    "llama.cpp": 8.26
+   },
+   "kept_set_differs_from_transformers": {
+    "vllm": 1119,
+    "llama.cpp": 1699
+   },
+   "mean_tvd_vs_transformers": {
+    "vllm": 0.0317,
+    "llama.cpp": 0.0531
+   },
+   "max_tvd_vs_transformers": {
+    "vllm": 0.0999,
+    "llama.cpp": 0.1805
+   }
+  },
+  {
+   "setting": "温度 1.5, top-p 0.9, min-p 0.1",
+   "cfg": {
+    "temp": 1.5,
+    "p": 0.9,
+    "minp": 0.1
+   },
+   "n_contexts": 2000,
+   "kept_mean": {
+    "transformers": 10.74,
+    "vllm": 8.89,
+    "llama.cpp": 6.92
+   },
+   "kept_set_differs_from_transformers": {
+    "vllm": 1526,
+    "llama.cpp": 1712
+   },
+   "mean_tvd_vs_transformers": {
+    "vllm": 0.0534,
+    "llama.cpp": 0.1537
+   },
+   "max_tvd_vs_transformers": {
+    "vllm": 0.0999,
+    "llama.cpp": 0.5016
+   }
+  },
+  {
+   "setting": "温度 1.0, top-k 20, top-p 0.8, min-p 0.05",
+   "cfg": {
+    "temp": 1.0,
+    "k": 20,
+    "p": 0.8,
+    "minp": 0.05
+   },
+   "n_contexts": 2000,
+   "kept_mean": {
+    "transformers": 5.71,
+    "vllm": 5.13,
+    "llama.cpp": 5.71
+   },
+   "kept_set_differs_from_transformers": {
+    "vllm": 834,
+    "llama.cpp": 0
+   },
+   "mean_tvd_vs_transformers": {
+    "vllm": 0.0332,
+    "llama.cpp": 0.0
+   },
+   "max_tvd_vs_transformers": {
+    "vllm": 0.1977,
+    "llama.cpp": 0.0
+   }
+  }
+ ],
+ "temperature_entropy": [
+  {
+   "temp": 0.25,
+   "mean_entropy_bits": 0.764
+  },
+  {
+   "temp": 0.5,
+   "mean_entropy_bits": 1.578
+  },
+  {
+   "temp": 0.7,
+   "mean_entropy_bits": 2.118
+  },
+  {
+   "temp": 1.0,
+   "mean_entropy_bits": 2.733
+  },
+  {
+   "temp": 1.5,
+   "mean_entropy_bits": 3.413
+  },
+  {
+   "temp": 2.0,
+   "mean_entropy_bits": 3.948
+  },
+  {
+   "temp": 3.0,
+   "mean_entropy_bits": 4.777
+  }
+ ],
+ "uniform_entropy_bits": 6.022,
+ "beam": [
+  {
+   "width": 1,
+   "score": -41.67,
+   "text": "I withe the the the the the the the the ",
+   "loops": true
+  },
+  {
+   "width": 2,
+   "score": -40.8,
+   "text": "That the the the the the the the the the",
+   "loops": true
+  },
+  {
+   "width": 4,
+   "score": -39.79,
+   "text": "And the the the the the the the the the ",
+   "loops": true
+  },
+  {
+   "width": 8,
+   "score": -39.79,
+   "text": "And the the the the the the the the the ",
+   "loops": true
+  },
+  {
+   "width": 16,
+   "score": -39.79,
+   "text": "And the the the the the the the the the ",
+   "loops": true
+  },
+  {
+   "width": 32,
+   "score": -39.79,
+   "text": "And the the the the the the the the the ",
+   "loops": true
+  }
+ ]
+}

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 380" width="900" height="380" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" font-weight="bold" fill="#0b0b0b" dominant-baseline="middle">束搜索: 束越宽总分越高, 到 4 以后就到顶了; 写出来的照样在转圈</text>
+<text x="20" y="40" font-size="12" fill="#52514e" dominant-baseline="middle">ToyLM, 开头 "ROMEO:↵", 写 40 个字符; 右边是不同束宽写出的开头 (experiments/toy_more.py I)</text>
+<line x1="80" y1="316.0" x2="600" y2="316.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="316.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">-42</text>
+<line x1="80" y1="216.0" x2="600" y2="216.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="216.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">-41</text>
+<line x1="80" y1="116.0" x2="600" y2="116.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="116.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">-40</text>
+<line x1="80.0" y1="316" x2="80.0" y2="320" stroke="#c9c8c2"/>
+<text x="80.0" y="332.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1</text>
+<line x1="184.0" y1="316" x2="184.0" y2="320" stroke="#c9c8c2"/>
+<text x="184.0" y="332.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2</text>
+<line x1="288.0" y1="316" x2="288.0" y2="320" stroke="#c9c8c2"/>
+<text x="288.0" y="332.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4</text>
+<line x1="392.0" y1="316" x2="392.0" y2="320" stroke="#c9c8c2"/>
+<text x="392.0" y="332.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">8</text>
+<line x1="496.0" y1="316" x2="496.0" y2="320" stroke="#c9c8c2"/>
+<text x="496.0" y="332.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">16</text>
+<line x1="600.0" y1="316" x2="600.0" y2="320" stroke="#c9c8c2"/>
+<text x="600.0" y="332.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">32</text>
+<line x1="80" y1="316" x2="600" y2="316" stroke="#c9c8c2" stroke-width="1"/>
+<text x="340.0" y="354.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">束宽 B (对数刻度)</text>
+<text x="30" y="191.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 30 191.0)">40 个字符的总分 (log 概率之和)</text>
+<path d="M80.0,283.0 L184.0,196.0 L288.0,95.0 L392.0,95.0 L496.0,95.0 L600.0,95.0" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="80.0" cy="283.0" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="184.0" cy="196.0" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="288.0" cy="95.0" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="392.0" cy="95.0" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="496.0" cy="95.0" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="600.0" cy="95.0" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<text x="80.0" y="299.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">-41.67</text>
+<text x="184.0" y="212.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">-40.80</text>
+<text x="288.0" y="111.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">-39.79</text>
+<text x="392.0" y="111.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">-39.79</text>
+<text x="496.0" y="111.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">-39.79</text>
+<text x="600.0" y="111.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">-39.79</text>
+<text x="640.0" y="86.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">"I withe the the the th…"</text>
+<text x="640.0" y="108.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">"That the the the the t…"</text>
+<text x="640.0" y="130.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">"And the the the the th…"</text>
+<text x="640.0" y="152.0" font-size="11" fill="#eb6834" text-anchor="start" font-weight="bold" dominant-baseline="middle">全部以 the the the 结尾</text>
+</svg>

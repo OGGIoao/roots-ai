@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 930 420" width="930" height="420" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">手算一遍: "今天天气很___" 的 6 个候选, 每一步把概率改成什么样</text>
+<text x="20" y="42" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">原始分数 2.0, 1.5, 1.0, 0.5, -1.0, -2.0; 灰色虚框是原始概率, 彩色是处理后; 划掉的写 0 (python sampling.py 打印同样的数)</text>
+<text x="24" y="76" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">原始分数 → softmax</text>
+<rect x="28" y="140.8280237665189" width="30" height="55.171976233481104" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="28" y="140.8280237665189" width="30" height="55.171976233481104" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="43.0" y="132.8280237665189" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.44</text>
+<text x="43.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">好</text>
+<rect x="62" y="162.53650485745698" width="30" height="33.46349514254302" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="62" y="162.53650485745698" width="30" height="33.46349514254302" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="77.0" y="154.53650485745698" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.27</text>
+<text x="77.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">热</text>
+<rect x="96" y="175.70336421490288" width="30" height="20.296635785097124" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="96" y="175.70336421490288" width="30" height="20.296635785097124" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="111.0" y="167.70336421490288" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.16</text>
+<text x="111.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">冷</text>
+<rect x="130" y="183.689468107318" width="30" height="12.310531892682" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="130" y="183.689468107318" width="30" height="12.310531892682" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="145.0" y="175.689468107318" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.10</text>
+<text x="145.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">晴</text>
+<rect x="164" y="193.25314904727352" width="30" height="2.746850952726488" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="164" y="193.25314904727352" width="30" height="2.746850952726488" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="179.0" y="185.25314904727352" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.02</text>
+<text x="179.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">差</text>
+<rect x="198" y="194.98949000652973" width="30" height="1.0105099934702644" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="198" y="194.98949000652973" width="30" height="1.0105099934702644" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="213.0" y="186.98949000652973" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.01</text>
+<text x="213.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">怪</text>
+<text x="249" y="76" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">重复惩罚 1.5 (说过 "好")</text>
+<rect x="253" y="140.8280237665189" width="30" height="55.171976233481104" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="253" y="159.92637868927176" width="30" height="36.07362131072826" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="268.0" y="132.8280237665189" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.29</text>
+<text x="268.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">好</text>
+<rect x="287" y="162.53650485745698" width="30" height="33.46349514254302" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="287" y="153.3840518347991" width="30" height="42.61594816520091" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="302.0" y="145.3840518347991" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.34</text>
+<text x="302.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">热</text>
+<rect x="321" y="175.70336421490288" width="30" height="20.296635785097124" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="321" y="170.1521208450813" width="30" height="25.847879154918697" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="336.0" y="162.1521208450813" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.21</text>
+<text x="336.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">冷</text>
+<rect x="355" y="183.689468107318" width="30" height="12.310531892682" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="355" y="180.32246880399475" width="30" height="15.67753119600526" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="370.0" y="172.32246880399475" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.13</text>
+<text x="370.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">晴</text>
+<rect x="389" y="193.25314904727352" width="30" height="2.746850952726488" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="389" y="192.50186995350333" width="30" height="3.4981300464966583" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="404.0" y="184.50186995350333" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.03</text>
+<text x="404.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">差</text>
+<rect x="423" y="194.98949000652973" width="30" height="1.0105099934702644" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="423" y="194.71310987334977" width="30" height="1.2868901266502224" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="438.0" y="186.71310987334977" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.01</text>
+<text x="438.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">怪</text>
+<text x="474" y="76" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">温度 0.5</text>
+<rect x="478" y="140.8280237665189" width="30" height="55.171976233481104" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="478" y="115.65630936373219" width="30" height="80.34369063626781" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="493.0" y="107.65630936373219" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.64</text>
+<text x="493.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">好</text>
+<rect x="512" y="162.53650485745698" width="30" height="33.46349514254302" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="512" y="166.44320798707855" width="30" height="29.556792012921445" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="527.0" y="154.53650485745698" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.24</text>
+<text x="527.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">热</text>
+<rect x="546" y="175.70336421490288" width="30" height="20.296635785097124" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="546" y="185.1266638714659" width="30" height="10.873336128534092" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="561.0" y="167.70336421490288" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.09</text>
+<text x="561.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">冷</text>
+<rect x="580" y="183.689468107318" width="30" height="12.310531892682" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="580" y="191.99992318136563" width="30" height="4.000076818634375" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="595.0" y="175.689468107318" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.03</text>
+<text x="595.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">晴</text>
+<rect x="614" y="193.25314904727352" width="30" height="2.746850952726488" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="614" y="195.80084790195394" width="30" height="0.19915209804605738" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="629.0" y="185.25314904727352" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.00</text>
+<text x="629.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">差</text>
+<rect x="648" y="194.98949000652973" width="30" height="1.0105099934702644" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="648" y="195.97304769440376" width="30" height="0.026952305596228833" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="663.0" y="186.98949000652973" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.00</text>
+<text x="663.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">怪</text>
+<text x="699" y="76" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">温度 2.0</text>
+<rect x="703" y="140.8280237665189" width="30" height="55.171976233481104" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="703" y="157.1338159971247" width="30" height="38.8661840028753" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="718.0" y="132.8280237665189" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.31</text>
+<text x="718.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">好</text>
+<rect x="737" y="162.53650485745698" width="30" height="33.46349514254302" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="737" y="165.7309854635634" width="30" height="30.269014536436593" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="752.0" y="154.53650485745698" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.24</text>
+<text x="752.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">热</text>
+<rect x="771" y="175.70336421490288" width="30" height="20.296635785097124" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="771" y="172.42646777622343" width="30" height="23.573532223776557" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="786.0" y="164.42646777622343" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.19</text>
+<text x="786.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">冷</text>
+<rect x="805" y="183.689468107318" width="30" height="12.310531892682" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="805" y="177.64091464436382" width="30" height="18.359085355636175" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="820.0" y="169.64091464436382" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.15</text>
+<text x="820.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">晴</text>
+<rect x="839" y="193.25314904727352" width="30" height="2.746850952726488" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="839" y="187.32778213908009" width="30" height="8.672217860919908" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="854.0" y="179.32778213908009" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.07</text>
+<text x="854.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">差</text>
+<rect x="873" y="194.98949000652973" width="30" height="1.0105099934702644" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="873" y="190.74003397964458" width="30" height="5.259966020355434" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="888.0" y="182.74003397964458" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.04</text>
+<text x="888.0" y="208" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">怪</text>
+<text x="24" y="246" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">top-k 3</text>
+<rect x="28" y="310.82802376651887" width="30" height="55.171976233481104" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="28" y="302.68995111804327" width="30" height="63.31004888195675" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="43.0" y="294.68995111804327" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.51</text>
+<text x="43.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">好</text>
+<rect x="62" y="332.536504857457" width="30" height="33.46349514254302" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="62" y="327.6005142851877" width="30" height="38.39948571481229" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="77.0" y="319.6005142851877" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.31</text>
+<text x="77.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">热</text>
+<rect x="96" y="345.7033642149029" width="30" height="20.296635785097124" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="96" y="342.70953459676906" width="30" height="23.290465403230947" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="111.0" y="334.70953459676906" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.19</text>
+<text x="111.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">冷</text>
+<rect x="130" y="353.689468107318" width="30" height="12.310531892682" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<text x="145.0" y="345.689468107318" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<text x="145.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">晴</text>
+<rect x="164" y="363.2531490472735" width="30" height="2.746850952726488" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<text x="179.0" y="355.2531490472735" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<text x="179.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">差</text>
+<rect x="198" y="364.98949000652976" width="30" height="1.0105099934702644" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<text x="213.0" y="356.98949000652976" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<text x="213.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">怪</text>
+<text x="249" y="246" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">top-p 0.8</text>
+<rect x="253" y="310.82802376651887" width="30" height="55.171976233481104" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="253" y="302.68995111804327" width="30" height="63.31004888195675" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="268.0" y="294.68995111804327" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.51</text>
+<text x="268.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">好</text>
+<rect x="287" y="332.536504857457" width="30" height="33.46349514254302" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="287" y="327.6005142851877" width="30" height="38.39948571481229" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="302.0" y="319.6005142851877" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.31</text>
+<text x="302.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">热</text>
+<rect x="321" y="345.7033642149029" width="30" height="20.296635785097124" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="321" y="342.70953459676906" width="30" height="23.290465403230947" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="336.0" y="334.70953459676906" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.19</text>
+<text x="336.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">冷</text>
+<rect x="355" y="353.689468107318" width="30" height="12.310531892682" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<text x="370.0" y="345.689468107318" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<text x="370.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">晴</text>
+<rect x="389" y="363.2531490472735" width="30" height="2.746850952726488" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<text x="404.0" y="355.2531490472735" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<text x="404.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">差</text>
+<rect x="423" y="364.98949000652976" width="30" height="1.0105099934702644" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<text x="438.0" y="356.98949000652976" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<text x="438.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">怪</text>
+<text x="474" y="246" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">min-p 0.3</text>
+<rect x="478" y="310.82802376651887" width="30" height="55.171976233481104" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="478" y="302.68995111804327" width="30" height="63.31004888195675" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="493.0" y="294.68995111804327" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.51</text>
+<text x="493.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">好</text>
+<rect x="512" y="332.536504857457" width="30" height="33.46349514254302" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="512" y="327.6005142851877" width="30" height="38.39948571481229" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="527.0" y="319.6005142851877" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.31</text>
+<text x="527.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">热</text>
+<rect x="546" y="345.7033642149029" width="30" height="20.296635785097124" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="546" y="342.70953459676906" width="30" height="23.290465403230947" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="561.0" y="334.70953459676906" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.19</text>
+<text x="561.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">冷</text>
+<rect x="580" y="353.689468107318" width="30" height="12.310531892682" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<text x="595.0" y="345.689468107318" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<text x="595.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">晴</text>
+<rect x="614" y="363.2531490472735" width="30" height="2.746850952726488" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<text x="629.0" y="355.2531490472735" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<text x="629.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">差</text>
+<rect x="648" y="364.98949000652976" width="30" height="1.0105099934702644" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<text x="663.0" y="356.98949000652976" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<text x="663.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">怪</text>
+<text x="699" y="246" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">温度 0.5 → top-p 0.8</text>
+<rect x="703" y="310.82802376651887" width="30" height="55.171976233481104" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="703" y="274.6176776712494" width="30" height="91.38232232875062" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="718.0" y="266.6176776712494" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.73</text>
+<text x="718.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">好</text>
+<rect x="737" y="332.536504857457" width="30" height="33.46349514254302" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<rect x="737" y="332.3823223287506" width="30" height="33.61767767124938" rx="2" fill="#2a78d6" stroke="#2a78d6" stroke-width="0"/>
+<text x="752.0" y="324.3823223287506" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">.27</text>
+<text x="752.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">热</text>
+<rect x="771" y="345.7033642149029" width="30" height="20.296635785097124" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<text x="786.0" y="337.7033642149029" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<text x="786.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">冷</text>
+<rect x="805" y="353.689468107318" width="30" height="12.310531892682" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<text x="820.0" y="345.689468107318" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<text x="820.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">晴</text>
+<rect x="839" y="363.2531490472735" width="30" height="2.746850952726488" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<text x="854.0" y="355.2531490472735" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<text x="854.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">差</text>
+<rect x="873" y="364.98949000652976" width="30" height="1.0105099934702644" rx="2" fill="none" stroke="#8a8984" stroke-width="1" stroke-dasharray="6 4"/>
+<text x="888.0" y="356.98949000652976" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<text x="888.0" y="378" font-size="12" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">怪</text>
+</svg>
