@@ -4,6 +4,8 @@
 
 **练习环境**: 全领域用 [小车仿真器](../../sim/car2d.py) 当贯穿的练习环境, 从格子版小车一路练到连续控制; 学完 R3 就是小车 v0.7 要做的 "用强化学习训控制器"。每个单元另配一个标准 Gymnasium 环境 (CartPole 等) 做对照, 方便和外面的资料对上。
 
+**已有原稿**: R1 的对照环境用 Gymnasium Taxi。姊妹仓库 roots-modeling 搬家前写过一本 "先亲自开一趟出租车" (状态、动作、即时奖励、回报递推、折扣与终止, 带手写练习和折叠参考解), 保存在它的标签 [`pre-restructure`](https://github.com/OGGIoao/roots-modeling/tree/pre-restructure/强化学习/Taxi接送乘客) 里 (roots-modeling 暂未公开)。写 mdp 单元时改成本仓库的格式收进来, 不在两边各存一份。
+
 **案例驱动**: 每个新方法都是因为上一个在新问题上失败才出现的。
 
 ## 单元
