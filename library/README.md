@@ -99,7 +99,7 @@
 | H5 连接 | wifi-remote | WiFi 与网页遥控 | ⬜ | v0.1 |
 |  | robot-networking | 延迟、断线、MQTT / WebSocket: 电脑上的大模型和地上的车之间怎么连才稳 | ⬜ | v0.3 |
 | H6 安全 | safety-firmware | 状态机、看门狗与急停 | ⬜ | v0.3 |
-| H7 端侧 AI | tinyml | 在单片机上跑量化小模型 (唤醒词), 用小车的感知板 🔥 | ⬜ | v1.0 |
+| H7 端侧 AI | tinyml | 在单片机上跑量化小模型 (例如唤醒词) 🔥 | ⬜ | v1.0 |
 |  | edge-npu | 单板电脑的 NPU: 模型转换、算子支持 (需要可选的单板电脑) 🔥 | ⬜ |  |
 |  | edge-gpu | Jetson 一类带 GPU 的板子与 TensorRT (需要可选的单板电脑) 🔥 | ⬜ |  |
 |  | on-device-llm | 在板子上跑大模型: INT4、llama.cpp (需要可选的单板电脑) 🔥 | ⬜ |  |
@@ -167,7 +167,7 @@
 |  | rag-basics | 切块、检索、重排、关键词 + 向量混合检索 | ⬜ | 助教 |
 |  | rag-advanced | Agent 式检索、GraphRAG、长上下文与 RAG 的取舍 🔥 | ⬜ | 助教 |
 |  | rag-eval | 检索召回率、回答是否忠于资料 | ⬜ | 助教 |
-| A4 协议与生态 | mcp | MCP: 把小车的工具做成任何应用都能调用的服务 | ⬜ | v0.4 |
+| A4 协议与生态 | mcp | MCP: 把工具做成任何应用都能调用的服务 | ⬜ | v0.4 |
 |  | agent-interop | A2A、Agent Skills、AGENTS.md 等互通标准 🔥 | ⬜ |  |
 |  | [agent-frameworks](agent/agent-frameworks/README.md) | LangGraph、OpenAI Agents SDK 等框架, 逐个部件对照手写循环 | 🟡 |  |
 | A5 典型 Agent | coding-agent | 编程 Agent: 读代码库、跑测试、在沙箱里改代码 | ⬜ |  |
@@ -218,7 +218,7 @@
 | P1 监督微调 | sft | 指令微调; loss 只算在模型的回答上 | ⬜ | 基座 |
 |  | instruction-data | 训练数据: 人工、合成、拒绝采样、质量过滤 | ⬜ | 基座 |
 |  | lora-qlora | 只训一小部分参数; 8GB 也能微调 | ⬜ | v0.5 |
-|  | [tool-finetune](post-training/tool-finetune/README.md) | 让小模型稳定输出小车的工具调用 (待改造, 现为通用 QLoRA 演示) | 🟡 | v0.5 |
+|  | [tool-finetune](post-training/tool-finetune/README.md) | 监督微调让小模型稳定输出指定格式的工具调用 (待改造, 现为通用 QLoRA 演示) | 🟡 | v0.5 |
 | P2 偏好对齐 | reward-models | 奖励模型、奖励被钻空子 | ⬜ |  |
 |  | rlhf-ppo | 经典 RLHF: PPO、KL 约束、价值头 | ⬜ |  |
 |  | dpo | 不用奖励模型的偏好优化及其变体 | ⬜ | 基座 |
@@ -227,7 +227,7 @@
 |  | process-rewards | 只看结果还是每步打分; 验证器 | ⬜ |  |
 |  | rl-dynamics | 探索、熵、训练为什么会崩 🔥 | ⬜ |  |
 | P4 Agent 强化学习 | agentic-rl | 多轮、带工具、带环境的强化学习; 长轨迹的功劳分配 🔥 | ⬜ |  |
-|  | car-grpo | 用小车任务的成败当奖励训练工具调用 | ⬜ | v0.5 |
+|  | tool-use-rl | 用任务成败当奖励, 以强化学习训练模型调用工具 | ⬜ | v0.5 |
 | P5 蒸馏 | reasoning-distill | 用大模型的推理过程教小模型 | ⬜ |  |
 |  | on-policy-distill | 小模型自己生成、大模型逐 token 纠正 🔥 | ⬜ |  |
 | P6 RL 基础设施 | rl-infra | 生成与训练两套引擎、异步、权重同步 🔥 | ⬜ |  |
@@ -242,7 +242,7 @@
 | 段 | 单元 | 讲什么 | 状态 | 用到它的地方 |
 |---|---|---|---|---|
 | E0 总览 | embodied-map | 感知 → 决策 → 行动; 大模型在机器人里放在哪一层 | ⬜ |  |
-| E1 本体与感知 | kinematics | 坐标系、位姿变换、差速小车运动学、里程计 | ⬜ | v0.2 |
+| E1 本体与感知 | kinematics | 坐标系、位姿变换、差速驱动运动学、里程计 | ⬜ | v0.2 |
 |  | state-estimation | 互补滤波、卡尔曼滤波、编码器 + IMU 融合 | ⬜ | v0.2 |
 |  | perception-3d | 相机模型、深度、点云 | ⬜ | v0.6 |
 |  | slam | 边走边建图、定位入门 | ⬜ |  |
@@ -254,7 +254,7 @@
 |  | sim2real | 仿真到真车: 差距在哪、怎么测、域随机化、系统辨识 | ⬜ | v0.7 |
 |  | real-robot-rl | 真机器人上的强化学习 | ⬜ |  |
 | E4 世界模型 (重点) | world-model-basics | 世界模型是什么: 预测下一刻、在隐空间里学动力学 🔥 | ⬜ | v0.7 |
-|  | car-world-model | 动手: 用小车仿真数据训世界模型, 在里面规划和训练 🔥 | ⬜ | v0.7 |
+|  | learned-dynamics | 动手: 用神经网络从数据学世界模型, 在里面规划和训练 🔥 | ⬜ | v0.7 |
 |  | video-world-models | 生成画面的世界模型 (Genie 3、Cosmos) 🔥 | ⬜ |  |
 |  | latent-world-models | 只预测表示的路线 (V-JEPA 2) 🔥 | ⬜ |  |
 |  | world-action-models | 画面和动作一起预测 🔥 | ⬜ |  |

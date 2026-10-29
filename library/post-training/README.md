@@ -6,7 +6,7 @@
 
 **基座线**: [roots-lm](../../base/README.md) 阶段 1 在笔记本上跑通 SFT → DPO → GRPO (用能自动判对错的任务); 阶段 2 把同一套代码放大到云上。
 
-**项目**: 小车 v0.5 用 tool-finetune 和 car-grpo; 第二批项目 "领域后训练" 是本领域的综合练习。
+**项目**: 小车 v0.5 用 tool-finetune 和 tool-use-rl (在它们的实践一节); 第二批项目 "领域后训练" 是本领域的综合练习。
 
 ## 单元
 
@@ -17,7 +17,7 @@
 | P1 监督微调 | sft | 指令微调; loss 只算在模型的回答上 | ⬜ | 基座 |
 |  | instruction-data | 训练数据: 人工、合成、拒绝采样、质量过滤 | ⬜ | 基座 |
 |  | lora-qlora | 只训一小部分参数; 8GB 也能微调 | ⬜ | v0.5 |
-|  | [tool-finetune](tool-finetune/README.md) | 让小模型稳定输出小车的工具调用 (待改造, 现为通用 QLoRA 演示) | 🟡 | v0.5 |
+|  | [tool-finetune](tool-finetune/README.md) | 监督微调让小模型稳定输出指定格式的工具调用 (待改造, 现为通用 QLoRA 演示) | 🟡 | v0.5 |
 | P2 偏好对齐 | reward-models | 奖励模型、奖励被钻空子 | ⬜ |  |
 |  | rlhf-ppo | 经典 RLHF: PPO、KL 约束、价值头 | ⬜ |  |
 |  | dpo | 不用奖励模型的偏好优化及其变体 | ⬜ | 基座 |
@@ -26,7 +26,7 @@
 |  | process-rewards | 只看结果还是每步打分; 验证器 | ⬜ |  |
 |  | rl-dynamics | 探索、熵、训练为什么会崩 🔥 | ⬜ |  |
 | P4 Agent 强化学习 | agentic-rl | 多轮、带工具、带环境的强化学习; 长轨迹的功劳分配 🔥 | ⬜ |  |
-|  | car-grpo | 用小车任务的成败当奖励训练工具调用 | ⬜ | v0.5 |
+|  | tool-use-rl | 用任务成败当奖励, 以强化学习训练模型调用工具 | ⬜ | v0.5 |
 | P5 蒸馏 | reasoning-distill | 用大模型的推理过程教小模型 | ⬜ |  |
 |  | on-policy-distill | 小模型自己生成、大模型逐 token 纠正 🔥 | ⬜ |  |
 | P6 RL 基础设施 | rl-infra | 生成与训练两套引擎、异步、权重同步 🔥 | ⬜ |  |
