@@ -3,6 +3,8 @@
 [![CI](https://github.com/OGGIoao/roots-ai/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/OGGIoao/roots-ai/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
+> 扎根家族: **roots-ai** (AI 全栈) · [roots-modeling](https://github.com/OGGIoao/roots-modeling) (统计学习与数学建模; 暂未公开)
+
 > **从根上自己搭一套 AI 知识库: 每个知识点都自己写讲义、自己实现、自己实测; 再用真实的作品把它们串成跑得通的链路。第一个作品是一台听得懂话的小车。**
 >
 > *A from-scratch AI curriculum: every concept gets its own tutorial, a minimal implementation and measured numbers, and real projects tie them together — starting with a small car that understands commands. Everything measured on one 8 GB laptop. (Docs are in Chinese.)*

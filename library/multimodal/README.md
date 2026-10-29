@@ -6,6 +6,8 @@
 
 **基座线**: 基座线 [roots-lm](../../base/README.md) 的阶段 4 "长眼睛和耳朵" 用到 M4 和 M2 的 audio-codecs。
 
+**已有原稿**: 姊妹仓库 roots-modeling 搬家前写过一本 CIFAR-10 "图片怎样变成可计算的东西" (像素与通道、向量表示、平方距离、类别模板、线性得分, 带手写练习和折叠参考解), 保存在它的标签 [`pre-restructure`](https://github.com/OGGIoao/roots-modeling/tree/pre-restructure/深度学习/CIFAR-10图片分类) 里 (roots-modeling 暂未公开)。写 image-basics 单元时改成本仓库的格式收进来。
+
 ## 单元
 
 <!-- catalog:start -->
