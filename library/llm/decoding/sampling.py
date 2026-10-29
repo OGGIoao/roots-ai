@@ -2,7 +2,7 @@
 sampling.py — 手写"从模型的打分里挑下一个 token" 的全部步骤 (只用标准库)
 
 模型每走一步, 给词表里每个 token 打一个分 (logits, 一串实数)。怎么从这串分数里挑出下一个 token,
-就是解码 (decoding)。本文件按 transformers 的 generate 实际执行的顺序实现每一步:
+就是解码 (decoding)。本文件按 transformers 的 generate 实际执行的顺序实现每一步 (另两家的顺序见文件末尾的 ORDERS):
 
     重复惩罚 → 温度 → top-k → top-p → min-p → (贪心: 取最大 | 采样: 按概率抽)
 
@@ -86,7 +86,7 @@ def min_p(logits, p, min_keep=1):
 def process(logits, prev_ids=(), rep=1.0, temp=1.0, k=0, p=1.0, minp=0.0, do_sample=True):
     """
     按 transformers 的顺序依次处理。注意 do_sample=False (贪心) 时, transformers 只跳过温度、top-k、top-p、min-p,
-    重复惩罚**照样执行**: Qwen2.5 自带的 generation_config 里 repetition_penalty=1.1 (讲义第 5 节)。
+    重复惩罚**照样执行**: Qwen2.5 自带的 generation_config 里 repetition_penalty=1.1 (讲义第 8.3 节)。
     """
     x = repetition_penalty(logits, prev_ids, rep)
     if do_sample:
@@ -97,6 +97,63 @@ def process(logits, prev_ids=(), rep=1.0, temp=1.0, k=0, p=1.0, minp=0.0, do_sam
         if p < 1.0:
             x = top_p(x, p)
         if minp > 0:
+            x = min_p(x, minp)
+    return x
+
+
+# ── 别的惩罚写法 (讲义第 7 节) ──────────────────────────────────────────────
+
+def windowed_repetition_penalty(logits, prev_ids, penalty, last_n=64):
+    """只看最近 last_n 个 token 的重复惩罚 (llama.cpp 的做法, 默认窗口 64); 公式和 repetition_penalty 相同。"""
+    return repetition_penalty(logits, list(prev_ids)[-last_n:] if last_n else [], penalty)
+
+
+def presence_frequency_penalty(logits, generated_ids, presence=0.0, frequency=0.0):
+    """
+    加法惩罚 (OpenAI 接口、vLLM、llama.cpp 都有): 分数直接减去
+        frequency × 出现次数 + presence × (出现过就是 1)
+    减法不受 logits 整体平移的影响 (讲义第 6.3 节); 只看模型自己生成的 token, 不看提示词 (vLLM 的说明如此)。
+    """
+    counts = {}
+    for t in generated_ids:
+        counts[t] = counts.get(t, 0) + 1
+    out = list(logits)
+    for t, c in counts.items():
+        out[t] -= frequency * c + presence
+    return out
+
+
+def no_repeat_ngram(logits, ids, n):
+    """禁止重复 n 元组: 如果接上某个 token 会凑出一个前面出现过的 n 元组, 就把它设成 -inf (transformers 的 no_repeat_ngram_size)。"""
+    if n <= 0 or len(ids) < n - 1:
+        return list(logits)
+    prefix = tuple(ids[len(ids) - (n - 1):]) if n > 1 else ()
+    banned = {ids[i + n - 1] for i in range(len(ids) - n + 1) if tuple(ids[i:i + n - 1]) == prefix}
+    return [NEG_INF if i in banned else z for i, z in enumerate(logits)]
+
+
+# ── 三个框架的执行顺序 (讲义专题 A; 都读的是源码) ─────────────────────────
+
+ORDERS = {
+    "transformers": ["rep", "temp", "k", "p", "minp"],
+    "vllm": ["rep", "temp", "minp", "k", "p"],
+    "llama.cpp": ["rep", "k", "p", "minp", "temp"],
+}
+
+
+def process_order(logits, prev_ids=(), order="transformers", rep=1.0, temp=1.0, k=0, p=1.0, minp=0.0):
+    """按某个框架的顺序做同样几步。只差顺序, 每一步本身的写法相同。"""
+    x = list(logits)
+    for step in ORDERS[order]:
+        if step == "rep":
+            x = repetition_penalty(x, prev_ids, rep)
+        elif step == "temp" and temp != 1.0:
+            x = temperature(x, temp)
+        elif step == "k" and k:
+            x = top_k(x, k)
+        elif step == "p" and p < 1.0:
+            x = top_p(x, p)
+        elif step == "minp" and minp > 0:
             x = min_p(x, minp)
     return x
 
@@ -123,12 +180,12 @@ def next_token(logits, prev_ids=(), do_sample=True, rng=random, **cfg):
 
 
 if __name__ == "__main__":
-    # 一个 6 个 token 的小词表, 看每一步做了什么
-    vocab = ["走", "转", "停", "看", "飞", "跳"]
+    # "今天天气很" 后面的下一个字, 一个 6 个 token 的小词表; 讲义第 2 节用这组数手算
+    vocab = ["好", "热", "冷", "晴", "差", "怪"]
     logits = [2.0, 1.5, 1.0, 0.5, -1.0, -2.0]
     show = lambda x: "  ".join(f"{v}:{pr:.2f}" for v, pr in zip(vocab, softmax(x)))
     print("原始        ", show(logits))
-    print("重复惩罚 1.5 (之前说过'走')", show(repetition_penalty(logits, [0], 1.5)))
+    print("重复惩罚 1.5 (之前写过'好')", show(repetition_penalty(logits, [0], 1.5)))
     print("温度 0.5    ", show(temperature(logits, 0.5)))
     print("温度 2.0    ", show(temperature(logits, 2.0)))
     print("top-k 3     ", show(top_k(logits, 3)))

@@ -9,10 +9,10 @@ generate.py — 自回归生成的完整循环: 问模型 → 处理 logits → 
 停止原因 (和 transformers / vLLM 的说法一致):
     "stop_token"    生成了停止 token (比如 <|im_end|>); 停止 token 本身在输出里
     "stop_string"   解码后的新文字里出现了停止字符串 (比如 "\\n\\n"); 和 transformers 一样, 输出里保留它,
-                    要去掉就在解码后的文字上截 (vLLM 默认替你截掉, 两家行为不同, 讲义第 6 节)
+                    要去掉就在解码后的文字上截 (vLLM 默认替你截掉, 两家行为不同, 讲义第 8.4 节)
     "length"        到了 max_new_tokens 还没停
 
-重复惩罚看的是 "目前所有 token", **包括提示词里的** (transformers 就是这样做的, 讲义第 5 节)。
+重复惩罚看的是 "目前所有 token", **包括提示词里的** (transformers 就是这样做的, 讲义第 6.4 节)。
 """
 
 import random

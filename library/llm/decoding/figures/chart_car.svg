@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 400" width="860" height="400" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" font-weight="bold" fill="#0b0b0b" dominant-baseline="middle">小车 v0.4 (Qwen2.5-1.5B, go_to): 关掉自带的重复惩罚, "没动" 从 12 局降到 4 局</text>
+<text x="20" y="40" font-size="12" fill="#52514e" dominant-baseline="middle">每组 30 个任务, GPU; 数字来自 projects/car/v0.4-text-commands/results/decoding_compare.json</text>
+<line x1="80" y1="340.0" x2="820" y2="340.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="340.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0</text>
+<line x1="80" y1="296.7" x2="820" y2="296.7" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="296.7" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">5</text>
+<line x1="80" y1="253.3" x2="820" y2="253.3" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="253.3" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">10</text>
+<line x1="80" y1="210.0" x2="820" y2="210.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="210.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">15</text>
+<line x1="80" y1="166.7" x2="820" y2="166.7" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="166.7" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">20</text>
+<line x1="80" y1="123.3" x2="820" y2="123.3" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="123.3" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">25</text>
+<line x1="80" y1="80.0" x2="820" y2="80.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="80.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">30</text>
+<line x1="80" y1="340" x2="820" y2="340" stroke="#c9c8c2" stroke-width="1"/>
+<text x="450.0" y="378.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle"></text>
+<text x="30" y="210.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 30 210.0)">30 个任务里的局数</text>
+<path d="M93.3,340.0 L93.3,222.7 Q93.3,218.7 97.3,218.7 L136.7,218.7 Q140.7,218.7 140.7,222.7 L140.7,340.0 Z" fill="#1baf7a"/>
+<text x="117.0" y="209.7" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">14</text>
+<path d="M142.7,340.0 L142.7,240.0 Q142.7,236.0 146.7,236.0 L186.0,236.0 Q190.0,236.0 190.0,240.0 L190.0,340.0 Z" fill="#eb6834"/>
+<text x="166.3" y="227.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">12</text>
+<path d="M216.7,340.0 L216.7,222.7 Q216.7,218.7 220.7,218.7 L260.0,218.7 Q264.0,218.7 264.0,222.7 L264.0,340.0 Z" fill="#1baf7a"/>
+<text x="240.3" y="209.7" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">14</text>
+<path d="M266.0,340.0 L266.0,240.0 Q266.0,236.0 270.0,236.0 L309.3,236.0 Q313.3,236.0 313.3,240.0 L313.3,340.0 Z" fill="#eb6834"/>
+<text x="289.7" y="227.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">12</text>
+<path d="M340.0,340.0 L340.0,188.0 Q340.0,184.0 344.0,184.0 L383.3,184.0 Q387.3,184.0 387.3,188.0 L387.3,340.0 Z" fill="#1baf7a"/>
+<text x="363.7" y="175.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">18</text>
+<path d="M389.3,340.0 L389.3,309.3 Q389.3,305.3 393.3,305.3 L432.7,305.3 Q436.7,305.3 436.7,309.3 L436.7,340.0 Z" fill="#eb6834"/>
+<text x="413.0" y="296.3" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4</text>
+<path d="M463.3,340.0 L463.3,222.7 Q463.3,218.7 467.3,218.7 L506.7,218.7 Q510.7,218.7 510.7,222.7 L510.7,340.0 Z" fill="#1baf7a"/>
+<text x="487.0" y="209.7" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">14</text>
+<path d="M512.7,340.0 L512.7,248.7 Q512.7,244.7 516.7,244.7 L556.0,244.7 Q560.0,244.7 560.0,248.7 L560.0,340.0 Z" fill="#eb6834"/>
+<text x="536.3" y="235.7" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">11</text>
+<path d="M586.7,340.0 L586.7,214.0 Q586.7,210.0 590.7,210.0 L630.0,210.0 Q634.0,210.0 634.0,214.0 L634.0,340.0 Z" fill="#1baf7a"/>
+<text x="610.3" y="201.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">15</text>
+<path d="M636.0,340.0 L636.0,248.7 Q636.0,244.7 640.0,244.7 L679.3,244.7 Q683.3,244.7 683.3,248.7 L683.3,340.0 Z" fill="#eb6834"/>
+<text x="659.7" y="235.7" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">11</text>
+<path d="M710.0,340.0 L710.0,231.3 Q710.0,227.3 714.0,227.3 L753.3,227.3 Q757.3,227.3 757.3,231.3 L757.3,340.0 Z" fill="#1baf7a"/>
+<text x="733.7" y="218.3" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">13</text>
+<path d="M759.3,340.0 L759.3,240.0 Q759.3,236.0 763.3,236.0 L802.7,236.0 Q806.7,236.0 806.7,240.0 L806.7,340.0 Z" fill="#eb6834"/>
+<text x="783.0" y="227.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">12</text>
+<text x="141.7" y="356.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">贪心+惩罚1.1</text>
+<text x="265.0" y="356.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">同设置重跑</text>
+<text x="388.3" y="356.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="bold" dominant-baseline="middle">贪心, 关掉惩罚</text>
+<text x="511.7" y="356.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">采样 种子0</text>
+<text x="635.0" y="356.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">采样 种子1</text>
+<text x="758.3" y="356.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">采样 种子2</text>
+<rect x="80" y="56" width="12" height="12" fill="#1baf7a"/>
+<text x="98.0" y="62.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">成功</text>
+<rect x="170" y="56" width="12" height="12" fill="#eb6834"/>
+<text x="188.0" y="62.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">没动 (第一轮没写成工具调用)</text>
+</svg>

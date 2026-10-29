@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 400" width="820" height="400" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" font-weight="bold" fill="#0b0b0b" dominant-baseline="middle">温度是一个旋钮: 往左拧接近贪心 (熵→0), 往右拧接近乱抽 (熵→均匀)</text>
+<text x="20" y="40" font-size="12" fill="#52514e" dominant-baseline="middle">ToyLM, 语料里随机 500 个位置的平均熵; 1 比特约等于 "在两个候选之间犹豫" (experiments/toy_more.py H)</text>
+<line x1="80" y1="336.0" x2="650" y2="336.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="336.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0</text>
+<line x1="80" y1="294.5" x2="650" y2="294.5" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="294.5" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">1</text>
+<line x1="80" y1="252.9" x2="650" y2="252.9" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="252.9" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">2</text>
+<line x1="80" y1="211.4" x2="650" y2="211.4" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="211.4" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">3</text>
+<line x1="80" y1="169.8" x2="650" y2="169.8" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="169.8" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">4</text>
+<line x1="80" y1="128.3" x2="650" y2="128.3" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="128.3" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">5</text>
+<line x1="80" y1="86.8" x2="650" y2="86.8" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="86.8" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">6</text>
+<line x1="124.5" y1="336" x2="124.5" y2="340" stroke="#c9c8c2"/>
+<text x="124.5" y="352.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0.25</text>
+<line x1="169.1" y1="336" x2="169.1" y2="340" stroke="#c9c8c2"/>
+<text x="169.1" y="352.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0.5</text>
+<line x1="204.7" y1="336" x2="204.7" y2="340" stroke="#c9c8c2"/>
+<text x="204.7" y="352.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0.7</text>
+<line x1="258.1" y1="336" x2="258.1" y2="340" stroke="#c9c8c2"/>
+<text x="258.1" y="352.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1</text>
+<line x1="347.2" y1="336" x2="347.2" y2="340" stroke="#c9c8c2"/>
+<text x="347.2" y="352.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1.5</text>
+<line x1="436.2" y1="336" x2="436.2" y2="340" stroke="#c9c8c2"/>
+<text x="436.2" y="352.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2</text>
+<line x1="614.4" y1="336" x2="614.4" y2="340" stroke="#c9c8c2"/>
+<text x="614.4" y="352.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">3</text>
+<line x1="80" y1="336" x2="650" y2="336" stroke="#c9c8c2" stroke-width="1"/>
+<text x="365.0" y="374.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">温度 T</text>
+<text x="30" y="201.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 30 201.0)">下一个字符分布的平均熵 (比特)</text>
+<line x1="80" y1="85.9" x2="650" y2="85.9" stroke="#8a8984" stroke-dasharray="4 3"/>
+<text x="658.0" y="85.9" font-size="11" fill="#8a8984" text-anchor="start" font-weight="normal" dominant-baseline="middle">65 个字符完全均匀: 6.02</text>
+<path d="M124.5,304.3 L169.1,270.5 L204.7,248.0 L258.1,222.5 L347.2,194.2 L436.2,172.0 L614.4,137.6" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="124.5" cy="304.3" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="169.1" cy="270.5" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="204.7" cy="248.0" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="258.1" cy="222.5" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="347.2" cy="194.2" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="436.2" cy="172.0" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="614.4" cy="137.6" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<text x="124.5" y="290.3" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0.76</text>
+<text x="169.1" y="256.5" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">1.58</text>
+<text x="204.7" y="234.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2.12</text>
+<text x="258.1" y="208.5" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2.73</text>
+<text x="347.2" y="180.2" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">3.41</text>
+<text x="436.2" y="158.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">3.95</text>
+<text x="614.4" y="123.6" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4.78</text>
+<line x1="258.1" y1="336" x2="258.1" y2="66" stroke="#8a8984" stroke-dasharray="2 3"/>
+<text x="264.1" y="76.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">T = 1: 模型自己学到的分布</text>
+</svg>

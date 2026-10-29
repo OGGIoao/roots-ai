@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="900" height="430" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" font-weight="bold" fill="#0b0b0b" dominant-baseline="middle">同样的参数, 三家的顺序不同, 留下的候选和抽签的分布也不同</text>
+<text x="20" y="40" font-size="12" fill="#52514e" dominant-baseline="middle">ToyLM, 随机 2000 个上下文; 每组下面是 vLLM / llama.cpp 和 transformers 比: 留下的候选集合不同的上下文数, 平均总变差 (0 一样, 1 完全不重叠)</text>
+<line x1="80" y1="344.0" x2="860" y2="344.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="344.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0</text>
+<line x1="80" y1="301.8" x2="860" y2="301.8" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="301.8" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">2</text>
+<line x1="80" y1="259.5" x2="860" y2="259.5" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="259.5" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">4</text>
+<line x1="80" y1="217.3" x2="860" y2="217.3" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="217.3" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">6</text>
+<line x1="80" y1="175.0" x2="860" y2="175.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="175.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">8</text>
+<line x1="80" y1="132.8" x2="860" y2="132.8" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="132.8" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">10</text>
+<line x1="80" y1="90.6" x2="860" y2="90.6" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="90.6" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">12</text>
+<line x1="80" y1="344" x2="860" y2="344" stroke="#c9c8c2" stroke-width="1"/>
+<text x="470.0" y="382.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle"></text>
+<text x="30" y="212.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 30 212.0)">平均留下几个候选</text>
+<path d="M100.5,344.0 L100.5,263.5 Q100.5,259.5 104.5,259.5 L146.5,259.5 Q150.5,259.5 150.5,263.5 L150.5,344.0 Z" fill="#2a78d6"/>
+<text x="125.5" y="250.5" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4.0</text>
+<path d="M152.5,344.0 L152.5,263.5 Q152.5,259.5 156.5,259.5 L198.5,259.5 Q202.5,259.5 202.5,263.5 L202.5,344.0 Z" fill="#1baf7a"/>
+<text x="177.5" y="250.5" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4.0</text>
+<path d="M204.5,344.0 L204.5,227.0 Q204.5,223.0 208.5,223.0 L250.5,223.0 Q254.5,223.0 254.5,227.0 L254.5,344.0 Z" fill="#eb6834"/>
+<text x="229.5" y="214.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">5.7</text>
+<path d="M295.5,344.0 L295.5,231.2 Q295.5,227.2 299.5,227.2 L341.5,227.2 Q345.5,227.2 345.5,231.2 L345.5,344.0 Z" fill="#2a78d6"/>
+<text x="320.5" y="218.2" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">5.5</text>
+<path d="M347.5,344.0 L347.5,248.3 Q347.5,244.3 351.5,244.3 L393.5,244.3 Q397.5,244.3 397.5,248.3 L397.5,344.0 Z" fill="#1baf7a"/>
+<text x="372.5" y="235.3" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4.7</text>
+<path d="M399.5,344.0 L399.5,173.5 Q399.5,169.5 403.5,169.5 L445.5,169.5 Q449.5,169.5 449.5,173.5 L449.5,344.0 Z" fill="#eb6834"/>
+<text x="424.5" y="160.5" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">8.3</text>
+<path d="M490.5,344.0 L490.5,121.2 Q490.5,117.2 494.5,117.2 L536.5,117.2 Q540.5,117.2 540.5,121.2 L540.5,344.0 Z" fill="#2a78d6"/>
+<text x="515.5" y="108.2" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">10.7</text>
+<path d="M542.5,344.0 L542.5,160.2 Q542.5,156.2 546.5,156.2 L588.5,156.2 Q592.5,156.2 592.5,160.2 L592.5,344.0 Z" fill="#1baf7a"/>
+<text x="567.5" y="147.2" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">8.9</text>
+<path d="M594.5,344.0 L594.5,201.8 Q594.5,197.8 598.5,197.8 L640.5,197.8 Q644.5,197.8 644.5,201.8 L644.5,344.0 Z" fill="#eb6834"/>
+<text x="619.5" y="188.8" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">6.9</text>
+<path d="M685.5,344.0 L685.5,227.4 Q685.5,223.4 689.5,223.4 L731.5,223.4 Q735.5,223.4 735.5,227.4 L735.5,344.0 Z" fill="#2a78d6"/>
+<text x="710.5" y="214.4" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">5.7</text>
+<path d="M737.5,344.0 L737.5,239.7 Q737.5,235.7 741.5,235.7 L783.5,235.7 Q787.5,235.7 787.5,239.7 L787.5,344.0 Z" fill="#1baf7a"/>
+<text x="762.5" y="226.7" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">5.1</text>
+<path d="M789.5,344.0 L789.5,227.4 Q789.5,223.4 793.5,223.4 L835.5,223.4 Q839.5,223.4 839.5,227.4 L839.5,344.0 Z" fill="#eb6834"/>
+<text x="814.5" y="214.4" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">5.7</text>
+<text x="177.5" y="360.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">T0.7 k20 p0.8</text>
+<text x="177.5" y="378.0" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">集合不同: 0 / 1640 处</text>
+<text x="177.5" y="394.0" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">总变差: 0.000 / 0.073</text>
+<text x="372.5" y="360.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">T0.7 p0.9 min-p0.05</text>
+<text x="372.5" y="378.0" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">集合不同: 1119 / 1699 处</text>
+<text x="372.5" y="394.0" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">总变差: 0.032 / 0.053</text>
+<text x="567.5" y="360.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">T1.5 p0.9 min-p0.1</text>
+<text x="567.5" y="378.0" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">集合不同: 1526 / 1712 处</text>
+<text x="567.5" y="394.0" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">总变差: 0.053 / 0.154</text>
+<text x="762.5" y="360.0" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">T1.0 k20 p0.8 min-p0.05</text>
+<text x="762.5" y="378.0" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">集合不同: 834 / 0 处</text>
+<text x="762.5" y="394.0" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">总变差: 0.033 / 0.000</text>
+<rect x="80" y="56" width="12" height="12" fill="#2a78d6"/>
+<text x="98.0" y="62.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">transformers</text>
+<rect x="210" y="56" width="12" height="12" fill="#1baf7a"/>
+<text x="228.0" y="62.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">vLLM</text>
+<rect x="340" y="56" width="12" height="12" fill="#eb6834"/>
+<text x="358.0" y="62.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">llama.cpp</text>
+</svg>

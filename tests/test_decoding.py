@@ -67,11 +67,11 @@ def math_log(p):
 def test_toy_experiment_numbers_used_in_tutorial():
     with open(os.path.join(UNIT, "experiments", "results", "toy_experiments.json"), encoding="utf-8") as f:
         r = json.load(f)
-    assert all(d["cycle"] for d in r["greedy_loops"])                       # 第 2 节: 5 个开头全部转圈
+    assert all(d["cycle"] for d in r["greedy_loops"])                       # 第 3 节: 5 个开头全部转圈
     rows = {x["setting"]: x for x in r["tradeoff"]}
-    assert rows["贪心 + 重复惩罚 2.0"]["loop_rate"] == 1.0                     # 第 5.1 节
+    assert rows["贪心 + 重复惩罚 2.0"]["loop_rate"] == 1.0                     # 第 6.2 节
     assert rows["温度 1.0"]["loop_rate"] == 0.0
-    shift = {x["shift"]: x["p_e_after"] for x in r["penalty_shift"]["rows"]}  # 第 5.2 节
+    shift = {x["shift"]: x["p_e_after"] for x in r["penalty_shift"]["rows"]}  # 第 6.3 节
     assert shift[0.0] > 0.3 and shift[-20.0] < 0.01 and shift[20.0] < 0.05
 
 
@@ -103,7 +103,70 @@ def test_real_model_numbers_used_in_tutorial():
     assert s["已公开: 贪心 + 自带重复惩罚 1.1"]["success"] == 14
     assert s["贪心, 关掉重复惩罚 (1.0)"]["success"] == 18
     assert c["rerun_check"]["success_same"] == c["rerun_check"]["first_reply_same"] == 30
-    with open(os.path.join(UNIT, "experiments", "results", "token_confidence_Qwen2.5-1.5B-Instruct.json"),
+    with open(os.path.join(UNIT, "experiments", "results", "practice_car_confidence_Qwen2.5-1.5B-Instruct.json"),
               encoding="utf-8") as f:
         t = json.load(f)
     assert sum(r["n_flips_by_penalty"] > 0 for r in t["rows"]) == 3
+
+
+def test_other_penalties():
+    x = [1.0, 1.0, 1.0]
+    assert S.presence_frequency_penalty(x, [0, 0, 1], presence=0.5, frequency=0.25) == [0.0, 0.25, 1.0]
+    assert S.windowed_repetition_penalty([2.0, 2.0], [0, 1], 2.0, last_n=1) == [2.0, 1.0]    # 只看最近 1 个
+    assert kept(S.no_repeat_ngram([0.0] * 3, [0, 1, 2, 0], 2)) == [0, 2]                      # "0 1" 出现过, 不许再接 1
+
+
+def test_additive_penalty_is_shift_invariant():
+    base = [0.3, -1.2, 2.0, 0.7]
+    ref = S.softmax(S.presence_frequency_penalty(base, [2, 2, 0], presence=0.4, frequency=0.3))
+    for c in (-30.0, 7.5, 40.0):
+        got = S.softmax(S.presence_frequency_penalty([z + c for z in base], [2, 2, 0], presence=0.4, frequency=0.3))
+        assert max(abs(a - b) for a, b in zip(got, ref)) < 1e-12
+
+
+def test_orders_differ_only_by_order():
+    logits = [2.0, 1.5, 1.0, 0.5, -1.0, -2.0]                   # 讲义第 2.5 节的手算
+    a = S.softmax(S.process_order(logits, (), "transformers", temp=0.5, p=0.8))
+    b = S.softmax(S.process_order(logits, (), "llama.cpp", temp=0.5, p=0.8))
+    assert kept_p(a) == [0, 1] and kept_p(b) == [0, 1, 2]
+    assert round(a[0], 2) == 0.73 and round(b[0], 2) == 0.67
+    assert S.process_order(logits, (), "vllm", temp=0.7, k=3, p=0.9) == S.process_order(logits, (), "transformers", temp=0.7, k=3, p=0.9)
+
+
+def kept_p(probs):
+    return [i for i, p in enumerate(probs) if p > 0]
+
+
+def test_toy_more_numbers_used_in_tutorial():
+    with open(os.path.join(UNIT, "experiments", "results", "toy_more.json"), encoding="utf-8") as f:
+        r = json.load(f)
+    pen = {x["setting"]: x for x in r["penalties"]}                          # 第 7.2 节
+    assert pen["出现惩罚 0.5 (加法)"]["loop_rate"] == 1.0
+    assert pen["频率惩罚 0.3 (加法, 按次数)"]["loop_rate"] == 0.0
+    assert pen["禁止重复 4 元组"]["distinct4"] == 1.0
+    assert len({x["presence_0.5"] for x in r["shift"]["rows"]}) == 1         # 第 6.3 节: 减法是一条平线
+    o = r["orders"][0]                                                       # 专题 A 第一行
+    assert o["kept_set_differs_from_transformers"] == {"vllm": 0, "llama.cpp": 1640}
+    assert [b["score"] for b in r["beam"]][2:] == [-39.79] * 4               # 第 9.2 节
+    assert all(b["loops"] for b in r["beam"])
+
+
+def test_real_model_generic_numbers_used_in_tutorial():
+    def load(m):
+        with open(os.path.join(UNIT, "experiments", "results", f"real_model_Qwen2.5-{m}-Instruct.json"), encoding="utf-8") as f:
+            return json.load(f)["summary"]
+    a, b = load("0.5B"), load("1.5B")                                         # 专题 B、C
+    assert (a["reply_changed_by_penalty"], a["first_token_changed_by_penalty"]) == (7, 0)
+    assert (b["reply_changed_by_penalty"], b["first_token_changed_by_penalty"]) == (6, 3)
+    assert (b["calls_correct"], b["calls_correct_with_penalty"]) == (11, 10)
+    assert a["bf16_reply_differs"] == 1 and a["path_argmax_differs_positions"] == 0
+    assert (b["path_argmax_differs_positions"], b["path_positions"]) == (1, 284)
+
+
+def test_tutorial_examples_are_project_independent():
+    """知识库不依赖项目: 主干和专题里不出现小车; 只有第 15 节实践 (以及专题 C 引用一次它的重跑结果)。"""
+    text = open(os.path.join(UNIT, "TUTORIAL.md"), encoding="utf-8").read()
+    before, rest = text.split("## 15. 实践: 在项目里用", 1)
+    after = rest.split("# 第二部分 · 延伸专题", 1)[1]
+    assert "小车" not in before.split("## 0. 阅读指南", 1)[1].split("### 0.4", 1)[1]
+    assert "小车" not in after.replace("第 15.3 节的小车评测", "")

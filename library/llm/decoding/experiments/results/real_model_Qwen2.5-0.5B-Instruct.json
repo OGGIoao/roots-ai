@@ -1,0 +1,2310 @@
+{
+ "model": "Qwen/Qwen2.5-0.5B-Instruct",
+ "dtype": "torch.float32",
+ "sampling": {
+  "rep": 1.1,
+  "temp": 0.7,
+  "k": 20,
+  "p": 0.8
+ },
+ "summary": {
+  "n": 12,
+  "calls_correct": 8,
+  "calls_correct_with_penalty": 8,
+  "reply_changed_by_penalty": 7,
+  "first_token_changed_by_penalty": 0,
+  "sample_same_ge_0.9": 2,
+  "sample_same_lt_0.1": 6,
+  "path_argmax_differs_positions": 0,
+  "path_positions": 301,
+  "path_max_abs_diff": 0.0001,
+  "bf16_reply_differs": 1
+ },
+ "rows": [
+  {
+   "question": "台北现在几度?",
+   "should_call": true,
+   "reply": "<tool_call>\n{\"name\": \"get_weather\", \"arguments\": {\"city\": \"台北\", \"unit\": \"fahrenheit\"}}\n</tool_call><|im_end|>",
+   "reply_with_penalty": "<tool_call>\n{\"name\": \"get_weather\", \"arguments\": {\"city\": \"台北\"}}\n</tool_call><|im_end|>",
+   "calls": true,
+   "calls_with_penalty": true,
+   "same_reply_with_penalty": false,
+   "first_token_changed_by_penalty": false,
+   "first_top3": [
+    [
+     "<tool_call>",
+     0.99
+    ],
+    [
+     "<|im_end|>",
+     0.0019
+    ],
+    [
+     "</tool_call>",
+     0.0006
+    ]
+   ],
+   "first_top3_with_penalty": [
+    [
+     "<tool_call>",
+     0.9401
+    ],
+    [
+     "<|im_end|>",
+     0.0033
+    ],
+    [
+     "给我",
+     0.0013
+    ]
+   ],
+   "n_tokens": 27,
+   "positions_flipped_by_penalty": 1,
+   "p_whole_reply_same_under_sampling": 0.0,
+   "weakest": [
+    {
+     "token": "\",",
+     "p_greedy": 0.5714,
+     "p_keep_sample": 0.0
+    },
+    {
+     "token": "f",
+     "p_greedy": 0.5332,
+     "p_keep_sample": 0.5439
+    },
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.99,
+     "p_keep_sample": 1.0
+    }
+   ],
+   "incremental_vs_full_argmax_differs": 0,
+   "incremental_vs_full_max_abs_diff": 0.0001,
+   "steps": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.99,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\n",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "name",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "get",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "_weather",
+     "p_greedy": 0.9997,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\",",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "arguments",
+     "p_greedy": 0.9998,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " {\"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "city",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "台北",
+     "p_greedy": 0.999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\",",
+     "p_greedy": 0.5714,
+     "p_keep_sample": 0.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "unit",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "f",
+     "p_greedy": 0.5332,
+     "p_keep_sample": 0.5439
+    },
+    {
+     "token": "ahrenheit",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\"}}\n",
+     "p_greedy": 0.9997,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "</tool_call>",
+     "p_greedy": 0.9985,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "<|im_end|>",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    }
+   ],
+   "reply_bf16": "<tool_call>\n{\"name\": \"get_weather\", \"arguments\": {\"city\": \"台北\", \"unit\": \"fahrenheit\"}}\n</tool_call><|im_end|>",
+   "same_reply_bf16": true,
+   "bf16_diverges_at": null
+  },
+  {
+   "question": "东京今天下雨吗?",
+   "should_call": true,
+   "reply": "<tool_call>\n{\"name\": \"get_weather\", \"arguments\": {\"city\": \"东京\", \"unit\": \"fahrenheit\"}}\n</tool_call><|im_end|>",
+   "reply_with_penalty": "<tool_call>\n{\"name\": \"get_weather\", \"arguments\": {\"city\": \"东京\"}}\n</tool_call><|im_end|>",
+   "calls": true,
+   "calls_with_penalty": true,
+   "same_reply_with_penalty": false,
+   "first_token_changed_by_penalty": false,
+   "first_top3": [
+    [
+     "<tool_call>",
+     0.9827
+    ],
+    [
+     "<|im_end|>",
+     0.0018
+    ],
+    [
+     "我可以",
+     0.0009
+    ]
+   ],
+   "first_top3_with_penalty": [
+    [
+     "<tool_call>",
+     0.8911
+    ],
+    [
+     "我可以",
+     0.0063
+    ],
+    [
+     "我会",
+     0.0059
+    ]
+   ],
+   "n_tokens": 27,
+   "positions_flipped_by_penalty": 1,
+   "p_whole_reply_same_under_sampling": 0.0,
+   "weakest": [
+    {
+     "token": "\",",
+     "p_greedy": 0.6552,
+     "p_keep_sample": 0.0
+    },
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.9827,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\n",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    }
+   ],
+   "incremental_vs_full_argmax_differs": 0,
+   "incremental_vs_full_max_abs_diff": 0.0001,
+   "steps": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.9827,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\n",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "name",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "get",
+     "p_greedy": 0.9954,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "_weather",
+     "p_greedy": 0.9997,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\",",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "arguments",
+     "p_greedy": 0.9998,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " {\"",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "city",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "东京",
+     "p_greedy": 0.9832,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\",",
+     "p_greedy": 0.6552,
+     "p_keep_sample": 0.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "unit",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "f",
+     "p_greedy": 0.9651,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "ahrenheit",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\"}}\n",
+     "p_greedy": 0.9997,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "</tool_call>",
+     "p_greedy": 0.9986,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "<|im_end|>",
+     "p_greedy": 0.9996,
+     "p_keep_sample": 1.0
+    }
+   ],
+   "reply_bf16": "<tool_call>\n{\"name\": \"get_weather\", \"arguments\": {\"city\": \"东京\", \"unit\": \"fahrenheit\"}}\n</tool_call><|im_end|>",
+   "same_reply_bf16": true,
+   "bf16_diverges_at": null
+  },
+  {
+   "question": "帮我算一下 37 乘以 49。",
+   "should_call": true,
+   "reply": "<tool_call>\n{\"name\": \"calculator\", \"arguments\": {\"expression\": \"37 * 49\"}}\n</tool_call><|im_end|>",
+   "reply_with_penalty": "<tool_call>\n{\"name\": \"calculator\", \"arguments\": {\"expression\": \"37 * 49\"}}\n</tool_call><|im_end|>",
+   "calls": true,
+   "calls_with_penalty": true,
+   "same_reply_with_penalty": true,
+   "first_token_changed_by_penalty": false,
+   "first_top3": [
+    [
+     "<tool_call>",
+     0.997
+    ],
+    [
+     "<|im_end|>",
+     0.0008
+    ],
+    [
+     "</tool_call>",
+     0.0004
+    ]
+   ],
+   "first_top3_with_penalty": [
+    [
+     "<tool_call>",
+     0.9831
+    ],
+    [
+     "<|im_end|>",
+     0.0015
+    ],
+    [
+     "</tool_call>",
+     0.0008
+    ]
+   ],
+   "n_tokens": 24,
+   "positions_flipped_by_penalty": 0,
+   "p_whole_reply_same_under_sampling": 0.6384,
+   "weakest": [
+    {
+     "token": " *",
+     "p_greedy": 0.5955,
+     "p_keep_sample": 0.6384
+    },
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.997,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\n",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    }
+   ],
+   "incremental_vs_full_argmax_differs": 0,
+   "incremental_vs_full_max_abs_diff": 0.0001,
+   "steps": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.997,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\n",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "name",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "calculator",
+     "p_greedy": 0.9994,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\",",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "arguments",
+     "p_greedy": 0.9998,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " {\"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "expression",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "3",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "7",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " *",
+     "p_greedy": 0.5955,
+     "p_keep_sample": 0.6384
+    },
+    {
+     "token": " ",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "4",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "9",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\"}}\n",
+     "p_greedy": 0.9987,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "</tool_call>",
+     "p_greedy": 0.9984,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "<|im_end|>",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    }
+   ],
+   "reply_bf16": "<tool_call>\n{\"name\": \"calculator\", \"arguments\": {\"expression\": \"37 * 49\"}}\n</tool_call><|im_end|>",
+   "same_reply_bf16": true,
+   "bf16_diverges_at": null
+  },
+  {
+   "question": "(128 + 256) / 3 等于多少?",
+   "should_call": true,
+   "reply": "<tool_call>\n{\"name\": \"calculator\", \"arguments\": {\"expression\": \"128 + 256 / 3\"}}\n</tool_call><|im_end|>",
+   "reply_with_penalty": "<tool_call>\n{\"name\": \"calculator\", \"arguments\": {\"expression\": \"128 + 256 / 3\"}}\n</tool_call><|im_end|>",
+   "calls": true,
+   "calls_with_penalty": true,
+   "same_reply_with_penalty": true,
+   "first_token_changed_by_penalty": false,
+   "first_top3": [
+    [
+     "<tool_call>",
+     0.9938
+    ],
+    [
+     "<|im_end|>",
+     0.0015
+    ],
+    [
+     "</tool_call>",
+     0.0004
+    ]
+   ],
+   "first_top3_with_penalty": [
+    [
+     "<tool_call>",
+     0.9663
+    ],
+    [
+     "<|im_end|>",
+     0.0026
+    ],
+    [
+     "</tool_call>",
+     0.0007
+    ]
+   ],
+   "n_tokens": 29,
+   "positions_flipped_by_penalty": 0,
+   "p_whole_reply_same_under_sampling": 1.0,
+   "weakest": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.9938,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\n",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    }
+   ],
+   "incremental_vs_full_argmax_differs": 0,
+   "incremental_vs_full_max_abs_diff": 0.0001,
+   "steps": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.9938,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\n",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "name",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "calculator",
+     "p_greedy": 0.9963,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\",",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "arguments",
+     "p_greedy": 0.9998,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " {\"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "expression",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 0.9997,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "1",
+     "p_greedy": 0.9855,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "2",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "8",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " +",
+     "p_greedy": 0.9886,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " ",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "2",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "5",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "6",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " /",
+     "p_greedy": 0.998,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " ",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "3",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\"}}\n",
+     "p_greedy": 0.9976,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "</tool_call>",
+     "p_greedy": 0.9984,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "<|im_end|>",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    }
+   ],
+   "reply_bf16": "<tool_call>\n{\"name\": \"calculator\", \"arguments\": {\"expression\": \"128 + 256 / 3\"}}\n</tool_call><|im_end|>",
+   "same_reply_bf16": true,
+   "bf16_diverges_at": null
+  },
+  {
+   "question": "在资料库里查一下年假怎么请。",
+   "should_call": true,
+   "reply": "<tool_call>\n{\"name\": \"search_docs\", \"arguments\": {\"query\": \"年假怎么请\", \"top_k\": 3}}\n</tool_call><|im_end|>",
+   "reply_with_penalty": "<tool_call>\n{\"name\": \"search_docs\", \"arguments\": {\"query\": \"年假怎么请\", \"top_k\": 1}}\n</tool_call><|im_end|>",
+   "calls": true,
+   "calls_with_penalty": true,
+   "same_reply_with_penalty": false,
+   "first_token_changed_by_penalty": false,
+   "first_top3": [
+    [
+     "<tool_call>",
+     0.5766
+    ],
+    [
+     "我可以",
+     0.0652
+    ],
+    [
+     "请",
+     0.0475
+    ]
+   ],
+   "first_top3_with_penalty": [
+    [
+     "<tool_call>",
+     0.206
+    ],
+    [
+     "我可以",
+     0.1366
+    ],
+    [
+     "请问",
+     0.0873
+    ]
+   ],
+   "n_tokens": 30,
+   "positions_flipped_by_penalty": 1,
+   "p_whole_reply_same_under_sampling": 0.0,
+   "weakest": [
+    {
+     "token": "3",
+     "p_greedy": 0.5794,
+     "p_keep_sample": 0.0
+    },
+    {
+     "token": "怎么",
+     "p_greedy": 0.4554,
+     "p_keep_sample": 0.497
+    },
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.5766,
+     "p_keep_sample": 0.4994
+    }
+   ],
+   "incremental_vs_full_argmax_differs": 0,
+   "incremental_vs_full_max_abs_diff": 0.0001,
+   "steps": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.5766,
+     "p_keep_sample": 0.4994
+    },
+    {
+     "token": "\n",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "name",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "search",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "_docs",
+     "p_greedy": 0.9996,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\",",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "arguments",
+     "p_greedy": 0.9998,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " {\"",
+     "p_greedy": 0.9998,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "query",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 0.9995,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "年",
+     "p_greedy": 0.9638,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "假",
+     "p_greedy": 0.9992,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "怎么",
+     "p_greedy": 0.4554,
+     "p_keep_sample": 0.497
+    },
+    {
+     "token": "请",
+     "p_greedy": 0.9986,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\",",
+     "p_greedy": 0.8909,
+     "p_keep_sample": 0.7562
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "top",
+     "p_greedy": 0.9984,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "_k",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " ",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "3",
+     "p_greedy": 0.5794,
+     "p_keep_sample": 0.0
+    },
+    {
+     "token": "}}\n",
+     "p_greedy": 0.9766,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "</tool_call>",
+     "p_greedy": 0.9986,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "<|im_end|>",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    }
+   ],
+   "reply_bf16": "<tool_call>\n{\"name\": \"search_docs\", \"arguments\": {\"query\": \"年假怎么请\", \"top_k\": 3}}\n</tool_call><|im_end|>",
+   "same_reply_bf16": true,
+   "bf16_diverges_at": null
+  },
+  {
+   "question": "搜一下报销流程的相关段落。",
+   "should_call": true,
+   "reply": "<tool_call>\n{\"name\": \"search_docs\", \"arguments\": {\"query\": \"报销流程\", \"top_k\": 3}}\n</tool_call><|im_end|>",
+   "reply_with_penalty": "<tool_call>\n{\"name\": \"search_docs\", \"arguments\": {\"query\": \"报销流程\", \"top_k\": 1}}\n</tool_call><|im_end|>",
+   "calls": true,
+   "calls_with_penalty": true,
+   "same_reply_with_penalty": false,
+   "first_token_changed_by_penalty": false,
+   "first_top3": [
+    [
+     "<tool_call>",
+     0.9889
+    ],
+    [
+     "<|im_end|>",
+     0.001
+    ],
+    [
+     "我会",
+     0.0006
+    ]
+   ],
+   "first_top3_with_penalty": [
+    [
+     "<tool_call>",
+     0.9253
+    ],
+    [
+     "我会",
+     0.0042
+    ],
+    [
+     "我们将",
+     0.003
+    ]
+   ],
+   "n_tokens": 28,
+   "positions_flipped_by_penalty": 1,
+   "p_whole_reply_same_under_sampling": 0.308,
+   "weakest": [
+    {
+     "token": "3",
+     "p_greedy": 0.8427,
+     "p_keep_sample": 0.3734
+    },
+    {
+     "token": "\",",
+     "p_greedy": 0.9329,
+     "p_keep_sample": 0.8249
+    },
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.9889,
+     "p_keep_sample": 1.0
+    }
+   ],
+   "incremental_vs_full_argmax_differs": 0,
+   "incremental_vs_full_max_abs_diff": 0.0001,
+   "steps": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.9889,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\n",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 0.9997,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "name",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "search",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "_docs",
+     "p_greedy": 0.9996,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\",",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "arguments",
+     "p_greedy": 0.9998,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " {\"",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "query",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 0.9994,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "报销",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "流程",
+     "p_greedy": 0.9993,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\",",
+     "p_greedy": 0.9329,
+     "p_keep_sample": 0.8249
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "top",
+     "p_greedy": 0.9996,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "_k",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " ",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "3",
+     "p_greedy": 0.8427,
+     "p_keep_sample": 0.3734
+    },
+    {
+     "token": "}}\n",
+     "p_greedy": 0.9866,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "</tool_call>",
+     "p_greedy": 0.9984,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "<|im_end|>",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    }
+   ],
+   "reply_bf16": "<tool_call>\n{\"name\": \"search_docs\", \"arguments\": {\"query\": \"报销流程\", \"top_k\": 3}}\n</tool_call><|im_end|>",
+   "same_reply_bf16": true,
+   "bf16_diverges_at": null
+  },
+  {
+   "question": "你好!",
+   "should_call": false,
+   "reply": "你好！有什么可以帮助你的吗？<|im_end|>",
+   "reply_with_penalty": "你好！有什么可以帮助你的吗？<|im_end|>",
+   "calls": false,
+   "calls_with_penalty": false,
+   "same_reply_with_penalty": true,
+   "first_token_changed_by_penalty": false,
+   "first_top3": [
+    [
+     "你好",
+     0.9623
+    ],
+    [
+     "您好",
+     0.0184
+    ],
+    [
+     "很高兴",
+     0.0095
+    ]
+   ],
+   "first_top3_with_penalty": [
+    [
+     "你好",
+     0.7448
+    ],
+    [
+     "您好",
+     0.1258
+    ],
+    [
+     "很高兴",
+     0.0648
+    ]
+   ],
+   "n_tokens": 8,
+   "positions_flipped_by_penalty": 0,
+   "p_whole_reply_same_under_sampling": 0.3974,
+   "weakest": [
+    {
+     "token": "！",
+     "p_greedy": 0.4734,
+     "p_keep_sample": 0.6343
+    },
+    {
+     "token": "吗",
+     "p_greedy": 0.703,
+     "p_keep_sample": 0.7768
+    },
+    {
+     "token": "可以帮助",
+     "p_greedy": 0.6763,
+     "p_keep_sample": 0.8065
+    }
+   ],
+   "incremental_vs_full_argmax_differs": 0,
+   "incremental_vs_full_max_abs_diff": 0.0001,
+   "steps": [
+    {
+     "token": "你好",
+     "p_greedy": 0.9623,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "！",
+     "p_greedy": 0.4734,
+     "p_keep_sample": 0.6343
+    },
+    {
+     "token": "有什么",
+     "p_greedy": 0.6311,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "可以帮助",
+     "p_greedy": 0.6763,
+     "p_keep_sample": 0.8065
+    },
+    {
+     "token": "你的",
+     "p_greedy": 0.9928,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "吗",
+     "p_greedy": 0.703,
+     "p_keep_sample": 0.7768
+    },
+    {
+     "token": "？",
+     "p_greedy": 0.9993,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "<|im_end|>",
+     "p_greedy": 0.9978,
+     "p_keep_sample": 1.0
+    }
+   ],
+   "reply_bf16": "你好！有什么可以帮助你的吗？<|im_end|>",
+   "same_reply_bf16": true,
+   "bf16_diverges_at": null
+  },
+  {
+   "question": "用一句话介绍你自己。",
+   "should_call": false,
+   "reply": "我是一个能够提供实时天气信息和进行简单算术计算的助手。<|im_end|>",
+   "reply_with_penalty": "我是一个能够提供实时天气信息的助手，还能进行简单的数学运算和帮助查找相关文档的工具。<|im_end|>",
+   "calls": false,
+   "calls_with_penalty": false,
+   "same_reply_with_penalty": false,
+   "first_token_changed_by_penalty": false,
+   "first_top3": [
+    [
+     "我",
+     0.5205
+    ],
+    [
+     "我是",
+     0.4632
+    ],
+    [
+     "我可以",
+     0.0033
+    ]
+   ],
+   "first_top3_with_penalty": [
+    [
+     "我",
+     0.5205
+    ],
+    [
+     "我是",
+     0.4632
+    ],
+    [
+     "我可以",
+     0.0033
+    ]
+   ],
+   "n_tokens": 17,
+   "positions_flipped_by_penalty": 3,
+   "p_whole_reply_same_under_sampling": 0.0,
+   "weakest": [
+    {
+     "token": "和",
+     "p_greedy": 0.5156,
+     "p_keep_sample": 0.0
+    },
+    {
+     "token": "算",
+     "p_greedy": 0.5027,
+     "p_keep_sample": 0.0
+    },
+    {
+     "token": "计算",
+     "p_greedy": 0.7632,
+     "p_keep_sample": 0.0
+    }
+   ],
+   "incremental_vs_full_argmax_differs": 0,
+   "incremental_vs_full_max_abs_diff": 0.0,
+   "steps": [
+    {
+     "token": "我",
+     "p_greedy": 0.5205,
+     "p_keep_sample": 0.5416
+    },
+    {
+     "token": "是一个",
+     "p_greedy": 0.8327,
+     "p_keep_sample": 0.6081
+    },
+    {
+     "token": "能够",
+     "p_greedy": 0.295,
+     "p_keep_sample": 0.6281
+    },
+    {
+     "token": "提供",
+     "p_greedy": 0.6712,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "实时",
+     "p_greedy": 0.4946,
+     "p_keep_sample": 0.5366
+    },
+    {
+     "token": "天气",
+     "p_greedy": 0.6727,
+     "p_keep_sample": 0.7326
+    },
+    {
+     "token": "信息",
+     "p_greedy": 0.7905,
+     "p_keep_sample": 0.7227
+    },
+    {
+     "token": "和",
+     "p_greedy": 0.5156,
+     "p_keep_sample": 0.0
+    },
+    {
+     "token": "进行",
+     "p_greedy": 0.3532,
+     "p_keep_sample": 0.7653
+    },
+    {
+     "token": "简单",
+     "p_greedy": 0.5963,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "算",
+     "p_greedy": 0.5027,
+     "p_keep_sample": 0.0
+    },
+    {
+     "token": "术",
+     "p_greedy": 0.9997,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "计算",
+     "p_greedy": 0.7632,
+     "p_keep_sample": 0.0
+    },
+    {
+     "token": "的",
+     "p_greedy": 0.9728,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "助手",
+     "p_greedy": 0.5549,
+     "p_keep_sample": 0.4986
+    },
+    {
+     "token": "。",
+     "p_greedy": 0.9429,
+     "p_keep_sample": 0.7025
+    },
+    {
+     "token": "<|im_end|>",
+     "p_greedy": 0.8891,
+     "p_keep_sample": 0.8606
+    }
+   ],
+   "reply_bf16": "我是一个能够提供天气查询和计算算术表达式的助手。<|im_end|>",
+   "same_reply_bf16": false,
+   "bf16_diverges_at": 4
+  },
+  {
+   "question": "把 '谢谢' 翻译成英文。",
+   "should_call": false,
+   "reply": "<tool_call>\n{\"name\": \"get_weather\", \"arguments\": {\"city\": \"北京\", \"unit\": \"fahrenheit\"}}\n</tool_call><|im_end|>",
+   "reply_with_penalty": "<tool_call>\n{\"name\": \"get_weather\", \"arguments\": {\"city\": \"北京\", \"unit\": \"fahrenheit\"}}\n</tool_call><|im_end|>",
+   "calls": true,
+   "calls_with_penalty": true,
+   "same_reply_with_penalty": true,
+   "first_token_changed_by_penalty": false,
+   "first_top3": [
+    [
+     "<tool_call>",
+     0.552
+    ],
+    [
+     "谢谢",
+     0.0919
+    ],
+    [
+     "{'",
+     0.0195
+    ]
+   ],
+   "first_top3_with_penalty": [
+    [
+     "<tool_call>",
+     0.2353
+    ],
+    [
+     "谢谢",
+     0.0461
+    ],
+    [
+     "{'",
+     0.0421
+    ]
+   ],
+   "n_tokens": 27,
+   "positions_flipped_by_penalty": 0,
+   "p_whole_reply_same_under_sampling": 0.5339,
+   "weakest": [
+    {
+     "token": "\",",
+     "p_greedy": 0.9255,
+     "p_keep_sample": 0.6623
+    },
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.552,
+     "p_keep_sample": 0.8452
+    },
+    {
+     "token": "北京",
+     "p_greedy": 0.4509,
+     "p_keep_sample": 0.9538
+    }
+   ],
+   "incremental_vs_full_argmax_differs": 0,
+   "incremental_vs_full_max_abs_diff": 0.0001,
+   "steps": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.552,
+     "p_keep_sample": 0.8452
+    },
+    {
+     "token": "\n",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "name",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "get",
+     "p_greedy": 0.976,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "_weather",
+     "p_greedy": 0.9993,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\",",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "arguments",
+     "p_greedy": 0.9998,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " {\"",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "city",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 0.9996,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "北京",
+     "p_greedy": 0.4509,
+     "p_keep_sample": 0.9538
+    },
+    {
+     "token": "\",",
+     "p_greedy": 0.9255,
+     "p_keep_sample": 0.6623
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "unit",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "f",
+     "p_greedy": 0.8732,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "ahrenheit",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\"}}\n",
+     "p_greedy": 0.9998,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "</tool_call>",
+     "p_greedy": 0.9986,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "<|im_end|>",
+     "p_greedy": 0.9948,
+     "p_keep_sample": 1.0
+    }
+   ],
+   "reply_bf16": "<tool_call>\n{\"name\": \"get_weather\", \"arguments\": {\"city\": \"北京\", \"unit\": \"fahrenheit\"}}\n</tool_call><|im_end|>",
+   "same_reply_bf16": true,
+   "bf16_diverges_at": null
+  },
+  {
+   "question": "写一句关于秋天的诗。",
+   "should_call": false,
+   "reply": "<tool_call>\n{\"name\": \"calculator\", \"arguments\": {\"expression\": \"3*(4+5)\"}}\n</tool_call><|im_end|>",
+   "reply_with_penalty": "<tool_call>\n{\"name\": \"calculator\", \"arguments\": {\"expression\": \"秋风起，落叶飘，丰收喜气盈门。\"}}\n</tool_call><|im_end|>",
+   "calls": true,
+   "calls_with_penalty": true,
+   "same_reply_with_penalty": false,
+   "first_token_changed_by_penalty": false,
+   "first_top3": [
+    [
+     "<tool_call>",
+     0.6142
+    ],
+    [
+     "当然",
+     0.0537
+    ],
+    [
+     "我可以",
+     0.0222
+    ]
+   ],
+   "first_top3_with_penalty": [
+    [
+     "<tool_call>",
+     0.2257
+    ],
+    [
+     "当然",
+     0.1114
+    ],
+    [
+     "我可以",
+     0.0461
+    ]
+   ],
+   "n_tokens": 24,
+   "positions_flipped_by_penalty": 3,
+   "p_whole_reply_same_under_sampling": 0.0175,
+   "weakest": [
+    {
+     "token": "*(",
+     "p_greedy": 0.6714,
+     "p_keep_sample": 0.1986
+    },
+    {
+     "token": ")",
+     "p_greedy": 0.7448,
+     "p_keep_sample": 0.2639
+    },
+    {
+     "token": "3",
+     "p_greedy": 0.6558,
+     "p_keep_sample": 0.4891
+    }
+   ],
+   "incremental_vs_full_argmax_differs": 0,
+   "incremental_vs_full_max_abs_diff": 0.0001,
+   "steps": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.6142,
+     "p_keep_sample": 0.7326
+    },
+    {
+     "token": "\n",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 0.9985,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "name",
+     "p_greedy": 0.9998,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "calculator",
+     "p_greedy": 0.7774,
+     "p_keep_sample": 0.9299
+    },
+    {
+     "token": "\",",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "arguments",
+     "p_greedy": 0.9998,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " {\"",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "expression",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 0.9987,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "3",
+     "p_greedy": 0.6558,
+     "p_keep_sample": 0.4891
+    },
+    {
+     "token": "*(",
+     "p_greedy": 0.6714,
+     "p_keep_sample": 0.1986
+    },
+    {
+     "token": "4",
+     "p_greedy": 0.9933,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "+",
+     "p_greedy": 0.9993,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "5",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": ")",
+     "p_greedy": 0.7448,
+     "p_keep_sample": 0.2639
+    },
+    {
+     "token": "\"}}\n",
+     "p_greedy": 0.992,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "</tool_call>",
+     "p_greedy": 0.9984,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "<|im_end|>",
+     "p_greedy": 0.9971,
+     "p_keep_sample": 1.0
+    }
+   ],
+   "reply_bf16": "<tool_call>\n{\"name\": \"calculator\", \"arguments\": {\"expression\": \"3*(4+5)\"}}\n</tool_call><|im_end|>",
+   "same_reply_bf16": true,
+   "bf16_diverges_at": null
+  },
+  {
+   "question": "Python 里怎么把列表倒过来?",
+   "should_call": false,
+   "reply": "<tool_call>\n{\"name\": \"reverse_list\", \"arguments\": {\"list\": [\"Python\", \"里\", \"怎么\", \"把\", \"列表\", \"倒过来?\"]}}\n</tool_call><|im_end|>",
+   "reply_with_penalty": "<tool_call>\n{\"name\": \"reverse_list\", \"arguments\": {\"list\": [1, 2, 3, 4, 5]}}\n</tool_call><|im_end|>",
+   "calls": true,
+   "calls_with_penalty": true,
+   "same_reply_with_penalty": false,
+   "first_token_changed_by_penalty": false,
+   "first_top3": [
+    [
+     "<tool_call>",
+     0.6787
+    ],
+    [
+     "你可以",
+     0.0424
+    ],
+    [
+     "当然",
+     0.0115
+    ]
+   ],
+   "first_top3_with_penalty": [
+    [
+     "<tool_call>",
+     0.2908
+    ],
+    [
+     "你可以",
+     0.0991
+    ],
+    [
+     "当然",
+     0.0269
+    ]
+   ],
+   "n_tokens": 38,
+   "positions_flipped_by_penalty": 2,
+   "p_whole_reply_same_under_sampling": 0.0,
+   "weakest": [
+    {
+     "token": " [\"",
+     "p_greedy": 0.6015,
+     "p_keep_sample": 0.0
+    },
+    {
+     "token": "里",
+     "p_greedy": 0.2324,
+     "p_keep_sample": 0.0
+    },
+    {
+     "token": "Python",
+     "p_greedy": 0.5705,
+     "p_keep_sample": 0.4331
+    }
+   ],
+   "incremental_vs_full_argmax_differs": 0,
+   "incremental_vs_full_max_abs_diff": 0.0001,
+   "steps": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.6787,
+     "p_keep_sample": 0.8232
+    },
+    {
+     "token": "\n",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "name",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "reverse",
+     "p_greedy": 0.8533,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "_list",
+     "p_greedy": 0.922,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\",",
+     "p_greedy": 0.9931,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "arguments",
+     "p_greedy": 0.9998,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " {\"",
+     "p_greedy": 0.9988,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "list",
+     "p_greedy": 0.5713,
+     "p_keep_sample": 0.8595
+    },
+    {
+     "token": "\":",
+     "p_greedy": 0.9834,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " [\"",
+     "p_greedy": 0.6015,
+     "p_keep_sample": 0.0
+    },
+    {
+     "token": "Python",
+     "p_greedy": 0.5705,
+     "p_keep_sample": 0.4331
+    },
+    {
+     "token": "\",",
+     "p_greedy": 0.9283,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 0.9868,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "里",
+     "p_greedy": 0.2324,
+     "p_keep_sample": 0.0
+    },
+    {
+     "token": "\",",
+     "p_greedy": 0.9058,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 0.9994,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "怎么",
+     "p_greedy": 0.977,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\",",
+     "p_greedy": 0.9427,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 0.9996,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "把",
+     "p_greedy": 0.5164,
+     "p_keep_sample": 0.6943
+    },
+    {
+     "token": "\",",
+     "p_greedy": 0.7027,
+     "p_keep_sample": 0.7608
+    },
+    {
+     "token": " \"",
+     "p_greedy": 0.9998,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "列表",
+     "p_greedy": 0.9949,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\",",
+     "p_greedy": 0.9077,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "倒",
+     "p_greedy": 0.9997,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "过来",
+     "p_greedy": 0.9197,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "?",
+     "p_greedy": 0.6371,
+     "p_keep_sample": 0.6843
+    },
+    {
+     "token": "\"]",
+     "p_greedy": 0.9798,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "}}\n",
+     "p_greedy": 0.9998,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "</tool_call>",
+     "p_greedy": 0.9986,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "<|im_end|>",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    }
+   ],
+   "reply_bf16": "<tool_call>\n{\"name\": \"reverse_list\", \"arguments\": {\"list\": [\"Python\", \"里\", \"怎么\", \"把\", \"列表\", \"倒过来?\"]}}\n</tool_call><|im_end|>",
+   "same_reply_bf16": true,
+   "bf16_diverges_at": null
+  },
+  {
+   "question": "1 加 1 等于几?",
+   "should_call": false,
+   "reply": "<tool_call>\n{\"name\": \"calculator\", \"arguments\": {\"expression\": \"1 + 1\"}}\n</tool_call><|im_end|>",
+   "reply_with_penalty": "<tool_call>\n{\"name\": \"calculator\", \"arguments\": {\"expression\": \"1 + 1\"}}\n</tool_call><|im_end|>",
+   "calls": true,
+   "calls_with_penalty": true,
+   "same_reply_with_penalty": true,
+   "first_token_changed_by_penalty": false,
+   "first_top3": [
+    [
+     "<tool_call>",
+     0.9352
+    ],
+    [
+     "<|im_end|>",
+     0.0045
+    ],
+    [
+     "let",
+     0.0018
+    ]
+   ],
+   "first_top3_with_penalty": [
+    [
+     "<tool_call>",
+     0.7323
+    ],
+    [
+     "let",
+     0.008
+    ],
+    [
+     "融",
+     0.0064
+    ]
+   ],
+   "n_tokens": 22,
+   "positions_flipped_by_penalty": 0,
+   "p_whole_reply_same_under_sampling": 1.0,
+   "weakest": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.9352,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\n",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    }
+   ],
+   "incremental_vs_full_argmax_differs": 0,
+   "incremental_vs_full_max_abs_diff": 0.0001,
+   "steps": [
+    {
+     "token": "<tool_call>",
+     "p_greedy": 0.9352,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\n",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "{\"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "name",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "calculator",
+     "p_greedy": 0.986,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\",",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "arguments",
+     "p_greedy": 0.9998,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " {\"",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "expression",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\":",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " \"",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "1",
+     "p_greedy": 0.9999,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " +",
+     "p_greedy": 0.6731,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": " ",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "1",
+     "p_greedy": 1.0,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "\"}}\n",
+     "p_greedy": 0.9968,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "</tool_call>",
+     "p_greedy": 0.9983,
+     "p_keep_sample": 1.0
+    },
+    {
+     "token": "<|im_end|>",
+     "p_greedy": 0.9995,
+     "p_keep_sample": 1.0
+    }
+   ],
+   "reply_bf16": "<tool_call>\n{\"name\": \"calculator\", \"arguments\": {\"expression\": \"1 + 1\"}}\n</tool_call><|im_end|>",
+   "same_reply_bf16": true,
+   "bf16_diverges_at": null
+  }
+ ]
+}

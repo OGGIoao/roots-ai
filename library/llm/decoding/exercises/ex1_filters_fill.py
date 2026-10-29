@@ -3,7 +3,7 @@
 
 softmax、温度、top-k 已经写好, 当作例子。把 top_p、min_p、repetition_penalty 三处 TODO 补全,
 让它们在 600 组随机打分上和参考实现 (../sampling.py) 的结果相同: 被去掉的位置 (-inf) 完全一样,
-留下来的分数误差 < 1e-9。参考实现又和 transformers 的处理器逐一核对过 (讲义第 6 节)。
+留下来的分数误差 < 1e-9。参考实现又和 transformers 的处理器逐一核对过 (讲义第 8.2 节)。
 
 验收:
     cd library/llm/decoding/exercises
