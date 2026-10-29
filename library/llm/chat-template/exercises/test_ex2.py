@@ -18,12 +18,12 @@ def test_spans(case):
 
 def test_span_content():
     msgs = [{"role": "user", "content": "你好"}, {"role": "assistant", "content": "你好呀"},
-            {"role": "user", "content": "走"},
+            {"role": "user", "content": "3 乘 9 是多少"},
             {"role": "assistant", "content": "", "tool_calls": [
-                {"type": "function", "function": {"name": "walk", "arguments": {"distance_m": 0.5}}}]},
-            {"role": "tool", "content": "ok"}]
+                {"type": "function", "function": {"name": "calculator", "arguments": {"expression": "3*9"}}}]},
+            {"role": "tool", "content": "27"}]
     text = render(msgs)
     spans = [tuple(s) for s in assistant_spans(msgs)]
     assert [text[s:e] for s, e in spans] == [
         "你好呀" + IM_END,
-        '<tool_call>\n{"name": "walk", "arguments": {"distance_m": 0.5}}\n</tool_call>' + IM_END]
+        '<tool_call>\n{"name": "calculator", "arguments": {"expression": "3*9"}}\n</tool_call>' + IM_END]

@@ -107,7 +107,7 @@ def render_with_spans(messages, tools=None, add_generation_prompt=False):
             emit("\n<tool_response>\n" + m["content"] + "\n</tool_response>")
             if last:
                 emit(IM_END + "\n")
-        # 其它 role (比如 "observation"): 官方模板一个字也不输出, 这里照做。讲义第 7 节的坑。
+        # 其它 role (比如 "observation"): 官方模板一个字也不输出, 这里照做。讲义第 10.2 节的坑。
 
     # 3) 生成提示: 写好 "<|im_start|>assistant\n", 让模型从这里接着写
     if add_generation_prompt:
@@ -122,10 +122,7 @@ def assistant_spans(messages, tools=None):
 
 
 if __name__ == "__main__":
-    conv = [
-        {"role": "user", "content": "往前走 0.5 米"},
-        {"role": "assistant", "content": "", "tool_calls": [
-            {"type": "function", "function": {"name": "walk", "arguments": {"distance_m": 0.5}}}]},
-        {"role": "tool", "content": '{"ok": true}'},
-    ]
-    print(render(conv, add_generation_prompt=True))
+    from examples import CONVERSATION, TOOLS
+    # 一段完整的对话 (提问 → 调用工具 → 工具返回 → 回答) 拼成的文字; 加 --tools 再把工具说明书也拼进去
+    import sys
+    print(render(CONVERSATION, tools=TOOLS if "--tools" in sys.argv else None))

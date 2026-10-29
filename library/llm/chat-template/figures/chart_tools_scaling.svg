@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 420" width="860" height="420" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" font-weight="bold" fill="#0b0b0b" dominant-baseline="middle">工具说明是直线增长的成本: 每多一个工具, 每一轮都多约 100 个 token</text>
+<text x="20" y="40" font-size="12" fill="#52514e" dominant-baseline="middle">同样结构的工具复制 0~12 个, Qwen2.5 分词器实测 (experiments/measure_tokens.py)</text>
+<line x1="80" y1="356.0" x2="660" y2="356.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="356.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0</text>
+<line x1="80" y1="314.6" x2="660" y2="314.6" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="314.6" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">200</text>
+<line x1="80" y1="273.1" x2="660" y2="273.1" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="273.1" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">400</text>
+<line x1="80" y1="231.7" x2="660" y2="231.7" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="231.7" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">600</text>
+<line x1="80" y1="190.3" x2="660" y2="190.3" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="190.3" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">800</text>
+<line x1="80" y1="148.9" x2="660" y2="148.9" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="148.9" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">1000</text>
+<line x1="80" y1="107.4" x2="660" y2="107.4" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="107.4" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">1200</text>
+<line x1="80" y1="66.0" x2="660" y2="66.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="66.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">1400</text>
+<line x1="80.0" y1="356" x2="80.0" y2="360" stroke="#c9c8c2"/>
+<text x="80.0" y="372.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0</text>
+<line x1="176.7" y1="356" x2="176.7" y2="360" stroke="#c9c8c2"/>
+<text x="176.7" y="372.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">2</text>
+<line x1="273.3" y1="356" x2="273.3" y2="360" stroke="#c9c8c2"/>
+<text x="273.3" y="372.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">4</text>
+<line x1="370.0" y1="356" x2="370.0" y2="360" stroke="#c9c8c2"/>
+<text x="370.0" y="372.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">6</text>
+<line x1="466.7" y1="356" x2="466.7" y2="360" stroke="#c9c8c2"/>
+<text x="466.7" y="372.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">8</text>
+<line x1="563.3" y1="356" x2="563.3" y2="360" stroke="#c9c8c2"/>
+<text x="563.3" y="372.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">10</text>
+<line x1="660.0" y1="356" x2="660.0" y2="360" stroke="#c9c8c2"/>
+<text x="660.0" y="372.0" font-size="11" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">12</text>
+<line x1="80" y1="356" x2="660" y2="356" stroke="#c9c8c2" stroke-width="1"/>
+<text x="370.0" y="394.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">工具个数</text>
+<text x="30" y="211.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 30 211.0)">一次提示的 token 数</text>
+<path d="M80.0,347.7 L128.3,311.5 L176.7,291.2 L225.0,270.9 L273.3,250.6 L321.7,230.3 L370.0,210.0 L418.3,189.7 L466.7,169.4 L515.0,149.1 L563.3,128.8 L611.7,108.3 L660.0,87.8" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="80.0" cy="347.7" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="128.3" cy="311.5" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="176.7" cy="291.2" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="225.0" cy="270.9" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="273.3" cy="250.6" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="321.7" cy="230.3" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="370.0" cy="210.0" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="418.3" cy="189.7" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="466.7" cy="169.4" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="515.0" cy="149.1" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="563.3" cy="128.8" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="611.7" cy="108.3" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<circle cx="660.0" cy="87.8" r="4.5" fill="#2a78d6" stroke="#2a78d6" stroke-width="2"/>
+<text x="138.3" y="329.5" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">第 1 个工具 +175 (含模板固定的说明文字)</text>
+<text x="234.7" y="179.7" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="normal" dominant-baseline="middle">之后每个 +98, 直线增长</text>
+<text x="674.0" y="148.9" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">3 个工具时:</text>
+<text x="674.0" y="168.9" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">中文说明  377</text>
+<text x="674.0" y="186.9" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">英文说明  379</text>
+<text x="674.0" y="210.9" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">其中工具 JSON:</text>
+<text x="674.0" y="228.9" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">中文原样  257</text>
+<text x="674.0" y="246.9" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">中文转义 \uXXXX  511</text>
+</svg>

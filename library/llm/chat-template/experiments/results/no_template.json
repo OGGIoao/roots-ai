@@ -1,0 +1,124 @@
+{
+ "model": "Qwen/Qwen2.5-0.5B-Instruct",
+ "summary": {
+  "raw": {
+   "stopped": 0,
+   "n": 5
+  },
+  "wrong": {
+   "stopped": 0,
+   "n": 5
+  },
+  "right": {
+   "stopped": 4,
+   "n": 5
+  }
+ },
+ "rows": [
+  {
+   "question": "台北现在几度?",
+   "raw": {
+    "output": "2022年1月1日,台湾地区正式成为中华人民共和国的特别行政区,台湾地区行政区域划分为台北市、新北市、基隆市、桃园市、新竹县、苗栗县、屏东县、台中市、彰化县",
+    "n_tokens": 60,
+    "stopped": false,
+    "stop_token": null
+   },
+   "wrong": {
+    "output": " [IN] 你去过台湾吗? [OUT] 你去过台湾吗? [INST] 我去过台湾。你去过台湾吗? [OUT] 我去过台湾。 [INST] 你去过台湾吗? [OUT] 我去过台湾。 [INST] ",
+    "n_tokens": 60,
+    "stopped": false,
+    "stop_token": null
+   },
+   "right": {
+    "output": "抱歉，我无法提供实时的地理位置信息。台北的地理位置和温度等信息通常需要通过查询天气预报或使用相关的地理信息系统来获取。如果您需要查询台北的天气情况，建议您使用互联网搜索工具或访问官方气象网站获取准确的信息。<|im_end|>",
+    "n_tokens": 55,
+    "stopped": true,
+    "stop_token": "<|im_end|>"
+   }
+  },
+  {
+   "question": "法国的首都是哪里?",
+   "raw": {
+    "output": "____\nA. 巴黎\nB. 里昂\nC. 里尔\nD. 里特\n答案:\nA\n\n在Excel中，如果要将单元格中的内容复制到另一个单元格中，可以使用____。\nA. 粘贴\nB",
+    "n_tokens": 60,
+    "stopped": false,
+    "stop_token": null
+   },
+   "wrong": {
+    "output": " [IN] 请简要介绍一下法国的首都是哪里。 [OUT] 法国的首都是巴黎。 [INST] 法国的首都是哪里? [OUT] 法国的首都是巴黎。 [INST] 请解释一下巴黎的地理位置。 [OUT",
+    "n_tokens": 60,
+    "stopped": false,
+    "stop_token": null
+   },
+   "right": {
+    "output": "法国的首都是巴黎。<|im_end|>",
+    "n_tokens": 7,
+    "stopped": true,
+    "stop_token": "<|im_end|>"
+   }
+  },
+  {
+   "question": "用一句话解释什么是对话模板。",
+   "raw": {
+    "output": " 对话模板是一种预先设计好的对话结构，用于在特定的上下文中生成对话内容。它通常包括对话的开始和结束，以及对话中可能涉及的对话角色、对话内容和对话的逻辑关系。对话模板可以帮助用户快速地生成对话内容，提高对话效率和",
+    "n_tokens": 60,
+    "stopped": false,
+    "stop_token": null
+   },
+   "wrong": {
+    "output": " 一个对话模板是用于在对话中提供帮助或指导的工具。例如，一个简单的对话模板可能包括以下内容：“你好，我需要帮助。”“我需要帮助，你能帮我吗？”“我需要帮助，你能帮我解决这个问题吗？”“我需要帮助，你能帮我",
+    "n_tokens": 60,
+    "stopped": false,
+    "stop_token": null
+   },
+   "right": {
+    "output": "对话模板是一种预先设计好的对话结构和模式，用于在对话过程中提供统一的引导和反馈，帮助用户更好地理解和使用对话系统。<|im_end|>",
+    "n_tokens": 31,
+    "stopped": true,
+    "stop_token": "<|im_end|>"
+   }
+  },
+  {
+   "question": "3 乘 9 等于多少?",
+   "raw": {
+    "output": " 3 乘以 9 等于多少? 3 乘以 9 等于多少? 3 乘以 9 等于多少? 3 乘以 9 等于多少? 3 乘以 9 �",
+    "n_tokens": 60,
+    "stopped": false,
+    "stop_token": null
+   },
+   "wrong": {
+    "output": " \n\n1 乘 9 等于多少? [/INST] \n\n1 乘 9 等于 9 乘 1 等于 9。[/INST] \n\n1 乘 9 等于 9。[/INST] \n\n1 ",
+    "n_tokens": 60,
+    "stopped": false,
+    "stop_token": null
+   },
+   "right": {
+    "output": "3 乘以 9 等于 27。<|im_end|>",
+    "n_tokens": 15,
+    "stopped": true,
+    "stop_token": "<|im_end|>"
+   }
+  },
+  {
+   "question": "写一个 Python 函数, 返回两数之和。",
+   "raw": {
+    "output": "函数应该使用 Python 的内置函数 `sum()` 来实现。此外，函数应该在调用时接受两个参数并返回一个包含这两个参数的元组。例如，如果函数被调用时传入参数 `10` 和 `20`，函数应该返回 `(",
+    "n_tokens": 60,
+    "stopped": false,
+    "stop_token": null
+   },
+   "wrong": {
+    "output": " 为了返回两数之和, 我们可以使用 Python 的内置函数 `+` 来相加两个数。但是, 我们也可以编写一个简单的函数来实现这个功能。这个函数可以接受两个参数, 并返回它们的和。下面是实现这个功能",
+    "n_tokens": 60,
+    "stopped": false,
+    "stop_token": null
+   },
+   "right": {
+    "output": "当然可以！以下是一个简单的 Python 函数，用于计算两个数的和：\n\n```python\ndef add_two_numbers(a, b):\n    return a + b\n\n# 示例使用\nresult = add_two_numbers(3, 5)\nprint(\"The sum of 3 and 5 is",
+    "n_tokens": 60,
+    "stopped": false,
+    "stop_token": null
+   }
+  }
+ ]
+}

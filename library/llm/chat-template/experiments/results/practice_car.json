@@ -1,0 +1,25 @@
+{
+ "model": "Qwen/Qwen2.5-1.5B-Instruct",
+ "budget": {
+  "system_prompt": 200,
+  "user": 12,
+  "template_markers": 13,
+  "tools_block": 535,
+  "tools_json_only": 456,
+  "per_tool": {
+   "walk": 152,
+   "turn": 102,
+   "stop": 47,
+   "look": 93,
+   "get_pose": 62
+  },
+  "total_no_tools": 225,
+  "total_with_tools": 760
+ },
+ "skill": {
+  "n_tools": 2,
+  "system_prompt": 105,
+  "tools_block": 269,
+  "total_with_tools": 399
+ }
+}

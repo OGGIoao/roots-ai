@@ -1,0 +1,51 @@
+{
+ "Qwen/Qwen3-8B": [
+  {
+   "kwargs": {},
+   "text": "<|im_start|>user\n3 乘 9 是多少?<|im_end|>\n<|im_start|>assistant\n",
+   "tail": "<|im_start|>user\n3 乘 9 是多少?<|im_end|>\n<|im_start|>assistant\n"
+  },
+  {
+   "kwargs": {
+    "enable_thinking": false
+   },
+   "text": "<|im_start|>user\n3 乘 9 是多少?<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n",
+   "tail": "<|im_start|>user\n3 乘 9 是多少?<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n"
+  }
+ ],
+ "zai-org/GLM-4.5": [
+  {
+   "kwargs": {},
+   "text": "[gMASK]<sop><|user|>\n3 乘 9 是多少?<|assistant|>",
+   "tail": "[gMASK]<sop><|user|>\n3 乘 9 是多少?<|assistant|>"
+  },
+  {
+   "kwargs": {
+    "enable_thinking": false
+   },
+   "text": "[gMASK]<sop><|user|>\n3 乘 9 是多少?/nothink<|assistant|>\n<think></think>",
+   "tail": "[gMASK]<sop><|user|>\n3 乘 9 是多少?/nothink<|assistant|>\n<think></think>"
+  }
+ ],
+ "openai/gpt-oss-20b": [
+  {
+   "kwargs": {},
+   "text": "<|start|>system<|message|>You are ChatGPT, a large language model trained by OpenAI.\nKnowledge cutoff: 2024-06\nCurrent date: 2026-10-29\n\nReasoning: medium\n\n# Valid channels: analysis, commentary, final. Channel must be included for every message.<|end|><|start|>user<|message|>3 乘 9 是多少?<|end|><|start|>assistant",
+   "tail": "every message.<|end|><|start|>user<|message|>3 乘 9 是多少?<|end|><|start|>assistant"
+  },
+  {
+   "kwargs": {
+    "reasoning_effort": "low"
+   },
+   "text": "<|start|>system<|message|>You are ChatGPT, a large language model trained by OpenAI.\nKnowledge cutoff: 2024-06\nCurrent date: 2026-10-29\n\nReasoning: low\n\n# Valid channels: analysis, commentary, final. Channel must be included for every message.<|end|><|start|>user<|message|>3 乘 9 是多少?<|end|><|start|>assistant",
+   "tail": "every message.<|end|><|start|>user<|message|>3 乘 9 是多少?<|end|><|start|>assistant"
+  },
+  {
+   "kwargs": {
+    "reasoning_effort": "high"
+   },
+   "text": "<|start|>system<|message|>You are ChatGPT, a large language model trained by OpenAI.\nKnowledge cutoff: 2024-06\nCurrent date: 2026-10-29\n\nReasoning: high\n\n# Valid channels: analysis, commentary, final. Channel must be included for every message.<|end|><|start|>user<|message|>3 乘 9 是多少?<|end|><|start|>assistant",
+   "tail": "every message.<|end|><|start|>user<|message|>3 乘 9 是多少?<|end|><|start|>assistant"
+  }
+ ]
+}

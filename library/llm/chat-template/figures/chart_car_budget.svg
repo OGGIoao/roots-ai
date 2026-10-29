@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 350" width="840" height="350" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">实践: 小车 v0.4 一次提示 760 个 token, 工具说明占 70%</text>
+<text x="20" y="42" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">小车项目的 5 个底层工具 (experiments/practice_car.py); 量法和第 8 节的通用小助手完全一样</text>
+<text x="178" y="93" font-size="13" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">工具说明 (5 个工具)</text>
+<rect x="190" y="80" width="366.1" height="26" rx="3" fill="#eb6834"/>
+<text x="564.0526315789473" y="93" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">535  (70%)</text>
+<text x="178" y="137" font-size="13" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">系统提示</text>
+<rect x="190" y="124" width="136.8" height="26" rx="3" fill="#2a78d6"/>
+<text x="334.8421052631579" y="137" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">200  (26%)</text>
+<text x="178" y="181" font-size="13" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">模板标记</text>
+<rect x="190" y="168" width="8.9" height="26" rx="3" fill="#1baf7a"/>
+<text x="206.89473684210526" y="181" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">13  (2%)</text>
+<text x="178" y="225" font-size="13" fill="#0b0b0b" text-anchor="end" font-weight="normal" dominant-baseline="middle">用户的话</text>
+<rect x="190" y="212" width="8.2" height="26" rx="3" fill="#eda100"/>
+<text x="206.21052631578948" y="225" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">12  (2%)</text>
+<text x="20" y="274" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">工具说明里每个工具的 JSON (不含模板固定的英文说明 79 个 token):</text>
+<rect x="190.0" y="290" width="197.0" height="36" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="0.8"/>
+<text x="288.5" y="301" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">walk</text>
+<text x="288.5" y="316" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">152</text>
+<rect x="390.0" y="290" width="131.2" height="36" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="0.8"/>
+<text x="455.60526315789474" y="301" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">turn</text>
+<text x="455.60526315789474" y="316" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">102</text>
+<rect x="524.2" y="290" width="119.4" height="36" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="0.8"/>
+<text x="583.8947368421053" y="301" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">look</text>
+<text x="583.8947368421053" y="316" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">93</text>
+<rect x="646.6" y="290" width="78.6" height="36" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="0.8"/>
+<text x="685.8684210526316" y="301" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">get_pose</text>
+<text x="685.8684210526316" y="316" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">62</text>
+<rect x="728.2" y="290" width="58.8" height="36" rx="2" fill="#fde3d7" stroke="#eb6834" stroke-width="0.8"/>
+<text x="757.578947368421" y="301" font-size="11" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">stop</text>
+<text x="757.578947368421" y="316" font-size="11" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">47</text>
+</svg>
