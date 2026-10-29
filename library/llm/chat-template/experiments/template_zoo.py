@@ -1,5 +1,5 @@
 """
-template_zoo.py — 同一段对话, 不同模型家族的模板各拼成什么样 (讲义第 8 节)
+template_zoo.py — 同一段对话, 不同模型家族的模板各拼成什么样 (讲义第 11 节)
 
 只下载每个模型的模板文件 (tokenizer_config.json, 有的还有 chat_template.jinja, 都是几 KB 到几百 KB),
 不下载权重。渲染用 transformers 自带的 render_jinja_template, 不加载分词器。
@@ -30,10 +30,10 @@ MODELS = [
 ]
 
 CONV = [
-    {"role": "system", "content": "你是小车。"},
-    {"role": "user", "content": "往前走 0.5 米"},
-    {"role": "assistant", "content": "好的, 已经走了 0.5 米。"},
-    {"role": "user", "content": "再转个身"},
+    {"role": "system", "content": "你是助手。"},
+    {"role": "user", "content": "台北现在几度?"},
+    {"role": "assistant", "content": "台北现在 26 度。"},
+    {"role": "user", "content": "高雄呢?"},
 ]
 
 
@@ -99,23 +99,23 @@ def _render(render_jinja_template, tpl, msgs, **kw):
 
 
 def deepseek_tool_quirks(render_jinja_template):
-    """讲义第 8.3 节: DeepSeek-V3 模板在工具调用上的三处不一致, 渲染出来留证。"""
+    """讲义第 11.3 节: DeepSeek-V3 模板在工具调用上的三处不一致, 渲染出来留证。"""
     tpl, _ = load_template("deepseek-ai/DeepSeek-V3")
 
     def call(name, args):
         return {"type": "function", "function": {"name": name, "arguments": args}}
 
     cases = {
-        "一次调用一个工具": [{"role": "user", "content": "看"},
-                     {"role": "assistant", "content": None, "tool_calls": [call("look", "{}")]},
-                     {"role": "tool", "content": "A"}, {"role": "assistant", "content": "没看到"}],
-        "一次调用两个工具": [{"role": "user", "content": "看"},
-                     {"role": "assistant", "content": None, "tool_calls": [call("look", "{}"), call("walk", '{"d": 1}')]},
+        "一次调用一个工具": [{"role": "user", "content": "台北几度"},
+                     {"role": "assistant", "content": None, "tool_calls": [call("get_weather", '{"city": "台北"}')]},
+                     {"role": "tool", "content": "A"}, {"role": "assistant", "content": "26 度"}],
+        "一次调用两个工具": [{"role": "user", "content": "台北几度"},
+                     {"role": "assistant", "content": None, "tool_calls": [call("get_weather", '{"city": "台北"}'), call("calculator", '{"expression": "3*9"}')]},
                      {"role": "tool", "content": "A"}, {"role": "tool", "content": "B"}, {"role": "assistant", "content": "好了"}],
         "两轮各调用一次": [{"role": "user", "content": "a"},
-                    {"role": "assistant", "content": None, "tool_calls": [call("look", "{}")]},
+                    {"role": "assistant", "content": None, "tool_calls": [call("get_weather", '{"city": "台北"}')]},
                     {"role": "tool", "content": "A"}, {"role": "user", "content": "b"},
-                    {"role": "assistant", "content": None, "tool_calls": [call("walk", "{}")]}],
+                    {"role": "assistant", "content": None, "tool_calls": [call("calculator", '{"expression": "1+1"}')]}],
     }
     out = {name: _render(render_jinja_template, tpl, m, add_generation_prompt=False, bos_token="<｜begin▁of▁sentence｜>")
            for name, m in cases.items()}

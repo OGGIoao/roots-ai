@@ -1,7 +1,7 @@
 """
 mistral_v03.py — 手写 Mistral-7B-Instruct-v0.3 的对话模板 (不含工具部分), 练习 3 的参考答案
 
-和 Qwen 的 ChatML 对照着看 (讲义第 8 节):
+和 Qwen 的 ChatML 对照着看 (讲义第 11 节):
   - 没有 system 角色标记: system 被塞进**最后一条** user 消息的开头, 中间隔一个空行;
   - user 包在 [INST] ... [/INST] 里, 内容原样;
   - assistant 前面加一个空格, 内容去掉首尾空白 (Jinja 的 trim = Python 的 str.strip), 后面跟 </s>;
@@ -29,7 +29,7 @@ def render_mistral(messages):
         if m["role"] == "user":
             content = m["content"]
             # 官方条件是 "loop.last": 只有整段对话以 user 结尾时 system 才会出现;
-            # 以 assistant 结尾 (比如拼训练数据) 时 system 整个丢掉。讲义第 8.2 节。
+            # 以 assistant 结尾 (比如拼训练数据) 时 system 整个丢掉。讲义第 11.2 节。
             if system is not None and i == len(messages) - 1:
                 content = system + "\n\n" + content
             out.append("[INST] " + content + "[/INST]")

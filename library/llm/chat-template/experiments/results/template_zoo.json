@@ -2,26 +2,26 @@
  "conversation": [
   {
    "role": "system",
-   "content": "你是小车。"
+   "content": "你是助手。"
   },
   {
    "role": "user",
-   "content": "往前走 0.5 米"
+   "content": "台北现在几度?"
   },
   {
    "role": "assistant",
-   "content": "好的, 已经走了 0.5 米。"
+   "content": "台北现在 26 度。"
   },
   {
    "role": "user",
-   "content": "再转个身"
+   "content": "高雄呢?"
   }
  ],
  "models": [
   {
    "repo": "Qwen/Qwen2.5-1.5B-Instruct",
    "status": "ok",
-   "text": "<|im_start|>system\n你是小车。<|im_end|>\n<|im_start|>user\n往前走 0.5 米<|im_end|>\n<|im_start|>assistant\n好的, 已经走了 0.5 米。<|im_end|>\n<|im_start|>user\n再转个身<|im_end|>\n<|im_start|>assistant\n",
+   "text": "<|im_start|>system\n你是助手。<|im_end|>\n<|im_start|>user\n台北现在几度?<|im_end|>\n<|im_start|>assistant\n台北现在 26 度。<|im_end|>\n<|im_start|>user\n高雄呢?<|im_end|>\n<|im_start|>assistant\n",
    "eos_token": "<|im_end|>",
    "bos_token": null,
    "template_chars": 2507
@@ -29,7 +29,7 @@
   {
    "repo": "Qwen/Qwen3-8B",
    "status": "ok",
-   "text": "<|im_start|>system\n你是小车。<|im_end|>\n<|im_start|>user\n往前走 0.5 米<|im_end|>\n<|im_start|>assistant\n好的, 已经走了 0.5 米。<|im_end|>\n<|im_start|>user\n再转个身<|im_end|>\n<|im_start|>assistant\n",
+   "text": "<|im_start|>system\n你是助手。<|im_end|>\n<|im_start|>user\n台北现在几度?<|im_end|>\n<|im_start|>assistant\n台北现在 26 度。<|im_end|>\n<|im_start|>user\n高雄呢?<|im_end|>\n<|im_start|>assistant\n",
    "eos_token": "<|im_end|>",
    "bos_token": null,
    "template_chars": 4168
@@ -37,7 +37,7 @@
   {
    "repo": "deepseek-ai/DeepSeek-V3",
    "status": "ok",
-   "text": "<｜begin▁of▁sentence｜>你是小车。<｜User｜>往前走 0.5 米<｜Assistant｜>好的, 已经走了 0.5 米。<｜end▁of▁sentence｜><｜User｜>再转个身<｜Assistant｜>",
+   "text": "<｜begin▁of▁sentence｜>你是助手。<｜User｜>台北现在几度?<｜Assistant｜>台北现在 26 度。<｜end▁of▁sentence｜><｜User｜>高雄呢?<｜Assistant｜>",
    "eos_token": "<｜end▁of▁sentence｜>",
    "bos_token": "<｜begin▁of▁sentence｜>",
    "template_chars": 2145
@@ -45,7 +45,7 @@
   {
    "repo": "microsoft/phi-4",
    "status": "ok",
-   "text": "<|im_start|>system<|im_sep|>你是小车。<|im_end|><|im_start|>user<|im_sep|>往前走 0.5 米<|im_end|><|im_start|>assistant<|im_sep|>好的, 已经走了 0.5 米。<|im_end|><|im_start|>user<|im_sep|>再转个身<|im_end|><|im_start|>assistant<|im_sep|>",
+   "text": "<|im_start|>system<|im_sep|>你是助手。<|im_end|><|im_start|>user<|im_sep|>台北现在几度?<|im_end|><|im_start|>assistant<|im_sep|>台北现在 26 度。<|im_end|><|im_start|>user<|im_sep|>高雄呢?<|im_end|><|im_start|>assistant<|im_sep|>",
    "eos_token": "<|im_end|>",
    "bos_token": "<|endoftext|>",
    "template_chars": 462
@@ -53,7 +53,7 @@
   {
    "repo": "HuggingFaceTB/SmolLM2-1.7B-Instruct",
    "status": "ok",
-   "text": "<|im_start|>system\n你是小车。<|im_end|>\n<|im_start|>user\n往前走 0.5 米<|im_end|>\n<|im_start|>assistant\n好的, 已经走了 0.5 米。<|im_end|>\n<|im_start|>user\n再转个身<|im_end|>\n<|im_start|>assistant\n",
+   "text": "<|im_start|>system\n你是助手。<|im_end|>\n<|im_start|>user\n台北现在几度?<|im_end|>\n<|im_start|>assistant\n台北现在 26 度。<|im_end|>\n<|im_start|>user\n高雄呢?<|im_end|>\n<|im_start|>assistant\n",
    "eos_token": "<|im_end|>",
    "bos_token": "<|im_start|>",
    "template_chars": 368
@@ -61,7 +61,7 @@
   {
    "repo": "zai-org/GLM-4.5",
    "status": "ok",
-   "text": "[gMASK]<sop><|system|>\n你是小车。<|user|>\n往前走 0.5 米<|assistant|>\n<think></think>\n好的, 已经走了 0.5 米。<|user|>\n再转个身<|assistant|>",
+   "text": "[gMASK]<sop><|system|>\n你是助手。<|user|>\n台北现在几度?<|assistant|>\n<think></think>\n台北现在 26 度。<|user|>\n高雄呢?<|assistant|>",
    "eos_token": "<|endoftext|>",
    "bos_token": null,
    "template_chars": 3242
@@ -69,7 +69,7 @@
   {
    "repo": "openai/gpt-oss-20b",
    "status": "ok",
-   "text": "<|start|>system<|message|>You are ChatGPT, a large language model trained by OpenAI.\nKnowledge cutoff: 2024-06\nCurrent date: 2026-10-27\n\nReasoning: medium\n\n# Valid channels: analysis, commentary, final. Channel must be included for every message.<|end|><|start|>developer<|message|># Instructions\n\n你是小车。\n\n<|end|><|start|>user<|message|>往前走 0.5 米<|end|><|start|>assistant<|channel|>final<|message|>好的, 已经走了 0.5 米。<|end|><|start|>user<|message|>再转个身<|end|><|start|>assistant",
+   "text": "<|start|>system<|message|>You are ChatGPT, a large language model trained by OpenAI.\nKnowledge cutoff: 2024-06\nCurrent date: 2026-10-29\n\nReasoning: medium\n\n# Valid channels: analysis, commentary, final. Channel must be included for every message.<|end|><|start|>developer<|message|># Instructions\n\n你是助手。\n\n<|end|><|start|>user<|message|>台北现在几度?<|end|><|start|>assistant<|channel|>final<|message|>台北现在 26 度。<|end|><|start|>user<|message|>高雄呢?<|end|><|start|>assistant",
    "eos_token": "<|return|>",
    "bos_token": "<|startoftext|>",
    "template_chars": 16714
@@ -77,7 +77,7 @@
   {
    "repo": "mistralai/Mistral-7B-Instruct-v0.3",
    "status": "ok",
-   "text": "<s>[INST] 往前走 0.5 米[/INST] 好的, 已经走了 0.5 米。</s>[INST] 你是小车。\n\n再转个身[/INST]",
+   "text": "<s>[INST] 台北现在几度?[/INST] 台北现在 26 度。</s>[INST] 你是助手。\n\n高雄呢?[/INST]",
    "eos_token": "</s>",
    "bos_token": "<s>",
    "template_chars": 3959
@@ -92,8 +92,8 @@
   }
  ],
  "deepseek_v3_tool_quirks": {
-  "一次调用一个工具": "<｜begin▁of▁sentence｜><｜User｜>看<｜Assistant｜><｜tool▁calls▁begin｜><｜tool▁call▁begin｜>function<｜tool▁sep｜>look\n```json\n{}\n```<｜tool▁call▁end｜><｜tool▁outputs▁begin｜><｜tool▁output▁begin｜>A<｜tool▁output▁end｜><｜tool▁outputs▁end｜>没看到<｜end▁of▁sentence｜>",
-  "一次调用两个工具": "<｜begin▁of▁sentence｜><｜User｜>看<｜Assistant｜><｜tool▁calls▁begin｜><｜tool▁call▁begin｜>function<｜tool▁sep｜>look\n```json\n{}\n```<｜tool▁call▁end｜>\n<｜tool▁call▁begin｜>function<｜tool▁sep｜>walk\n```json\n{\"d\": 1}\n```<｜tool▁call▁end｜><｜tool▁calls▁end｜><｜end▁of▁sentence｜><｜tool▁outputs▁begin｜><｜tool▁output▁begin｜>A<｜tool▁output▁end｜>\n<｜tool▁output▁begin｜>B<｜tool▁output▁end｜><｜tool▁outputs▁end｜>好了<｜end▁of▁sentence｜>",
-  "两轮各调用一次": "<｜begin▁of▁sentence｜><｜User｜>a<｜Assistant｜><｜tool▁calls▁begin｜><｜tool▁call▁begin｜>function<｜tool▁sep｜>look\n```json\n{}\n```<｜tool▁call▁end｜><｜tool▁outputs▁begin｜><｜tool▁output▁begin｜>A<｜tool▁output▁end｜><｜User｜>b\n<｜tool▁call▁begin｜>function<｜tool▁sep｜>walk\n```json\n{}\n```<｜tool▁call▁end｜><｜tool▁calls▁end｜><｜end▁of▁sentence｜>"
+  "一次调用一个工具": "<｜begin▁of▁sentence｜><｜User｜>台北几度<｜Assistant｜><｜tool▁calls▁begin｜><｜tool▁call▁begin｜>function<｜tool▁sep｜>get_weather\n```json\n{\"city\": \"台北\"}\n```<｜tool▁call▁end｜><｜tool▁outputs▁begin｜><｜tool▁output▁begin｜>A<｜tool▁output▁end｜><｜tool▁outputs▁end｜>26 度<｜end▁of▁sentence｜>",
+  "一次调用两个工具": "<｜begin▁of▁sentence｜><｜User｜>台北几度<｜Assistant｜><｜tool▁calls▁begin｜><｜tool▁call▁begin｜>function<｜tool▁sep｜>get_weather\n```json\n{\"city\": \"台北\"}\n```<｜tool▁call▁end｜>\n<｜tool▁call▁begin｜>function<｜tool▁sep｜>calculator\n```json\n{\"expression\": \"3*9\"}\n```<｜tool▁call▁end｜><｜tool▁calls▁end｜><｜end▁of▁sentence｜><｜tool▁outputs▁begin｜><｜tool▁output▁begin｜>A<｜tool▁output▁end｜>\n<｜tool▁output▁begin｜>B<｜tool▁output▁end｜><｜tool▁outputs▁end｜>好了<｜end▁of▁sentence｜>",
+  "两轮各调用一次": "<｜begin▁of▁sentence｜><｜User｜>a<｜Assistant｜><｜tool▁calls▁begin｜><｜tool▁call▁begin｜>function<｜tool▁sep｜>get_weather\n```json\n{\"city\": \"台北\"}\n```<｜tool▁call▁end｜><｜tool▁outputs▁begin｜><｜tool▁output▁begin｜>A<｜tool▁output▁end｜><｜User｜>b\n<｜tool▁call▁begin｜>function<｜tool▁sep｜>calculator\n```json\n{\"expression\": \"1+1\"}\n```<｜tool▁call▁end｜><｜tool▁calls▁end｜><｜end▁of▁sentence｜>"
  }
 }

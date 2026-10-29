@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 380" width="940" height="380" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">一次工具调用的来回: 模型不直接 "做" 任何事, 它只写下 "我要调用什么", 由程序去做</text>
+<text x="20" y="42" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">左列是模型看到 / 写出的文字 (第 7 节逐段讲), 右列是程序做的事</text>
+<rect x="20" y="70" width="560" height="54" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="32" y="85" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">system 里的说明书</text>
+<text x="32" y="106" font-size="11" font-family="Consolas,'Courier New',monospace" dominant-baseline="middle"><tspan fill="#0b0b0b"># Tools … &lt;tools&gt;{"name": "get_weather", …}&lt;/tools&gt;</tspan></text>
+<rect x="610" y="70" width="310" height="54" rx="4" fill="#ffffff" stroke="#8a8984" stroke-width="0.8"/>
+<text x="622" y="97" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">程序把工具的 JSON Schema 交给模板, 模板拼进 system</text>
+<line x1="580" y1="97" x2="608" y2="97" stroke="#52514e" stroke-width="1.4" stroke-dasharray="4 3"/>
+<line x1="300" y1="124" x2="300" y2="142" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="20" y="144" width="560" height="54" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="32" y="159" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">模型写出调用</text>
+<text x="32" y="180" font-size="11" font-family="Consolas,'Courier New',monospace" dominant-baseline="middle"><tspan fill="#eb6834" font-weight="bold">&lt;tool_call&gt;</tspan><tspan fill="#0b0b0b">{"name": "get_weather", "arguments": {"city": "台北"}}</tspan><tspan fill="#eb6834" font-weight="bold">&lt;/tool_call&gt;</tspan></text>
+<rect x="610" y="144" width="310" height="54" rx="4" fill="#ffffff" stroke="#8a8984" stroke-width="0.8"/>
+<text x="622" y="171" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">程序从文字里找出 &lt;tool_call&gt;, 解析 JSON</text>
+<line x1="580" y1="171" x2="608" y2="171" stroke="#52514e" stroke-width="1.4" stroke-dasharray="4 3"/>
+<line x1="300" y1="198" x2="300" y2="216" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="20" y="218" width="560" height="54" rx="4" fill="#dcf3e9" stroke="#1baf7a" stroke-width="1.5"/>
+<text x="32" y="233" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">工具结果送回</text>
+<text x="32" y="254" font-size="11" font-family="Consolas,'Courier New',monospace" dominant-baseline="middle"><tspan fill="#eb6834" font-weight="bold">&lt;|im_start|&gt;</tspan><tspan fill="#0b0b0b">user &lt;tool_response&gt;{"temperature": 26}&lt;/tool_response&gt;</tspan></text>
+<rect x="610" y="218" width="310" height="54" rx="4" fill="#ffffff" stroke="#8a8984" stroke-width="0.8"/>
+<text x="622" y="245" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">程序真正去查天气, 把结果当成一条 role=tool 的消息</text>
+<line x1="580" y1="245" x2="608" y2="245" stroke="#52514e" stroke-width="1.4" stroke-dasharray="4 3"/>
+<line x1="300" y1="272" x2="300" y2="290" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="20" y="292" width="560" height="54" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="32" y="307" font-size="12" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">模型用结果回答</text>
+<text x="32" y="328" font-size="11" font-family="Consolas,'Courier New',monospace" dominant-baseline="middle"><tspan fill="#0b0b0b">台北现在 26 度, 多云。</tspan><tspan fill="#eb6834" font-weight="bold">&lt;|im_end|&gt;</tspan></text>
+<rect x="610" y="292" width="310" height="54" rx="4" fill="#ffffff" stroke="#8a8984" stroke-width="0.8"/>
+<text x="622" y="319" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">没有 &lt;tool_call&gt;: 这一轮结束, 回答给用户</text>
+<line x1="580" y1="319" x2="608" y2="319" stroke="#52514e" stroke-width="1.4" stroke-dasharray="4 3"/>
+</svg>

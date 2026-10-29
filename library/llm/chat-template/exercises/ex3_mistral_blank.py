@@ -1,7 +1,7 @@
 """
 练习 3 (③ 白纸): 给另一个模型家族写模板
 
-只看下面的说明和讲义第 8 节的渲染样例, 从零写出 Mistral-7B-Instruct-v0.3 的对话模板 (不含工具):
+只看下面的说明和讲义第 11 节的渲染样例, 从零写出 Mistral-7B-Instruct-v0.3 的对话模板 (不含工具):
 
     render_mistral(messages) -> str
 
@@ -19,7 +19,7 @@
     cd library/llm/chat-template/exercises
     python -m pytest test_ex3.py -q
 
-写完想一想: 规则 4 意味着什么? 用这个模板拼训练数据 (以 assistant 结尾) 时, system 去哪了? (讲义第 8.2 节)
+写完想一想: 规则 4 意味着什么? 用这个模板拼训练数据 (以 assistant 结尾) 时, system 去哪了? (讲义第 11.2 节)
 """
 
 

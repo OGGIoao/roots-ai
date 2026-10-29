@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 300" width="940" height="300" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#52514e"/></marker></defs>
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" fill="#0b0b0b" text-anchor="start" font-weight="bold" dominant-baseline="middle">对话模板在整条链路里的位置: 程序这边是一条条消息, 模型那边只有一串 token</text>
+<text x="20" y="42" font-size="12" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">去的路上用模板把消息拼成文字 (本单元), 回来的路上把模型写的文字解析回消息 (Agent 领域的 tool-calling)</text>
+<rect x="20" y="78" width="160" height="50" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="100.0" y="103.0" font-size="14" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">消息列表</text>
+<text x="100" y="142" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">[{role, content}, …]</text>
+<rect x="204" y="78" width="160" height="50" rx="4" fill="#dbe9f9" stroke="#2a78d6" stroke-width="1.5"/>
+<text x="284.0" y="103.0" font-size="14" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">对话模板</text>
+<text x="284" y="142" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">chat_template</text>
+<line x1="180" y1="103" x2="202" y2="103" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="388" y="78" width="160" height="50" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="468.0" y="103.0" font-size="14" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">一整段文字</text>
+<text x="468" y="142" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">&lt;|im_start|&gt;user …</text>
+<line x1="364" y1="103" x2="386" y2="103" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="572" y="78" width="160" height="50" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="652.0" y="103.0" font-size="14" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">分词器</text>
+<text x="652" y="142" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">tokenizer (bpe 单元)</text>
+<line x1="548" y1="103" x2="570" y2="103" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="756" y="78" width="160" height="50" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="836.0" y="103.0" font-size="14" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">token 序列</text>
+<text x="836" y="142" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">[151644, 872, …]</text>
+<line x1="732" y1="103" x2="754" y2="103" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="760" y="186" width="160" height="50" rx="4" fill="#dcf3e9" stroke="#1baf7a" stroke-width="1.5"/>
+<text x="840.0" y="211.0" font-size="14" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">模型</text>
+<text x="840" y="250" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">一次只往后写一个 token</text>
+<path d="M840,128 L840,184" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="572" y="186" width="160" height="50" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="652.0" y="211.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">新 token</text>
+<text x="652" y="250" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">…, 151645 (&lt;|im_end|&gt;)</text>
+<line x1="760" y1="211" x2="734" y2="211" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="388" y="186" width="160" height="50" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="468.0" y="211.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">解码成文字</text>
+<text x="468" y="250" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">decode</text>
+<line x1="572" y1="211" x2="550" y2="211" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="204" y="186" width="160" height="50" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="284.0" y="211.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">解析</text>
+<text x="284" y="250" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">找 &lt;tool_call&gt;、去掉标记</text>
+<line x1="388" y1="211" x2="366" y2="211" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<rect x="20" y="186" width="160" height="50" rx="4" fill="#efeeea" stroke="#52514e" stroke-width="1.5"/>
+<text x="100.0" y="211.0" font-size="13" fill="#0b0b0b" text-anchor="middle" font-weight="normal" dominant-baseline="middle">新的一条消息</text>
+<text x="100" y="250" font-size="10" fill="#8a8984" text-anchor="middle" font-weight="normal" dominant-baseline="middle">{role: assistant, …}</text>
+<line x1="204" y1="211" x2="182" y2="211" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<path d="M20,211 C0,211 0,103 18,103" fill="none" stroke="#52514e" stroke-width="1.4" marker-end="url(#arrow)"/>
+<text x="26" y="276" font-size="11" fill="#52514e" text-anchor="start" font-weight="normal" dominant-baseline="middle">新消息接到消息列表末尾, 进入下一轮</text>
+</svg>

@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400" width="900" height="400" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif">
+<rect width="100%" height="100%" fill="#fcfcfb"/>
+<text x="20" y="22" font-size="15" font-weight="bold" fill="#0b0b0b" dominant-baseline="middle">这一轮的文字是不是下一轮提示的开头? 三个家族不是</text>
+<text x="20" y="40" font-size="12" fill="#52514e" dominant-baseline="middle">每家 200 段随机多轮对话, 逐轮检查 (experiments/prefix_property.py); 不是开头 = 下一轮不能整段复用这一轮的缓存</text>
+<line x1="80" y1="336.0" x2="860" y2="336.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="336.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">0%</text>
+<line x1="80" y1="271.5" x2="860" y2="271.5" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="271.5" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">25%</text>
+<line x1="80" y1="207.0" x2="860" y2="207.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="207.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">50%</text>
+<line x1="80" y1="142.5" x2="860" y2="142.5" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="142.5" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">75%</text>
+<line x1="80" y1="78.0" x2="860" y2="78.0" stroke="#e9e8e3" stroke-width="1"/>
+<text x="72.0" y="78.0" font-size="11" fill="#8a8984" text-anchor="end" font-weight="normal" dominant-baseline="middle">100%</text>
+<line x1="80" y1="336" x2="860" y2="336" stroke="#c9c8c2" stroke-width="1"/>
+<text x="470.0" y="374.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle"></text>
+<text x="30" y="207.0" font-size="12" fill="#52514e" text-anchor="middle" transform="rotate(-90 30 207.0)">下一轮能整段复用的比例</text>
+<text x="128.8" y="352.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">Qwen2.5</text>
+<text x="226.2" y="352.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">Qwen3</text>
+<text x="323.8" y="352.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">DeepSeek-V3</text>
+<text x="421.2" y="352.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">Phi-4</text>
+<text x="518.8" y="352.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">SmolLM2</text>
+<text x="616.2" y="352.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">GLM-4.5</text>
+<text x="713.8" y="352.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">gpt-oss</text>
+<text x="811.2" y="352.0" font-size="12" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">Mistral-v0.3</text>
+<path d="M90.8,336.0 L90.8,82.0 Q90.8,78.0 94.8,78.0 L123.8,78.0 Q127.8,78.0 127.8,82.0 L127.8,336.0 Z" fill="#2a78d6"/>
+<text x="109.2" y="69.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">100%</text>
+<path d="M129.8,336.0 L129.8,82.0 Q129.8,78.0 133.8,78.0 L162.8,78.0 Q166.8,78.0 166.8,82.0 L166.8,336.0 Z" fill="#eb6834"/>
+<text x="148.2" y="69.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">100%</text>
+<path d="M188.2,336.0 L188.2,336.5 Q188.2,336.0 188.8,336.0 L224.8,336.0 Q225.2,336.0 225.2,336.5 L225.2,336.0 Z" fill="#2a78d6"/>
+<text x="206.8" y="327.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0%</text>
+<path d="M227.2,336.0 L227.2,336.5 Q227.2,336.0 227.8,336.0 L263.8,336.0 Q264.2,336.0 264.2,336.5 L264.2,336.0 Z" fill="#eb6834"/>
+<text x="245.8" y="327.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0%</text>
+<path d="M285.8,336.0 L285.8,82.0 Q285.8,78.0 289.8,78.0 L318.8,78.0 Q322.8,78.0 322.8,82.0 L322.8,336.0 Z" fill="#2a78d6"/>
+<text x="304.2" y="69.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">100%</text>
+<path d="M324.8,336.0 L324.8,82.0 Q324.8,78.0 328.8,78.0 L357.8,78.0 Q361.8,78.0 361.8,82.0 L361.8,336.0 Z" fill="#eb6834"/>
+<text x="343.2" y="69.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">100%</text>
+<path d="M383.2,336.0 L383.2,82.0 Q383.2,78.0 387.2,78.0 L416.2,78.0 Q420.2,78.0 420.2,82.0 L420.2,336.0 Z" fill="#2a78d6"/>
+<text x="401.8" y="69.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">100%</text>
+<path d="M422.2,336.0 L422.2,82.0 Q422.2,78.0 426.2,78.0 L455.2,78.0 Q459.2,78.0 459.2,82.0 L459.2,336.0 Z" fill="#eb6834"/>
+<text x="440.8" y="69.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">100%</text>
+<path d="M480.8,336.0 L480.8,82.0 Q480.8,78.0 484.8,78.0 L513.8,78.0 Q517.8,78.0 517.8,82.0 L517.8,336.0 Z" fill="#2a78d6"/>
+<text x="499.2" y="69.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">100%</text>
+<path d="M519.8,336.0 L519.8,82.0 Q519.8,78.0 523.8,78.0 L552.8,78.0 Q556.8,78.0 556.8,82.0 L556.8,336.0 Z" fill="#eb6834"/>
+<text x="538.2" y="69.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">100%</text>
+<path d="M578.2,336.0 L578.2,82.0 Q578.2,78.0 582.2,78.0 L611.2,78.0 Q615.2,78.0 615.2,82.0 L615.2,336.0 Z" fill="#2a78d6"/>
+<text x="596.8" y="69.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">100%</text>
+<path d="M617.2,336.0 L617.2,336.5 Q617.2,336.0 617.8,336.0 L653.8,336.0 Q654.2,336.0 654.2,336.5 L654.2,336.0 Z" fill="#eb6834"/>
+<text x="635.8" y="327.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0%</text>
+<path d="M675.8,336.0 L675.8,336.5 Q675.8,336.0 676.2,336.0 L712.2,336.0 Q712.8,336.0 712.8,336.5 L712.8,336.0 Z" fill="#2a78d6"/>
+<text x="694.2" y="327.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0%</text>
+<path d="M714.8,336.0 L714.8,336.5 Q714.8,336.0 715.2,336.0 L751.2,336.0 Q751.8,336.0 751.8,336.5 L751.8,336.0 Z" fill="#eb6834"/>
+<text x="733.2" y="327.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">0%</text>
+<path d="M773.2,336.0 L773.2,82.0 Q773.2,78.0 777.2,78.0 L806.2,78.0 Q810.2,78.0 810.2,82.0 L810.2,336.0 Z" fill="#2a78d6"/>
+<text x="791.8" y="69.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">100%</text>
+<path d="M812.2,336.0 L812.2,82.0 Q812.2,78.0 816.2,78.0 L845.2,78.0 Q849.2,78.0 849.2,82.0 L849.2,336.0 Z" fill="#eb6834"/>
+<text x="830.8" y="69.0" font-size="10" fill="#52514e" text-anchor="middle" font-weight="normal" dominant-baseline="middle">100%</text>
+<text x="856.0" y="52.0" font-size="11" fill="#52514e" text-anchor="end" font-weight="normal" dominant-baseline="middle">蓝: 普通对话   橙: 回复带思考过程</text>
+</svg>

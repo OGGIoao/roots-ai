@@ -27,14 +27,12 @@ from chat_template import render, render_with_spans  # noqa: E402
 MODEL = "Qwen/Qwen2.5-1.5B-Instruct"
 OUT = os.path.join(HERE, "results", "qwen25_golden.json")
 
-TOOLS = [
-    {"type": "function", "function": {"name": "walk", "description": "沿车头方向走一段距离",
-                                      "parameters": {"type": "object", "properties": {"distance_m": {"type": "number"}},
-                                                     "required": ["distance_m"]}}},
-    {"type": "function", "function": {"name": "look", "description": "看一眼前方", "parameters": {"type": "object", "properties": {}}}},
-]
-TEXTS = ["去红杯子那里", "往前走 0.5 米", "Hello!", "", "多行\n文字\n", "引号 \" 和反斜杠 \\", "emoji 🚗", "  前后有空格  "]
-ARGS = [{"distance_m": 0.5}, {}, {"distance_m": -0.3, "note": "后退"}, {"nested": {"a": [1, 2]}}]
+from examples import TOOLS  # noqa: E402   本单元的通用例子: 查天气、算数、查资料
+
+TEXTS = ["台北现在几度?", "帮我算 3*(4+5)", "Hello!", "", "多行\n文字\n", "引号 \" 和反斜杠 \\", "emoji 🌤", "  前后有空格  "]
+ARGS = [{"city": "台北"}, {}, {"city": "高雄", "unit": "fahrenheit"}, {"expression": "3*(4+5)"},
+        {"query": "对话模板", "top_k": 2}, {"nested": {"a": [1, 2]}}]
+NAMES = ["get_weather", "calculator", "search_docs"]
 
 
 def random_conversation(rng):
@@ -44,40 +42,41 @@ def random_conversation(rng):
     for _ in range(rng.randint(1, 4)):
         msgs.append({"role": "user", "content": rng.choice(TEXTS)})
         if rng.random() < 0.5:
-            calls = [{"type": "function", "function": {"name": rng.choice(["walk", "look"]), "arguments": rng.choice(ARGS)}}
+            calls = [{"type": "function", "function": {"name": rng.choice(NAMES), "arguments": rng.choice(ARGS)}}
                      for _ in range(rng.randint(1, 3))]
-            msgs.append({"role": "assistant", "content": rng.choice(["", "", "我先看一眼。"]), "tool_calls": calls})
+            msgs.append({"role": "assistant", "content": rng.choice(["", "", "我先查一下。"]), "tool_calls": calls})
             for _ in range(rng.randint(1, len(calls))):
-                msgs.append({"role": "tool", "content": rng.choice(['{"ok": true}', '{"objects": []}', "error: 参数越界"])})
+                msgs.append({"role": "tool", "content": rng.choice(['{"temperature": 26}', '{"result": 27}', "error: 城市不存在"])})
         if rng.random() < 0.7:
             msgs.append({"role": "assistant", "content": rng.choice(TEXTS)})
     tools = rng.choice([None, [], TOOLS, TOOLS[:1]])
     return {"messages": msgs, "tools": tools, "add_generation_prompt": rng.random() < 0.5}
 
 
+def call(name, args):
+    return {"type": "function", "function": {"name": name, "arguments": args}}
+
+
 EDGE_CASES = {
     "只有一句用户": {"messages": [{"role": "user", "content": "你好"}], "tools": None, "add_generation_prompt": True},
-    "自定义 system": {"messages": [{"role": "system", "content": "你是小车。"}, {"role": "user", "content": "你好"}],
+    "自定义 system": {"messages": [{"role": "system", "content": "你是助手。"}, {"role": "user", "content": "你好"}],
                      "tools": None, "add_generation_prompt": True},
     "中途的 system": {"messages": [{"role": "user", "content": "a"}, {"role": "system", "content": "b"},
                                   {"role": "user", "content": "c"}], "tools": None, "add_generation_prompt": False},
     "工具列表为空": {"messages": [{"role": "user", "content": "你好"}], "tools": [], "add_generation_prompt": True},
     "两个连续的工具结果": {"messages": [
-        {"role": "user", "content": "看看再走"},
-        {"role": "assistant", "content": "", "tool_calls": [
-            {"type": "function", "function": {"name": "look", "arguments": {}}},
-            {"type": "function", "function": {"name": "walk", "arguments": {"distance_m": 0.5}}}]},
-        {"role": "tool", "content": '{"objects": []}'}, {"role": "tool", "content": '{"ok": true}'}],
+        {"role": "user", "content": "台北和高雄各几度?"},
+        {"role": "assistant", "content": "", "tool_calls": [call("get_weather", {"city": "台北"}),
+                                                            call("get_weather", {"city": "高雄"})]},
+        {"role": "tool", "content": '{"temperature": 26}'}, {"role": "tool", "content": '{"temperature": 30}'}],
         "tools": TOOLS, "add_generation_prompt": True},
     "回复里既有话又有工具调用": {"messages": [
-        {"role": "user", "content": "走"},
-        {"role": "assistant", "content": "好的。", "tool_calls": [
-            {"type": "function", "function": {"name": "walk", "arguments": {"distance_m": 1}}}]}],
+        {"role": "user", "content": "3 乘 9 是多少"},
+        {"role": "assistant", "content": "我算一下。", "tool_calls": [call("calculator", {"expression": "3*9"})]}],
         "tools": TOOLS, "add_generation_prompt": False},
     "arguments 是 JSON 字符串 (OpenAI 原样)": {"messages": [
-        {"role": "user", "content": "走"},
-        {"role": "assistant", "content": "", "tool_calls": [
-            {"type": "function", "function": {"name": "walk", "arguments": '{"distance_m": 0.5}'}}]}],
+        {"role": "user", "content": "台北几度"},
+        {"role": "assistant", "content": "", "tool_calls": [call("get_weather", '{"city": "台北"}')]}],
         "tools": TOOLS, "add_generation_prompt": False},
     "不认识的 role 被丢掉": {"messages": [{"role": "user", "content": "a"}, {"role": "observation", "content": "被吞掉的内容"},
                                      {"role": "user", "content": "b"}], "tools": None, "add_generation_prompt": False},

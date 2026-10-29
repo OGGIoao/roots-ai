@@ -47,11 +47,37 @@ def test_mistral_matches_official_golden():
         assert render_mistral(c["messages"]) == c["expected"]
 
 
+def results(name):
+    with open(os.path.join(UNIT, "experiments", "results", name), encoding="utf-8") as f:
+        return json.load(f)
+
+
 def test_measured_numbers_used_in_tutorial():
-    with open(os.path.join(UNIT, "experiments", "results", "tokens.json"), encoding="utf-8") as f:
-        t = json.load(f)
-    assert t["budget"]["total_with_tools"] == 760 and t["budget"]["tools_block"] == 535
+    t = results("tokens.json")
+    assert t["budget"]["total_with_tools"] == 377 and t["budget"]["tools_block"] == 337          # 第 8.1 节
+    assert t["language"]["tools_json_zh_escaped"] == 511 and t["language"]["tools_json_zh"] == 257   # 第 8.3 节
     assert t["injection"]["default_im_start_count"] == 4 and t["injection"]["safe_im_start_count"] == 3
+    assert t["injection"]["apply_chat_template_tokenize_count"] == 4                                 # 第 10.1 节
+    assert results("practice_car.json")["budget"]["total_with_tools"] == 760                         # 第 16.1 节
+    nt = results("no_template.json")["summary"]                                                      # 第 2.1 节
+    assert (nt["raw"]["stopped"], nt["wrong"]["stopped"], nt["right"]["stopped"]) == (0, 0, 4)
+
+
+def test_extended_topics_numbers():
+    p = results("prefix_property.json")                                                               # 专题 B
+    assert p["Qwen/Qwen3-8B"]["plain"]["prefix_ok"] == 0
+    assert p["Qwen/Qwen2.5-1.5B-Instruct"]["plain"]["prefix_ok"] == p["Qwen/Qwen2.5-1.5B-Instruct"]["plain"]["total"]
+    b = results("token_boundaries.json")                                                              # 专题 D、E
+    assert b["hf_assistant_mask"]["ones"] == 0 and b["our_mask"]["ones"] == 3
+    assert b["split_vs_whole"]["same"] == b["split_vs_whole"]["total"]
+    assert b["plain_template_split_vs_whole"]["same"] == 7
+
+
+def test_examples_are_project_independent():
+    """知识库不依赖项目: 主干的例子里不出现小车。"""
+    import examples
+    text = json.dumps([examples.TOOLS, examples.CONVERSATION], ensure_ascii=False)
+    assert "小车" not in text and "walk" not in text
 
 
 def test_exercise_tests_pass_on_reference():

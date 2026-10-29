@@ -1,0 +1,119 @@
+{
+ "Qwen/Qwen2.5-1.5B-Instruct": {
+  "plain": {
+   "prefix_ok": 402,
+   "total": 402,
+   "first_mismatch": null
+  },
+  "reasoning": {
+   "prefix_ok": 393,
+   "total": 393,
+   "first_mismatch": null
+  }
+ },
+ "Qwen/Qwen3-8B": {
+  "plain": {
+   "prefix_ok": 0,
+   "total": 402,
+   "first_mismatch": {
+    "this_turn": "<|im_start|>user\n台北现在几度?<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n不客气。<|im_end|>\n",
+    "next_prompt": "<|im_start|>user\n台北现在几度?<|im_end|>\n<|im_start|>assistant\n不客气。<|im_end|>\n<|im_start|>user\n好的<|im_end|>\n<|im_start|>ass"
+   }
+  },
+  "reasoning": {
+   "prefix_ok": 0,
+   "total": 393,
+   "first_mismatch": {
+    "this_turn": "<|im_start|>user\n台北现在几度?<|im_end|>\n<|im_start|>assistant\n<think>\n用户问的是客套话。\n</think>\n\n不客气。<|im_end|>\n",
+    "next_prompt": "<|im_start|>user\n台北现在几度?<|im_end|>\n<|im_start|>assistant\n不客气。<|im_end|>\n<|im_start|>user\n3 乘 9 是多少<|im_end|>\n<|im_sta"
+   }
+  }
+ },
+ "deepseek-ai/DeepSeek-V3": {
+  "plain": {
+   "prefix_ok": 402,
+   "total": 402,
+   "first_mismatch": null
+  },
+  "reasoning": {
+   "prefix_ok": 393,
+   "total": 393,
+   "first_mismatch": null
+  }
+ },
+ "microsoft/phi-4": {
+  "plain": {
+   "prefix_ok": 402,
+   "total": 402,
+   "first_mismatch": null
+  },
+  "reasoning": {
+   "prefix_ok": 393,
+   "total": 393,
+   "first_mismatch": null
+  }
+ },
+ "HuggingFaceTB/SmolLM2-1.7B-Instruct": {
+  "plain": {
+   "prefix_ok": 402,
+   "total": 402,
+   "first_mismatch": null
+  },
+  "reasoning": {
+   "prefix_ok": 393,
+   "total": 393,
+   "first_mismatch": null
+  }
+ },
+ "zai-org/GLM-4.5": {
+  "plain": {
+   "prefix_ok": 402,
+   "total": 402,
+   "first_mismatch": null
+  },
+  "reasoning": {
+   "prefix_ok": 0,
+   "total": 393,
+   "first_mismatch": {
+    "this_turn": "[gMASK]<sop><|user|>\n台北现在几度?<|assistant|>\n<think>用户问的是客套话。</think>\n不客气。",
+    "next_prompt": "[gMASK]<sop><|user|>\n台北现在几度?<|assistant|>\n<think></think>\n不客气。<|user|>\n3 乘 9 是多少<|assistant|>"
+   }
+  }
+ },
+ "openai/gpt-oss-20b": {
+  "plain": {
+   "prefix_ok": 0,
+   "total": 402,
+   "first_mismatch": {
+    "this_turn": "user<|message|>台北现在几度?<|end|><|start|>assistant<|channel|>final<|message|>不客气。<|return|>",
+    "next_prompt": "user<|message|>台北现在几度?<|end|><|start|>assistant<|channel|>final<|message|>不客气。<|end|><|start|>user<|message|>好的<|end|><|start|>assistant"
+   }
+  },
+  "reasoning": {
+   "prefix_ok": 0,
+   "total": 393,
+   "first_mismatch": {
+    "this_turn": "ssage.<|end|><|start|>user<|message|>台北现在几度?<|end|><|start|>assistant<|channel|>analysis<|message|>用户问的是客套话。<|end|><|start|>assistant<|chann",
+    "next_prompt": "ssage.<|end|><|start|>user<|message|>台北现在几度?<|end|><|start|>assistant<|channel|>final<|message|>不客气。<|end|><|start|>user<|message|>3 乘 9 是多少"
+   }
+  }
+ },
+ "mistralai/Mistral-7B-Instruct-v0.3": {
+  "plain": {
+   "prefix_ok": 402,
+   "total": 402,
+   "first_mismatch": null
+  },
+  "reasoning": {
+   "prefix_ok": 393,
+   "total": 393,
+   "first_mismatch": null
+  }
+ },
+ "meta-llama/Llama-3.2-1B-Instruct": {
+  "status": "LocalEntryNotFoundError"
+ },
+ "google/gemma-3-1b-it": {
+  "status": "LocalEntryNotFoundError"
+ }
+}

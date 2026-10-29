@@ -210,7 +210,7 @@ OpenAI 接口里的 frequency / presence penalty 是**从分数里减去**一个
 
 ### 5.3 它还罚提示词
 
-transformers 把 "目前所有 token" 都算作说过的, **包括提示词里的**。对聊天来说问题不大; 但 v0.4 小车的提示里有 5 个工具的 JSON 说明 (535 个 token, 见 [chat-template 第 5 节](../chat-template/TUTORIAL.md#5-账本-一次提示里谁占了多少-token)), 引号、括号、`"name"` 这些都已经 "说过" 了, 而模型写工具调用时恰恰要一个不差地写出它们。这对小车的成功率有没有影响, 本单元**没有数据** (第 8.3 节)。
+transformers 把 "目前所有 token" 都算作说过的, **包括提示词里的**。对聊天来说问题不大; 但 v0.4 小车的提示里有 5 个工具的 JSON 说明 (535 个 token, 见 [chat-template 第 16.1 节](../chat-template/TUTORIAL.md#161-小车项目-v04-的提示账本)), 引号、括号、`"name"` 这些都已经 "说过" 了, 而模型写工具调用时恰恰要一个不差地写出它们。这对小车的成功率有没有影响, 本单元**没有数据** (第 8.3 节)。
 
 ---
 
@@ -264,7 +264,7 @@ generate()  (全用模型自带配置)                       → ['RepetitionPen
 
 | 停止原因 | 什么时候 | 输出里包不包含停止标记 |
 |---|---|---|
-| `stop_token` | 生成了停止 token, 比如 Qwen 的 `<\|im_end\|>` (它是怎么来的见 [chat-template 第 2.2 节](../chat-template/TUTORIAL.md#22-特殊标记是新增的-token)) | 包含 |
+| `stop_token` | 生成了停止 token, 比如 Qwen 的 `<\|im_end\|>` (它是怎么来的见 [chat-template 第 6.2 节](../chat-template/TUTORIAL.md#62-模型怎么知道该停)) | 包含 |
 | `stop_string` | 新文字里出现了指定的字符串, 比如 `"\n\n"` | transformers 保留; vLLM 默认替你去掉。两家行为不同, 换框架时要注意 |
 | `length` | 写满 `max_new_tokens` 还没停 | — |
 
@@ -314,7 +314,7 @@ generate()  (全用模型自带配置)                       → ['RepetitionPen
 | 0.5B | `<tool_call>` 0.89~0.98, 其余都在 0.01 以下 | `<tool_call>` 降到 0.58~0.91, 仍是第一 | 0 / 6 条指令 |
 | 1.5B | 在 `<tool_call>`、`{"` (裸写 JSON)、`"go` (普通文字) 之间犹豫, 例如 0.34 / 0.24 / 0.30 | 前两个被压低, `"go` 升到 0.52~0.60 | **3 / 6** 条指令, 全部换成 `"go` |
 
-为什么偏偏压低前两个: v0.4 提示词里的工具说明本身就写着 `<tool_call>` 和一段段 JSON (见 [chat-template 第 4.1 节](../chat-template/TUTORIAL.md#41-工具说明书-追加在-system-后面)), 这些 token 都 "说过" 了 (第 5.3 节)。0.5B 对格式把握很大, 压一压还是第一; 1.5B 本来就在犹豫, 一压就换了。
+为什么偏偏压低前两个: v0.4 提示词里的工具说明本身就写着 `<tool_call>` 和一段段 JSON (见 [chat-template 第 7.1 节](../chat-template/TUTORIAL.md#71-说明书-追加在-system-后面)), 这些 token 都 "说过" 了 (第 5.3 节)。0.5B 对格式把握很大, 压一压还是第一; 1.5B 本来就在犹豫, 一压就换了。
 
 两个模型的差别还体现在采样上: 0.5B 的 6 条回复在采样设置下几乎一定和贪心一样 (5 条概率为 1.00, 1 条 0.77); 1.5B 有 4 条低于 0.5 (其中 2 条为 0)。
 
